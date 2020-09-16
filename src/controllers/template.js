@@ -177,7 +177,7 @@ function videoTemplate1(templateBlock, req, res) {
                             if (block.blockData.blockTitle) {
                                 var datas = {
                                     block: block,
-                                    file: './server-generated.mp4'
+                                    file: process.env.ASSESTPATH + 'server-generated.mp4'
                                 }
                                 addTextTovideo(datas, req, res)
                                 console.log("success");
@@ -207,9 +207,9 @@ function videoTemplate1(templateBlock, req, res) {
                             if (block.blockData.blockTitle) {
                                 var datas = {
                                     block: block,
-                                    file: './server-generated.mp4'
+                                    file: process.env.ASSESTPATH + 'server-generated.mp4'
                                 }
-                                addTextTovideo(datas, req, res)
+                                addTextTovideo(datas, req, res) 
                                 console.log("success");
                             }
                             else {
