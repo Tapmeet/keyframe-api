@@ -164,7 +164,7 @@ function videoTemplate1(templateBlock, req, res) {
                         .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|0_h0|w0_0|w0_h0[out]')
                         .addOption('-map', '[out]',)
                         .addOption('-c:v', 'libx264')
-                        .save('./server-generated.mp4')
+                        .save('./src/Assets/template/videos/server-generated.mp4')
                         .on('start', function (commandLine) {
                             console.log('staring');
                         })
@@ -177,7 +177,7 @@ function videoTemplate1(templateBlock, req, res) {
                             if (block.blockData.blockTitle) {
                                 var datas = {
                                     block: block,
-                                    file: './server-generated.mp4'
+                                    file: process.env.APIURL + 'template/videos/server-generated.mp4'
                                 }
                                 addTextTovideo(datas, req, res)
                                 console.log("success");
@@ -194,7 +194,7 @@ function videoTemplate1(templateBlock, req, res) {
                         .addOption('-map', '[out]',)
                         .addOption('-t', '5')
                         .addOption('-c:v', 'libx264')
-                        .save('./server-generated.mp4')
+                        .save('./src/Assets/template/videos/server-generated.mp4')
                         .on('start', function (commandLine) {
                             console.log('staring');
                         })
@@ -207,7 +207,7 @@ function videoTemplate1(templateBlock, req, res) {
                             if (block.blockData.blockTitle) {
                                 var datas = {
                                     block: block,
-                                    file: './server-generated.mp4'
+                                    file: process.env.APIURL + 'template/videos/server-generated.mp4'
                                 }
                                 addTextTovideo(datas, req, res)
                                 console.log("success");
