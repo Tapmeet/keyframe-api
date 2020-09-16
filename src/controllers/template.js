@@ -154,12 +154,7 @@ function videoTemplate1(templateBlock, req, res) {
             if (block.blockData.imageFour == '' && block.blockData.containerFour != '') {
                 videoCheck = 1;
             }
-            var datas = {
-                block: block,
-                file: process.env.APIURL + 'template/videos/server-generated.mp4'
-            }
-            addTextTovideo(datas, req, res)
-            //recordCall([container1, container2, container3, container4])
+            recordCall([container1, container2, container3, container4])
             function recordCall(inputs) {
                 inputs.forEach(input => {
                     command.addInput(input);
@@ -171,7 +166,7 @@ function videoTemplate1(templateBlock, req, res) {
                         .addOption('-c:v', 'libx264')
                         .save('./src/Assets/template/videos/server-generated.mp4')
                         .on('start', function (commandLine) {
-                            console.log('staring');
+                            console.log(commandLine);
                         })
                         .on("error", function (er) {
                             res.status(200).json({ message: 'Video failed' });
