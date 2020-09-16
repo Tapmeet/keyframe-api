@@ -230,6 +230,7 @@ function videoTemplate1(templateBlock, req, res) {
                 if (subtitleColor.lenth == '4') {
                     subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
                 }
+                console.log(datas)
                 commands.addInput(datas.file)
                 commands
                     .complexFilter([
