@@ -279,7 +279,7 @@ function videoTemplate1(templateBlock, req, res) {
                         {
                             filter: 'drawtext',
                             options: {
-                                fontfile: 'https://fonts.gstatic.com/s/oswald/v35/TK3_WkUHHAIjg75cFRf3bXL8LICs13FvsUtiZTaR.woff2',
+                                //fontfile: 'https://fonts.gstatic.com/s/oswald/v35/TK3_WkUHHAIjg75cFRf3bXL8LICs13FvsUtiZTaR.woff2',
                                 text: datas.block.blockData.blockTitle,
                                 fontsize: datas.block.blockData.blocktitleFontsize,
                                 fontcolor: titleColor,
@@ -300,7 +300,7 @@ function videoTemplate1(templateBlock, req, res) {
                         {
                             filter: 'drawtext',
                             options: {
-                                fontfile: 'https://fonts.gstatic.com/s/oswald/v35/TK3_WkUHHAIjg75cFRf3bXL8LICs13FvsUtiZTaR.woff2',
+                               // fontfile: 'https://fonts.gstatic.com/s/oswald/v35/TK3_WkUHHAIjg75cFRf3bXL8LICs13FvsUtiZTaR.woff2',
                                 text: datas.block.blockData.blocksubTitle,
                                 fontsize: datas.block.blockData.blocksubTitleFontsize,
                                 fontcolor: subtitleColor,
