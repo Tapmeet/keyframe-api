@@ -222,7 +222,6 @@ function videoTemplate1(templateBlock, req, res) {
 
             function addTextTovideo(datas, req, res) {
                 var commands = ffmpeg();
-                console.log(datas);
                 var titleColor = datas.block.blockData.titleColor;
                 if (titleColor.lenth == '4') {
                     titleColor = titleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
