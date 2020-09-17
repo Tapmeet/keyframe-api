@@ -230,6 +230,8 @@ function videoTemplate1(templateBlock, req, res) {
                 if (subtitleColor.lenth == '4') {
                     subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
                 }
+                console.log(datas.file);
+                commands.addInput(datas.file)
                 ffmpeg(datas.file)
                     .complexFilter([
                         'scale=1080:720[rescaled]',
@@ -277,7 +279,7 @@ function videoTemplate1(templateBlock, req, res) {
                         {
                             filter: 'drawtext',
                             options: {
-                                fontfile: process.env.APIURL + 'fonts/oswald.ttf',
+                                fontfile: 'Lucida Grande.ttf',
                                 text: datas.block.blockData.blockTitle,
                                 fontsize: datas.block.blockData.blocktitleFontsize,
                                 fontcolor: titleColor,
@@ -298,7 +300,7 @@ function videoTemplate1(templateBlock, req, res) {
                         {
                             filter: 'drawtext',
                             options: {
-                                fontfile: process.env.APIURL + 'fonts/oswald.ttf',
+                                fontfile: 'Lucida Grande.ttf',
                                 text: datas.block.blockData.blocksubTitle,
                                 fontsize: datas.block.blockData.blocksubTitleFontsize,
                                 fontcolor: subtitleColor,
