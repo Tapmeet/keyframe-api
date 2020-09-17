@@ -156,7 +156,7 @@ function videoTemplate1(templateBlock, req, res) {
             }
             var datas = {
                 block: block,
-                file: process.env.APIURL + 'template/videos/server-generated.mp4'
+                file: 'http://ec2-100-26-57-56.compute-1.amazonaws.com:2000/template/videos/server-generated.mp4'
             }
             addTextTovideo(datas, req, res)
             //recordCall([container1, container2, container3, container4])
@@ -305,7 +305,7 @@ function videoTemplate1(templateBlock, req, res) {
                         {
                             filter: 'drawtext',
                             options: {
-                                // fontfile: 'https://fonts.gstatic.com/s/oswald/v35/TK3_WkUHHAIjg75cFRf3bXL8LICs13FvsUtiZTaR.woff2',
+                               // fontfile: 'https://fonts.gstatic.com/s/oswald/v35/TK3_WkUHHAIjg75cFRf3bXL8LICs13FvsUtiZTaR.woff2',
                                 text: datas.block.blockData.blocksubTitle,
                                 fontsize: datas.block.blockData.blocksubTitleFontsize,
                                 fontcolor: subtitleColor,
