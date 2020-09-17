@@ -230,9 +230,7 @@ function videoTemplate1(templateBlock, req, res) {
                 if (subtitleColor.lenth == '4') {
                     subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
                 }
-                console.log(datas.file);
-                commands.addInput(process.env.APIURL + datas.block.blockData.containerFour)
-                ffmpeg(process.env.APIURL + datas.block.blockData.containerFour)
+                ffmpeg(datas.file)
                     .complexFilter([
                         'scale=1080:720[rescaled]',
                         {
@@ -274,47 +272,47 @@ function videoTemplate1(templateBlock, req, res) {
                                 enable: 'between(t,1,6000)'
                             },
                             inputs: 'output2',
+                            outputs: 'output3'
+                        },
+                        {
+                            filter: 'drawtext',
+                            options: {
+                                fontfile: process.env.APIURL + 'fonts/oswald.ttf',
+                                text: datas.block.blockData.blockTitle,
+                                fontsize: datas.block.blockData.blocktitleFontsize,
+                                fontcolor: titleColor,
+                                line_spacing: "20",
+                                x: '(w-text_w)/2',
+                                y: '(h-text_h-50)/2',
+                                box: 1,
+                                boxcolor: 'white@0.0',
+                                boxborderw: "50",
+                                bordercolor: 'white',
+                                enable: 'between(t,1.1,1000)'
+
+                            },
+                            inputs: 'output3',
+                            outputs: 'output4'
+
+                        },
+                        {
+                            filter: 'drawtext',
+                            options: {
+                                fontfile: process.env.APIURL + 'fonts/oswald.ttf',
+                                text: datas.block.blockData.blocksubTitle,
+                                fontsize: datas.block.blockData.blocksubTitleFontsize,
+                                fontcolor: subtitleColor,
+                                x: '(w-text_w )/2',
+                                y: '(h-text_h + 50)/2',
+                                box: 1,
+                                boxcolor: 'white@0.0',
+                                boxborderw: "50",
+                                bordercolor: 'white',
+                                enable: 'between(t,2,1000)',
+                            },
+                            inputs: 'output4',
                             outputs: 'output'
                         },
-                        // {
-                        //     filter: 'drawtext',
-                        //     options: {
-                        //         fontfile: 'https://fonts.gstatic.com/s/oswald/v35/TK3_WkUHHAIjg75cFRf3bXL8LICs13FvsUtiZTaR.woff2',
-                        //         text: datas.block.blockData.blockTitle,
-                        //         fontsize: datas.block.blockData.blocktitleFontsize,
-                        //         fontcolor: titleColor,
-                        //         line_spacing: "20",
-                        //         x: '(w-text_w)/2',
-                        //         y: '(h-text_h-50)/2',
-                        //         box: 1,
-                        //         boxcolor: 'white@0.0',
-                        //         boxborderw: "50",
-                        //         bordercolor: 'white',
-                        //         enable: 'between(t,1.1,1000)'
-
-                        //     },
-                        //     inputs: 'output3',
-                        //     outputs: 'output4'
-
-                        // },
-                        // {
-                        //     filter: 'drawtext',
-                        //     options: {
-                        //          fontfile: 'https://fonts.gstatic.com/s/oswald/v35/TK3_WkUHHAIjg75cFRf3bXL8LICs13FvsUtiZTaR.woff2',
-                        //         text: datas.block.blockData.blocksubTitle,
-                        //         fontsize: datas.block.blockData.blocksubTitleFontsize,
-                        //         fontcolor: subtitleColor,
-                        //         x: '(w-text_w )/2',
-                        //         y: '(h-text_h + 50)/2',
-                        //         box: 1,
-                        //         boxcolor: 'white@0.0',
-                        //         boxborderw: "50",
-                        //         bordercolor: 'white',
-                        //         enable: 'between(t,2,1000)',
-                        //     },
-                        //     inputs: 'output4',
-                        //     outputs: 'output'
-                        // },
                     ], 'output')
                     .addOption('-c:v', 'libx264')
                     .save('./server-generated1.mp4')
