@@ -339,14 +339,14 @@ function videoTemplate1(templateBlock, req, res) {
                         console.log("error occured: " + er.message);
                     })
                     //.addOption('-c:v', 'libx264')
-                    .save('./src/Assets/template/videos/server-generated1.mp4')
-                    .on('start', function (commandLine) {
-                        console.log(commandLine);
-                    })
-                    .on("error", function (er) {
-                        console.log(er);
-                        console.log("error occured: " + er.message);
-                    })
+                    // .save('./src/Assets/template/videos/server-generated1.mp4')
+                    // .on('start', function (commandLine) {
+                    //     console.log(commandLine);
+                    // })
+                    // .on("error", function (er) {
+                    //     console.log(er);
+                    //     console.log("error occured: " + er.message);
+                    // })
                     .on("end", function (commandLine) {
                         res.status(200).json({ message: 'Video failed', data: './server-generated1.mp4' });
                         console.log(commandLine);
