@@ -279,7 +279,7 @@ function videoTemplate1(templateBlock, req, res) {
                         {
                             filter: 'drawtext',
                             options: {
-                                fontfile: './oswald.ttf',
+                                fontfile: './Oswald-Regular.ttf',
                                 text: datas.block.blockData.blockTitle,
                                 fontsize: datas.block.blockData.blocktitleFontsize,
                                 fontcolor: titleColor,
@@ -300,7 +300,7 @@ function videoTemplate1(templateBlock, req, res) {
                         {
                             filter: 'drawtext',
                             options: {
-                                fontfile: './oswald.ttf',
+                                fontfile: './Oswald-Regular.ttf',
                                 text: datas.block.blockData.blocksubTitle,
                                 fontsize: datas.block.blockData.blocksubTitleFontsize,
                                 fontcolor: subtitleColor,
