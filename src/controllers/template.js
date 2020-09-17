@@ -322,7 +322,7 @@ function videoTemplate1(templateBlock, req, res) {
                             outputs: 'output'
                         },
                     ], 'output')
-                    .addOption('-c:v', 'libx264')
+                   //.addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/server-generated1.mp4')
                     .on('start', function (commandLine) {
                         console.log(commandLine);
