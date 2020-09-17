@@ -126,7 +126,7 @@ exports.createVideo = async (req, res, next) => {
     try {
         const templateBlock = await Block.find({ templateId: templateId });
         const template = await Template.findOne({ templateNumber: templateId });
-        console.log(template);
+        //console.log(template);
         const data = {
             templateBlock: templateBlock,
             template: template
@@ -143,7 +143,7 @@ exports.createVideo = async (req, res, next) => {
 
 function videoTemplate1(data, req, res) {
     var fontfamily = data.template.globalfontFamily;
-    
+
     const fonts = [
         { family: "'Montserrat', sans-serif", file: "./src/Assets/fonts/Montserrat-Regular.ttf" },
         { family: "'Lato', sans-serif", file: "./src/Assets/fonts/Lato-Regular.ttf" },
@@ -263,7 +263,7 @@ function videoTemplate1(data, req, res) {
                                 y: 0,
                                 color: 'white',
                                 t: 'fill',
-                                enable: 'between(t,0,0.10)'
+                                enable: 'between(t,0,0.30)'
                             },
                             inputs: 'rescaled',
                             outputs: 'output1',
@@ -278,7 +278,7 @@ function videoTemplate1(data, req, res) {
                                 width: 480,
                                 color: 'white',
                                 t: 'fill',
-                                enable: 'between(t,1,6000)'
+                                enable: 'between(t,0.30,6000)'
                             },
                             inputs: 'output1',
                             outputs: 'output2'
