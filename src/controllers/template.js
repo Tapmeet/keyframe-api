@@ -138,30 +138,24 @@ exports.createVideo = async (req, res, next) => {
 function videoTemplate1(templateBlock, req, res) {
     templateBlock.map(function (block) {
         if (block.blockId == 1) {
-            // var container1, container2, container3, container4, videoCheck;
-            // if (block.blockData.containerOne) {
-            //     container1 = process.env.APIURL + block.blockData.containerOne;
-            // }
-            // if (block.blockData.containerTwo) {
-            //     container2 = process.env.APIURL + block.blockData.containerTwo;
-            // }
-            // if (block.blockData.containerOne) {
-            //     container3 = process.env.APIURL + block.blockData.containerThree;
-            // }
-            // if (block.blockData.containerFour) {
-            //     container4 = process.env.APIURL + block.blockData.containerFour;
-            // }
-            // if (block.blockData.imageFour == '' && block.blockData.containerFour != '') {
-            //     videoCheck = 1;
-            // }
-            // recordCall([container1, container2, container3, container4])
-            var datas = {
-                block: block,
-                file: process.env.APIURL + 'template/videos/server-generated.mp4'
+            var container1, container2, container3, container4, videoCheck;
+            if (block.blockData.containerOne) {
+                container1 = process.env.APIURL + block.blockData.containerOne;
             }
-            addTextTovideo(datas, req, res)
+            if (block.blockData.containerTwo) {
+                container2 = process.env.APIURL + block.blockData.containerTwo;
+            }
+            if (block.blockData.containerOne) {
+                container3 = process.env.APIURL + block.blockData.containerThree;
+            }
+            if (block.blockData.containerFour) {
+                container4 = process.env.APIURL + block.blockData.containerFour;
+            }
+            if (block.blockData.imageFour == '' && block.blockData.containerFour != '') {
+                videoCheck = 1;
+            }
+            recordCall([container1, container2, container3, container4])
             function recordCall(inputs) {
-                var videoCheck =1;
                 inputs.forEach(input => {
                     command.addInput(input);
                 })
@@ -227,134 +221,116 @@ function videoTemplate1(templateBlock, req, res) {
             }
 
             function addTextTovideo(datas, req, res) {
-                var container1, container2, container3, container4, videoCheck;
-                var block = datas.block
-            if (block.blockData.containerOne) {
-                container1 = process.env.APIURL + block.blockData.containerOne;
-            }
-            if (block.blockData.containerTwo) {
-                container2 = process.env.APIURL + block.blockData.containerTwo;
-            }
-            if (block.blockData.containerOne) {
-                container3 = process.env.APIURL + block.blockData.containerThree;
-            }
-            if (block.blockData.containerFour) {
-                container4 = process.env.APIURL + block.blockData.containerFour;
-            }
-            if (block.blockData.imageFour == '' && block.blockData.containerFour != '') {
-                videoCheck = 1;
-            }
-            recordCall([container1, container2, container3, container4])
-            //     var commands = ffmpeg();
-            //     var titleColor = datas.block.blockData.titleColor;
-            //     if (titleColor.lenth == '4') {
-            //         titleColor = titleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
-            //     }
-            //     var subtitleColor = datas.block.blockData.subtitleColor;
-            //     if (subtitleColor.lenth == '4') {
-            //         subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
-            //     }
-            //     console.log(datas.file);
-            //     commands.addInput(datas.file)
-            //     commands
-            //         .complexFilter([
-            //             'scale=1080:720[rescaled]',
-            //             {
-            //                 filter: 'drawbox',
-            //                 options: {
-            //                     x: 0,
-            //                     y: 0,
-            //                     color: 'white',
-            //                     t: 'fill',
-            //                     enable: 'between(t,0,1)'
-            //                 },
-            //                 inputs: 'rescaled',
-            //                 outputs: 'output1',
+                var commands = ffmpeg();
+                var titleColor = datas.block.blockData.titleColor;
+                if (titleColor.lenth == '4') {
+                    titleColor = titleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
+                }
+                var subtitleColor = datas.block.blockData.subtitleColor;
+                if (subtitleColor.lenth == '4') {
+                    subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
+                }
+                console.log(datas.file);
+                commands.addInput(datas.file)
+                commands
+                    .complexFilter([
+                        'scale=1080:720[rescaled]',
+                        {
+                            filter: 'drawbox',
+                            options: {
+                                x: 0,
+                                y: 0,
+                                color: 'white',
+                                t: 'fill',
+                                enable: 'between(t,0,1)'
+                            },
+                            inputs: 'rescaled',
+                            outputs: 'output1',
 
-            //             },
-            //             {
-            //                 filter: 'drawbox',
-            //                 options: {
-            //                     x: '(w + 120)/2',
-            //                     y: '(h + 220)/2',
-            //                     height: 240,
-            //                     width: 480,
-            //                     color: 'white',
-            //                     t: 'fill',
-            //                     enable: 'between(t,1,6)'
-            //                 },
-            //                 inputs: 'output1',
-            //                 outputs: 'output2'
-            //             },
-            //             {
-            //                 filter: 'drawbox',
-            //                 options: {
-            //                     x: '(w + 40)/2',
-            //                     y: '(h + 140)/2',
-            //                     height: 280,
-            //                     width: 520,
-            //                     color: 'white',
-            //                     t: '2',
-            //                     enable: 'between(t,1,6)'
-            //                 },
-            //                 inputs: 'output2',
-            //                 outputs: 'output3'
-            //             },
-            //             {
-            //                 filter: 'drawtext',
-            //                 options: {
-            //                     //fontfile: 'https://fonts.gstatic.com/s/oswald/v35/TK3_WkUHHAIjg75cFRf3bXL8LICs13FvsUtiZTaR.woff2',
-            //                     text: datas.block.blockData.blockTitle,
-            //                     fontsize: datas.block.blockData.blocktitleFontsize,
-            //                     fontcolor: titleColor,
-            //                     line_spacing: "20",
-            //                     x: '(w-text_w)/2',
-            //                     y: '(h-text_h-50)/2',
-            //                     box: 1,
-            //                     boxcolor: 'white@0.0',
-            //                     boxborderw: "50",
-            //                     bordercolor: 'white',
-            //                     enable: 'between(t,1.1,10)'
+                        },
+                        {
+                            filter: 'drawbox',
+                            options: {
+                                x: '(w + 120)/2',
+                                y: '(h + 220)/2',
+                                height: 240,
+                                width: 480,
+                                color: 'white',
+                                t: 'fill',
+                                enable: 'between(t,1,6)'
+                            },
+                            inputs: 'output1',
+                            outputs: 'output2'
+                        },
+                        {
+                            filter: 'drawbox',
+                            options: {
+                                x: '(w + 40)/2',
+                                y: '(h + 140)/2',
+                                height: 280,
+                                width: 520,
+                                color: 'white',
+                                t: '2',
+                                enable: 'between(t,1,6)'
+                            },
+                            inputs: 'output2',
+                            outputs: 'output3'
+                        },
+                        {
+                            filter: 'drawtext',
+                            options: {
+                                //fontfile: 'https://fonts.gstatic.com/s/oswald/v35/TK3_WkUHHAIjg75cFRf3bXL8LICs13FvsUtiZTaR.woff2',
+                                text: datas.block.blockData.blockTitle,
+                                fontsize: datas.block.blockData.blocktitleFontsize,
+                                fontcolor: titleColor,
+                                line_spacing: "20",
+                                x: '(w-text_w)/2',
+                                y: '(h-text_h-50)/2',
+                                box: 1,
+                                boxcolor: 'white@0.0',
+                                boxborderw: "50",
+                                bordercolor: 'white',
+                                enable: 'between(t,1.1,10)'
 
-            //                 },
-            //                 inputs: 'output3',
-            //                 outputs: 'output4'
+                            },
+                            inputs: 'output3',
+                            outputs: 'output4'
 
-            //             },
-            //             {
-            //                 filter: 'drawtext',
-            //                 options: {
-            //                    // fontfile: 'https://fonts.gstatic.com/s/oswald/v35/TK3_WkUHHAIjg75cFRf3bXL8LICs13FvsUtiZTaR.woff2',
-            //                     text: datas.block.blockData.blocksubTitle,
-            //                     fontsize: datas.block.blockData.blocksubTitleFontsize,
-            //                     fontcolor: subtitleColor,
-            //                     x: '(w-text_w )/2',
-            //                     y: '(h-text_h + 50)/2',
-            //                     box: 1,
-            //                     boxcolor: 'white@0.0',
-            //                     boxborderw: "50",
-            //                     bordercolor: 'white',
-            //                     enable: 'between(t,2,10)',
-            //                 },
-            //                 inputs: 'output4',
-            //                 outputs: 'output'
-            //             },
-            //         ], 'output')
-            //         .addOption('-c:v', 'libx264')
-            //         .save('./server-generated1.mp4')
-            //         .on('start', function (commandLine) {
-            //             console.log(commandLine);
-            //         })
-            //         .on("error", function (er) {
-            //             console.log(er);
-            //             console.log("error occured: " + er.message);
-            //         })
-            //         .on("end", function (commandLine) {
-            //             res.status(200).json({ message: 'Video failed', data: './server-generated1.mp4' });
-            //             console.log(commandLine);
-            //             console.log("success");
-            //         })
-             }
+                        },
+                        {
+                            filter: 'drawtext',
+                            options: {
+                               // fontfile: 'https://fonts.gstatic.com/s/oswald/v35/TK3_WkUHHAIjg75cFRf3bXL8LICs13FvsUtiZTaR.woff2',
+                                text: datas.block.blockData.blocksubTitle,
+                                fontsize: datas.block.blockData.blocksubTitleFontsize,
+                                fontcolor: subtitleColor,
+                                x: '(w-text_w )/2',
+                                y: '(h-text_h + 50)/2',
+                                box: 1,
+                                boxcolor: 'white@0.0',
+                                boxborderw: "50",
+                                bordercolor: 'white',
+                                enable: 'between(t,2,10)',
+                            },
+                            inputs: 'output4',
+                            outputs: 'output'
+                        },
+                    ], 'output')
+                    .addOption('-c:v', 'libx264')
+                    .save('./server-generated1.mp4')
+                    .on('start', function (commandLine) {
+                        console.log(commandLine);
+                    })
+                    .on("error", function (er) {
+                        console.log(er);
+                        console.log("error occured: " + er.message);
+                    })
+                    .on("end", function (commandLine) {
+                        res.status(200).json({ message: 'Video failed', data: './server-generated1.mp4' });
+                        console.log(commandLine);
+                        console.log("success");
+                    })
+            }
         }
     });
 }
