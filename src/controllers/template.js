@@ -231,7 +231,8 @@ function videoTemplate1(templateBlock, req, res) {
                     subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
                 }
                 console.log(datas.file);
-                commands.addInput('http://ec2-100-26-57-56.compute-1.amazonaws.com:2000/template/image-1600017709802-img_0.png')
+                commands.addInput(datas.file)
+                commands.addInput(datas.file)
                 commands
                     .complexFilter([
                         'scale=1080:720[rescaled]',
@@ -257,7 +258,7 @@ function videoTemplate1(templateBlock, req, res) {
                                 width: 480,
                                 color: 'white',
                                 t: 'fill',
-                                enable: 'between(t,1,6)'
+                                enable: 'between(t,1,6000)'
                             },
                             inputs: 'output1',
                             outputs: 'output2'
@@ -271,7 +272,7 @@ function videoTemplate1(templateBlock, req, res) {
                                 width: 520,
                                 color: 'white',
                                 t: '2',
-                                enable: 'between(t,1,6)'
+                                enable: 'between(t,1,6000)'
                             },
                             inputs: 'output2',
                             outputs: 'output3'
@@ -290,7 +291,7 @@ function videoTemplate1(templateBlock, req, res) {
                                 boxcolor: 'white@0.0',
                                 boxborderw: "50",
                                 bordercolor: 'white',
-                                enable: 'between(t,1.1,10)'
+                                enable: 'between(t,1.1,1000)'
 
                             },
                             inputs: 'output3',
@@ -300,7 +301,7 @@ function videoTemplate1(templateBlock, req, res) {
                         {
                             filter: 'drawtext',
                             options: {
-                               // fontfile: 'https://fonts.gstatic.com/s/oswald/v35/TK3_WkUHHAIjg75cFRf3bXL8LICs13FvsUtiZTaR.woff2',
+                                // fontfile: 'https://fonts.gstatic.com/s/oswald/v35/TK3_WkUHHAIjg75cFRf3bXL8LICs13FvsUtiZTaR.woff2',
                                 text: datas.block.blockData.blocksubTitle,
                                 fontsize: datas.block.blockData.blocksubTitleFontsize,
                                 fontcolor: subtitleColor,
@@ -310,7 +311,7 @@ function videoTemplate1(templateBlock, req, res) {
                                 boxcolor: 'white@0.0',
                                 boxborderw: "50",
                                 bordercolor: 'white',
-                                enable: 'between(t,2,10)',
+                                enable: 'between(t,2,1000)',
                             },
                             inputs: 'output4',
                             outputs: 'output'
