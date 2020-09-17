@@ -154,12 +154,7 @@ function videoTemplate1(templateBlock, req, res) {
             if (block.blockData.imageFour == '' && block.blockData.containerFour != '') {
                 videoCheck = 1;
             }
-            var datas = {
-                block: block,
-                file: process.env.APIURL + 'template/videos/server-generated.mp4'
-            }
-            setTimeout(function(){ addTextTovideo(datas, req, res) }, 3000);
-            //recordCall([container1, container2, container3, container4])
+            recordCall([container1, container2, container3, container4])
             function recordCall(inputs) {
                 inputs.forEach(input => {
                     command.addInput(input);
@@ -184,7 +179,7 @@ function videoTemplate1(templateBlock, req, res) {
                                     block: block,
                                     file: process.env.APIURL + 'template/videos/server-generated.mp4'
                                 }
-                                setTimeout(function(){ addTextTovideo(datas, req, res) }, 3000);
+                                addTextTovideo(datas, req, res)
                                 console.log("success");
                             }
                             else {
@@ -214,8 +209,7 @@ function videoTemplate1(templateBlock, req, res) {
                                     block: block,
                                     file: process.env.APIURL + 'template/videos/server-generated.mp4'
                                 }
-                                setTimeout(function(){ addTextTovideo(datas, req, res) }, 3000);
-                                
+                                addTextTovideo(datas, req, res)
                                 console.log("success");
                             }
                             else {
@@ -241,47 +235,47 @@ function videoTemplate1(templateBlock, req, res) {
                 commands
                     .complexFilter([
                         'scale=1080:720[rescaled]',
-                        // {
-                        //     filter: 'drawbox',
-                        //     options: {
-                        //         x: 0,
-                        //         y: 0,
-                        //         color: 'white',
-                        //         t: 'fill',
-                        //         enable: 'between(t,0,1)'
-                        //     },
-                        //     inputs: 'rescaled',
-                        //     outputs: 'output1',
+                        {
+                            filter: 'drawbox',
+                            options: {
+                                x: 0,
+                                y: 0,
+                                color: 'white',
+                                t: 'fill',
+                                enable: 'between(t,0,1)'
+                            },
+                            inputs: 'rescaled',
+                            outputs: 'output1',
 
-                        // },
-                        // {
-                        //     filter: 'drawbox',
-                        //     options: {
-                        //         x: '(w + 120)/2',
-                        //         y: '(h + 220)/2',
-                        //         height: 240,
-                        //         width: 480,
-                        //         color: 'white',
-                        //         t: 'fill',
-                        //         enable: 'between(t,1,6)'
-                        //     },
-                        //     inputs: 'output1',
-                        //     outputs: 'output2'
-                        // },
-                        // {
-                        //     filter: 'drawbox',
-                        //     options: {
-                        //         x: '(w + 40)/2',
-                        //         y: '(h + 140)/2',
-                        //         height: 280,
-                        //         width: 520,
-                        //         color: 'white',
-                        //         t: '2',
-                        //         enable: 'between(t,1,6)'
-                        //     },
-                        //     inputs: 'output2',
-                        //     outputs: 'output3'
-                        // },
+                        },
+                        {
+                            filter: 'drawbox',
+                            options: {
+                                x: '(w + 120)/2',
+                                y: '(h + 220)/2',
+                                height: 240,
+                                width: 480,
+                                color: 'white',
+                                t: 'fill',
+                                enable: 'between(t,1,6)'
+                            },
+                            inputs: 'output1',
+                            outputs: 'output2'
+                        },
+                        {
+                            filter: 'drawbox',
+                            options: {
+                                x: '(w + 40)/2',
+                                y: '(h + 140)/2',
+                                height: 280,
+                                width: 520,
+                                color: 'white',
+                                t: '2',
+                                enable: 'between(t,1,6)'
+                            },
+                            inputs: 'output2',
+                            outputs: 'output3'
+                        },
                         {
                             filter: 'drawtext',
                             options: {
@@ -299,7 +293,7 @@ function videoTemplate1(templateBlock, req, res) {
                                 enable: 'between(t,1.1,10)'
 
                             },
-                            inputs: 'rescaled',
+                            inputs: 'output3',
                             outputs: 'output4'
 
                         },
@@ -323,7 +317,7 @@ function videoTemplate1(templateBlock, req, res) {
                         },
                     ], 'output')
                     .addOption('-c:v', 'libx264')
-                    .save('./src/Assets/template/videos/server-generated1.mp4')
+                    .save('./server-generated1.mp4')
                     .on('start', function (commandLine) {
                         console.log(commandLine);
                     })
