@@ -233,8 +233,8 @@ function videoTemplate1(templateBlock, req, res) {
                 console.log(datas.file);
                 commands.addInput(datas.file)
                 commands
-                    .videoFilters(
-
+                    .complexFilter([
+                        'scale=1080:720[rescaled]',
                         {
                             filter: 'drawbox',
                             options: {
@@ -244,6 +244,8 @@ function videoTemplate1(templateBlock, req, res) {
                                 t: 'fill',
                                 enable: 'between(t,0,1)'
                             },
+                            inputs: 'rescaled',
+                            outputs: 'output1',
 
                         },
                         {
@@ -255,8 +257,10 @@ function videoTemplate1(templateBlock, req, res) {
                                 width: 480,
                                 color: 'white',
                                 t: 'fill',
-                                enable: 'between(t,1,600000)'
+                                enable: 'between(t,1,6)'
                             },
+                            inputs: 'output1',
+                            outputs: 'output2'
                         },
                         {
                             filter: 'drawbox',
@@ -267,8 +271,10 @@ function videoTemplate1(templateBlock, req, res) {
                                 width: 520,
                                 color: 'white',
                                 t: '2',
-                                enable: 'between(t,1,600000)'
+                                enable: 'between(t,1,6)'
                             },
+                            inputs: 'output2',
+                            outputs: 'output3'
                         },
                         {
                             filter: 'drawtext',
@@ -284,14 +290,17 @@ function videoTemplate1(templateBlock, req, res) {
                                 boxcolor: 'white@0.0',
                                 boxborderw: "50",
                                 bordercolor: 'white',
-                                enable: 'between(t,1.1,10000)'
+                                enable: 'between(t,1.1,10)'
 
                             },
+                            inputs: 'output3',
+                            outputs: 'output4'
+
                         },
                         {
                             filter: 'drawtext',
                             options: {
-                                // fontfile: 'https://fonts.gstatic.com/s/oswald/v35/TK3_WkUHHAIjg75cFRf3bXL8LICs13FvsUtiZTaR.woff2',
+                               // fontfile: 'https://fonts.gstatic.com/s/oswald/v35/TK3_WkUHHAIjg75cFRf3bXL8LICs13FvsUtiZTaR.woff2',
                                 text: datas.block.blockData.blocksubTitle,
                                 fontsize: datas.block.blockData.blocksubTitleFontsize,
                                 fontcolor: subtitleColor,
@@ -301,12 +310,13 @@ function videoTemplate1(templateBlock, req, res) {
                                 boxcolor: 'white@0.0',
                                 boxborderw: "50",
                                 bordercolor: 'white',
-                                enable: 'between(t,2,100000)',
+                                enable: 'between(t,2,10)',
                             },
+                            inputs: 'output4',
+                            outputs: 'output'
                         },
-
-                    )
-                    //.addOption('-c:v', 'libx264')
+                    ], 'output')
+                    .addOption('-c:v', 'libx264')
                     .save('./server-generated1.mp4')
                     .on('start', function (commandLine) {
                         console.log(commandLine);
