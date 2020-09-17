@@ -156,7 +156,7 @@ function videoTemplate1(templateBlock, req, res) {
             }
             var datas = {
                 block: block,
-                file: 'http://ec2-100-26-57-56.compute-1.amazonaws.com:2000/template/videos/server-generated.mp4'
+                file: 'http://ec2-100-26-57-56.compute-1.amazonaws.com:2000/template/image-1600063602620-img_1.png'
             }
             addTextTovideo(datas, req, res)
             //recordCall([container1, container2, container3, container4])
