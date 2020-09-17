@@ -234,86 +234,51 @@ function videoTemplate1(templateBlock, req, res) {
                 commands.addInput(process.env.APIURL + datas.block.blockData.containerFour)
                 ffmpeg(process.env.APIURL + datas.block.blockData.containerFour)
                     .complexFilter([
-                        'scale=1080:720[rescaled]',
-                        {
-                            filter: 'drawbox',
-                            options: {
-                                x: 0,
-                                y: 0,
-                                color: 'white',
-                                t: 'fill',
-                                enable: 'between(t,0,1)'
-                            },
-                            inputs: 'rescaled',
-                            outputs: 'output1',
+                        // Rescale input stream into stream 'rescaled'
+                        'scale=640:480[rescaled]',
 
-                        },
+                        // Duplicate rescaled stream 3 times into streams a, b, and c
                         {
-                            filter: 'drawbox',
-                            options: {
-                                x: '(w + 120)/2',
-                                y: '(h + 220)/2',
-                                height: 240,
-                                width: 480,
-                                color: 'white',
-                                t: 'fill',
-                                enable: 'between(t,1,6000)'
-                            },
-                            inputs: 'output1',
-                            outputs: 'output2'
+                            filter: 'split', options: '3',
+                            inputs: 'rescaled', outputs: ['a', 'b', 'c']
                         },
-                        {
-                            filter: 'drawbox',
-                            options: {
-                                x: '(w + 40)/2',
-                                y: '(h + 140)/2',
-                                height: 280,
-                                width: 520,
-                                color: 'white',
-                                t: '2',
-                                enable: 'between(t,1,6000)'
-                            },
-                            inputs: 'output2',
-                            outputs: 'output3'
-                        },
-                        {
-                            filter: 'drawtext',
-                            options: {
-                                //fontfile: 'https://fonts.gstatic.com/s/oswald/v35/TK3_WkUHHAIjg75cFRf3bXL8LICs13FvsUtiZTaR.woff2',
-                                text: datas.block.blockData.blockTitle,
-                                fontsize: datas.block.blockData.blocktitleFontsize,
-                                fontcolor: titleColor,
-                                line_spacing: "20",
-                                x: '(w-text_w)/2',
-                                y: '(h-text_h-50)/2',
-                                box: 1,
-                                boxcolor: 'white@0.0',
-                                boxborderw: "50",
-                                bordercolor: 'white',
-                                enable: 'between(t,1.1,1000)'
 
-                            },
-                            inputs: 'output3',
-                            outputs: 'output4'
-
-                        },
+                        // Create stream 'red' by removing green and blue channels from stream 'a'
                         {
-                            filter: 'drawtext',
-                            options: {
-                                // fontfile: 'https://fonts.gstatic.com/s/oswald/v35/TK3_WkUHHAIjg75cFRf3bXL8LICs13FvsUtiZTaR.woff2',
-                                text: datas.block.blockData.blocksubTitle,
-                                fontsize: datas.block.blockData.blocksubTitleFontsize,
-                                fontcolor: subtitleColor,
-                                x: '(w-text_w )/2',
-                                y: '(h-text_h + 50)/2',
-                                box: 1,
-                                boxcolor: 'white@0.0',
-                                boxborderw: "50",
-                                bordercolor: 'white',
-                                enable: 'between(t,2,1000)',
-                            },
-                            inputs: 'output4',
-                            outputs: 'output'
+                            filter: 'lutrgb', options: { g: 0, b: 0 },
+                            inputs: 'a', outputs: 'red'
+                        },
+
+                        // Create stream 'green' by removing red and blue channels from stream 'b'
+                        {
+                            filter: 'lutrgb', options: { r: 0, b: 0 },
+                            inputs: 'b', outputs: 'green'
+                        },
+
+                        // Create stream 'blue' by removing red and green channels from stream 'c'
+                        {
+                            filter: 'lutrgb', options: { r: 0, g: 0 },
+                            inputs: 'c', outputs: 'blue'
+                        },
+
+                        // Pad stream 'red' to 3x width, keeping the video on the left,
+                        // and name output 'padded'
+                        {
+                            filter: 'pad', options: { w: 'iw*3', h: 'ih' },
+                            inputs: 'red', outputs: 'padded'
+                        },
+
+                        // Overlay 'green' onto 'padded', moving it to the center,
+                        // and name output 'redgreen'
+                        {
+                            filter: 'overlay', options: { x: 'w', y: 0 },
+                            inputs: ['padded', 'green'], outputs: 'redgreen'
+                        },
+
+                        // Overlay 'blue' onto 'redgreen', moving it to the right
+                        {
+                            filter: 'overlay', options: { x: '2*w', y: 0 },
+                            inputs: ['redgreen', 'blue'], outputs: 'output'
                         },
                     ], 'output')
                     .addOption('-c:v', 'libx264')
