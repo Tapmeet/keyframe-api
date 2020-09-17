@@ -154,7 +154,12 @@ function videoTemplate1(templateBlock, req, res) {
             if (block.blockData.imageFour == '' && block.blockData.containerFour != '') {
                 videoCheck = 1;
             }
-            recordCall([container1, container2, container3, container4])
+            var datas = {
+                block: block,
+                file: process.env.APIURL + 'template/videos/server-generated.mp4'
+            }
+            setTimeout(function(){ addTextTovideo(datas, req, res) }, 3000);
+            //recordCall([container1, container2, container3, container4])
             function recordCall(inputs) {
                 inputs.forEach(input => {
                     command.addInput(input);
