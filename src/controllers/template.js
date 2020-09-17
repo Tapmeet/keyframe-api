@@ -232,7 +232,7 @@ function videoTemplate1(templateBlock, req, res) {
                 }
                 console.log(datas.file);
                 commands.addInput(process.env.APIURL + datas.block.blockData.containerFour)
-                commands
+                ffmpeg(process.env.APIURL + datas.block.blockData.containerFour)
                     .complexFilter([
                         'scale=1080:720[rescaled]',
                         {
