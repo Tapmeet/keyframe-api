@@ -322,6 +322,7 @@ function videoTemplate1(templateBlock, req, res) {
                         console.log(commandLine);
                     })
                     .on("error", function (er) {
+                        res.status(200).json({ message: 'Video failed' });
                         console.log(er);
                         console.log("error occured: " + er.message);
                     })
