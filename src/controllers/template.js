@@ -278,7 +278,7 @@ function videoTemplate1(data, req, res) {
                                 width: 480,
                                 color: 'white',
                                 t: 'fill',
-                                enable: 'between(t,0.40,6000)'
+                                enable: 'between(t,0.50,60000)'
                             },
                             inputs: 'output1',
                             outputs: 'output2'
@@ -292,7 +292,7 @@ function videoTemplate1(data, req, res) {
                                 width: 520,
                                 color: 'white',
                                 t: '2',
-                                enable: 'between(t,0.40,6000)'
+                                enable: 'between(t,0.40,60000)'
                             },
                             inputs: 'output2',
                             outputs: 'output3'
@@ -311,7 +311,7 @@ function videoTemplate1(data, req, res) {
                                 boxcolor: 'white@0.0',
                                 boxborderw: "50",
                                 bordercolor: 'white',
-                                enable: 'between(t,1.1,1000)'
+                                enable: 'between(t,1.1,10000)'
 
                             },
                             inputs: 'output3',
@@ -331,7 +331,7 @@ function videoTemplate1(data, req, res) {
                                 boxcolor: 'white@0.0',
                                 boxborderw: "50",
                                 bordercolor: 'white',
-                                enable: 'between(t,2,1000)',
+                                enable: 'between(t,2,10000)',
                             },
                             inputs: 'output4',
                             outputs: 'output'
