@@ -292,7 +292,7 @@ function videoTemplate1(data, req, res) {
                                 width: 520,
                                 color: 'white',
                                 t: '2',
-                                enable: 'between(t,0.50,6000)'
+                                enable: 'between(t,0.40,6000)'
                             },
                             inputs: 'output2',
                             outputs: 'output3'
