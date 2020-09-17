@@ -154,12 +154,7 @@ function videoTemplate1(templateBlock, req, res) {
             if (block.blockData.imageFour == '' && block.blockData.containerFour != '') {
                 videoCheck = 1;
             }
-            var datas = {
-                block: block,
-                file: 'http://ec2-100-26-57-56.compute-1.amazonaws.com:2000/template/image-1600063602620-img_1.png'
-            }
-            addTextTovideo(datas, req, res)
-            //recordCall([container1, container2, container3, container4])
+            recordCall([container1, container2, container3, container4])
             function recordCall(inputs) {
                 inputs.forEach(input => {
                     command.addInput(input);
