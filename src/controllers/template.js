@@ -263,7 +263,7 @@ function videoTemplate1(data, req, res) {
                                 y: 0,
                                 color: 'white',
                                 t: 'fill',
-                                enable: 'between(t,0,0.30)'
+                                enable: 'between(t,0,0.10)'
                             },
                             inputs: 'rescaled',
                             outputs: 'output1',
