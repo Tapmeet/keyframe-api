@@ -125,8 +125,14 @@ exports.createVideo = async (req, res, next) => {
     const { templateId } = req.body;
     try {
         const templateBlock = await Block.find({ templateId: templateId });
+        const template = await Template.findOne({ templateNumber: templateId });
+        console.log(template);
+        const data = {
+            templateBlock: templateBlock,
+            template: template
+        }
         if (templateBlock) {
-            videoTemplate1(templateBlock, req, res)
+            videoTemplate1(data, req, res)
         } else {
             res.status(200).json({ message: 'Video failed' });
         }
@@ -135,8 +141,23 @@ exports.createVideo = async (req, res, next) => {
     }
 };
 
-function videoTemplate1(templateBlock, req, res) {
-    templateBlock.map(function (block) {
+function videoTemplate1(data, req, res) {
+    var fontfamily = data.template.globalfontFamily;
+    
+    const fonts = [
+        { family: "'Montserrat', sans-serif", file: "./src/Assets/fonts/Montserrat-Regular.ttf" },
+        { family: "'Lato', sans-serif", file: "./src/Assets/fonts/Lato-Regular.ttf" },
+        { family: "'Oswald', sans-serif", file: "./src/Assets/fonts/Oswald-Regular.ttf" },
+        { family: "'Roboto', sans-serif", file: "./src/Assets/fonts/Roboto-Regular.ttf" },
+        { family: "'Noto Serif', serif", file: "./src/Assets/fonts/NotoSerif-Regular.ttf" },
+    ]
+    var selectedfonts;
+    fonts.map(function (font) {
+        if (font.family == fontfamily) {
+            selectedfonts = font.file;
+        }
+    })
+    data.templateBlock.map(function (block) {
         if (block.blockId == 1) {
             var container1, container2, container3, container4, videoCheck;
             if (block.blockData.containerOne) {
@@ -166,7 +187,7 @@ function videoTemplate1(templateBlock, req, res) {
                         .addOption('-c:v', 'libx264')
                         .save('./src/Assets/template/videos/server-generated.mp4')
                         .on('start', function (commandLine) {
-                            console.log(commandLine);
+                            console.log('start');
                         })
                         .on("error", function (er) {
                             res.status(200).json({ message: 'Video failed' });
@@ -279,7 +300,7 @@ function videoTemplate1(templateBlock, req, res) {
                         {
                             filter: 'drawtext',
                             options: {
-                                fontfile: './Oswald-Regular.ttf',
+                                fontfile: selectedfonts,
                                 text: datas.block.blockData.blockTitle,
                                 fontsize: datas.block.blockData.blocktitleFontsize,
                                 fontcolor: titleColor,
@@ -300,7 +321,7 @@ function videoTemplate1(templateBlock, req, res) {
                         {
                             filter: 'drawtext',
                             options: {
-                                fontfile: './Oswald-Regular.ttf',
+                                fontfile: selectedfonts,
                                 text: datas.block.blockData.blocksubTitle,
                                 fontsize: datas.block.blockData.blocksubTitleFontsize,
                                 fontcolor: subtitleColor,
@@ -319,7 +340,7 @@ function videoTemplate1(templateBlock, req, res) {
                     .addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/server-generated1.mp4')
                     .on('start', function (commandLine) {
-                        console.log(commandLine);
+                        console.log('start');
                     })
                     .on("error", function (er) {
                         res.status(200).json({ message: 'Video failed' });
