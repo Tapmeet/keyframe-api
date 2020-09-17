@@ -231,7 +231,7 @@ function videoTemplate1(templateBlock, req, res) {
                     subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
                 }
                 console.log(datas.file);
-                commands.addInput(datas.file)
+                commands.addInput('http://localhost:2000/template/image-1600017709802-img_0.png')
                 commands
                     .complexFilter([
                         'scale=1080:720[rescaled]',
