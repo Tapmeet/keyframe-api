@@ -179,7 +179,7 @@ function videoTemplate1(templateBlock, req, res) {
                                     block: block,
                                     file: process.env.APIURL + 'template/videos/server-generated.mp4'
                                 }
-                                addTextTovideo(datas, req, res)
+                                setTimeout(function(){ addTextTovideo(datas, req, res) }, 3000);
                                 console.log("success");
                             }
                             else {
@@ -209,7 +209,8 @@ function videoTemplate1(templateBlock, req, res) {
                                     block: block,
                                     file: process.env.APIURL + 'template/videos/server-generated.mp4'
                                 }
-                                addTextTovideo(datas, req, res)
+                                setTimeout(function(){ addTextTovideo(datas, req, res) }, 3000);
+                                
                                 console.log("success");
                             }
                             else {
