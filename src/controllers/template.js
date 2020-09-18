@@ -144,7 +144,7 @@ exports.createVideo = async (req, res, next) => {
 
 function videoTemplate1(data, req, res) {
     var fontfamily = data.template.globalfontFamily;
-    var time= Date.now();
+
     const fonts = [
         { family: "'Montserrat', sans-serif", file: "./src/Assets/fonts/Montserrat-Regular.ttf" },
         { family: "'Lato', sans-serif", file: "./src/Assets/fonts/Lato-Regular.ttf" },
@@ -183,8 +183,8 @@ function videoTemplate1(data, req, res) {
                 })
                 if (videoCheck == 1) {
                     command
-                        .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|0_h0|w0_0|w0_h0['+time+']')
-                        .addOption('-map', '['+time+']',)
+                        .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|0_h0|w0_0|w0_h0[out]')
+                        .addOption('-map', '[out]',)
                         .addOption('-c:v', 'libx264')
                         .save('./src/Assets/template/videos/server-generated.mp4')
                         .on('start', function (commandLine) {
@@ -211,9 +211,9 @@ function videoTemplate1(data, req, res) {
                         })
                 } else {
                     command
-                        .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|w0_0|0_h0|w0_h0['+time+']')
+                        .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|w0_0|0_h0|w0_h0[out]')
                         .loop(1)
-                        .addOption('-map', '['+time+']',)
+                        .addOption('-map', '[out]',)
                         .addOption('-t', '5')
                         .addOption('-c:v', 'libx264')
                         .save('./src/Assets/template/videos/server-generated.mp4')
@@ -238,16 +238,15 @@ function videoTemplate1(data, req, res) {
                             else {
                                 res.status(200).json({ message: 'Video created', data: 'template/videos/server-generated.mp4' });
                               //  console.log("success");
-
                               return;
                             }
-                        }) 
+                        })
                 }
             }
 
             function addTextTovideo(datas, req, res) {
                 var commands = ffmpeg();
-           
+                var time= Date.now();
                 var titleColor = datas.block.blockData.titleColor;
                 if (titleColor.lenth == '4') {
                     titleColor = titleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
@@ -257,6 +256,7 @@ function videoTemplate1(data, req, res) {
                     subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
                 }
                 commands.addInput(datas.file)
+                ffmpeg(datas.file)
                     .complexFilter([
                         'scale=1080:720[rescaled]',
                         {
@@ -337,9 +337,9 @@ function videoTemplate1(data, req, res) {
                                 enable: 'between(t,2,10000)',
                             },
                             inputs: 'output4',
-                            outputs: time
+                            outputs: 'output'
                         },
-                    ], time)
+                    ], 'output')
                     .addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/server-generated1.mp4')
                     .on('start', function (commandLine) {
