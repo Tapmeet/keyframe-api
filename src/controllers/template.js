@@ -163,16 +163,16 @@ function videoTemplate1(data, req, res) {
         if (block.blockId == 1) {
             var container1, container2, container3, container4, videoCheck;
             if (block.blockData.containerOne) {
-                container1 = process.env.APIURL + block.blockData.containerOne;
+                container1 = './src/Assets/' + block.blockData.containerOne;
             }
             if (block.blockData.containerTwo) {
-                container2 = process.env.APIURL + block.blockData.containerTwo;
+                container2 = './src/Assets/' + block.blockData.containerTwo;
             }
             if (block.blockData.containerOne) {
-                container3 = process.env.APIURL + block.blockData.containerThree;
+                container3 = './src/Assets/' + block.blockData.containerThree;
             }
             if (block.blockData.containerFour) {
-                container4 = process.env.APIURL + block.blockData.containerFour;
+                container4 = './src/Assets/' +block.blockData.containerFour;
             }
             if (block.blockData.imageFour == '' && block.blockData.containerFour != '') {
                 videoCheck = 1;
