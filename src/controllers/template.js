@@ -218,7 +218,7 @@ function videoTemplate1(data, req, res) {
                         .addOption('-c:v', 'libx264')
                         .save('./src/Assets/template/videos/server-generated.mp4')
                         .on('start', function (commandLine) {
-                            console.log('start');
+                            console.log(commandLine);
                         })
                         .on("error", function (er) {
                             res.status(200).json({ message: 'Video failed' });
