@@ -262,8 +262,9 @@ function videoTemplate1(data, req, res) {
         if (subtitleColor.lenth == '4') {
             subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
         }
-        commands.addInput(datas.file)
-            //ffmpeg(datas.file)
+        console.log(datas.file);
+        //commands.addInput(datas.file)
+            ffmpeg(datas.file)
             .complexFilter([
                 'scale=1080:720[rescaled]',
                 {
