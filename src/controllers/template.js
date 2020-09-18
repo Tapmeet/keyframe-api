@@ -224,7 +224,7 @@ function videoTemplate1(data, req, res) {
                             res.status(200).json({ message: 'Video failed' });
                             console.log(er);
                             console.log("error occured: " + er.message);
-                            return;
+                            
                         })
                         .on("end", function () {
                             if (block.blockData.blockTitle) {
@@ -246,7 +246,6 @@ function videoTemplate1(data, req, res) {
 
             function addTextTovideo(datas, req, res) {
                 var commands = ffmpeg();
-                var time= Date.now();
                 var titleColor = datas.block.blockData.titleColor;
                 if (titleColor.lenth == '4') {
                     titleColor = titleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
