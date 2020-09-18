@@ -71,7 +71,7 @@ exports.addTemplate = async (req, res, next) => {
                     $lookup:
                     {
                         from: `templateblocks`,
-                        localField: "templateNumber",
+                        localField: "_id",
                         foreignField: "templateId",
                         as: "blocks"
                     }
@@ -98,15 +98,16 @@ exports.addBlock = async (req, res, next) => {
         const { userId } = req.body;
         const { blockId } = req.body;
         const { templateNumber } = req.body;
-        const templateBlock = await Block.findOne({ templateId: templateNumber, blockId: blockId });
+        const { templateId } = req.body;
+        const templateBlock = await Block.findOne({ templateId: templateId, blockId: blockId });
         await Template.findOneAndUpdate({ templateNumber: templateNumber, userId: userId }, { $set: req.body }, { new: true, useFindAndModify: false });
         var tempateData;
         if (!templateBlock) {
-            const newTemplate = new Block({ ...req.body, templateId: templateNumber });
+            const newTemplate = new Block({ ...req.body, templateId: templateId });
             tempateData = await newTemplate.save();
         }
         else {
-            tempateData = await Block.findOneAndUpdate({ templateId: templateNumber, blockId: blockId }, { $set: req.body }, { new: true, useFindAndModify: false });
+            tempateData = await Block.findOneAndUpdate({ templateId: templateId, blockId: blockId }, { $set: req.body }, { new: true, useFindAndModify: false });
         }
         res.status(200).json({ message: 'Template successfully created', data: tempateData });
     } catch (error) {
@@ -125,7 +126,7 @@ exports.createVideo = async (req, res, next) => {
     const { templateId } = req.body;
     try {
         const templateBlock = await Block.find({ templateId: templateId });
-        const template = await Template.findOne({ templateNumber: templateId });
+        const template = await Template.findOne({ _id: templateId });
         //console.log(template);
         const data = {
             templateBlock: templateBlock,
@@ -143,7 +144,7 @@ exports.createVideo = async (req, res, next) => {
 
 function videoTemplate1(data, req, res) {
     var fontfamily = data.template.globalfontFamily;
-
+    var time= Date.now();
     const fonts = [
         { family: "'Montserrat', sans-serif", file: "./src/Assets/fonts/Montserrat-Regular.ttf" },
         { family: "'Lato', sans-serif", file: "./src/Assets/fonts/Lato-Regular.ttf" },
@@ -182,8 +183,8 @@ function videoTemplate1(data, req, res) {
                 })
                 if (videoCheck == 1) {
                     command
-                        .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|0_h0|w0_0|w0_h0[out]')
-                        .addOption('-map', '[out]',)
+                        .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|0_h0|w0_0|w0_h0['+time+']')
+                        .addOption('-map', '['+time+']',)
                         .addOption('-c:v', 'libx264')
                         .save('./src/Assets/template/videos/server-generated.mp4')
                         .on('start', function (commandLine) {
@@ -201,28 +202,30 @@ function videoTemplate1(data, req, res) {
                                     file: process.env.APIURL + 'template/videos/server-generated.mp4'
                                 }
                                 addTextTovideo(datas, req, res)
-                                console.log("success");
+                               // console.log("success");
                             }
                             else {
-                                res.status(200).json({ message: 'Video failed', data: './server-generated.mp4' });
-                                console.log("success");
+                                res.status(200).json({ message: 'Video created', data: 'template/videos/server-generated.mp4' });
+                              //  console.log("success");
                             }
                         })
                 } else {
                     command
-                        .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|w0_0|0_h0|w0_h0[out]')
+                        .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|w0_0|0_h0|w0_h0['+time+']')
                         .loop(1)
-                        .addOption('-map', '[out]',)
+                        .addOption('-map', '['+time+']',)
                         .addOption('-t', '5')
                         .addOption('-c:v', 'libx264')
                         .save('./src/Assets/template/videos/server-generated.mp4')
                         .on('start', function (commandLine) {
-                            console.log('staring');
+                            console.log('start');
                         })
                         .on("error", function (er) {
                             res.status(200).json({ message: 'Video failed' });
                             console.log(er);
                             console.log("error occured: " + er.message);
+                            command.kill();
+                            return;
                         })
                         .on("end", function () {
                             if (block.blockData.blockTitle) {
@@ -231,11 +234,13 @@ function videoTemplate1(data, req, res) {
                                     file: process.env.APIURL + 'template/videos/server-generated.mp4'
                                 }
                                 addTextTovideo(datas, req, res)
-                                console.log("success");
+                               // console.log("success");
                             }
                             else {
-                                res.status(200).json({ message: 'Video failed', data: './server-generated.mp4' });
-                                console.log("success");
+                                res.status(200).json({ message: 'Video created', data: 'template/videos/server-generated.mp4' });
+                              //  console.log("success");
+                              command.kill();
+                              return;
                             }
                         })
                 }
@@ -243,6 +248,7 @@ function videoTemplate1(data, req, res) {
 
             function addTextTovideo(datas, req, res) {
                 var commands = ffmpeg();
+           
                 var titleColor = datas.block.blockData.titleColor;
                 if (titleColor.lenth == '4') {
                     titleColor = titleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
@@ -251,9 +257,7 @@ function videoTemplate1(data, req, res) {
                 if (subtitleColor.lenth == '4') {
                     subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
                 }
-                console.log(datas.file);
                 commands.addInput(datas.file)
-                ffmpeg(datas.file)
                     .complexFilter([
                         'scale=1080:720[rescaled]',
                         {
@@ -334,9 +338,9 @@ function videoTemplate1(data, req, res) {
                                 enable: 'between(t,2,10000)',
                             },
                             inputs: 'output4',
-                            outputs: 'output'
+                            outputs: time
                         },
-                    ], 'output')
+                    ], time)
                     .addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/server-generated1.mp4')
                     .on('start', function (commandLine) {
@@ -344,13 +348,16 @@ function videoTemplate1(data, req, res) {
                     })
                     .on("error", function (er) {
                         res.status(200).json({ message: 'Video failed' });
-                        console.log(er);
-                        console.log("error occured: " + er.message);
+                         console.log(er);
+                        // console.log("error occured: " + er.message);
+                        return;
                     })
                     .on("end", function (commandLine) {
-                        res.status(200).json({ message: 'Video failed', data: './server-generated1.mp4' });
-                        console.log(commandLine);
-                        console.log("success");
+                        res.status(200).json({ message: 'Video created', data: 'template/videos/server-generated1.mp4' });
+                        // console.log(commandLine);
+                         console.log("success");
+                         command.kill();
+                         return;
                     })
             }
         }

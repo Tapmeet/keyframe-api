@@ -5,6 +5,10 @@ const templatesBlocksSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    templateNumber: {
+        type: String,
+        required: true,
+    },
     blockId: {
         type: String,
         required: true,
