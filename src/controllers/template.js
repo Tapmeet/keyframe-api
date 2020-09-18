@@ -172,7 +172,7 @@ function videoTemplate1(data, req, res) {
                 container3 = './src/Assets/' + block.blockData.containerThree;
             }
             if (block.blockData.containerFour) {
-                container4 = './src/Assets/' +block.blockData.containerFour;
+                container4 = './src/Assets/' + block.blockData.containerFour;
             }
             if (block.blockData.imageFour == '' && block.blockData.containerFour != '') {
                 videoCheck = 1;
@@ -206,7 +206,7 @@ function videoTemplate1(data, req, res) {
                     if (block.blockData.blockTitle) {
                         var datas = {
                             block: block,
-                            file: process.env.APIURL + 'template/videos/server-generated.mp4'
+                            file: './src/Assets/template/videos/server-generated.mp4'
                         }
                         addTextTovideo(datas, req, res)
                         console.log("success");
@@ -237,7 +237,7 @@ function videoTemplate1(data, req, res) {
                     if (block.blockData.blockTitle) {
                         var datas = {
                             block: block,
-                            file: process.env.APIURL + 'template/videos/server-generated.mp4'
+                            file: './src/Assets/template/videos/server-generated.mp4'
                         }
                         addTextTovideo(datas, req, res)
                         console.log("success");
