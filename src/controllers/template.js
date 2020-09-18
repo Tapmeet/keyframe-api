@@ -209,7 +209,7 @@ function videoTemplate1(data, req, res) {
                             file: process.env.APIURL + 'template/videos/server-generated.mp4'
                         }
                         addTextTovideo(datas, req, res)
-                        // console.log("success");
+                         console.log("success");
                     }
                     else {
                         return res.status(200).json({ message: 'Video created', data: 'template/videos/server-generated.mp4' });
@@ -240,7 +240,7 @@ function videoTemplate1(data, req, res) {
                             file: process.env.APIURL + 'template/videos/server-generated.mp4'
                         }
                         addTextTovideo(datas, req, res)
-                        // console.log("success");
+                         console.log("success");
                         // command.kill();
                     }
                     else {
