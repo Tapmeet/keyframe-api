@@ -224,7 +224,7 @@ function videoTemplate1(data, req, res) {
                             res.status(200).json({ message: 'Video failed' });
                             console.log(er);
                             console.log("error occured: " + er.message);
-                            command.kill();
+                           // command.kill();
                             return;
                         })
                         .on("end", function () {
@@ -239,7 +239,7 @@ function videoTemplate1(data, req, res) {
                             else {
                                 res.status(200).json({ message: 'Video created', data: 'template/videos/server-generated.mp4' });
                               //  console.log("success");
-                              command.kill();
+                             // command.kill();
                               return;
                             }
                         })
@@ -356,7 +356,7 @@ function videoTemplate1(data, req, res) {
                         res.status(200).json({ message: 'Video created', data: 'template/videos/server-generated1.mp4' });
                         // console.log(commandLine);
                          console.log("success");
-                         command.kill();
+                         //command.kill();
                          return;
                     })
             }
