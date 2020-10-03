@@ -438,14 +438,15 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         return;
                     })
                     .on("end", function (commandLine) {
-                        console.log('successhere')
+                        console.log(i)
                         if (typeof video1 == 'undefined') {
                             video1 = './src/Assets/template/videos/' + userId + '/template1/block-2-1.mp4';
                         }
                         else if (typeof video2 == 'undefined' && typeof video1 != 'undefined') {
                             video2 = './src/Assets/template/videos/' + userId + '/template1/block-2-2.mp4';
                         }
-                        if (i == 3 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
+                        if (i == 2 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
+                            console.log('heres');
                             setTimeout(function () {
                                 let data = {
                                     video1: video1,
@@ -453,9 +454,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                                 }
                                 mergeBlock2Videos(data, req, res)
                             }, 500);
-
-                            i = 4
                         }
+                        i = i + 1;
                     })
             } else {
                 commands.input(assetsPath + input)
@@ -475,27 +475,27 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         return;
                     })
                     .on("end", function (commandLine) {
-                        if (typeof video1 == 'undefined') {
-                            video1 = './src/Assets/template/videos/' + userId + '/template1/block-2-1.mp4';
+                        if (i == 2) {
+                            if (typeof video1 == 'undefined') {
+                                video1 = './src/Assets/template/videos/' + userId + '/template1/block-2-1.mp4';
+                            }
+                            else if (typeof video2 == 'undefined') {
+                                video2 = './src/Assets/template/videos/' + userId + '/template1/block-2-2.mp4';
+                            }
+                            if (i == 2 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
+                                setTimeout(function () {
+                                    let data = {
+                                        video1: video1,
+                                        video2: video2
+                                    }
+                                    mergeBlock2Videos(data, req, res)
+                                }, 500);
+                            }
                         }
-                        else if (typeof video2 == 'undefined') {
-                            video2 = './src/Assets/template/videos/' + userId + '/template1/block-2-2.mp4';
-                        }
-                        if (i == 3 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
-
-                            setTimeout(function () {
-                                let data = {
-                                    video1: video1,
-                                    video2: video2
-                                }
-                                mergeBlock2Videos(data, req, res)
-                            }, 500);
-
-                            i = 4
-                        }
+                        i = i + 1;
                     })
             }
-            i = i + 1;
+
         })
         async function mergeBlock2Videos(data, req, res) {
 
@@ -512,13 +512,14 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     return
                 })
                 .on("end", function () {
+                    console.log('yhn success');
                     setTimeout(function () {
                         const datas = {
                             block: block2
                         }
                         block2VideoTxt(datas, req, res)
-                        console.log('yhn success');
-                    }, 800);
+
+                    }, 600);
 
                 })
                 .mergeToFile('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4');
@@ -534,9 +535,9 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             if (subtitleColor.lenth == '4') {
                 subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
             }
-            console.log(datas)
+
             commands.addInput('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
-            //ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
+                //ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
                 .complexFilter([
                     'scale=1920:1080[rescaled]',
                     {
@@ -750,12 +751,14 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     return;
                 })
                 .on("end", function (commandLine) {
-                    let data = {
-                        video1: './src/Assets/template/videos/' + userId + '/template1/server-generated1.mp4',
-                        video2: './src/Assets/template/videos/' + userId + '/template1/block2FinalVideo.mp4'
-                    }
-                    mergeVideos(data, req, res)
 
+                    setTimeout(function () {
+                        let data = {
+                            video1: './src/Assets/template/videos/' + userId + '/template1/server-generated1.mp4',
+                            video2: './src/Assets/template/videos/' + userId + '/template1/block2FinalVideo.mp4'
+                        }
+                        mergeVideos(data, req, res)
+                    }, 600);
                 })
         }
     }
@@ -795,7 +798,7 @@ async function mergeVideos(data, req, res) {
     command.input(data.video2);
     command
         .on('start', function (commandLine) {
-            console.log('step5');
+            console.log('step7');
         })
         .on("error", function (er) {
             console.log(er);
