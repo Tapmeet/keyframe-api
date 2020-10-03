@@ -438,11 +438,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         return;
                     })
                     .on("end", function (commandLine) {
-                        console.log('success')
+                        console.log('successhere')
                         if (typeof video1 == 'undefined') {
                             video1 = './src/Assets/template/videos/' + userId + '/template1/block-2-1.mp4';
                         }
-                        else if (typeof video2 == 'undefined') {
+                        else if (typeof video2 == 'undefined' && typeof video1 != 'undefined') {
                             video2 = './src/Assets/template/videos/' + userId + '/template1/block-2-2.mp4';
                         }
                         if (i == 3 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
