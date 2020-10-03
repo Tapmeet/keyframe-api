@@ -455,7 +455,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                                     video1: video1,
                                     video2: video2
                                 }
-                                mergeBlock2Videos(data, req, res)
+                                const datas = {
+                                    block: block2
+                                }
+                                block2VideoTxt(datas, req, res)
+                                //mergeBlock2Videos(data, req, res)
                             }, 500);
                         }
                         i = i + 1;
@@ -490,6 +494,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                                     video1: video1,
                                     video2: video2
                                 }
+                                
                                 mergeBlock2Videos(data, req, res)
                             }, 500);
                         }
@@ -538,8 +543,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
             }
 
-            commands.addInput('./src/Assets/template/videos/' + userId + '/template1/block-2-2.mp4')
-                //ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
+  //commands.addInput('./src/Assets/template/videos/' + userId + '/template1/block-2-2.mp4')
+                ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
                 .complexFilter([
                     'scale=1920:1080[rescaled]',
                     {
@@ -743,7 +748,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 .addOption('-c:v', 'libx264')
                 .save('./src/Assets/template/videos/' + userId + '/template1/block2FinalVideo.mp4')
                 .on('start', function (commandLine) {
-                    console.log('step6');
+                    console.log(commandLine);
                 })
                 .on("error", function (er) {
                     console.log('here');
