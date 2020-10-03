@@ -498,7 +498,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             i = i + 1;
         })
         async function mergeBlock2Videos(data, req, res) {
-      
+
             var command = new ffmpeg();
             command.input(data.video1);
             command.input(data.video2);
@@ -517,14 +517,14 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                             block: block2
                         }
                         block2VideoTxt(datas, req, res)
-                        console.log('there success');
-                    }, 600);
-                    
+                        console.log('yhn success');
+                    }, 500);
+
                 })
                 .mergeToFile('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4');
         }
         function block2VideoTxt(datas, req, res) {
-         
+
             var commands = ffmpeg();
             var titleColor = datas.block.blockData.titleColor;
             if (titleColor.lenth == '4') {
@@ -534,8 +534,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             if (subtitleColor.lenth == '4') {
                 subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
             }
-
-            commands.addInput(datas.file)
+            console.log(datas)
+            //commands.addInput(datas.file)
             ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
                 .complexFilter([
                     'scale=1920:1080[rescaled]',
