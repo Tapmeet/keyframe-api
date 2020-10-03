@@ -528,7 +528,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         }
         function block2VideoTxt(datas, req, res) {
 
-            var commands = ffmpeg();
+            var commands = new ffmpeg();
             var titleColor = datas.block.blockData.titleColor;
             if (titleColor.lenth == '4') {
                 titleColor = titleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
@@ -540,7 +540,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             console.log(datas);
             console.log(selectedfontsLight);
             console.log(selectedfonts);
-            ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
+            commands.input('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
+            //ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
                 .complexFilter([
                     'scale=1920:1080[rescaled]',
                     {
@@ -576,7 +577,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         },
                         inputs: 'firstOne',
                         outputs: 'output'
- 
+
                     },
                     // {
                     //     filter: 'drawtext',
