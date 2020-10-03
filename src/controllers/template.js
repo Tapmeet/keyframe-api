@@ -407,6 +407,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
 
     function block2Video(block2, req, res) {
         var i = 1;
+        var k = 1;
         var video1, video2;
         inputs = [block2.blockData.containerOne, block2.blockData.containerTwo]
         inputs.forEach(input => {
@@ -428,7 +429,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     .addOption('-pix_fmt', 'yuv420p')
                     .addOption('-framerate', '50')
                     .addOption('-c:v', 'libx264')
-                    .save('./src/Assets/template/videos/' + userId + '/template1/block-2-' + i + '.mp4')
+                    .save('./src/Assets/template/videos/' + userId + '/template1/block-2-' + k + '.mp4')
                     .on('start', function (commandLine) {
                         console.log('step3');
                     })
@@ -438,11 +439,13 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         return;
                     })
                     .on("end", function (commandLine) {
-                        console.log(i)
+
                         if (typeof video1 == 'undefined') {
+                            console.log(i)
                             video1 = './src/Assets/template/videos/' + userId + '/template1/block-2-1.mp4';
                         }
-                        else if (typeof video2 == 'undefined' && typeof video1 != 'undefined') {
+                        else if (typeof video2 == 'undefined') {
+                            console.log(i)
                             video2 = './src/Assets/template/videos/' + userId + '/template1/block-2-2.mp4';
                         }
                         if (i == 2 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
@@ -464,7 +467,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         'scale=1280:720[rescaled]',
                     ], 'rescaled')
                     .addOption('-c:v', 'libx264')
-                    .save('./src/Assets/template/videos/' + userId + '/template1/block-2-' + i + '.mp4')
+                    .save('./src/Assets/template/videos/' + userId + '/template1/block-2-' + k + '.mp4')
                     .on('start', function (commandLine) {
                         console.log('step4');
                     })
@@ -475,27 +478,26 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         return;
                     })
                     .on("end", function (commandLine) {
-                        if (i == 2) {
-                            if (typeof video1 == 'undefined') {
-                                video1 = './src/Assets/template/videos/' + userId + '/template1/block-2-1.mp4';
-                            }
-                            else if (typeof video2 == 'undefined') {
-                                video2 = './src/Assets/template/videos/' + userId + '/template1/block-2-2.mp4';
-                            }
-                            if (i == 2 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
-                                setTimeout(function () {
-                                    let data = {
-                                        video1: video1,
-                                        video2: video2
-                                    }
-                                    mergeBlock2Videos(data, req, res)
-                                }, 500);
-                            }
+                        if (typeof video1 == 'undefined') {
+                            video1 = './src/Assets/template/videos/' + userId + '/template1/block-2-1.mp4';
                         }
+                        else if (typeof video2 == 'undefined') {
+                            video2 = './src/Assets/template/videos/' + userId + '/template1/block-2-2.mp4';
+                        }
+                        if (i == 2 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
+                            setTimeout(function () {
+                                let data = {
+                                    video1: video1,
+                                    video2: video2
+                                }
+                                mergeBlock2Videos(data, req, res)
+                            }, 500);
+                        }
+
                         i = i + 1;
                     })
             }
-
+            k = k + 1;
         })
         async function mergeBlock2Videos(data, req, res) {
 
