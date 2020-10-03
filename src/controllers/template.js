@@ -553,7 +553,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                             t: 'fill',
                         },
                         inputs: 'rescaled',
-                        outputs: 'output1',
+                        outputs: 'output',
 
                     },
 
