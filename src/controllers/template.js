@@ -801,6 +801,7 @@ async function mergeVideos(data, req, res) {
             console.log('step7');
         })
         .on("error", function (er) {
+            console.log('step7 errr');
             console.log(er);
             res.status(200).json({ message: 'Video failed' });
             return
