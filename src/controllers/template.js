@@ -498,7 +498,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             i = i + 1;
         })
         async function mergeBlock2Videos(data, req, res) {
-
+            console.log(data);
             var command = new ffmpeg();
             command.input(data.video1);
             command.input(data.video2);
@@ -521,6 +521,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 .mergeToFile('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4');
         }
         function block2VideoTxt(datas, req, res) {
+            console.log(datas)
             var commands = ffmpeg();
             var titleColor = datas.block.blockData.titleColor;
             if (titleColor.lenth == '4') {
