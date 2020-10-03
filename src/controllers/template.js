@@ -518,7 +518,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         }
                         block2VideoTxt(datas, req, res)
                         console.log('yhn success');
-                    }, 500);
+                    }, 800);
 
                 })
                 .mergeToFile('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4');
