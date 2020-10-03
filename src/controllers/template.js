@@ -557,27 +557,27 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
 
                     },
 
-                    {
-                        filter: 'drawtext',
-                        options: {
-                            fontfile: selectedfontsLight,
-                            text: datas.block.blockData.squareFeetTitle,
-                            fontsize: parseInt(datas.block.blockData.blocktitleFontsize) + 15,
-                            fontcolor: titleColor,
-                            line_spacing: "20",
-                            x: '120',
-                            y: '150',
-                            box: 1,
-                            boxcolor: 'white@0.0',
-                            boxborderw: "50",
-                            bordercolor: 'white',
-                            enable: 'between(t,1.1,10000)'
+                    // {
+                    //     filter: 'drawtext',
+                    //     options: {
+                    //         fontfile: selectedfontsLight,
+                    //         text: datas.block.blockData.squareFeetTitle,
+                    //         fontsize: parseInt(datas.block.blockData.blocktitleFontsize) + 15,
+                    //         fontcolor: titleColor,
+                    //         line_spacing: "20",
+                    //         x: '120',
+                    //         y: '150',
+                    //         box: 1,
+                    //         boxcolor: 'white@0.0',
+                    //         boxborderw: "50",
+                    //         bordercolor: 'white',
+                    //         enable: 'between(t,1.1,10000)'
 
-                        },
-                        inputs: 'output1',
-                        outputs: 'output'
+                    //     },
+                    //     inputs: 'output1',
+                    //     outputs: 'output'
 
-                    },
+                    // },
                     // {
                     //     filter: 'drawtext',
                     //     options: {
