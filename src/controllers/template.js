@@ -537,10 +537,10 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             if (subtitleColor.lenth == '4') {
                 subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
             }
-          console.log(datas);
-          console.log(selectedfontsLight);
-          console.log(selectedfonts);
-                ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
+            console.log(datas);
+            console.log(selectedfontsLight);
+            console.log(selectedfonts);
+            ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
                 .complexFilter([
                     'scale=1920:1080[rescaled]',
                     {
@@ -553,31 +553,31 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                             t: 'fill',
                         },
                         inputs: 'rescaled',
-                        outputs: 'output',
+                        outputs: 'firstOne',
 
                     },
 
-                    // {
-                    //     filter: 'drawtext',
-                    //     options: {
-                    //         fontfile: selectedfontsLight,
-                    //         text: datas.block.blockData.squareFeetTitle,
-                    //         fontsize: parseInt(datas.block.blockData.blocktitleFontsize) + 15,
-                    //         fontcolor: titleColor,
-                    //         line_spacing: "20",
-                    //         x: '120',
-                    //         y: '150',
-                    //         box: 1,
-                    //         boxcolor: 'white@0.0',
-                    //         boxborderw: "50",
-                    //         bordercolor: 'white',
-                    //         enable: 'between(t,1.1,10000)'
+                    {
+                        filter: 'drawtext',
+                        options: {
+                            fontfile: selectedfontsLight,
+                            text: datas.block.blockData.squareFeetTitle,
+                            fontsize: parseInt(datas.block.blockData.blocktitleFontsize) + 15,
+                            fontcolor: titleColor,
+                            line_spacing: "20",
+                            x: '120',
+                            y: '150',
+                            box: 1,
+                            boxcolor: 'white@0.0',
+                            boxborderw: "50",
+                            bordercolor: 'white',
+                            enable: 'between(t,1.1,10000)'
 
-                    //     },
-                    //     inputs: 'output1',
-                    //     outputs: 'output'
+                        },
+                        inputs: 'firstOne',
+                        outputs: 'output'
 
-                    // },
+                    },
                     // {
                     //     filter: 'drawtext',
                     //     options: {
