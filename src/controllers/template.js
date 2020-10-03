@@ -537,13 +537,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             if (subtitleColor.lenth == '4') {
                 subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
             }
-            console.log(datas);
-            //console.log(datas.block.blockData.squareFeetTitle);
-            var squareFeet = datas.block.blockData.squareFeetTitle;
-            console.log(squareFeet);
             setTimeout(function () {
                 commands.input('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
-                    //ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
                     .complexFilter([
                         'scale=1920:1080[checked]',
                         {
