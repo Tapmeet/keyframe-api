@@ -538,8 +538,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
             }
             console.log(datas);
-            console.log(selectedfontsLight);
-            console.log(selectedfonts);
+            console.log(atas.block.blockData.squareFeetTitle);
             commands.input('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
                 //ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
                 .complexFilter([
@@ -560,7 +559,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         filter: 'drawtext',
                         options: {
                             fontfile: selectedfonts,
-                            text: 'test',
+                            text: datas.block.blockData.squareFeetTitle,
                             fontsize:  15,
                             fontcolor: "#000000",
                             line_spacing: "20",
