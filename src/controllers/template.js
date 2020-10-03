@@ -544,18 +544,18 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             //ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
                 .complexFilter([
                     'scale=1920:1080[checked]',
-                    {
-                        filter: 'drawbox',
-                        options: {
-                            x: 0,
-                            y: 0,
-                            width: 480,
-                            color: 'white',
-                            t: 'fill',
-                        },
-                        inputs: 'checked',
-                        outputs: 'firstOne',
-                    },
+                    // {
+                    //     filter: 'drawbox',
+                    //     options: {
+                    //         x: 0,
+                    //         y: 0,
+                    //         width: 480,
+                    //         color: 'white',
+                    //         t: 'fill',
+                    //     },
+                    //     inputs: 'checked',
+                    //     outputs: 'firstOne',
+                    // },
                     {
                         filter: 'drawtext',
                         options: {
@@ -573,7 +573,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                             enable: 'between(t,1.1,10000)'
 
                         },
-                        inputs: 'firstOne',
+                        inputs: 'checked',
                         outputs: 'output'
 
                     },
