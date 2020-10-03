@@ -539,7 +539,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             }
             console.log(datas);
             console.log(datas.block.blockData.squareFeetTitle);
-
+            const squareFeet = datas.block.blockData.squareFeetTitle;
             commands.input('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
                 //ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
                 .complexFilter([
@@ -560,8 +560,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         filter: 'drawtext',
                         options: {
                             fontfile: selectedfonts,
-                            text:'datas.block.blockData.squareFeetTitle',
-                            fontsize:  15,
+                            text: squareFeet,
+                            fontsize: 15,
                             fontcolor: "#000000",
                             line_spacing: "20",
                             x: '120',
