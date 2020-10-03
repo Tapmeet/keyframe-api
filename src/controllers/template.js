@@ -543,7 +543,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             commands.input('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
             //ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
                 .complexFilter([
-                    'scale=1920:1080[rescaled]',
+                    'scale=1920:1080[checked]',
                     {
                         filter: 'drawbox',
                         options: {
@@ -553,11 +553,9 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                             color: 'white',
                             t: 'fill',
                         },
-                        inputs: 'rescaled',
+                        inputs: 'checked',
                         outputs: 'firstOne',
-
                     },
-
                     {
                         filter: 'drawtext',
                         options: {
