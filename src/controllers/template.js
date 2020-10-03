@@ -541,28 +541,28 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             console.log(selectedfontsLight);
             console.log(selectedfonts);
             commands.input('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
-            //ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
-                .complexFilter([
+                //ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
+                .videoFilter([
                     'scale=1920:1080[checked]',
-                    // {
-                    //     filter: 'drawbox',
-                    //     options: {
-                    //         x: 0,
-                    //         y: 0,
-                    //         width: 480,
-                    //         color: 'white',
-                    //         t: 'fill',
-                    //     },
-                    //     inputs: 'checked',
-                    //     outputs: 'firstOne',
-                    // },
+                    {
+                        filter: 'drawbox',
+                        options: {
+                            x: 0,
+                            y: 0,
+                            width: 480,
+                            color: 'white',
+                            t: 'fill',
+                        },
+                        inputs: 'checked',
+                        outputs: 'firstOne',
+                    },
                     {
                         filter: 'drawtext',
                         options: {
                             fontfile: selectedfonts,
-                            text: datas.block.blockData.squareFeetTitle,
-                            fontsize: parseInt(datas.block.blockData.blocktitleFontsize) + 15,
-                            fontcolor: titleColor,
+                            text: 'test',
+                            fontsize:  15,
+                            fontcolor: "#000000",
                             line_spacing: "20",
                             x: '120',
                             y: '150',
@@ -571,11 +571,9 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                             boxborderw: "50",
                             bordercolor: 'white',
                             enable: 'between(t,1.1,10000)'
-
                         },
-                        inputs: 'checked',
+                        inputs: 'firstOne',
                         outputs: 'output'
-
                     },
                     // {
                     //     filter: 'drawtext',
@@ -738,7 +736,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     //     },
                     //     inputs: 'output10',
                     //     outputs: 'output'
-                    // },
+                    //},
                 ], 'output')
                 .addOption('-c:v', 'libx264')
                 .save('./src/Assets/template/videos/' + userId + '/template1/block2FinalVideo.mp4')
