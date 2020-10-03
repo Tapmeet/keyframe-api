@@ -518,7 +518,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         }
                         block2VideoTxt(datas, req, res)
                         console.log('there success');
-                    }, 500);
+                    }, 600);
                     
                 })
                 .mergeToFile('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4');
@@ -535,7 +535,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
             }
 
-            //commands.addInput(datas.file)
+            commands.addInput(datas.file)
             ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
                 .complexFilter([
                     'scale=1920:1080[rescaled]',
