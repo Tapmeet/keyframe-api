@@ -535,8 +535,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
             }
             console.log(datas)
-            //commands.addInput(datas.file)
-            ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
+            commands.addInput('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
+            //ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
                 .complexFilter([
                     'scale=1920:1080[rescaled]',
                     {
