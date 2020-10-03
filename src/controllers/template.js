@@ -539,7 +539,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             }
             console.log(datas);
             console.log(datas.block.blockData.squareFeetTitle);
-            const squareFeet = datas.block.blockData.squareFeetTitle;
+            var squareFeet = datas.block.blockData.squareFeetTitle;
             commands.input('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
                 //ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
                 .complexFilter([
