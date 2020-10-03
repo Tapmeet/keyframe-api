@@ -542,7 +542,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             console.log(selectedfonts);
             commands.input('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
                 //ffmpeg('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
-                .videoFilter([
+                .complexFilter([
                     'scale=1920:1080[checked]',
                     {
                         filter: 'drawbox',
