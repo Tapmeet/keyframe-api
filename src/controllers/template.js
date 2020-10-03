@@ -556,7 +556,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         {
                             filter: 'drawtext',
                             options: {
-                                fontfile: selectedfonts,
+                                fontfile: selectedfontsLight,
                                 text: datas.block.blockData.squareFeetTitle,
                                 fontsize: parseInt(datas.block.blockData.blocksubTitleFontsize) + 15,
                                 fontcolor: titleColor,
