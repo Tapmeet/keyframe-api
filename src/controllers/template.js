@@ -765,48 +765,49 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
 
 
 async function mergeVideos(data, req, res) {
-    // try {
-    //     const Createdvideo = await concat({
-    //         output: './src/Assets/template/videos/' + userId + '/template1/finalmerged.mp4',
-    //         videos: [
-    //             data.video1,
-    //             data.video2,
-    //         ],
-    //         transitions: [
-    //             {
-    //                 name: 'circleOpen',
-    //                 duration: 1000
-    //             },
-    //         ]
-    //     })
-
-    //     if (typeof Createdvideo == 'undefined') {
-    //         res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/finalmerged.mp4' });
-    //         // console.log(commandLine);
-    //         console.log("successhere");
-    //         return;
-    //     }
-    // }
-    // catch {
-    //     res.status(500).json({ message: 'video failed' });
-    // }
-
-    var command = new ffmpeg();
-    command.input(data.video1);
-    command.input(data.video2);
-    command
-        .on('start', function (commandLine) {
-            console.log('step7');
+    try {
+        const Createdvideo = await concat({
+            output: './src/Assets/template/videos/' + userId + '/template1/finalmerged.mp4',
+            videos: [
+                data.video1,
+                data.video2,
+            ],
+            transitions: [
+                {
+                    name: 'directional',   
+                    params: { direction: [1.0, 0.0] },
+                    duration: 1000
+                },
+            ]
         })
-        .on("error", function (er) {
-            console.log('step7 errr');
-            console.log(er);
-            res.status(200).json({ message: 'Video failed' });
-            return
-        })
-        .on("end", function () {
+
+        if (typeof Createdvideo == 'undefined') {
             res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/finalmerged.mp4' });
-            return
-        })
-        .mergeToFile('./src/Assets/template/videos/' + userId + '/template1/finalmerged.mp4');
+            // console.log(commandLine);
+            console.log("successhere");
+            return;
+        }
+    }
+    catch {
+        res.status(500).json({ message: 'video failed' });
+    }
+
+    // var command = new ffmpeg();
+    // command.input(data.video1);
+    // command.input(data.video2);
+    // command
+    //     .on('start', function (commandLine) {
+    //         console.log('step7');
+    //     })
+    //     .on("error", function (er) {
+    //         console.log('step7 errr');
+    //         console.log(er);
+    //         res.status(200).json({ message: 'Video failed' });
+    //         return
+    //     })
+    //     .on("end", function () {
+    //         res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/finalmerged.mp4' });
+    //         return
+    //     })
+    //     .mergeToFile('./src/Assets/template/videos/' + userId + '/template1/finalmerged.mp4');
 }
