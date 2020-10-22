@@ -394,7 +394,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 })
                 .on("end", function (commandLine) {
                     if (typeof block2 != 'undefined') {
-                        block3Video(block3, req, res)
+                        block2Video(block2, req, res)
                     } else {
                         res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block-1-text-video.mp4' });
                         console.log("success");
@@ -847,7 +847,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                                     video1: video1,
                                     video2: video2
                                 }
-                                mergeBlock2Videos(data, req, res)
+                                mergeBlock3Videos(data, req, res)
                             }, 500);
                         }
                         i = i + 1;
@@ -882,7 +882,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                                     video1: video1,
                                     video2: video2
                                 }
-                                mergeBlock2Videos(data, req, res)
+                                mergeBlock3Videos(data, req, res)
                             }, 500);
                         }
 
@@ -891,7 +891,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             }
             k = k + 1;
         })
-        async function mergeBlock2Videos(data, req, res) {
+        async function mergeBlock3Videos(data, req, res) {
             try {
                 const Createdvideo = await concat({
                     output: './src/Assets/template/videos/' + userId + '/template1/block3merged.mp4',
@@ -986,9 +986,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     .save('./src/Assets/template/videos/' + userId + '/template1/block3FinalVideo.mp4')
                     .on('start', function (commandLine) {
                         console.log('step6');
-                    })
+                    }) 
                     .on("error", function (er) {
-                        console.log('here');
                         res.status(200).json({ message: 'Video failed' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
@@ -1007,17 +1006,18 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                                     './src/Assets/template/videos/' + userId + '/template1/block3FinalVideo.mp4'
                                 ]
                                 mergeVideos(data, req, res)
+                                console.log(data)
                             }, 600);
                         }
-
-                    })
+ 
+                    })    
             }, 600);
         }
     }
 }
 async function mergeVideos(data, req, res) {
-    console.log('here')
     try {
+   
         const Createdvideo = await concat({
             output: './src/Assets/template/videos/' + userId + '/template1/finalmerged.mp4',
             videos:data,
@@ -1027,6 +1027,10 @@ async function mergeVideos(data, req, res) {
                     params: { direction: [1.0, 0.0] },
                     duration: 1000
                 },
+                {
+                    name: 'crossWarp',
+                    duration: 800
+                  },
             ]
         })
         if (typeof Createdvideo == 'undefined') {
@@ -1035,7 +1039,7 @@ async function mergeVideos(data, req, res) {
         }
     }
     catch {
-        res.status(500).json({ message: 'video failed' });
+        res.status(500).json({ message: 'video faileds' });
     }
 
     // var command = new ffmpeg();
