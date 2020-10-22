@@ -238,7 +238,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|0_h0|w0_0|w0_h0[out]')
                 .addOption('-map', '[out]',)
                 .addOption('-c:v', 'libx264')
-                .save('./src/Assets/template/videos/' + userId + '/template1/server-generated.mp4')
+                .save('./src/Assets/template/videos/' + userId + '/template1/block-1-video-1.mp4')
                 .on('start', function (commandLine) {
                     console.log('step1');
                 })
@@ -250,12 +250,12 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     if (block.blockData.blockTitle) {
                         var datas = {
                             block: block,
-                            file: './src/Assets/template/videos/' + userId + '/template1/server-generated.mp4'
+                            file: './src/Assets/template/videos/' + userId + '/template1/block-1-video-1.mp4'
                         }
                         block1VideoTxt(datas, req, res)
                     }
                     else {
-                        return res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/server-generated.mp4' });
+                        return res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block-1-video-1.mp4' });
                     }
                 })
         } else {
@@ -265,7 +265,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 .addOption('-map', '[out]',)
                 .addOption('-t', '5')
                 .addOption('-c:v', 'libx264')
-                .save('./src/Assets/template/videos/' + userId + '/template1/server-generated.mp4')
+                .save('./src/Assets/template/videos/' + userId + '/template1/block-1-video-1.mp4')
                 .on('start', function (commandLine) {
                     console.log('step1');
                 })
@@ -277,12 +277,12 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     if (block.blockData.blockTitle) {
                         var datas = {
                             block: block,
-                            file: './src/Assets/template/videos/' + userId + '/template1/server-generated.mp4'
+                            file: './src/Assets/template/videos/' + userId + '/template1/block-1-video-1.mp4'
                         }
                         block1VideoTxt(datas, req, res)
                     }
                     else {
-                        res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/server-generated.mp4' });
+                        res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block-1-video-1.mp4' });
                         return;
                     }
                 })
@@ -383,7 +383,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     },
                 ], 'output')
                 .addOption('-c:v', 'libx264')
-                .save('./src/Assets/template/videos/' + userId + '/template1/server-generated1.mp4')
+                .save('./src/Assets/template/videos/' + userId + '/template1/block-1-text-video.mp4')
                 .on('start', function (commandLine) {
                     console.log('step2');
                 })
@@ -394,9 +394,9 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 })
                 .on("end", function (commandLine) {
                     if (typeof block2 != 'undefined') {
-                        block2Video(block2, req, res)
+                        block3Video(block3, req, res)
                     } else {
-                        res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/server-generated1.mp4' });
+                        res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block-1-text-video.mp4' });
                         console.log("success");
                         return;
                     }
@@ -500,31 +500,62 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             k = k + 1;
         })
         async function mergeBlock2Videos(data, req, res) {
+            try {
+                const Createdvideo = await concat({
+                    output: './src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4',
+                    videos: [
+                        data.video1,
+                        data.video2,
+                    ],
+                    transitions: [
+                        {
+                            name: 'directional',
+                            params: { direction: [1.0, 0.0] },
+                            duration: 1000
+                        },
+                    ]
+                })
 
-            var command = new ffmpeg();
-            command.input(data.video1);
-            command.input(data.video2);
-            command
-                .on('start', function (commandLine) {
-                    console.log('step5');
-                })
-                .on("error", function (er) {
-                    console.log(er);
-                    res.status(200).json({ message: 'Video failed' });
-                    return
-                })
-                .on("end", function () {
-                    console.log('yhn success');
+                if (typeof Createdvideo == 'undefined') {
                     setTimeout(function () {
                         const datas = {
                             block: block2
                         }
                         block2VideoTxt(datas, req, res)
-
+                        // res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/blockmerged.mp4' });
+                        // // console.log(commandLine);
+                        // console.log("successhere");
+                        // return;
                     }, 600);
+                }
+            }
+            catch {
+                res.status(500).json({ message: 'video failed' });
+            }
+            // var command = new ffmpeg();
+            // command.input(data.video1);
+            // command.input(data.video2);
+            // command
+            //     .on('start', function (commandLine) {
+            //         console.log('step5');
+            //     })
+            //     .on("error", function (er) {
+            //         console.log(er);
+            //         res.status(200).json({ message: 'Video failed' });
+            //         return
+            //     })
+            //     .on("end", function () {
+            //         console.log('yhn success');
+            //         setTimeout(function () {
+            //             const datas = {
+            //                 block: block2
+            //             }
+            //             block2VideoTxt(datas, req, res)
 
-                })
-                .mergeToFile('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4');
+            //         }, 600);
+
+            //     })
+            //     .mergeToFile('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4');
         }
         function block2VideoTxt(datas, req, res) {
 
@@ -748,43 +779,258 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         return;
                     })
                     .on("end", function (commandLine) {
+                        if (block3) {
+                            block3Video(block3, req, res)
+                        } else {
+                            setTimeout(function () {
+                                let data = [
+                                    './src/Assets/template/videos/' + userId + '/template1/block-1-text-video.mp4',
+                                    './src/Assets/template/videos/' + userId + '/template1/block2FinalVideo.mp4',
+                                ]
+                                mergeVideos(data, req, res)
+                            }, 600);
+                        }
 
-                        setTimeout(function () {
-                            let data = {
-                                video1: './src/Assets/template/videos/' + userId + '/template1/server-generated1.mp4',
-                                video2: './src/Assets/template/videos/' + userId + '/template1/block2FinalVideo.mp4'
-                            }
-                            mergeVideos(data, req, res)
-                        }, 600);
                     })
             }, 600);
         }
     }
 
+
+    function block3Video(block2, req, res) {
+        var i = 1;
+        var k = 1;
+        var video1, video2;
+        inputs = [block2.blockData.containerOne, block2.blockData.containerTwo]
+        inputs.forEach(input => {
+            var commands = new ffmpeg();
+            if (input == block2.blockData.imageOne || input == block2.blockData.imageTwo) {
+                commands.input(assetsPath + input)
+                    .complexFilter([
+                        "scale=1080:720:force_original_aspect_ratio=decrease[rescaled]",
+                        {
+                            filter: 'zoompan',
+                            options: "z='zoom+0.0009'",
+                            inputs: "rescaled",
+                            outputs: "padded"
+                        },
+
+                    ], 'padded'
+                    )
+                    .loop(3)
+                    .addOption('-pix_fmt', 'yuv420p')
+                    .addOption('-framerate', '50')
+                    .addOption('-c:v', 'libx264')
+                    .save('./src/Assets/template/videos/' + userId + '/template1/block-3-' + k + '.mp4')
+                    .on('start', function (commandLine) {
+                        console.log('step3');
+                    })
+                    .on("error", function (er) {
+                        res.status(200).json({ message: 'Video failed' });
+                        console.log(er);
+                        return;
+                    })
+                    .on("end", function (commandLine) {
+
+                        if (typeof video1 == 'undefined') {
+                            console.log(i)
+                            video1 = './src/Assets/template/videos/' + userId + '/template1/block-3-1.mp4';
+                        }
+                        else if (typeof video2 == 'undefined') {
+                            console.log(i)
+                            video2 = './src/Assets/template/videos/' + userId + '/template1/block-3-2.mp4';
+                        }
+                        if (i == 2 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
+                            console.log('heres');
+                            setTimeout(function () {
+                                let data = {
+                                    video1: video1,
+                                    video2: video2
+                                }
+                                mergeBlock2Videos(data, req, res)
+                            }, 500);
+                        }
+                        i = i + 1;
+                    })
+            } else {
+                commands.input(assetsPath + input)
+                    .complexFilter([
+                        // Rescale input stream into stream 'rescaled'
+                        'scale=1280:720[rescaled]',
+                    ], 'rescaled')
+                    .addOption('-c:v', 'libx264')
+                    .save('./src/Assets/template/videos/' + userId + '/template1/block-3-' + k + '.mp4')
+                    .on('start', function (commandLine) {
+                        console.log('step4');
+                    })
+                    .on("error", function (er) {
+                        res.status(200).json({ message: 'Video failed' });
+                        console.log(er);
+                        // console.log("error occured: " + er.message);
+                        return;
+                    })
+                    .on("end", function (commandLine) {
+                        if (typeof video1 == 'undefined') {
+                            video1 = './src/Assets/template/videos/' + userId + '/template1/block-3-1.mp4';
+                        }
+                        else if (typeof video2 == 'undefined') {
+                            video2 = './src/Assets/template/videos/' + userId + '/template1/block-3-2.mp4';
+                        }
+                        if (i == 2 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
+                            setTimeout(function () {
+                                let data = {
+                                    video1: video1,
+                                    video2: video2
+                                }
+                                mergeBlock2Videos(data, req, res)
+                            }, 500);
+                        }
+
+                        i = i + 1;
+                    })
+            }
+            k = k + 1;
+        })
+        async function mergeBlock2Videos(data, req, res) {
+            try {
+                const Createdvideo = await concat({
+                    output: './src/Assets/template/videos/' + userId + '/template1/block3merged.mp4',
+                    videos: [
+                        data.video1,
+                        data.video2,
+                    ],
+                    transitions: [
+                        {
+                            name: 'fade',
+                            duration: 1000
+                        },
+                    ]
+                })
+
+                if (typeof Createdvideo == 'undefined') {
+                    setTimeout(function () {
+                        const datas = {
+                            block: block3
+                        }
+                        block3VideoTxt(datas, req, res)
+                        // res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block3merged.mp4' });
+                        // // console.log(commandLine);
+                        // console.log("successhere");
+                        // return;
+                    }, 600);
+                }
+            }
+            catch {
+                res.status(500).json({ message: 'video failed' });
+            }
+            // var command = new ffmpeg();
+            // command.input(data.video1);
+            // command.input(data.video2);
+            // command
+            //     .on('start', function (commandLine) {
+            //         console.log('step5');
+            //     })
+            //     .on("error", function (er) {
+            //         console.log(er);
+            //         res.status(200).json({ message: 'Video failed' });
+            //         return
+            //     })
+            //     .on("end", function () {
+            //         console.log('yhn success');
+            //         setTimeout(function () {
+            //             const datas = {
+            //                 block: block2
+            //             }
+            //             block2VideoTxt(datas, req, res)
+
+            //         }, 600);
+
+            //     })
+            //     .mergeToFile('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4');
+        }
+        function block3VideoTxt(datas, req, res) {
+
+            var commands = new ffmpeg();
+            var titleColor = datas.block.blockData.titleColor;
+            if (titleColor.lenth == '4') {
+                titleColor = titleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
+            }
+            var subtitleColor = datas.block.blockData.subtitleColor;
+            if (subtitleColor.lenth == '4') {
+                subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
+            }
+            setTimeout(function () {
+                //console.log(datas);
+                commands.input('./src/Assets/template/videos/' + userId + '/template1/block3merged.mp4')
+                    .complexFilter([
+                        'scale=1920:1080[checked]',
+                        {
+                            filter: 'drawtext',
+                            options: {
+                                fontfile: selectedfonts,
+                                text: datas.block.blockData.blockTitle,
+                                fontsize: parseInt(datas.block.blockData.blocktitleFontsize) + 15,
+                                fontcolor: titleColor,
+                                x: '20',
+                                y: 'H-th-100',
+                                box: 1,
+                                boxcolor: 'white@1',
+                                boxborderw: "50",
+                                bordercolor: 'white',
+                            },
+                            inputs: 'checked',
+                            outputs: 'output'
+                        },
+                    ], 'output')
+                    .addOption('-c:v', 'libx264')
+                    .save('./src/Assets/template/videos/' + userId + '/template1/block3FinalVideo.mp4')
+                    .on('start', function (commandLine) {
+                        console.log('step6');
+                    })
+                    .on("error", function (er) {
+                        console.log('here');
+                        res.status(200).json({ message: 'Video failed' });
+                        console.log(er);
+                        // console.log("error occured: " + er.message);
+                        return;
+                    })
+                    .on("end", function (commandLine) {
+                        // res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block3FinalVideo.mp4' });
+                        if (block4) {
+
+                        } else {
+                            setTimeout(function () {
+                                let data = [
+
+                                    './src/Assets/template/videos/' + userId + '/template1/block-1-text-video.mp4',
+                                    './src/Assets/template/videos/' + userId + '/template1/block2FinalVideo.mp4',
+                                    './src/Assets/template/videos/' + userId + '/template1/block3FinalVideo.mp4'
+                                ]
+                                mergeVideos(data, req, res)
+                            }, 600);
+                        }
+
+                    })
+            }, 600);
+        }
+    }
 }
-
-
 async function mergeVideos(data, req, res) {
+    console.log('here')
     try {
         const Createdvideo = await concat({
             output: './src/Assets/template/videos/' + userId + '/template1/finalmerged.mp4',
-            videos: [
-                data.video1,
-                data.video2,
-            ],
+            videos:data,
             transitions: [
                 {
-                    name: 'directional',   
+                    name: 'directional',
                     params: { direction: [1.0, 0.0] },
                     duration: 1000
                 },
             ]
         })
-
         if (typeof Createdvideo == 'undefined') {
             res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/finalmerged.mp4' });
-            // console.log(commandLine);
-            console.log("successhere");
             return;
         }
     }
