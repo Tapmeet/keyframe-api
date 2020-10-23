@@ -2,7 +2,7 @@
 const Template = require('../models/templates');
 const Block = require('../models/templateBlocks');
 const fs = require('fs')
-
+var gl = require('gl')(10, 10)
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 const ffmpeg = require('fluent-ffmpeg');
 var ffprobe = require('ffprobe-static');

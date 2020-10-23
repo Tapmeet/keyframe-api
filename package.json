@@ -25,6 +25,7 @@
     "ffmpeg-concat": "^1.2.3",
     "ffprobe-static": "^3.0.0",
     "fluent-ffmpeg": "^2.1.2",
+    "gl": "^4.8.0",
     "glob": "^7.1.6",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.9",
