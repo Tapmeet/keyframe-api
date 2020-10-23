@@ -166,7 +166,7 @@ exports.createVideo = async (req, res, next) => {
             let functionName = 'videoTemplate' + template.templateNumber;
             await global[functionName](data, req, res);
         } else {
-            res.status(200).json({ message: 'Video failed' });
+            res.status(200).json({ message: 'Video failed 1' });
         }
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -270,7 +270,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     console.log('step1');
                 })
                 .on("error", function (er) {
-                    res.status(200).json({ message: 'Video failed' });
+                    res.status(200).json({ message: 'Video failed 2' });
                     return
                 })
                 .on("end", function () {
@@ -388,7 +388,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     console.log('step2');
                 })
                 .on("error", function (er) {
-                    res.status(200).json({ message: 'Video failed' });
+                    res.status(200).json({ message: 'Video failed 3' });
                     console.log(er);
                     return;
                 })
@@ -434,7 +434,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         console.log('step3');
                     })
                     .on("error", function (er) {
-                        res.status(200).json({ message: 'Video failed' });
+                        res.status(200).json({ message: 'Video failed 4' });
                         console.log(er);
                         return;
                     })
@@ -449,7 +449,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                             video2 = './src/Assets/template/videos/' + userId + '/template1/block-2-2.mp4';
                         }
                         if (i == 2 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
-                            console.log('heres');
+                        //    console.log('heres');
                             setTimeout(function () {
                                 let data = {
                                     video1: video1,
@@ -472,7 +472,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         console.log('step4');
                     })
                     .on("error", function (er) {
-                        res.status(200).json({ message: 'Video failed' });
+                        res.status(200).json({ message: 'Video failed 5' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
@@ -530,7 +530,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 }
             }
             catch {
-                res.status(500).json({ message: 'video failed' });
+                res.status(500).json({ message: 'video failed 6' });
             }
             // var command = new ffmpeg();
             // command.input(data.video1);
@@ -773,7 +773,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     })
                     .on("error", function (er) {
                         console.log('here');
-                        res.status(200).json({ message: 'Video failed' });
+                        res.status(200).json({ message: 'Video failed 7' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
@@ -826,7 +826,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         console.log('step3');
                     })
                     .on("error", function (er) {
-                        res.status(200).json({ message: 'Video failed' });
+                        res.status(200).json({ message: 'Video failed 8' });
                         console.log(er);
                         return;
                     })
@@ -864,7 +864,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         console.log('step4');
                     })
                     .on("error", function (er) {
-                        res.status(200).json({ message: 'Video failed' });
+                        res.status(200).json({ message: 'Video failed 9' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
@@ -921,7 +921,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 }
             }
             catch {
-                res.status(500).json({ message: 'video failed' });
+                res.status(500).json({ message: 'video failed 10' });
             }
             // var command = new ffmpeg();
             // command.input(data.video1);
@@ -988,7 +988,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         console.log('step6');
                     }) 
                     .on("error", function (er) {
-                        res.status(200).json({ message: 'Video failed' });
+                        res.status(200).json({ message: 'Video failed 11' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
@@ -1039,7 +1039,7 @@ async function mergeVideos(data, req, res) {
         }
     }
     catch {
-        res.status(500).json({ message: 'video faileds' });
+        res.status(500).json({ message: 'video faileds 12' });
     }
 
     // var command = new ffmpeg();
