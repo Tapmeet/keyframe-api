@@ -166,7 +166,7 @@ exports.createVideo = async (req, res, next) => {
             let functionName = 'videoTemplate' + template.templateNumber;
             await global[functionName](data, req, res);
         } else {
-            res.status(200).json({ message: 'Video failed 1' });
+            res.status(200).json({ message: 'Video failed' });
         }
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -270,7 +270,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     console.log('step1');
                 })
                 .on("error", function (er) {
-                    res.status(200).json({ message: 'Video failed 2' });
+                    res.status(200).json({ message: 'Video failed' });
                     return
                 })
                 .on("end", function () {
@@ -388,7 +388,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     console.log('step2');
                 })
                 .on("error", function (er) {
-                    res.status(200).json({ message: 'Video failed 3' });
+                    res.status(200).json({ message: 'Video failed' });
                     console.log(er);
                     return;
                 })
@@ -434,7 +434,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         console.log('step3');
                     })
                     .on("error", function (er) {
-                        res.status(200).json({ message: 'Video failed 4' });
+                        res.status(200).json({ message: 'Video failed' });
                         console.log(er);
                         return;
                     })
@@ -472,7 +472,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         console.log('step4');
                     })
                     .on("error", function (er) {
-                        res.status(200).json({ message: 'Video failed 5' });
+                        res.status(200).json({ message: 'Video failed' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
@@ -530,7 +530,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 }
             }
             catch {
-                res.status(500).json({ message: 'video failed 6' });
+                res.status(500).json({ message: 'video failed' });
             }
             // var command = new ffmpeg();
             // command.input(data.video1);
@@ -773,7 +773,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     })
                     .on("error", function (er) {
                         console.log('here');
-                        res.status(200).json({ message: 'Video failed 7' });
+                        res.status(200).json({ message: 'Video failed' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
@@ -814,7 +814,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 }
             }
             catch {
-                res.status(500).json({ message: 'video faileds 15' });
+                res.status(500).json({ message: 'video failed' });
             }
 
         }
@@ -850,7 +850,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         console.log('step3');
                     })
                     .on("error", function (er) {
-                        res.status(200).json({ message: 'Video failed 8' });
+                        res.status(200).json({ message: 'Video failed' });
                         console.log(er);
                         return;
                     })
@@ -888,7 +888,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         console.log('step4');
                     })
                     .on("error", function (er) {
-                        res.status(200).json({ message: 'Video failed 9' });
+                        res.status(200).json({ message: 'Video failed' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
@@ -945,7 +945,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 }
             }
             catch {
-                res.status(500).json({ message: 'video failed 10' });
+                res.status(500).json({ message: 'Video failed' });
             }
             // var command = new ffmpeg();
             // command.input(data.video1);
@@ -1012,7 +1012,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         console.log('step6');
                     })
                     .on("error", function (er) {
-                        res.status(200).json({ message: 'Video failed 11' });
+                        res.status(200).json({ message: 'Video failed' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
