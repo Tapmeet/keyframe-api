@@ -1072,15 +1072,16 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     return
                 })
                 .on("end", function () {
-                    console.log('yhn success');
-                    setTimeout(function () {
-                        const datas = {
-                            block: block2
-                        }
-                        block2VideoTxt(datas, req, res)
+                    // console.log('yhn success');
+                    // setTimeout(function () {
+                    //     const datas = {
+                    //         block: block2
+                    //     }
+                    //     block2VideoTxt(datas, req, res)
 
-                    }, 600);
-
+                    // }, 600);
+                    res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block3video.mp4' });
+                    //             return;
                 })
                 .mergeToFile('./src/Assets/template/videos/' + userId + '/template1/block3video.mp4');
         }
