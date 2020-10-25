@@ -995,6 +995,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                                 text: datas.block.blockData.blockTitle,
                                 fontsize: parseInt(datas.block.blockData.blocktitleFontsize) + 15,
                                 fontcolor: titleColor,
+                                line_spacing:30,
                                 x: '20',
                                 y: 'H-th-100',
                                 box: 1,
