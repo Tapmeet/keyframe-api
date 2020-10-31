@@ -798,8 +798,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     videos: data,
                     transitions: [
                         {
-                            name: 'directional',
-                            params: { direction: [1.0, 0.0] },
+                            name: 'fade',
+                    
                             duration: 1000
                         },
                     ]
