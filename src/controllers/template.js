@@ -207,7 +207,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             if (block.blockData.imageFour == '' && block.blockData.containerFour != '') {
                 videoCheck = 1;
             }
-            block1Video([container1, container2, container3, container4], videoCheck, block)
+             block1Video([container1, container2, container3, container4], videoCheck, block)
 
         }
         if (block.blockId == 2) {
@@ -217,10 +217,10 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         if (block.blockId == 3) {
             block3 = block;
         }
-        // if (block.blockId == 4) {
-        //     block4 = block;
-        //     block4Video(block4, req, res)
-        // }
+        if (block.blockId == 4) {
+            block4 = block;
+            //block4Video(block4, req, res)
+        }
     });
     async function block1Video(inputs, videoCheck, block) {
         let videoChecks = videoCheck;
@@ -1156,7 +1156,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 .addOption('-c:v', 'libx264')
                 .save('./src/Assets/template/videos/' + userId + '/template1/block4video1.mp4')
                 .on('start', function (commandLine) {
-                    console.log('step6');
+                    console.log('step62');
                 })
                 .on("error", function (er) {
                     res.status(200).json({ message: 'Video failed' });
@@ -1165,9 +1165,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     return;
                 })
                 .on("end", function (commandLine) {
-                    res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block4video1.mp4' });
-                    console.log('step6');
-
+                    block4video2(block4, req, res)
                 })
         }
         else {
@@ -1214,7 +1212,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 .addOption('-c:v', 'libx264')
                 .save('./src/Assets/template/videos/' + userId + '/template1/block4video1.mp4')
                 .on('start', function (commandLine) {
-                    console.log('step6');
+                    console.log('step6 here');
                 })
                 .on("error", function (er) {
                     res.status(200).json({ message: 'Video failed' });
@@ -1223,10 +1221,352 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     return;
                 })
                 .on("end", function (commandLine) {
-                    res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block4video1.mp4' });
-                    console.log('step6');
-
+                    block4video2(block4, req, res)
                 })
         }
+
+        function block4video2(block4, req, res) {
+            var commands = new ffmpeg();
+            if (block4.blockData.containerTwo == block4.blockData.imageTwo) {
+                console.log('here')
+                commands.input(assetsPath + block4.blockData.imageTwo)
+                    .complexFilter([
+                        'scale=1080:800[checked]',
+                    ], 'checked')
+                    .loop(4)
+                    .addOption('-pix_fmt', 'yuv420p')
+                    .addOption('-framerate', '50')
+                    .addOption('-c:v', 'libx264')
+                    .save('./src/Assets/template/videos/' + userId + '/template1/block4video2.mp4')
+                    .on('start', function (commandLine) {
+                        console.log('step7');
+                    })
+                    .on("error", function (er) {
+                        res.status(200).json({ message: 'Video failed' });
+                        console.log(er);
+                        // console.log("error occured: " + er.message);
+                        return;
+                    })
+                    .on("end", function (commandLine) {
+                        let data = {
+                            video1: './src/Assets/template/videos/' + userId + '/template1/block4video1.mp4',
+                            video2: './src/Assets/template/videos/' + userId + '/template1/block4video2.mp4'
+                        }
+                        mergeBlock4Videos1(data, req, res)
+                    })
+            }
+            else {
+                commands.input(assetsPath + block4.blockData.imageTwo)
+                    .complexFilter([
+                        'scale=1080:800[checked]',
+                    ], 'checked')
+                    .loop(4)
+                    .addOption('-pix_fmt', 'yuv420p')
+                    .addOption('-framerate', '50')
+                    .addOption('-c:v', 'libx264')
+                    .save('./src/Assets/template/videos/' + userId + '/template1/block4video2.mp4')
+                    .on('start', function (commandLine) {
+                        console.log('step7');
+                    })
+                    .on("error", function (er) {
+                        res.status(200).json({ message: 'Video failed' });
+                        console.log(er);
+                        // console.log("error occured: " + er.message);
+                        return;
+                    })
+                    .on("end", function (commandLine) {
+
+                        let data = {
+                            video1: './src/Assets/template/videos/' + userId + '/template1/block4video1.mp4',
+                            video2: './src/Assets/template/videos/' + userId + '/template1/block4video2.mp4'
+                        }
+                        mergeBlock4Videos1(data, req, res)
+
+                    })
+            }
+        }
+        async function mergeBlock4Videos1(data) {
+            console.log(data)
+            try {
+                const Createdvideo = await concat({
+                    output: './src/Assets/template/videos/' + userId + '/template1/block4merged1.mp4',
+                    videos: [
+                        data.video1,
+                        data.video2,
+                    ],
+                    transitions: [
+                        {
+                            name: 'directional',
+                            params: { direction: [0, 1] },
+                            duration: 1000
+                        },
+                    ]
+                })
+                block4video3(block4, req, res)
+            }
+            catch {
+                res.status(500).json({ message: 'Video failed' });
+            }
+        }
+        function block4video3(block4, req, res) {
+            var commands = new ffmpeg();
+            if (block4.blockData.containerThree == block4.blockData.imageThree) {
+                commands.input(assetsPath + block4.blockData.containerThree)
+                    .complexFilter([
+                        'scale=1080:800[checked]',
+                    ], 'checked')
+                    .loop(5)
+                    .addOption('-pix_fmt', 'yuv420p')
+                    .addOption('-framerate', '50')
+                    .addOption('-c:v', 'libx264')
+                    .save('./src/Assets/template/videos/' + userId + '/template1/block4video3.mp4')
+                    .on('start', function (commandLine) {
+                        console.log('step7');
+                    })
+                    .on("error", function (er) {
+                        res.status(200).json({ message: 'Video failed' });
+                        console.log(er);
+                        // console.log("error occured: " + er.message);
+                        return;
+                    })
+                    .on("end", function (commandLine) {
+                        block4video4(block4, req, res)
+                    })
+            }
+            else {
+                commands.input(assetsPath + block4.blockData.containerThree)
+                    .complexFilter([
+                        'scale=1080:800[checked]',
+                    ], 'checked')
+                    .loop(4)
+                    .addOption('-pix_fmt', 'yuv420p')
+                    .addOption('-framerate', '50')
+                    .addOption('-c:v', 'libx264')
+                    .save('./src/Assets/template/videos/' + userId + '/template1/block4video3.mp4')
+                    .on('start', function (commandLine) {
+                        console.log('step7');
+                    })
+                    .on("error", function (er) {
+                        res.status(200).json({ message: 'Video failed' });
+                        console.log(er);
+                        // console.log("error occured: " + er.message);
+                        return;
+                    })
+                    .on("end", function (commandLine) {
+                        block4video4(block4, req, res)
+                    })
+            }
+        }
+        function block4video4(block4, req, res) {
+            var commands = new ffmpeg();
+            var result = block4.blockData.blocksubTitle.split(" ");
+            var text = '';
+            for (var i = 0; i < result.length; i++) {
+                if (i == 5) {
+                    text = text + result[i] + ' \n ';
+                }
+                else {
+                    text = text + result[i] + ' ';
+                }
+
+            }
+            var titleColor = block4.blockData.titleColor;
+            if (titleColor.lenth == '4') {
+                titleColor = titleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
+            }
+            var subtitleColor = block4.blockData.subtitleColor;
+            if (subtitleColor.lenth == '4') {
+                subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
+            }
+            if (block4.blockData.containerFour == block4.blockData.imageFour) {
+
+                commands.input(assetsPath + block4.blockData.containerFour)
+                    .complexFilter([
+                        'scale=1080:800[checked]',
+                        {
+                            filter: 'drawbox',
+                            options: {
+                                x: 0,
+                                y: '640',
+                                height: 200,
+                                width: 1080,
+                                color: 'white',
+                                t: 'fill',
+
+                            },
+                            inputs: 'checked',
+                            outputs: 'output1',
+
+                        },
+                        {
+                            filter: 'drawtext',
+                            options: {
+                                fontfile: selectedfontsLight,
+                                text: text,
+                                fontsize: parseInt(block4.blockData.blocksubTitleFontsize) + 15,
+                                fontcolor: titleColor,
+                                line_spacing: 20,
+                                x: '50',
+                                y: 'H-th - 20',
+                                box: 1,
+                                boxcolor: 'white@1',
+                                boxborderw: "30",
+                                bordercolor: 'white',
+                                enable: 'gte(t,1)'
+                            },
+                            inputs: 'output1',
+                            outputs: 'output'
+                        },
+                    ], 'output')
+                    .loop(4)
+                    .addOption('-pix_fmt', 'yuv420p')
+                    .addOption('-framerate', '50')
+                    .addOption('-c:v', 'libx264')
+                    .save('./src/Assets/template/videos/' + userId + '/template1/block4video4.mp4')
+                    .on('start', function (commandLine) {
+                        console.log('step62');
+                    })
+                    .on("error", function (er) {
+                        res.status(200).json({ message: 'Video failed' });
+                        console.log(er);
+                        // console.log("error occured: " + er.message);
+                        return;
+                    })
+                    .on("end", function (commandLine) {
+                        let data = {
+                            video1: './src/Assets/template/videos/' + userId + '/template1/block4video3.mp4',
+                            video2: './src/Assets/template/videos/' + userId + '/template1/block4video4.mp4'
+                        }
+                        mergeBlock4Videos2(data, req, res)
+                    })
+            }
+            else {
+                commands.input(assetsPath + block4.blockData.containerFour)
+                    .complexFilter([
+                        'scale=1080:800[checked]',
+                        {
+                            filter: 'drawbox',
+                            options: {
+                                x: 0,
+                                y: '640',
+                                height: 200,
+                                width: 1080,
+                                color: 'white',
+                                t: 'fill',
+
+                            },
+                            inputs: 'checked',
+                            outputs: 'output1',
+
+                        },
+                        {
+                            filter: 'drawtext',
+                            options: {
+                                fontfile: selectedfontsLight,
+                                text: text,
+                                fontsize: parseInt(block4.blockData.blocksubTitleFontsize) + 15,
+                                fontcolor: titleColor,
+                                line_spacing: 20,
+                                x: '50',
+                                y: 'H-th - 20',
+                                box: 1,
+                                boxcolor: 'white@1',
+                                boxborderw: "30",
+                                bordercolor: 'white',
+                                enable: 'gte(t,1)'
+                            },
+                            inputs: 'output1',
+                            outputs: 'output'
+                        },
+                    ], 'output')
+                    .addOption('-pix_fmt', 'yuv420p')
+                    .addOption('-framerate', '50')
+                    .addOption('-c:v', 'libx264')
+                    .save('./src/Assets/template/videos/' + userId + '/template1/block4video4.mp4')
+                    .on('start', function (commandLine) {
+                        console.log('step6 here');
+                    })
+                    .on("error", function (er) {
+                        res.status(200).json({ message: 'Video failed' });
+                        console.log(er);
+                        // console.log("error occured: " + er.message);
+                        return;
+                    })
+                    .on("end", function (commandLine) {
+                        let data = {
+                            video1: './src/Assets/template/videos/' + userId + '/template1/block4video3.mp4',
+                            video2: './src/Assets/template/videos/' + userId + '/template1/block4video4.mp4'
+                        }
+                        mergeBlock4Videos2(data, req, res)
+                    })
+            }
+        }
+        async function mergeBlock4Videos2(data) {
+
+            try {
+                const Createdvideo = await concat({
+                    output: './src/Assets/template/videos/' + userId + '/template1/block4merged2.mp4',
+                    videos: [
+                        data.video1,
+                        data.video2,
+                    ],
+                    transitions: [
+                        {
+                            name: 'directional',
+                            params: { direction: [0, 1] },
+                            duration: 1000
+                        },
+                    ]
+                })
+                block4Finalmerged(data, req, res)
+            }
+            catch {
+                res.status(500).json({ message: 'Video failed' });
+            }
+        }
+        async function block4Finalmerged(block4, req, res) {
+            var command = new ffmpeg();
+            console.log('heree')
+            command.input('./src/Assets/template/videos/' + userId + '/template1/block4merged1.mp4');
+            command.input('./src/Assets/template/videos/' + userId + '/template1/block4merged2.mp4');
+            command
+                .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=1190:1070,pad=1200:1080:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=1190:1070,pad=1200:1080:5:5:white [a1];[a0][a1]xstack=inputs=2:layout=0_0|w0_0[out]')
+                .addOption('-map', '[out]',)
+                .addOption('-c:v', 'libx264')
+                .save('./src/Assets/template/videos/' + userId + '/template1/block4Finalvideo.mp4')
+                .on('start', function (commandLine) {
+                    console.log(commandLine);
+                })
+                .on("error", function (er) {
+                    console.log(er);
+                    res.status(200).json({ message: 'Video failed' });
+                    return
+                })
+                .on("end", function () {
+                    finalmerged(block4, req, res)
+                })
+        }
+        async function finalmerged(block4, req, res) {
+            try {
+                const Createdvideo = await concat({
+                    output: './src/Assets/template/videos/' + userId + '/template1/mergedBlock4.mp4',
+                    videos: [
+                        './src/Assets/template/videos/' + userId + '/template1/block3video.mp4',
+                        './src/Assets/template/videos/' + userId + '/template1/block4Finalvideo.mp4',
+                    ],
+                    transitions: [
+                        {
+                            name: 'fade',
+                            duration: 1000
+                        },
+                    ]
+                })
+                res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/mergedBlock4.mp4' });
+            }
+            catch {
+                res.status(500).json({ message: 'Video failed' });
+            }
+
+        }
     }
-}
+} 
