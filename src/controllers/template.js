@@ -1523,7 +1523,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         },
                     ]
                 })
-                block4Finalmerged(data, req, res)
+                block4Finalmerged(block4, req, res)
             }
             catch {
                 res.status(500).json({ message: 'Video failed 23' });
