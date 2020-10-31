@@ -443,11 +443,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     .on("end", function (commandLine) {
 
                         if (typeof video1 == 'undefined') {
-                            console.log(i)
+                           // console.log(i)
                             video1 = './src/Assets/template/videos/' + userId + '/template1/block-2-1.mp4';
                         }
                         else if (typeof video2 == 'undefined') {
-                            console.log(i)
+                           // console.log(i)
                             video2 = './src/Assets/template/videos/' + userId + '/template1/block-2-2.mp4';
                         }
                         if (i == 2 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
@@ -857,7 +857,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         return;
                     })
                     .on("end", function (commandLine) {
-
+                        console.log(video1)
+                        console.log(video2)
                         if (typeof video1 == 'undefined') {
                             console.log(i)
                             video1 = './src/Assets/template/videos/' + userId + '/template1/block-3-1.mp4';
