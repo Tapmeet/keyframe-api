@@ -826,7 +826,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         var commands = new ffmpeg();
         var i = 1;
         var k = 1;
-        var video1, video2;
+        let video1, video2;
         inputs = [block2.blockData.containerOne, block2.blockData.containerTwo]
         inputs.forEach(input => {
 
