@@ -207,20 +207,20 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             if (block.blockData.imageFour == '' && block.blockData.containerFour != '') {
                 videoCheck = 1;
             }
-             block1Video([container1, container2, container3, container4], videoCheck, block)
+            block1Video([container1, container2, container3, container4], videoCheck, block)
 
         }
         if (block.blockId == 2) {
-              block2 = block;
+            block2 = block;
 
         }
         if (block.blockId == 3) {
             block3 = block;
         }
-        if (block.blockId == 4) {
-            block4 = block;
-            //block4Video(block4, req, res)
-        }
+        // if (block.blockId == 4) {
+        //     block4 = block;
+        //     block4Video(block4, req, res)
+        // }
     });
     async function block1Video(inputs, videoCheck, block) {
         let videoChecks = videoCheck;
@@ -977,17 +977,6 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         function block3VideoTxt(datas, req, res) {
 
             var commands = new ffmpeg();
-            var result = datas.block.blockData.blockTitle.split(" ");
-            var text = '';
-            for (var i = 0; i < result.length; i++) {
-                if (i == 4) {
-                    text = text + result[i] + ' \n ';
-                }
-                else {
-                    text = text + result[i] + ' ';
-                }
-    
-            }
             var titleColor = datas.block.blockData.titleColor;
             if (titleColor.lenth == '4') {
                 titleColor = titleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
@@ -1005,7 +994,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                             filter: 'drawtext',
                             options: {
                                 fontfile: selectedfonts,
-                                text: result,
+                                text: datas.block.blockData.blockTitle,
                                 fontsize: parseInt(datas.block.blockData.blocktitleFontsize) + 15,
                                 fontcolor: titleColor,
                                 line_spacing: 30,
