@@ -831,6 +831,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         inputs.forEach(input => {
 
             if (input == block2.blockData.imageOne || input == block2.blockData.imageTwo) {
+                console.log(k)
                 commands.input(assetsPath + input)
                     .complexFilter([
                         "scale=1080:720:force_original_aspect_ratio=decrease[rescaled]",
@@ -857,8 +858,6 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         return;
                     })
                     .on("end", function (commandLine) {
-                        console.log(video1)
-                        console.log(video2)
                         if (typeof video1 == 'undefined') {
                             console.log(i)
                             video1 = './src/Assets/template/videos/' + userId + '/template1/block-3-1.mp4';
