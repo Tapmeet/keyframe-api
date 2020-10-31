@@ -302,7 +302,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             }
             ffmpeg(datas.file)
                 .complexFilter([
-                    'scale=1920:1080[rescaled]',
+                    'scale=1920:1084[rescaled]',
                     {
                         filter: 'drawbox',
                         options: {
@@ -793,7 +793,6 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         }
         async function mergeVideos(data, req, res) {
             try {
-
                 const Createdvideo = await concat({
                     output: './src/Assets/template/videos/' + userId + '/template1/block2finalVideo.mp4',
                     videos: data,
@@ -824,12 +823,13 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
 
 
     function block3Video(block2, req, res) {
+        var commands = new ffmpeg();
         var i = 1;
         var k = 1;
         var video1, video2;
         inputs = [block2.blockData.containerOne, block2.blockData.containerTwo]
         inputs.forEach(input => {
-            var commands = new ffmpeg();
+           
             if (input == block2.blockData.imageOne || input == block2.blockData.imageTwo) {
                 commands.input(assetsPath + input)
                     .complexFilter([
@@ -1531,11 +1531,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         }
         async function block4Finalmerged(block4, req, res) {
             var command = new ffmpeg();
-            console.log('heree')
+
             command.input('./src/Assets/template/videos/' + userId + '/template1/block4merged1.mp4');
             command.input('./src/Assets/template/videos/' + userId + '/template1/block4merged2.mp4');
             command
-                .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=1190:1070,pad=1200:1080:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=1190:1070,pad=1200:1080:5:5:white [a1];[a0][a1]xstack=inputs=2:layout=0_0|w0_0[out]')
+                .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=950:1070,pad=960:1080:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=950:1070,pad=960:1080:5:5:white [a1];[a0][a1]xstack=inputs=2:layout=0_0|w0_0[out]')
                 .addOption('-map', '[out]',)
                 .addOption('-c:v', 'libx264')
                 .save('./src/Assets/template/videos/' + userId + '/template1/block4Finalvideo.mp4')
