@@ -207,21 +207,21 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             if (block.blockData.imageFour == '' && block.blockData.containerFour != '') {
                 videoCheck = 1;
             }
-             block1Video([container1, container2, container3, container4], videoCheck, block)
+            // block1Video([container1, container2, container3, container4], videoCheck, block)
 
         }
         if (block.blockId == 2) {
-              block2 = block;
+            //  block2 = block;
 
         }
-        if (block.blockId == 3) {
-            block3 = block;
+        // if (block.blockId == 3) {
+        //     block3 = block;
+        // }
+        if (block.blockId == 4) {
+            block4 = block;
+            block4Video(block4, req, res)
         }
-        // if (block.blockId == 4) {
-        //     block4 = block;
-        //     block4Video(block4, req, res)
-        // }  
-    }); 
+    });
     async function block1Video(inputs, videoCheck, block) {
         let videoChecks = videoCheck;
         const folderName = './src/Assets/template/videos/' + userId + '/template1'
@@ -977,6 +977,17 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         function block3VideoTxt(datas, req, res) {
 
             var commands = new ffmpeg();
+            var result = datas.block.blockData.blockTitle.split(" ");
+            var text = '';
+            for (var i = 0; i < result.length; i++) {
+                if (i == 4) {
+                    text = text + result[i] + ' \n ';
+                }
+                else {
+                    text = text + result[i] + ' ';
+                }
+    
+            }
             var titleColor = datas.block.blockData.titleColor;
             if (titleColor.lenth == '4') {
                 titleColor = titleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
@@ -994,7 +1005,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                             filter: 'drawtext',
                             options: {
                                 fontfile: selectedfonts,
-                                text: datas.block.blockData.blockTitle,
+                                text: result,
                                 fontsize: parseInt(datas.block.blockData.blocktitleFontsize) + 15,
                                 fontcolor: titleColor,
                                 line_spacing: 30,
@@ -1091,20 +1102,17 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
     }
     function block4Video(block4, req, res) {
         var commands = new ffmpeg();
-        // console.log(block4);
         var result = block4.blockData.blockTitle.split(" ");
-
         var text = '';
         for (var i = 0; i < result.length; i++) {
             if (i == 4) {
-                text = text + result[i] + ' \ ';
+                text = text + result[i] + ' \n ';
             }
             else {
                 text = text + result[i] + ' ';
             }
 
         }
-        console.log(text);
         var titleColor = block4.blockData.titleColor;
         if (titleColor.lenth == '4') {
             titleColor = titleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
@@ -1114,29 +1122,46 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
         }
         if (block4.blockData.containerOne == block4.blockData.imageOne) {
+
             commands.input(assetsPath + block4.blockData.containerOne)
                 .complexFilter([
-                    'scale=1920:1080[checked]',
+                    'scale=1080:800[checked]',
+                    {
+                        filter: 'drawbox',
+                        options: {
+                            x: 0,
+                            y: '640',
+                            height: 200,
+                            width: 1080,
+                            color: 'white',
+                            t: 'fill',
+
+                        },
+                        inputs: 'checked',
+                        outputs: 'output1',
+
+                    },
                     {
                         filter: 'drawtext',
                         options: {
-                            fontfile: selectedfonts,
-                            text: block4.blockData.blockTitle,
+                            fontfile: selectedfontsLight,
+                            text: text,
                             fontsize: parseInt(block4.blockData.blocktitleFontsize) + 15,
                             fontcolor: titleColor,
-                            line_spacing: 30,
-                            x: '20',
-                            y: 'H-th-100',
+                            line_spacing: 20,
+                            x: '50',
+                            y: 'H-th - 20',
                             box: 1,
                             boxcolor: 'white@1',
-                            boxborderw: "50",
+                            boxborderw: "30",
                             bordercolor: 'white',
+                            enable: 'gte(t,1)'
                         },
-                        inputs: 'checked',
+                        inputs: 'output1',
                         outputs: 'output'
                     },
                 ], 'output')
-                .loop(3)
+                .loop(4)
                 .addOption('-pix_fmt', 'yuv420p')
                 .addOption('-framerate', '50')
                 .addOption('-c:v', 'libx264')
@@ -1157,7 +1182,62 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 })
         }
         else {
+            commands.input(assetsPath + block4.blockData.containerOne)
+                .complexFilter([
+                    'scale=1080:800[checked]',
+                    {
+                        filter: 'drawbox',
+                        options: {
+                            x: 0,
+                            y: '640',
+                            height: 200,
+                            width: 1080,
+                            color: 'white',
+                            t: 'fill',
 
+                        },
+                        inputs: 'checked',
+                        outputs: 'output1',
+
+                    },
+                    {
+                        filter: 'drawtext',
+                        options: {
+                            fontfile: selectedfontsLight,
+                            text: text,
+                            fontsize: parseInt(block4.blockData.blocktitleFontsize) + 15,
+                            fontcolor: titleColor,
+                            line_spacing: 20,
+                            x: '50',
+                            y: 'H-th - 20',
+                            box: 1,
+                            boxcolor: 'white@1',
+                            boxborderw: "30",
+                            bordercolor: 'white',
+                            enable: 'gte(t,1)'
+                        },
+                        inputs: 'output1',
+                        outputs: 'output'
+                    },
+                ], 'output')
+                .addOption('-pix_fmt', 'yuv420p')
+                .addOption('-framerate', '50')
+                .addOption('-c:v', 'libx264')
+                .save('./src/Assets/template/videos/' + userId + '/template1/block4video1.mp4')
+                .on('start', function (commandLine) {
+                    console.log('step6');
+                })
+                .on("error", function (er) {
+                    res.status(200).json({ message: 'Video failed' });
+                    console.log(er);
+                    // console.log("error occured: " + er.message);
+                    return;
+                })
+                .on("end", function (commandLine) {
+                    res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block4video1.mp4' });
+                    console.log('step6');
+
+                })
         }
     }
 }
