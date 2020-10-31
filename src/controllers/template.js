@@ -874,7 +874,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                                     video2: video2
                                 }
                                 mergeBlock3Videos(data, req, res)
-                            }, 500);
+                            }, 800);
                         }
                         i = i + 1;
                     })
@@ -909,7 +909,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                                     video2: video2
                                 }
                                 mergeBlock3Videos(data, req, res)
-                            }, 500);
+                            }, 800);
                         }
 
                         i = i + 1;
@@ -932,17 +932,12 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         },
                     ]
                 })
-
                 if (typeof Createdvideo == 'undefined') {
                     setTimeout(function () {
                         const datas = {
                             block: block3
                         }
                         block3VideoTxt(datas, req, res)
-                        // res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block3merged.mp4' });
-                        // // console.log(commandLine);
-                        // console.log("successhere");
-                        // return;
                     }, 600);
                 }
             }
