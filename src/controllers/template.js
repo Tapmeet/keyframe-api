@@ -787,7 +787,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                                 './src/Assets/template/videos/' + userId + '/template1/block2FinalVideo.mp4',
                             ]
                             mergeVideos(data, req, res)
-                        }, 600);
+                        }, 800);
                     })
             }, 600);
         }
@@ -826,7 +826,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         var commands = new ffmpeg();
         var i = 1;
         var k = 1;
-        let video1, video2;
+        var video1, video2;
         inputs = [block2.blockData.containerOne, block2.blockData.containerTwo]
         inputs.forEach(input => {
 
