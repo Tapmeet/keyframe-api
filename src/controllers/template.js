@@ -798,10 +798,10 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     videos: data,
                     transitions: [
                         {
-                            name: 'fade',
-                    
+                            name: 'directional',
+                            params: { direction: [1.0, 0.0] },
                             duration: 1000
-                        },
+                        },  
                     ]
                 })
                 if (typeof Createdvideo == 'undefined') {
