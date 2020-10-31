@@ -207,7 +207,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             if (block.blockData.imageFour == '' && block.blockData.containerFour != '') {
                 videoCheck = 1;
             }
-             block1Video([container1, container2, container3, container4], videoCheck, block)
+            block1Video([container1, container2, container3, container4], videoCheck, block)
 
         }
         if (block.blockId == 2) {
@@ -1083,8 +1083,13 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     //     block2VideoTxt(datas, req, res)
 
                     // }, 600);
-                    res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block3video.mp4' });
-                    //             return;
+                    if (block4) {
+                        block4Video(block4, req, res)
+                    }
+                    else {
+                        res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block3video.mp4' });
+                        //             return;
+                    }
                 })
                 .mergeToFile('./src/Assets/template/videos/' + userId + '/template1/block3video.mp4');
         }
