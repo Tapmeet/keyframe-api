@@ -829,7 +829,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         var video1, video2;
         inputs = [block2.blockData.containerOne, block2.blockData.containerTwo]
         inputs.forEach(input => {
-           
+
             if (input == block2.blockData.imageOne || input == block2.blockData.imageTwo) {
                 commands.input(assetsPath + input)
                     .complexFilter([
@@ -1084,7 +1084,9 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
 
                     // }, 600);
                     if (block4) {
-                        block4Video(block4, req, res)
+                        setTimeout(function () {
+                            block4Video(block4, req, res)
+                        }, 600);
                     }
                     else {
                         res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block3video.mp4' });
@@ -1119,14 +1121,14 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
 
             commands.input(assetsPath + block4.blockData.containerOne)
                 .complexFilter([
-                    'scale=1080:800[checked]',
+                    'scale=960:1080[checked]',
                     {
                         filter: 'drawbox',
                         options: {
                             x: 0,
-                            y: '640',
+                            y: '920',
                             height: 200,
-                            width: 1080,
+                            width: 960,
                             color: 'white',
                             t: 'fill',
 
@@ -1176,14 +1178,14 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         else {
             commands.input(assetsPath + block4.blockData.containerOne)
                 .complexFilter([
-                    'scale=1080:800[checked]',
+                    'scale=960:1080[checked]',
                     {
                         filter: 'drawbox',
                         options: {
                             x: 0,
-                            y: '640',
+                            y: '920',
                             height: 200,
-                            width: 1080,
+                            width: 960,
                             color: 'white',
                             t: 'fill',
 
@@ -1236,7 +1238,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 console.log('here')
                 commands.input(assetsPath + block4.blockData.imageTwo)
                     .complexFilter([
-                        'scale=1080:800[checked]',
+                        'scale=960:1080[checked]',
                     ], 'checked')
                     .loop(4)
                     .addOption('-pix_fmt', 'yuv420p')
@@ -1263,7 +1265,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             else {
                 commands.input(assetsPath + block4.blockData.imageTwo)
                     .complexFilter([
-                        'scale=1080:800[checked]',
+                        'scale=960:1080[checked]',
                     ], 'checked')
                     .loop(4)
                     .addOption('-pix_fmt', 'yuv420p')
@@ -1286,12 +1288,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                             video2: './src/Assets/template/videos/' + userId + '/template1/block4video2.mp4'
                         }
                         mergeBlock4Videos1(data, req, res)
-
                     })
             }
         }
         async function mergeBlock4Videos1(data) {
-            console.log(data)
+    
             try {
                 const Createdvideo = await concat({
                     output: './src/Assets/template/videos/' + userId + '/template1/block4merged1.mp4',
@@ -1318,7 +1319,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             if (block4.blockData.containerThree == block4.blockData.imageThree) {
                 commands.input(assetsPath + block4.blockData.containerThree)
                     .complexFilter([
-                        'scale=1080:800[checked]',
+                        'scale=960:1080[checked]',
                     ], 'checked')
                     .loop(5)
                     .addOption('-pix_fmt', 'yuv420p')
@@ -1341,7 +1342,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             else {
                 commands.input(assetsPath + block4.blockData.containerThree)
                     .complexFilter([
-                        'scale=1080:800[checked]',
+                        'scale=960:1080[checked]',
                     ], 'checked')
                     .loop(4)
                     .addOption('-pix_fmt', 'yuv420p')
@@ -1387,14 +1388,14 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
 
                 commands.input(assetsPath + block4.blockData.containerFour)
                     .complexFilter([
-                        'scale=1080:800[checked]',
+                        'scale=960:1080[checked]',
                         {
                             filter: 'drawbox',
                             options: {
                                 x: 0,
-                                y: '640',
+                                y: '920',
                                 height: 200,
-                                width: 1080,
+                                width: 960,
                                 color: 'white',
                                 t: 'fill',
 
@@ -1448,14 +1449,14 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             else {
                 commands.input(assetsPath + block4.blockData.containerFour)
                     .complexFilter([
-                        'scale=1080:800[checked]',
+                        'scale=960:1080[checked]',
                         {
                             filter: 'drawbox',
                             options: {
                                 x: 0,
-                                y: '640',
+                                y: '920',
                                 height: 200,
-                                width: 1080,
+                                width: 960,
                                 color: 'white',
                                 t: 'fill',
 
