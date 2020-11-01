@@ -236,12 +236,12 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         })
         if (videoChecks == 1) {
             command
-                .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|0_h0|w0_0|w0_h0[out]')
+                .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=950:530,pad=960:540:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=950:530,pad=960:540:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=950:530,pad=960:540:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=950:530,pad=960:540:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|0_h0|w0_0|w0_h0[out]')
                 .addOption('-map', '[out]',)
                 .addOption('-c:v', 'libx264')
                 .save('./src/Assets/template/videos/' + userId + '/template1/block-1-video-1.mp4')
                 .on('start', function (commandLine) {
-                    // console.log('step1');
+                    console.log('step1');
                 })
                 .on("error", function (er) {
                     console.log(er);
@@ -470,7 +470,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     .addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/' + userId + '/template1/block-2-' + k + '.mp4')
                     .on('start', function (commandLine) {
-                        //console.log('step4');
+                        console.log('step4');
                     })
                     .on("error", function (er) {
                         res.status(200).json({ message: 'Video failed 5' });
@@ -822,17 +822,18 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
 
 
     function block3Video(block2, req, res) {
-     
+        var commands = new ffmpeg();
         var i = 1;
         var k = 1;
         var video1, video2;
         inputs = [block2.blockData.containerOne, block2.blockData.containerTwo]
         inputs.forEach(input => {
+
             if (input == block2.blockData.imageOne || input == block2.blockData.imageTwo) {
-                var commands = new ffmpeg();
+                console.log(k)
                 commands.input(assetsPath + input)
                     .complexFilter([
-                        "scale=1280:720[rescaled]",
+                        "scale=1080:720:force_original_aspect_ratio=decrease[rescaled]",
                         {
                             filter: 'zoompan',
                             options: "z='zoom+0.0009'",
@@ -848,7 +849,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     .addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/' + userId + '/template1/block-3-' + k + '.mp4')
                     .on('start', function (commandLine) {
-                        // console.log('step3');
+                        console.log('step3');
                     })
                     .on("error", function (er) {
                         res.status(200).json({ message: 'Video failed 9' });
@@ -856,14 +857,16 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         return;
                     })
                     .on("end", function (commandLine) {
-                        console.log('here')
                         if (typeof video1 == 'undefined') {
+                            console.log(i)
                             video1 = './src/Assets/template/videos/' + userId + '/template1/block-3-1.mp4';
                         }
                         else if (typeof video2 == 'undefined') {
+                            console.log(i)
                             video2 = './src/Assets/template/videos/' + userId + '/template1/block-3-2.mp4';
                         }
                         if (i == 2 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
+                            console.log('heres');
                             setTimeout(function () {
                                 let data = {
                                     video1: video1,
@@ -927,7 +930,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                             duration: 1000
                         },
                     ]
-                }) 
+                })
                 if (typeof Createdvideo == 'undefined') {
                     setTimeout(function () {
                         const datas = {
