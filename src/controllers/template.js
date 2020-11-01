@@ -215,6 +215,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         }
         if (block.blockId == 3) {
             block3 = block;
+            //block3Video(block3, req, res)
         }
         if (block.blockId == 4) {
             block4 = block;
@@ -828,7 +829,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         var video1, video2;
         inputs = [block2.blockData.containerOne, block2.blockData.containerTwo]
         inputs.forEach(input => {
-
+            var commands = new ffmpeg();
             if (input == block2.blockData.imageOne || input == block2.blockData.imageTwo) {
                 console.log(k)
                 commands.input(assetsPath + input)
