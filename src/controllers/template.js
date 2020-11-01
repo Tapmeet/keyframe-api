@@ -208,7 +208,6 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 videoCheck = 1;
             }
             block1Video([container1, container2, container3, container4], videoCheck, block)
-
         }
         if (block.blockId == 2) {
             block2 = block;
@@ -219,7 +218,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         }
         if (block.blockId == 4) {
             block4 = block;
-            //block4Video(block4, req, res)
+            // block4Video(block4, req, res)
         }
     });
     async function block1Video(inputs, videoCheck, block) {
@@ -242,7 +241,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 .addOption('-c:v', 'libx264')
                 .save('./src/Assets/template/videos/' + userId + '/template1/block-1-video-1.mp4')
                 .on('start', function (commandLine) {
-                    console.log('step1');
+                    // console.log('step1');
                 })
                 .on("error", function (er) {
                     console.log(er);
@@ -443,11 +442,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     .on("end", function (commandLine) {
 
                         if (typeof video1 == 'undefined') {
-                           // console.log(i)
+                            // console.log(i)
                             video1 = './src/Assets/template/videos/' + userId + '/template1/block-2-1.mp4';
                         }
                         else if (typeof video2 == 'undefined') {
-                           // console.log(i)
+                            // console.log(i)
                             video2 = './src/Assets/template/videos/' + userId + '/template1/block-2-2.mp4';
                         }
                         if (i == 2 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
@@ -471,7 +470,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     .addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/' + userId + '/template1/block-2-' + k + '.mp4')
                     .on('start', function (commandLine) {
-                        console.log('step4');
+                        //console.log('step4');
                     })
                     .on("error", function (er) {
                         res.status(200).json({ message: 'Video failed 5' });
@@ -801,7 +800,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                             name: 'directional',
                             params: { direction: [1.0, 0.0] },
                             duration: 1000
-                        },  
+                        },
                     ]
                 })
                 if (typeof Createdvideo == 'undefined') {
@@ -823,18 +822,17 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
 
 
     function block3Video(block2, req, res) {
-        var commands = new ffmpeg();
+     
         var i = 1;
         var k = 1;
         var video1, video2;
         inputs = [block2.blockData.containerOne, block2.blockData.containerTwo]
         inputs.forEach(input => {
-
             if (input == block2.blockData.imageOne || input == block2.blockData.imageTwo) {
-                console.log(k)
+                var commands = new ffmpeg();
                 commands.input(assetsPath + input)
                     .complexFilter([
-                        "scale=1080:720:force_original_aspect_ratio=decrease[rescaled]",
+                        "scale=1280:720[rescaled]",
                         {
                             filter: 'zoompan',
                             options: "z='zoom+0.0009'",
@@ -850,7 +848,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     .addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/' + userId + '/template1/block-3-' + k + '.mp4')
                     .on('start', function (commandLine) {
-                        console.log('step3');
+                        // console.log('step3');
                     })
                     .on("error", function (er) {
                         res.status(200).json({ message: 'Video failed 9' });
@@ -858,16 +856,14 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         return;
                     })
                     .on("end", function (commandLine) {
+                        console.log('here')
                         if (typeof video1 == 'undefined') {
-                            console.log(i)
                             video1 = './src/Assets/template/videos/' + userId + '/template1/block-3-1.mp4';
                         }
                         else if (typeof video2 == 'undefined') {
-                            console.log(i)
                             video2 = './src/Assets/template/videos/' + userId + '/template1/block-3-2.mp4';
                         }
                         if (i == 2 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
-                            console.log('heres');
                             setTimeout(function () {
                                 let data = {
                                     video1: video1,
@@ -931,7 +927,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                             duration: 1000
                         },
                     ]
-                })
+                }) 
                 if (typeof Createdvideo == 'undefined') {
                     setTimeout(function () {
                         const datas = {
@@ -1287,7 +1283,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             }
         }
         async function mergeBlock4Videos1(data) {
-    
+
             try {
                 const Createdvideo = await concat({
                     output: './src/Assets/template/videos/' + userId + '/template1/block4merged1.mp4',
