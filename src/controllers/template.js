@@ -207,7 +207,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             if (block.blockData.imageFour == '' && block.blockData.containerFour != '') {
                 videoCheck = 1;
             }
-            block1Video([container1, container2, container3, container4], videoCheck, block)
+               block1Video([container1, container2, container3, container4], videoCheck, block)
         }
         if (block.blockId == 2) {
             block2 = block;
@@ -219,7 +219,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         }
         if (block.blockId == 4) {
             block4 = block;
-            // block4Video(block4, req, res)
+            //block4Video(block4, req, res)
         }
     });
     async function block1Video(inputs, videoCheck, block) {
@@ -302,7 +302,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             }
             ffmpeg(datas.file)
                 .complexFilter([
-                    'scale=1920:1084[rescaled]',
+                    'scale=1920:1080[rescaled]',
                     {
                         filter: 'drawbox',
                         options: {
@@ -769,12 +769,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         },
                     ], 'output')
                     .addOption('-c:v', 'libx264')
-                    .save('./src/Assets/template/videos/' + userId + '/template1/block2FinalVideo.mp4')
+                    .save('./src/Assets/template/videos/' + userId + '/template1/block2text.mp4')
                     .on('start', function (commandLine) {
                         console.log('step6');
                     })
                     .on("error", function (er) {
-                        console.log('here');
                         res.status(200).json({ message: ' 7' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
@@ -784,7 +783,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         setTimeout(function () {
                             let data = [
                                 './src/Assets/template/videos/' + userId + '/template1/block-1-text-video.mp4',
-                                './src/Assets/template/videos/' + userId + '/template1/block2FinalVideo.mp4',
+                                './src/Assets/template/videos/' + userId + '/template1/block2text.mp4',
                             ]
                             mergeVideos(data, req, res)
                         }, 800);
@@ -794,7 +793,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         async function mergeVideos(data, req, res) {
             try {
                 const Createdvideo = await concat({
-                    output: './src/Assets/template/videos/' + userId + '/template1/block2finalVideo.mp4',
+                    output: './src/Assets/template/videos/' + userId + '/template1/block2final.mp4',
                     videos: data,
                     transitions: [
                         {
@@ -809,7 +808,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         block3Video(block3, req, res)
                     }
                     else {
-                        res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block2finalVideo.mp4' });
+                        res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block2final.mp4' });
                         return;
                     }
                 }
@@ -1020,11 +1019,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         console.log('step6');
                         setTimeout(function () {
                             let data = {
-                                video1: './src/Assets/template/videos/' + userId + '/template1/block2text.mp4',
+                                video1: './src/Assets/template/videos/' + userId + '/template1/block2final.mp4',
                                 video2: './src/Assets/template/videos/' + userId + '/template1/block3FinalVideo.mp4'
                             }
                             merge3Videos(data, req, res)
-                            console.log(data)
+
                         }, 600);
 
 
@@ -1092,6 +1091,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         }
     }
     function block4Video(block4, req, res) {
+
+        console.log('step1log')
         var commands = new ffmpeg();
         var result = block4.blockData.blockTitle.split(" ");
         var text = '';
@@ -1228,6 +1229,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         }
 
         function block4video2(block4, req, res) {
+            console.log('step2log')
             var commands = new ffmpeg();
             if (block4.blockData.containerTwo == block4.blockData.imageTwo) {
                 console.log('here')
@@ -1287,7 +1289,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             }
         }
         async function mergeBlock4Videos1(data) {
-
+            console.log('step3log')
             try {
                 const Createdvideo = await concat({
                     output: './src/Assets/template/videos/' + userId + '/template1/block4merged1.mp4',
@@ -1303,13 +1305,16 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         },
                     ]
                 })
-                block4video3(block4, req, res)
+                if (typeof Createdvideo == 'undefined') {
+                    block4video3(block4, req, res)
+                }
             }
             catch {
                 res.status(500).json({ message: 'Video failed 18' });
             }
         }
         function block4video3(block4, req, res) {
+            console.log('step4log')
             var commands = new ffmpeg();
             if (block4.blockData.containerThree == block4.blockData.imageThree) {
                 commands.input(assetsPath + block4.blockData.containerThree)
@@ -1359,6 +1364,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             }
         }
         function block4video4(block4, req, res) {
+            console.log('step5log')
             var commands = new ffmpeg();
             var result = block4.blockData.blocksubTitle.split(" ");
             var text = '';
@@ -1503,7 +1509,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             }
         }
         async function mergeBlock4Videos2(data) {
-
+            console.log('step6log')
             try {
                 const Createdvideo = await concat({
                     output: './src/Assets/template/videos/' + userId + '/template1/block4merged2.mp4',
@@ -1519,13 +1525,16 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         },
                     ]
                 })
-                block4Finalmerged(block4, req, res)
+                if (typeof Createdvideo == 'undefined') {
+                    block4Finalmerged(block4, req, res)
+                }
             }
             catch {
                 res.status(500).json({ message: 'Video failed 23' });
             }
         }
         async function block4Finalmerged(block4, req, res) {
+            console.log('step7log')
             var command = new ffmpeg();
 
             command.input('./src/Assets/template/videos/' + userId + '/template1/block4merged1.mp4');
@@ -1548,6 +1557,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 })
         }
         async function finalmerged(block4, req, res) {
+            console.log('step8log')
             try {
                 const Createdvideo = await concat({
                     output: './src/Assets/template/videos/' + userId + '/template1/mergedBlock4.mp4',
@@ -1562,7 +1572,9 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         },
                     ]
                 })
-                res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/mergedBlock4.mp4' });
+                if (typeof Createdvideo == 'undefined') {
+                    res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/mergedBlock4.mp4' });
+                }
             }
             catch {
                 res.status(500).json({ message: 'Video failed 24' });
