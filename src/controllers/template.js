@@ -1020,7 +1020,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         console.log('step6');
                         setTimeout(function () {
                             let data = {
-                                video1: './src/Assets/template/videos/' + userId + '/template1/block2finalVideo.mp4',
+                                video1: './src/Assets/template/videos/' + userId + '/template1/block2text.mp4',
                                 video2: './src/Assets/template/videos/' + userId + '/template1/block3FinalVideo.mp4'
                             }
                             merge3Videos(data, req, res)
