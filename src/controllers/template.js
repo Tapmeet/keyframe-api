@@ -1550,9 +1550,9 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=950:1070,pad=960:1080:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=950:1070,pad=960:1080:5:5:white [a1];[a0][a1]xstack=inputs=2:layout=0_0|w0_0[out]')
                 .addOption('-map', '[out]',)
                 .addOption('-c:v', 'libx264')
-                .save('./src/Assets/template/videos/' + userId + '/template1/block4videofinal.mp4')
+                .save('./src/Assets/template/videos/' + userId + '/template1/block4Finalvideo.mp4')
                 .on('start', function (commandLine) {
-                    //console.log(commandLine);
+                    console.log(commandLine);
                 })
                 .on("error", function (er) {
                     console.log(er);
@@ -1567,11 +1567,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         }
         async function finalmerged(block4, req, res) {
             try {
-                const mergevideo = await concat({
+                const lastvideomerged = await concat({
                     output: './src/Assets/template/videos/' + userId + '/template1/mergedBlock4.mp4',
                     videos: [
                         './src/Assets/template/videos/' + userId + '/template1/block3video.mp4',
-                        './src/Assets/template/videos/' + userId + '/template1/block4videofinal.mp4',
+                        './src/Assets/template/videos/' + userId + '/template1/block4Finalvideo.mp4',
                     ],
                     transitions: [
                         {
@@ -1580,8 +1580,6 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         },
                     ]
                 })
-                console.log('mergevideo')
-                console.log(mergevideo)
                 res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/mergedBlock4.mp4' });
             }
             catch {
