@@ -1580,7 +1580,10 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         },
                     ]
                 })
-                res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/mergedBlock4.mp4' });
+                if (typeof lastvideomerged == 'undefined') {
+                    res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/mergedBlock4.mp4' });
+                }
+               
             }
             catch {
                 res.status(500).json({ message: 'Video failed 25' });
