@@ -215,11 +215,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         }
         if (block.blockId == 3) {
             block3 = block;
-            block3Video(block3, req, res)
+            //block3Video(block3, req, res)
         }
         if (block.blockId == 4) {
             block4 = block;
-            block4Video(block4, req, res)
+            //block4Video(block4, req, res)
         }
     });
     async function block1Video(inputs, videoCheck, block) {
