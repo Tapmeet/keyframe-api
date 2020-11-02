@@ -237,7 +237,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         })
         if (videoChecks == 1) {
             command
-                .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=950:530,pad=960:540:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=950:530,pad=960:540:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=950:530,pad=960:540:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=950:530,pad=960:540:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|0_h0|w0_0|w0_h0[out]')
+                .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=950:530,pad=960:540:4:4:white [a0];[1:v] setpts=PTS-STARTPTS, scale=950:530,pad=960:540:4:4:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=950:530,pad=960:540:4:4:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=950:530,pad=960:540:4:4:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|0_h0|w0_0|w0_h0[out]')
                 .addOption('-map', '[out]',)
                 .addOption('-c:v', 'libx264')
                 .save('./src/Assets/template/videos/' + userId + '/template1/block-1-video-1.mp4')
@@ -1590,4 +1590,4 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
 
         }
     }
-}  
+} 
