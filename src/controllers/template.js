@@ -1590,4 +1590,4 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
 
         }
     }
-} 
+}  
