@@ -1567,7 +1567,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         }
         async function finalmerged(block4, req, res) {
             try {
-                const Createdvideos = await concat({
+                const mergevideo = await concat({
                     output: './src/Assets/template/videos/' + userId + '/template1/mergedBlock4.mp4',
                     videos: [
                         './src/Assets/template/videos/' + userId + '/template1/block3video.mp4',
@@ -1580,6 +1580,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         },
                     ]
                 })
+                console.log('mergevideo')
+                console.log(mergevideo)
                 res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/mergedBlock4.mp4' });
             }
             catch {
