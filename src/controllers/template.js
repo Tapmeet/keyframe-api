@@ -211,13 +211,15 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         }
         if (block.blockId == 2) {
             block2 = block;
-            // block2Video(block2, req, res)
+
         }
         if (block.blockId == 3) {
             block3 = block;
+            //block3Video(block3, req, res)
         }
         if (block.blockId == 4) {
             block4 = block;
+            //block4Video(block4, req, res)
         }
     });
     async function block1Video(inputs, videoCheck, block) {
@@ -235,7 +237,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         })
         if (videoChecks == 1) {
             command
-                .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|0_h0|w0_0|w0_h0[out]')
+                .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=950:530,pad=960:540:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=950:530,pad=960:540:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=950:530,pad=960:540:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=950:530,pad=960:540:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|0_h0|w0_0|w0_h0[out]')
                 .addOption('-map', '[out]',)
                 .addOption('-c:v', 'libx264')
                 .save('./src/Assets/template/videos/' + userId + '/template1/block-1-video-1.mp4')
@@ -270,7 +272,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     console.log('step1');
                 })
                 .on("error", function (er) {
-                    res.status(200).json({ message: 'Video failed' });
+                    res.status(200).json({ message: 'Video failed 2' });
                     return
                 })
                 .on("end", function () {
@@ -388,7 +390,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     console.log('step2');
                 })
                 .on("error", function (er) {
-                    res.status(200).json({ message: 'Video failed' });
+                    res.status(200).json({ message: 'Video failed 3' });
                     console.log(er);
                     return;
                 })
@@ -434,18 +436,18 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         console.log('step3');
                     })
                     .on("error", function (er) {
-                        res.status(200).json({ message: 'Video failed' });
+                        res.status(200).json({ message: 'Video failed 4' });
                         console.log(er);
                         return;
                     })
                     .on("end", function (commandLine) {
 
                         if (typeof video1 == 'undefined') {
-                            console.log(i)
+                            // console.log(i)
                             video1 = './src/Assets/template/videos/' + userId + '/template1/block-2-1.mp4';
                         }
                         else if (typeof video2 == 'undefined') {
-                            console.log(i)
+                            // console.log(i)
                             video2 = './src/Assets/template/videos/' + userId + '/template1/block-2-2.mp4';
                         }
                         if (i == 2 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
@@ -472,7 +474,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         console.log('step4');
                     })
                     .on("error", function (er) {
-                        res.status(200).json({ message: 'Video failed' });
+                        res.status(200).json({ message: 'Video failed 5' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
@@ -530,7 +532,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 }
             }
             catch {
-                res.status(500).json({ message: 'video failed' });
+                res.status(500).json({ message: 'video failed 6' });
             }
             // var command = new ffmpeg();
             // command.input(data.video1);
@@ -767,13 +769,12 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         },
                     ], 'output')
                     .addOption('-c:v', 'libx264')
-                    .save('./src/Assets/template/videos/' + userId + '/template1/block2FinalVideo.mp4')
+                    .save('./src/Assets/template/videos/' + userId + '/template1/block2text.mp4')
                     .on('start', function (commandLine) {
                         console.log('step6');
                     })
                     .on("error", function (er) {
-                        console.log('here');
-                        res.status(200).json({ message: 'Video failed' });
+                        res.status(200).json({ message: ' 7' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
@@ -782,18 +783,17 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         setTimeout(function () {
                             let data = [
                                 './src/Assets/template/videos/' + userId + '/template1/block-1-text-video.mp4',
-                                './src/Assets/template/videos/' + userId + '/template1/block2FinalVideo.mp4',
+                                './src/Assets/template/videos/' + userId + '/template1/block2text.mp4',
                             ]
                             mergeVideos(data, req, res)
-                        }, 600);
+                        }, 800);
                     })
             }, 600);
         }
         async function mergeVideos(data, req, res) {
             try {
-
                 const Createdvideo = await concat({
-                    output: './src/Assets/template/videos/' + userId + '/template1/block2finalVideo.mp4',
+                    output: './src/Assets/template/videos/' + userId + '/template1/block2final.mp4',
                     videos: data,
                     transitions: [
                         {
@@ -808,13 +808,13 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         block3Video(block3, req, res)
                     }
                     else {
-                        res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block2finalVideo.mp4' });
+                        res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block2final.mp4' });
                         return;
                     }
                 }
             }
             catch {
-                res.status(500).json({ message: 'video failed' });
+                res.status(500).json({ message: 'video failed 8' });
             }
 
         }
@@ -822,6 +822,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
 
 
     function block3Video(block2, req, res) {
+        var commands = new ffmpeg();
         var i = 1;
         var k = 1;
         var video1, video2;
@@ -829,6 +830,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         inputs.forEach(input => {
             var commands = new ffmpeg();
             if (input == block2.blockData.imageOne || input == block2.blockData.imageTwo) {
+                console.log(k)
                 commands.input(assetsPath + input)
                     .complexFilter([
                         "scale=1080:720:force_original_aspect_ratio=decrease[rescaled]",
@@ -850,12 +852,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         console.log('step3');
                     })
                     .on("error", function (er) {
-                        res.status(200).json({ message: 'Video failed' });
+                        res.status(200).json({ message: 'Video failed 9' });
                         console.log(er);
                         return;
                     })
                     .on("end", function (commandLine) {
-
                         if (typeof video1 == 'undefined') {
                             console.log(i)
                             video1 = './src/Assets/template/videos/' + userId + '/template1/block-3-1.mp4';
@@ -872,7 +873,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                                     video2: video2
                                 }
                                 mergeBlock3Videos(data, req, res)
-                            }, 500);
+                            }, 800);
                         }
                         i = i + 1;
                     })
@@ -888,7 +889,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         console.log('step4');
                     })
                     .on("error", function (er) {
-                        res.status(200).json({ message: 'Video failed' });
+                        res.status(200).json({ message: 'Video failed 10' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
@@ -907,7 +908,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                                     video2: video2
                                 }
                                 mergeBlock3Videos(data, req, res)
-                            }, 500);
+                            }, 800);
                         }
 
                         i = i + 1;
@@ -930,22 +931,17 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         },
                     ]
                 })
-
                 if (typeof Createdvideo == 'undefined') {
                     setTimeout(function () {
                         const datas = {
                             block: block3
                         }
                         block3VideoTxt(datas, req, res)
-                        // res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block3merged.mp4' });
-                        // // console.log(commandLine);
-                        // console.log("successhere");
-                        // return;
                     }, 600);
                 }
             }
             catch {
-                res.status(500).json({ message: 'Video failed' });
+                res.status(500).json({ message: 'Video failed 11' });
             }
             // var command = new ffmpeg();
             // command.input(data.video1);
@@ -983,6 +979,17 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             if (subtitleColor.lenth == '4') {
                 subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
             }
+            var result = datas.block.blockData.blockTitle.split(" ");
+            var text = '';
+            for (var i = 0; i < result.length; i++) {
+                if (i == 3) {
+                    text = text + result[i] + ' \n ';
+                }
+                else {
+                    text = text + result[i] + ' ';
+                }
+
+            }
             setTimeout(function () {
                 //console.log(datas);
                 commands.input('./src/Assets/template/videos/' + userId + '/template1/block3merged.mp4')
@@ -992,10 +999,10 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                             filter: 'drawtext',
                             options: {
                                 fontfile: selectedfonts,
-                                text: datas.block.blockData.blockTitle,
+                                text: text,
                                 fontsize: parseInt(datas.block.blockData.blocktitleFontsize) + 15,
                                 fontcolor: titleColor,
-                                line_spacing:30,
+                                line_spacing: 30,
                                 x: '20',
                                 y: 'H-th-100',
                                 box: 1,
@@ -1013,7 +1020,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         console.log('step6');
                     })
                     .on("error", function (er) {
-                        res.status(200).json({ message: 'Video failed' });
+                        res.status(200).json({ message: 'Video failed 12' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
@@ -1023,11 +1030,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         console.log('step6');
                         setTimeout(function () {
                             let data = {
-                                video1: './src/Assets/template/videos/' + userId + '/template1/block2finalVideo.mp4',
+                                video1: './src/Assets/template/videos/' + userId + '/template1/block2final.mp4',
                                 video2: './src/Assets/template/videos/' + userId + '/template1/block3FinalVideo.mp4'
                             }
                             merge3Videos(data, req, res)
-                            console.log(data)
+
                         }, 600);
 
 
@@ -1069,7 +1076,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 })
                 .on("error", function (er) {
                     console.log(er);
-                    res.status(200).json({ message: 'Video failed' });
+                    res.status(200).json({ message: 'Video failed 13' });
                     return
                 })
                 .on("end", function () {
@@ -1081,8 +1088,15 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     //     block2VideoTxt(datas, req, res)
 
                     // }, 600);
-                    res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block3video.mp4' });
-                    //             return;
+                    if (block4) {
+                        setTimeout(function () {
+                            block4Video(block4, req, res)
+                        }, 600);
+                    }
+                    else {
+                        res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block3video.mp4' });
+                        //             return;
+                    }
                 })
                 .mergeToFile('./src/Assets/template/videos/' + userId + '/template1/block3video.mp4');
         }
