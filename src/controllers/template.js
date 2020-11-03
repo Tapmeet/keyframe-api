@@ -207,7 +207,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             if (block.blockData.imageFour == '' && block.blockData.containerFour != '') {
                 videoCheck = 1;
             }
-          //  block1Video([container1, container2, container3, container4], videoCheck, block)
+            block1Video([container1, container2, container3, container4], videoCheck, block)
         }
         if (block.blockId == 2) {
             block2 = block;
@@ -219,7 +219,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         }
         if (block.blockId == 4) {
             block4 = block;
-            block4Video(block4, req, res)
+            //block4Video(block4, req, res)
         }
     });
     async function block1Video(inputs, videoCheck, block) {
@@ -1000,7 +1000,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                             options: {
                                 fontfile: selectedfonts,
                                 text: text,
-                                fontsize: parseInt(datas.block.blockData.blocktitleFontsize) + 15,
+                                fontsize: parseInt(datas.block.blockData.blocktitleFontsize) + 25,
                                 fontcolor: titleColor,
                                 line_spacing: 30,
                                 x: '20',
