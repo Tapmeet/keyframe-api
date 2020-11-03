@@ -1566,55 +1566,61 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 })
         }
         async function finalmerged(block4, req, res) {
-            try {
-                const lastvideomerged = await concat({
-                    output: './src/Assets/template/videos/' + userId + '/template1/mergedBlock4.mp4',
-                    videos: [
-                        './src/Assets/template/videos/' + userId + '/template1/block3video.mp4',
-                        './src/Assets/template/videos/' + userId + '/template1/block4Finalvideo.mp4',
-                    ],
-                    transitions: [
-                        {
-                            name: 'fade',
-                            duration: 1000
-                        },
-                    ]
-                })
-                if (typeof lastvideomerged == 'undefined') {
-                    lastmerged(block4, req, res)
-                    
-                }
-               
-            }
-            catch {
-                res.status(500).json({ message: 'Video failed 25' });
-            }
+            // try {
+            //     const lastvideomerged = await concat({
+            //         output: './src/Assets/template/videos/' + userId + '/template1/mergedBlock4.mp4',
+            //         videos: [
+            //             './src/Assets/template/videos/' + userId + '/template1/block3video.mp4',
+            //             './src/Assets/template/videos/' + userId + '/template1/block4Finalvideo.mp4',
+            //         ],
+            //         transitions: [
+            //             {
+            //                 name: 'fade',
+            //                 duration: 1000
+            //             },
+            //         ]
+            //     })
+            //     if (typeof lastvideomerged == 'undefined') {
+            //         res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/mergedBlock4.mp4' });
+            //     }
 
-        }
-        async function lastmerged(block4, req, res) {
-            try {
-                const lastvideomerged = await concat({
-                    output: './src/Assets/template/videos/' + userId + '/template1/mergedBlock4last.mp4',
-                    videos: [
-                        './src/Assets/template/videos/' + userId + '/template1/block3video.mp4',
-                        './src/Assets/template/videos/' + userId + '/template1/block4Finalvideo.mp4',
-                    ],
-                    transitions: [
-                        {
-                            name: 'fade',
-                            duration: 1000
-                        },
-                    ]
+            // }
+            // catch {
+            //     res.status(500).json({ message: 'Video failed 25' });
+            // }
+            var command = new ffmpeg();
+            command.input('./src/Assets/template/videos/' + userId + '/template1/block3video.mp4');
+            command.input('./src/Assets/template/videos/' + userId + '/template1/block4Finalvideo.mp4');
+            command
+                .on('start', function (commandLine) {
+                    console.log('step5');
                 })
-                if (typeof lastvideomerged == 'undefined') {
-                    res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/mergedBlock4.mp4' });
-                }
-               
-            }
-            catch {
-                res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/mergedBlock4.mp4' });
-            }
+                .on("error", function (er) {
+                    console.log(er);
+                    res.status(200).json({ message: 'Video failed 13' });
+                    return
+                })
+                .on("end", function () {
+                    // console.log('yhn success');
+                    // setTimeout(function () {
+                    //     const datas = {
+                    //         block: block2
+                    //     }
+                    //     block2VideoTxt(datas, req, res)
 
+                    // }, 600);
+                    if (block4) {
+                        setTimeout(function () {
+                            block4Video(block4, req, res)
+                        }, 600);
+                    }
+                    else {
+                        res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/mergedBlock4.mp4' });
+                        //             return;
+                    }
+                })
+                .mergeToFile('./src/Assets/template/videos/' + userId + '/template1/mergedBlock4.mp4');
         }
+
     }
 } 
