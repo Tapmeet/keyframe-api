@@ -207,7 +207,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             if (block.blockData.imageFour == '' && block.blockData.containerFour != '') {
                 videoCheck = 1;
             }
-            block1Video([container1, container2, container3, container4], videoCheck, block)
+          //  block1Video([container1, container2, container3, container4], videoCheck, block)
         }
         if (block.blockId == 2) {
             block2 = block;
@@ -219,7 +219,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         }
         if (block.blockId == 4) {
             block4 = block;
-            //block4Video(block4, req, res)
+            block4Video(block4, req, res)
         }
     });
     async function block1Video(inputs, videoCheck, block) {
@@ -1565,7 +1565,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     }, 600);
                 })
         }
-        async function finalmerged(block4, req, res) {
+         function finalmerged(block4, req, res) {
             // try {
             //     const lastvideomerged = await concat({
             //         output: './src/Assets/template/videos/' + userId + '/template1/mergedBlock4.mp4',
@@ -1609,15 +1609,10 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     //     block2VideoTxt(datas, req, res)
 
                     // }, 600);
-                    if (block4) {
-                        setTimeout(function () {
-                            block4Video(block4, req, res)
-                        }, 600);
-                    }
-                    else {
+                  
                         res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/mergedBlock4.mp4' });
                         //             return;
-                    }
+                    
                 })
                 .mergeToFile('./src/Assets/template/videos/' + userId + '/template1/mergedBlock4.mp4');
         }
