@@ -1581,12 +1581,38 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     ]
                 })
                 if (typeof lastvideomerged == 'undefined') {
-                    res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/mergedBlock4.mp4' });
+                    lastmerged(block4, req, res)
+                    
                 }
                
             }
             catch {
                 res.status(500).json({ message: 'Video failed 25' });
+            }
+
+        }
+        async function lastmerged(block4, req, res) {
+            try {
+                const lastvideomerged = await concat({
+                    output: './src/Assets/template/videos/' + userId + '/template1/mergedBlock4last.mp4',
+                    videos: [
+                        './src/Assets/template/videos/' + userId + '/template1/block3video.mp4',
+                        './src/Assets/template/videos/' + userId + '/template1/block4Finalvideo.mp4',
+                    ],
+                    transitions: [
+                        {
+                            name: 'fade',
+                            duration: 1000
+                        },
+                    ]
+                })
+                if (typeof lastvideomerged == 'undefined') {
+                    res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/mergedBlock4.mp4' });
+                }
+               
+            }
+            catch {
+                res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/mergedBlock4.mp4' });
             }
 
         }
