@@ -15,7 +15,7 @@ const templatesBlocksSchema = new mongoose.Schema({
     },
     blockData: {
         type: Object,
-        required: true,
+
     },
 
 }, {timestamps: true});

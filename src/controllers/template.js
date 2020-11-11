@@ -48,6 +48,105 @@ exports.upload = async (req, res, next) => {
     }
 };
 
+/** @route Delete block
+*   @desc Delete block
+*   @access Public
+*/
+exports.deleteBlock = async function (req, res) {
+    try {
+        const id = req.query.blockId;
+        const templateId = req.query.templateId;
+        const block = await Block.findOneAndDelete({ blockId: id, templateId: templateId });
+        console.log(block);
+        if (typeof block.blockData != 'undefined' && typeof block.blockData.containerOne != 'undefined') {
+            let path = './src/Assets/' + block.blockData.containerOne
+            fs.unlink(path, (err) => {
+                if (err) {
+                    console.error(err)
+                    return
+                }
+            })
+        }
+        if (typeof block.blockData != 'undefined' && typeof block.blockData.containerTwo != 'undefined'){
+            let path = './src/Assets/' + block.blockData.containerTwo
+            fs.unlink(path, (err) => {
+                if (err) {
+                    console.error(err)
+                    return
+                }
+            })
+        }
+        if (typeof block.blockData != 'undefined' && typeof block.blockData.containerThree != 'undefined') {
+            let path = './src/Assets/' + block.blockData.containerThree
+            fs.unlink(path, (err) => {
+                if (err) {
+                    console.error(err)
+                    return
+                }
+            })
+        }
+        if (typeof block.blockData != 'undefined' && typeof block.blockData.containerFour != 'undefined'){
+            let path = './src/Assets/' + block.blockData.containerFour
+            fs.unlink(path, (err) => {
+                if (err) {
+                    console.error(err)
+                    return
+                }
+            })
+        }
+
+        res.status(200).json({ message: 'Block has been deleted' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
+//Upload
+exports.getTemplate = async (req, res, next) => {
+
+    const { userId } = req.query;
+    const { templateNumber } = req.query;
+    try {
+        const datas = Template.aggregate([
+            {
+                $match: { userId: userId, templateNumber: templateNumber }
+            },
+            {
+                "$project": {
+                    "_id": {
+                        "$toString": "$_id"
+                    },
+                    "userId": "$userId",
+                    "templateNumber": "$templateNumber",
+                    "globalFontTitle": "$globalFontTitle",
+                    "globalFontSubTitle": "$globalFontSubTitle",
+                    "globaltitleColor": "$globaltitleColor",
+                    "globalsubtitleColor": "$globalsubtitleColor",
+                    "globalfontFamily": "$globalfontFamily",
+
+                }
+
+            },
+            {
+                $lookup:
+                {
+                    from: `templateblocks`,
+                    localField: "_id",
+                    foreignField: "templateId",
+                    as: "blocks"
+                }
+            }
+        ], function (err, data) {
+            if (err)
+                throw err;
+            res.status(200).json({ message: 'Template Data', data: data });
+        });
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 /**
  * @function  addTemplate used to create new Event
  * @route POST /api/template/add-template
@@ -1565,7 +1664,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     }, 600);
                 })
         }
-         function finalmerged(block4, req, res) {
+        function finalmerged(block4, req, res) {
             // try {
             //     const lastvideomerged = await concat({
             //         output: './src/Assets/template/videos/' + userId + '/template1/mergedBlock4.mp4',
@@ -1609,10 +1708,10 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     //     block2VideoTxt(datas, req, res)
 
                     // }, 600);
-                  
-                        res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/mergedBlock4.mp4' });
-                        //             return;
-                    
+
+                    res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/mergedBlock4.mp4' });
+                    //             return;
+
                 })
                 .mergeToFile('./src/Assets/template/videos/' + userId + '/template1/mergedBlock4.mp4');
         }

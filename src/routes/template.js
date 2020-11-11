@@ -21,6 +21,8 @@ router.post('/add-image/upload', upload.single('image'), template.upload);
 router.post('/add-template', template.addTemplate);
 router.post('/add-block', template.addBlock);
 router.post('/create-videos', template.createVideo);
+router.get('/get-template', template.getTemplate);
+router.delete('/delete-block/', template.deleteBlock);
 module.exports = router;
 
 
