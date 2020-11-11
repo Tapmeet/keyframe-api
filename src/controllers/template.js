@@ -1,4 +1,3 @@
-
 const Template = require('../models/templates');
 const Block = require('../models/templateBlocks');
 const fs = require('fs')
@@ -21,14 +20,14 @@ const glob = require('glob')
 
 var assetsPath = './src/Assets/';
 var fonts = [
-    { family: "'Montserrat', sans-serif", file: "./src/Assets/fonts/Montserrat-Regular.ttf", light: "./src/Assets/fonts/Montserrat-Light.ttf" },
-    { family: "'Lato', sans-serif", file: "./src/Assets/fonts/Lato-Regular.ttf", light: "./src/Assets/fonts/Lato-Light.ttf" },
-    { family: "'Oswald', sans-serif", file: "./src/Assets/fonts/Oswald-Regular.ttf", light: "./src/Assets/fonts/Oswald-Light.ttf" },
-    { family: "'Roboto', sans-serif", file: "./src/Assets/fonts/Roboto-Regular.ttf", light: "./src/Assets/fonts/Roboto-Light.ttf" },
-    { family: "'Noto Serif', serif", file: "./src/Assets/fonts/NotoSerif-Regular.ttf", light: "./src/Assets/fonts/NotoSerif-Regular.ttf" },
-]
-//Upload
-exports.upload = async (req, res, next) => {
+        { family: "'Montserrat', sans-serif", file: "./src/Assets/fonts/Montserrat-Regular.ttf", light: "./src/Assets/fonts/Montserrat-Light.ttf" },
+        { family: "'Lato', sans-serif", file: "./src/Assets/fonts/Lato-Regular.ttf", light: "./src/Assets/fonts/Lato-Light.ttf" },
+        { family: "'Oswald', sans-serif", file: "./src/Assets/fonts/Oswald-Regular.ttf", light: "./src/Assets/fonts/Oswald-Light.ttf" },
+        { family: "'Roboto', sans-serif", file: "./src/Assets/fonts/Roboto-Regular.ttf", light: "./src/Assets/fonts/Roboto-Light.ttf" },
+        { family: "'Noto Serif', serif", file: "./src/Assets/fonts/NotoSerif-Regular.ttf", light: "./src/Assets/fonts/NotoSerif-Regular.ttf" },
+    ]
+    //Upload
+exports.upload = async(req, res, next) => {
     try {
 
         const file = req.file;
@@ -39,8 +38,7 @@ exports.upload = async (req, res, next) => {
             if (filePath) {
                 res.status(200).json({ message: filePath });
             }
-        }
-        else {
+        } else {
             res.status(500).json({ message: error.message });
         }
     } catch (error) {
@@ -49,15 +47,14 @@ exports.upload = async (req, res, next) => {
 };
 
 /** @route Delete block
-*   @desc Delete block
-*   @access Public
-*/
-exports.deleteBlock = async function (req, res) {
+ *   @desc Delete block
+ *   @access Public
+ */
+exports.deleteBlock = async function(req, res) {
     try {
         const id = req.query.blockId;
         const templateId = req.query.templateId;
         const block = await Block.findOneAndDelete({ blockId: id, templateId: templateId });
-        console.log(block);
         if (typeof block.blockData != 'undefined' && typeof block.blockData.containerOne != 'undefined') {
             let path = './src/Assets/' + block.blockData.containerOne
             fs.unlink(path, (err) => {
@@ -67,7 +64,7 @@ exports.deleteBlock = async function (req, res) {
                 }
             })
         }
-        if (typeof block.blockData != 'undefined' && typeof block.blockData.containerTwo != 'undefined'){
+        if (typeof block.blockData != 'undefined' && typeof block.blockData.containerTwo != 'undefined') {
             let path = './src/Assets/' + block.blockData.containerTwo
             fs.unlink(path, (err) => {
                 if (err) {
@@ -85,7 +82,7 @@ exports.deleteBlock = async function (req, res) {
                 }
             })
         }
-        if (typeof block.blockData != 'undefined' && typeof block.blockData.containerFour != 'undefined'){
+        if (typeof block.blockData != 'undefined' && typeof block.blockData.containerFour != 'undefined') {
             let path = './src/Assets/' + block.blockData.containerFour
             fs.unlink(path, (err) => {
                 if (err) {
@@ -103,13 +100,12 @@ exports.deleteBlock = async function (req, res) {
 
 
 //Upload
-exports.getTemplate = async (req, res, next) => {
+exports.getTemplate = async(req, res, next) => {
 
     const { userId } = req.query;
     const { templateNumber } = req.query;
     try {
-        const datas = Template.aggregate([
-            {
+        const datas = Template.aggregate([{
                 $match: { userId: userId, templateNumber: templateNumber }
             },
             {
@@ -129,15 +125,14 @@ exports.getTemplate = async (req, res, next) => {
 
             },
             {
-                $lookup:
-                {
+                $lookup: {
                     from: `templateblocks`,
                     localField: "_id",
                     foreignField: "templateId",
                     as: "blocks"
                 }
             }
-        ], function (err, data) {
+        ], function(err, data) {
             if (err)
                 throw err;
             res.status(200).json({ message: 'Template Data', data: data });
@@ -152,22 +147,20 @@ exports.getTemplate = async (req, res, next) => {
  * @route POST /api/template/add-template
  * @desc Add Event 
  * @access Admin
-*/
-exports.addTemplate = async (req, res, next) => {
+ */
+exports.addTemplate = async(req, res, next) => {
     try {
         const { userId } = req.body;
         const { templateNumber } = req.body;
         const template = await Template.findOne({ userId: userId, templateNumber: templateNumber });
         var tempateData;
         if (!template) {
-            const newTemplate = new Template({ ...req.body });
+            const newTemplate = new Template({...req.body });
             tempateData = await newTemplate.save();
             res.status(200).json({ message: 'Template successfully created', data: tempateData });
-        }
-        else {
+        } else {
             tempateData = await Template.findOneAndUpdate({ templateNumber: templateNumber, userId: userId }, { $set: req.body }, { new: true, useFindAndModify: false });
-            const datas = Template.aggregate([
-                {
+            const datas = Template.aggregate([{
                     $match: { userId: userId, templateNumber: templateNumber }
                 },
                 {
@@ -187,15 +180,14 @@ exports.addTemplate = async (req, res, next) => {
 
                 },
                 {
-                    $lookup:
-                    {
+                    $lookup: {
                         from: `templateblocks`,
                         localField: "_id",
                         foreignField: "templateId",
                         as: "blocks"
                     }
                 }
-            ], function (err, data) {
+            ], function(err, data) {
                 if (err)
                     throw err;
                 res.status(200).json({ message: 'Template successfully created', data: data });
@@ -211,8 +203,8 @@ exports.addTemplate = async (req, res, next) => {
  * @route POST /api/template/add-block
  * @desc Add Event 
  * @access Admin
-*/
-exports.addBlock = async (req, res, next) => {
+ */
+exports.addBlock = async(req, res, next) => {
 
     try {
         const { userId } = req.body;
@@ -223,10 +215,9 @@ exports.addBlock = async (req, res, next) => {
         await Template.findOneAndUpdate({ templateNumber: templateNumber, userId: userId }, { $set: req.body }, { new: true, useFindAndModify: false });
         var tempateData;
         if (!templateBlock) {
-            const newTemplate = new Block({ ...req.body, templateId: templateId });
+            const newTemplate = new Block({...req.body, templateId: templateId });
             tempateData = await newTemplate.save();
-        }
-        else {
+        } else {
             tempateData = await Block.findOneAndUpdate({ templateId: templateId, blockId: blockId }, { $set: req.body }, { new: true, useFindAndModify: false });
         }
         res.status(200).json({ message: 'Template successfully created', data: tempateData });
@@ -241,17 +232,17 @@ exports.addBlock = async (req, res, next) => {
  * @route POST /api/template/create-videos
  * @desc Add Event 
  * @access Admin
-*/
-exports.createVideo = async (req, res, next) => {
+ */
+exports.createVideo = async(req, res, next) => {
     const { templateId } = req.body;
     try {
         const templateBlock = await Block.find({ templateId: templateId });
         const template = await Template.findOne({ _id: templateId });
         const data = {
-            templateBlock: templateBlock,
-            template: template
-        }
-        // console.log(template)
+                templateBlock: templateBlock,
+                template: template
+            }
+            // console.log(template)
         userId = template.userId
         if (templateBlock) {
             const folderName = './src/Assets/template/videos/' + userId
@@ -280,7 +271,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
 
     var selectedfonts;
     var selectedfontsLight;
-    fonts.map(function (font) {
+    fonts.map(function(font) {
         if (font.family == fontfamily) {
             selectedfonts = font.file;
             selectedfontsLight = font.light;
@@ -288,8 +279,9 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
     })
 
     var numberOfBlocks = data.templateBlock.length;
-    data.templateBlock.map(function (block) {
+    data.templateBlock.map(function(block) {
         if (block.blockId == 1) {
+            console.log(block.blockData.containerTwo)
             var container1, container2, container3, container4, videoCheck;
             if (block.blockData.containerOne) {
                 container1 = './src/Assets/' + block.blockData.containerOne;
@@ -308,15 +300,16 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             }
             block1Video([container1, container2, container3, container4], videoCheck, block)
         }
-        if (block.blockId == 2) {
+        if (block.blockId == 2 ) {
+           
             block2 = block;
-
+           
         }
-        if (block.blockId == 3) {
+        if (block.blockId == 3 ) {
             block3 = block;
-            //block3Video(block3, req, res)
+            //block3Video(block3, req, res) 
         }
-        if (block.blockId == 4) {
+        if (block.blockId == 4 ) {
             block4 = block;
             //block4Video(block4, req, res)
         }
@@ -337,25 +330,24 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         if (videoChecks == 1) {
             command
                 .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=950:530,pad=960:540:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=950:530,pad=960:540:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=950:530,pad=960:540:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=950:530,pad=960:540:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|0_h0|w0_0|w0_h0[out]')
-                .addOption('-map', '[out]',)
+                .addOption('-map', '[out]', )
                 .addOption('-c:v', 'libx264')
                 .save('./src/Assets/template/videos/' + userId + '/template1/block-1-video-1.mp4')
-                .on('start', function (commandLine) {
+                .on('start', function(commandLine) {
                     console.log('step1');
                 })
-                .on("error", function (er) {
+                .on("error", function(er) {
                     console.log(er);
                     console.log("error occured: " + er.message);
                 })
-                .on("end", function () {
+                .on("end", function() {
                     if (block.blockData.blockTitle) {
                         var datas = {
                             block: block,
                             file: './src/Assets/template/videos/' + userId + '/template1/block-1-video-1.mp4'
                         }
                         block1VideoTxt(datas, req, res)
-                    }
-                    else {
+                    } else {
                         return res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block-1-video-1.mp4' });
                     }
                 })
@@ -363,26 +355,26 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             command
                 .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|w0_0|0_h0|w0_h0[out]')
                 .loop('5')
-                .addOption('-map', '[out]',)
+                .addOption('-map', '[out]', )
                 .addOption('-t', '5')
                 .addOption('-c:v', 'libx264')
                 .save('./src/Assets/template/videos/' + userId + '/template1/block-1-video-1.mp4')
-                .on('start', function (commandLine) {
+                .on('start', function(commandLine) {
                     console.log('step1');
                 })
-                .on("error", function (er) {
-                    res.status(200).json({ message: 'Video failed 2' });
+                .on("error", function(er) {
+                    res.status(200).json({ message: 'Video failed' });
                     return
                 })
-                .on("end", function () {
+                .on("end", function() {
+                 
                     if (block.blockData.blockTitle) {
                         var datas = {
                             block: block,
                             file: './src/Assets/template/videos/' + userId + '/template1/block-1-video-1.mp4'
                         }
                         block1VideoTxt(datas, req, res)
-                    }
-                    else {
+                    } else {
                         res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block-1-video-1.mp4' });
                         return;
                     }
@@ -485,16 +477,17 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 ], 'output')
                 .addOption('-c:v', 'libx264')
                 .save('./src/Assets/template/videos/' + userId + '/template1/block-1-text-video.mp4')
-                .on('start', function (commandLine) {
+                .on('start', function(commandLine) {
                     console.log('step2');
                 })
-                .on("error", function (er) {
+                .on("error", function(er) {
                     res.status(200).json({ message: 'Video failed 3' });
                     console.log(er);
                     return;
-                })
-                .on("end", function (commandLine) {
-                    if (typeof block2 != 'undefined') {
+                }) 
+                .on("end", function(commandLine) {
+                    
+                    if (typeof block2 != 'undefined' && typeof block2.blockData != 'undefined') {
                         block2Video(block2, req, res)
                     } else {
                         res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block-1-text-video.mp4' });
@@ -524,34 +517,32 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                             outputs: "padded"
                         },
 
-                    ], 'padded'
-                    )
+                    ], 'padded')
                     .loop(3)
                     .addOption('-pix_fmt', 'yuv420p')
                     .addOption('-framerate', '50')
                     .addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/' + userId + '/template1/block-2-' + k + '.mp4')
-                    .on('start', function (commandLine) {
+                    .on('start', function(commandLine) {
                         console.log('step3');
                     })
-                    .on("error", function (er) {
+                    .on("error", function(er) {
                         res.status(200).json({ message: 'Video failed 4' });
                         console.log(er);
                         return;
                     })
-                    .on("end", function (commandLine) {
+                    .on("end", function(commandLine) {
 
                         if (typeof video1 == 'undefined') {
                             // console.log(i)
                             video1 = './src/Assets/template/videos/' + userId + '/template1/block-2-1.mp4';
-                        }
-                        else if (typeof video2 == 'undefined') {
+                        } else if (typeof video2 == 'undefined') {
                             // console.log(i)
                             video2 = './src/Assets/template/videos/' + userId + '/template1/block-2-2.mp4';
                         }
                         if (i == 2 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
                             //    console.log('heres');
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 let data = {
                                     video1: video1,
                                     video2: video2
@@ -569,24 +560,23 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     ], 'rescaled')
                     .addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/' + userId + '/template1/block-2-' + k + '.mp4')
-                    .on('start', function (commandLine) {
+                    .on('start', function(commandLine) {
                         console.log('step4');
                     })
-                    .on("error", function (er) {
+                    .on("error", function(er) {
                         res.status(200).json({ message: 'Video failed 5' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
                     })
-                    .on("end", function (commandLine) {
+                    .on("end", function(commandLine) {
                         if (typeof video1 == 'undefined') {
                             video1 = './src/Assets/template/videos/' + userId + '/template1/block-2-1.mp4';
-                        }
-                        else if (typeof video2 == 'undefined') {
+                        } else if (typeof video2 == 'undefined') {
                             video2 = './src/Assets/template/videos/' + userId + '/template1/block-2-2.mp4';
                         }
                         if (i == 2 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 let data = {
                                     video1: video1,
                                     video2: video2
@@ -608,29 +598,26 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         data.video1,
                         data.video2,
                     ],
-                    transitions: [
-                        {
-                            name: 'directional',
-                            params: { direction: [1.0, 0.0] },
-                            duration: 1000
-                        },
-                    ]
+                    transitions: [{
+                        name: 'directional',
+                        params: { direction: [1.0, 0.0] },
+                        duration: 1000
+                    }, ]
                 })
 
                 if (typeof Createdvideo == 'undefined') {
-                    setTimeout(function () {
+                    setTimeout(function() {
                         const datas = {
                             block: block2
                         }
                         block2VideoTxt(datas, req, res)
-                        // res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/blockmerged.mp4' });
-                        // // console.log(commandLine);
-                        // console.log("successhere");
-                        // return;
+                            // res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/blockmerged.mp4' });
+                            // // console.log(commandLine);
+                            // console.log("successhere");
+                            // return;
                     }, 600);
                 }
-            }
-            catch {
+            } catch {
                 res.status(500).json({ message: 'video failed 6' });
             }
             // var command = new ffmpeg();
@@ -658,6 +645,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             //     })
             //     .mergeToFile('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4');
         }
+
         function block2VideoTxt(datas, req, res) {
 
             var commands = new ffmpeg();
@@ -669,7 +657,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             if (subtitleColor.lenth == '4') {
                 subtitleColor = subtitleColor.replaceAll("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])", "#$1$1$2$2$3$3");
             }
-            setTimeout(function () {
+            setTimeout(function() {
                 commands.input('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4')
                     .complexFilter([
                         'scale=1920:1080[checked]',
@@ -869,17 +857,17 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     ], 'output')
                     .addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/' + userId + '/template1/block2text.mp4')
-                    .on('start', function (commandLine) {
+                    .on('start', function(commandLine) {
                         console.log('step6');
                     })
-                    .on("error", function (er) {
+                    .on("error", function(er) {
                         res.status(200).json({ message: ' 7' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
                     })
-                    .on("end", function (commandLine) {
-                        setTimeout(function () {
+                    .on("end", function(commandLine) {
+                        setTimeout(function() {
                             let data = [
                                 './src/Assets/template/videos/' + userId + '/template1/block-1-text-video.mp4',
                                 './src/Assets/template/videos/' + userId + '/template1/block2text.mp4',
@@ -894,25 +882,21 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 const Createdvideo = await concat({
                     output: './src/Assets/template/videos/' + userId + '/template1/block2final.mp4',
                     videos: data,
-                    transitions: [
-                        {
-                            name: 'directional',
-                            params: { direction: [1.0, 0.0] },
-                            duration: 1000
-                        },
-                    ]
+                    transitions: [{
+                        name: 'directional',
+                        params: { direction: [1.0, 0.0] },
+                        duration: 1000
+                    }, ]
                 })
                 if (typeof Createdvideo == 'undefined') {
-                    if (block3) {
+                    if (block3 &&  typeof block3.blockData != 'undefined') {
                         block3Video(block3, req, res)
-                    }
-                    else {
+                    } else {
                         res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block2final.mp4' });
                         return;
                     }
                 }
-            }
-            catch {
+            } catch {
                 res.status(500).json({ message: 'video failed 8' });
             }
 
@@ -940,33 +924,31 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                             outputs: "padded"
                         },
 
-                    ], 'padded'
-                    )
+                    ], 'padded')
                     .loop(3)
                     .addOption('-pix_fmt', 'yuv420p')
                     .addOption('-framerate', '50')
                     .addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/' + userId + '/template1/block-3-' + k + '.mp4')
-                    .on('start', function (commandLine) {
+                    .on('start', function(commandLine) {
                         console.log('step3');
                     })
-                    .on("error", function (er) {
+                    .on("error", function(er) {
                         res.status(200).json({ message: 'Video failed 9' });
                         console.log(er);
                         return;
                     })
-                    .on("end", function (commandLine) {
+                    .on("end", function(commandLine) {
                         if (typeof video1 == 'undefined') {
                             console.log(i)
                             video1 = './src/Assets/template/videos/' + userId + '/template1/block-3-1.mp4';
-                        }
-                        else if (typeof video2 == 'undefined') {
+                        } else if (typeof video2 == 'undefined') {
                             console.log(i)
                             video2 = './src/Assets/template/videos/' + userId + '/template1/block-3-2.mp4';
                         }
                         if (i == 2 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
                             console.log('heres');
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 let data = {
                                     video1: video1,
                                     video2: video2
@@ -984,24 +966,23 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     ], 'rescaled')
                     .addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/' + userId + '/template1/block-3-' + k + '.mp4')
-                    .on('start', function (commandLine) {
+                    .on('start', function(commandLine) {
                         console.log('step4');
                     })
-                    .on("error", function (er) {
+                    .on("error", function(er) {
                         res.status(200).json({ message: 'Video failed 10' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
                     })
-                    .on("end", function (commandLine) {
+                    .on("end", function(commandLine) {
                         if (typeof video1 == 'undefined') {
                             video1 = './src/Assets/template/videos/' + userId + '/template1/block-3-1.mp4';
-                        }
-                        else if (typeof video2 == 'undefined') {
+                        } else if (typeof video2 == 'undefined') {
                             video2 = './src/Assets/template/videos/' + userId + '/template1/block-3-2.mp4';
                         }
                         if (i == 2 && typeof video1 != 'undefined' && typeof video2 != 'undefined') {
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 let data = {
                                     video1: video1,
                                     video2: video2
@@ -1023,23 +1004,20 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         data.video1,
                         data.video2,
                     ],
-                    transitions: [
-                        {
-                            name: 'fade',
-                            duration: 1000
-                        },
-                    ]
+                    transitions: [{
+                        name: 'fade',
+                        duration: 1000
+                    }, ]
                 })
                 if (typeof Createdvideo == 'undefined') {
-                    setTimeout(function () {
+                    setTimeout(function() {
                         const datas = {
                             block: block3
                         }
                         block3VideoTxt(datas, req, res)
                     }, 600);
                 }
-            }
-            catch {
+            } catch {
                 res.status(500).json({ message: 'Video failed 11' });
             }
             // var command = new ffmpeg();
@@ -1067,6 +1045,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             //     })
             //     .mergeToFile('./src/Assets/template/videos/' + userId + '/template1/blockmerged.mp4');
         }
+
         function block3VideoTxt(datas, req, res) {
 
             var commands = new ffmpeg();
@@ -1083,13 +1062,12 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             for (var i = 0; i < result.length; i++) {
                 if (i == 3) {
                     text = text + result[i] + ' \n ';
-                }
-                else {
+                } else {
                     text = text + result[i] + ' ';
                 }
 
             }
-            setTimeout(function () {
+            setTimeout(function() {
                 //console.log(datas);
                 commands.input('./src/Assets/template/videos/' + userId + '/template1/block3merged.mp4')
                     .complexFilter([
@@ -1115,19 +1093,19 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     ], 'output')
                     .addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/' + userId + '/template1/block3FinalVideo.mp4')
-                    .on('start', function (commandLine) {
+                    .on('start', function(commandLine) {
                         console.log('step6');
                     })
-                    .on("error", function (er) {
+                    .on("error", function(er) {
                         res.status(200).json({ message: 'Video failed 12' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
                     })
-                    .on("end", function (commandLine) {
+                    .on("end", function(commandLine) {
                         // res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block3FinalVideo.mp4' });
                         console.log('step6');
-                        setTimeout(function () {
+                        setTimeout(function() {
                             let data = {
                                 video1: './src/Assets/template/videos/' + userId + '/template1/block2final.mp4',
                                 video2: './src/Assets/template/videos/' + userId + '/template1/block3FinalVideo.mp4'
@@ -1170,15 +1148,15 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             command.input(data.video1);
             command.input(data.video2);
             command
-                .on('start', function (commandLine) {
+                .on('start', function(commandLine) {
                     console.log('step5');
                 })
-                .on("error", function (er) {
+                .on("error", function(er) {
                     console.log(er);
                     res.status(200).json({ message: 'Video failed 13' });
                     return
                 })
-                .on("end", function () {
+                .on("end", function() {
                     // console.log('yhn success');
                     // setTimeout(function () {
                     //     const datas = {
@@ -1187,12 +1165,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     //     block2VideoTxt(datas, req, res)
 
                     // }, 600);
-                    if (block4) {
-                        setTimeout(function () {
+                    if (block4 &&  typeof block4.blockData != 'undefined') {
+                        setTimeout(function() {
                             block4Video(block4, req, res)
                         }, 600);
-                    }
-                    else {
+                    } else {
                         res.status(200).json({ message: 'Video created', data: 'template/videos/' + userId + '/template1/block3video.mp4' });
                         //             return;
                     }
@@ -1200,6 +1177,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 .mergeToFile('./src/Assets/template/videos/' + userId + '/template1/block3video.mp4');
         }
     }
+
     function block4Video(block4, req, res) {
 
         console.log('step1log')
@@ -1209,8 +1187,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         for (var i = 0; i < result.length; i++) {
             if (i == 4) {
                 text = text + result[i] + ' \n ';
-            }
-            else {
+            } else {
                 text = text + result[i] + ' ';
             }
 
@@ -1268,20 +1245,19 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 .addOption('-framerate', '50')
                 .addOption('-c:v', 'libx264')
                 .save('./src/Assets/template/videos/' + userId + '/template1/block4video1.mp4')
-                .on('start', function (commandLine) {
+                .on('start', function(commandLine) {
                     console.log('step62');
                 })
-                .on("error", function (er) {
+                .on("error", function(er) {
                     res.status(200).json({ message: 'Video failed 14' });
                     console.log(er);
                     // console.log("error occured: " + er.message);
                     return;
                 })
-                .on("end", function (commandLine) {
+                .on("end", function(commandLine) {
                     block4video2(block4, req, res)
                 })
-        }
-        else {
+        } else {
             commands.input(assetsPath + block4.blockData.containerOne)
                 .complexFilter([
                     'scale=960:1080[checked]',
@@ -1324,16 +1300,16 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 .addOption('-framerate', '50')
                 .addOption('-c:v', 'libx264')
                 .save('./src/Assets/template/videos/' + userId + '/template1/block4video1.mp4')
-                .on('start', function (commandLine) {
+                .on('start', function(commandLine) {
                     console.log('step6 here');
                 })
-                .on("error", function (er) {
+                .on("error", function(er) {
                     res.status(200).json({ message: 'Video failed 15' });
                     console.log(er);
                     // console.log("error occured: " + er.message);
                     return;
                 })
-                .on("end", function (commandLine) {
+                .on("end", function(commandLine) {
                     block4video2(block4, req, res)
                 })
         }
@@ -1352,24 +1328,23 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     .addOption('-framerate', '50')
                     .addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/' + userId + '/template1/block4video2.mp4')
-                    .on('start', function (commandLine) {
+                    .on('start', function(commandLine) {
                         console.log('step7');
                     })
-                    .on("error", function (er) {
+                    .on("error", function(er) {
                         res.status(200).json({ message: 'Video failed 16' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
                     })
-                    .on("end", function (commandLine) {
+                    .on("end", function(commandLine) {
                         let data = {
                             video1: './src/Assets/template/videos/' + userId + '/template1/block4video1.mp4',
                             video2: './src/Assets/template/videos/' + userId + '/template1/block4video2.mp4'
                         }
                         mergeBlock4Videos1(data, req, res)
                     })
-            }
-            else {
+            } else {
                 commands.input(assetsPath + block4.blockData.imageTwo)
                     .complexFilter([
                         'scale=960:1080[checked]',
@@ -1379,16 +1354,16 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     .addOption('-framerate', '50')
                     .addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/' + userId + '/template1/block4video2.mp4')
-                    .on('start', function (commandLine) {
+                    .on('start', function(commandLine) {
                         console.log('step7');
                     })
-                    .on("error", function (er) {
+                    .on("error", function(er) {
                         res.status(200).json({ message: 'Video failed 17' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
                     })
-                    .on("end", function (commandLine) {
+                    .on("end", function(commandLine) {
 
                         let data = {
                             video1: './src/Assets/template/videos/' + userId + '/template1/block4video1.mp4',
@@ -1407,22 +1382,20 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         data.video1,
                         data.video2,
                     ],
-                    transitions: [
-                        {
-                            name: 'directional',
-                            params: { direction: [0, 1] },
-                            duration: 1000
-                        },
-                    ]
+                    transitions: [{
+                        name: 'directional',
+                        params: { direction: [0, 1] },
+                        duration: 1000
+                    }, ]
                 })
                 if (typeof Createdvideo3 == 'undefined') {
                     block4video3(block4, req, res)
                 }
-            }
-            catch {
+            } catch {
                 res.status(500).json({ message: 'Video failed 18' });
             }
         }
+
         function block4video3(block4, req, res) {
             console.log('step4log')
             var commands = new ffmpeg();
@@ -1436,20 +1409,19 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     .addOption('-framerate', '50')
                     .addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/' + userId + '/template1/block4video3.mp4')
-                    .on('start', function (commandLine) {
+                    .on('start', function(commandLine) {
                         console.log('step7');
                     })
-                    .on("error", function (er) {
+                    .on("error", function(er) {
                         res.status(200).json({ message: 'Video failed 19' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
                     })
-                    .on("end", function (commandLine) {
+                    .on("end", function(commandLine) {
                         block4video4(block4, req, res)
                     })
-            }
-            else {
+            } else {
                 commands.input(assetsPath + block4.blockData.containerThree)
                     .complexFilter([
                         'scale=960:1080[checked]',
@@ -1459,20 +1431,21 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     .addOption('-framerate', '50')
                     .addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/' + userId + '/template1/block4video3.mp4')
-                    .on('start', function (commandLine) {
+                    .on('start', function(commandLine) {
                         console.log('step7');
                     })
-                    .on("error", function (er) {
+                    .on("error", function(er) {
                         res.status(200).json({ message: 'Video failed 20' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
                     })
-                    .on("end", function (commandLine) {
+                    .on("end", function(commandLine) {
                         block4video4(block4, req, res)
                     })
             }
         }
+
         function block4video4(block4, req, res) {
             var commands = new ffmpeg();
             var result = block4.blockData.blocksubTitle.split(" ");
@@ -1480,8 +1453,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             for (var i = 0; i < result.length; i++) {
                 if (i == 5) {
                     text = text + result[i] + ' \n ';
-                }
-                else {
+                } else {
                     text = text + result[i] + ' ';
                 }
 
@@ -1539,24 +1511,23 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     .addOption('-framerate', '50')
                     .addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/' + userId + '/template1/block4video4.mp4')
-                    .on('start', function (commandLine) {
+                    .on('start', function(commandLine) {
                         console.log('step62');
                     })
-                    .on("error", function (er) {
+                    .on("error", function(er) {
                         res.status(200).json({ message: 'Video failed 21' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
                     })
-                    .on("end", function (commandLine) {
+                    .on("end", function(commandLine) {
                         let data = {
                             video1: './src/Assets/template/videos/' + userId + '/template1/block4video3.mp4',
                             video2: './src/Assets/template/videos/' + userId + '/template1/block4video4.mp4'
                         }
                         mergeBlock4Videos2(data, req, res)
                     })
-            }
-            else {
+            } else {
                 commands.input(assetsPath + block4.blockData.containerFour)
                     .complexFilter([
                         'scale=960:1080[checked]',
@@ -1599,16 +1570,16 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                     .addOption('-framerate', '50')
                     .addOption('-c:v', 'libx264')
                     .save('./src/Assets/template/videos/' + userId + '/template1/block4video4.mp4')
-                    .on('start', function (commandLine) {
+                    .on('start', function(commandLine) {
                         console.log('step6 here');
                     })
-                    .on("error", function (er) {
+                    .on("error", function(er) {
                         res.status(200).json({ message: 'Video failed 22' });
                         console.log(er);
                         // console.log("error occured: " + er.message);
                         return;
                     })
-                    .on("end", function (commandLine) {
+                    .on("end", function(commandLine) {
                         let data = {
                             video1: './src/Assets/template/videos/' + userId + '/template1/block4video3.mp4',
                             video2: './src/Assets/template/videos/' + userId + '/template1/block4video4.mp4'
@@ -1625,45 +1596,44 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         data.video1,
                         data.video2,
                     ],
-                    transitions: [
-                        {
-                            name: 'directional',
-                            params: { direction: [0, 1] },
-                            duration: 1000
-                        },
-                    ]
+                    transitions: [{
+                        name: 'directional',
+                        params: { direction: [0, 1] },
+                        duration: 1000
+                    }, ]
                 })
                 if (typeof Createdvideo4 == 'undefined') {
                     block4Finalmerged(block4, req, res)
                 }
-            }
-            catch {
+            } catch {
                 res.status(500).json({ message: 'Video failed 23' });
             }
         }
+
         function block4Finalmerged(block4, req, res) {
             var command = new ffmpeg();
             command.input('./src/Assets/template/videos/' + userId + '/template1/block4merged1.mp4');
             command.input('./src/Assets/template/videos/' + userId + '/template1/block4merged2.mp4');
             command
                 .complexFilter('[0:v]  setpts=PTS-STARTPTS, scale=950:1070,pad=960:1080:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=950:1070,pad=960:1080:5:5:white [a1];[a0][a1]xstack=inputs=2:layout=0_0|w0_0[out]')
-                .addOption('-map', '[out]',)
+                .addOption('-map', '[out]', )
                 .addOption('-c:v', 'libx264')
                 .save('./src/Assets/template/videos/' + userId + '/template1/block4Finalvideo.mp4')
-                .on('start', function (commandLine) {
+                .on('start', function(commandLine) {
                     console.log(commandLine);
                 })
-                .on("error", function (er) {
+                .on("error", function(er) {
                     console.log(er);
                     res.status(200).json({ message: 'Video failed 24' });
                     return
                 })
-                .on("end", function () {
-                    setTimeout(function () {
+                .on("end", function() {
+                    setTimeout(function() {
                         finalmerged(block4, req, res)
                     }, 600);
                 })
         }
+
         function finalmerged(block4, req, res) {
             // try {
             //     const lastvideomerged = await concat({
@@ -1691,15 +1661,15 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             command.input('./src/Assets/template/videos/' + userId + '/template1/block3video.mp4');
             command.input('./src/Assets/template/videos/' + userId + '/template1/block4Finalvideo.mp4');
             command
-                .on('start', function (commandLine) {
+                .on('start', function(commandLine) {
                     console.log('step5');
                 })
-                .on("error", function (er) {
+                .on("error", function(er) {
                     console.log(er);
                     res.status(200).json({ message: 'Video failed 13' });
                     return
                 })
-                .on("end", function () {
+                .on("end", function() {
                     // console.log('yhn success');
                     // setTimeout(function () {
                     //     const datas = {
@@ -1717,4 +1687,4 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         }
 
     }
-} 
+}
