@@ -25,11 +25,16 @@ exports.recover = async (req, res) => {
                 const msg = {
                     to: user.email,
                     from: 'Keyframe <' + process.env.FROM_EMAIL + '>',
-                    subject: 'Password change request',
-                    html: `Hi ${user.email} \n 
-                  <br/>Please click on the following link ${link} to reset your password. \n\n 
-                  <br/>If you did not request this, please ignore this email and your password will remain unchanged.\n`,
-                };
+                    templateId: 'd-a4ab319a6e974a7e89cc31424194e411',
+                    dynamic_template_data: {
+                        sender_name: user.firstName,
+                        reset_url:  link,
+                     }
+                //     subject: 'Password change request',
+                //     html: `Hi ${user.email} \n 
+                //   <br/>Please click on the following link ${link} to reset your password. \n\n 
+                //   <br/>If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+                 };
                 //  sgMail.send(msg);
                 sgMail
                     .send(msg)
@@ -88,7 +93,7 @@ exports.resetPassword = (req, res) => {
                     to: user.email,
                     from: 'Keyframe <' + process.env.FROM_EMAIL + '>',
                     subject: "Your password has been changed",
-                    text: `Hi ${user.email} \n 
+                    text: `Hi ${user.firstName} \n 
                     This is a confirmation that the password for your account ${user.email} has just been changed.\n`
                 };
 
