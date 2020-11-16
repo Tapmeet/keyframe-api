@@ -29,11 +29,6 @@ const UserSchema = new mongoose.Schema({
         max: 100
     },
 
-    language: {
-        type: String,
-        required: 'Language is required',
-        max: 100
-    },
     phone: {
         type: String,
         required: false,
@@ -54,22 +49,6 @@ const UserSchema = new mongoose.Schema({
         default: false
     },
     newsNotification: {
-        type: Boolean,
-        default: false
-    },
-    activityNotification: {
-        type: Boolean,
-        default: false
-    },
-    invitationsNotification: {
-        type: Boolean,
-        default: false
-    },
-    importantNotification: {
-        type: Boolean,
-        default: false
-    },
-    recomendedNotification: {
         type: Boolean,
         default: false
     },

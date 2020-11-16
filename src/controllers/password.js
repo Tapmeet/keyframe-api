@@ -24,13 +24,22 @@ exports.recover = async (req, res) => {
                 let link = `${process.env.WEBSITEURL}verification/?useremail=${user.email}&token=${user.resetPasswordToken}`;
                 const msg = {
                     to: user.email,
-                    from: process.env.FROM_EMAIL,
+                    from: 'Keyframe <' + process.env.FROM_EMAIL + '>',
                     subject: 'Password change request',
                     html: `Hi ${user.email} \n 
                   <br/>Please click on the following link ${link} to reset your password. \n\n 
                   <br/>If you did not request this, please ignore this email and your password will remain unchanged.\n`,
                 };
-                sgMail.send(msg)
+                //  sgMail.send(msg);
+                sgMail
+                    .send(msg)
+                    .then(() => {
+                        console.log('Email sent')
+                    })
+                    .catch((error) => {
+                        console.error(error.response.body)
+                    })
+
                 res.status(200).json({ message: 'A reset email has been sent to ' + user.email + '.' });
             })
             .catch(err => res.status(500).json({ message: err.message }));
@@ -77,7 +86,7 @@ exports.resetPassword = (req, res) => {
                 // send email
                 const mailOptions = {
                     to: user.email,
-                    from: process.env.FROM_EMAIL,
+                    from: 'Keyframe <' + process.env.FROM_EMAIL + '>',
                     subject: "Your password has been changed",
                     text: `Hi ${user.email} \n 
                     This is a confirmation that the password for your account ${user.email} has just been changed.\n`
