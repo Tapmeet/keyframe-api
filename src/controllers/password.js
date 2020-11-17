@@ -28,13 +28,13 @@ exports.recover = async (req, res) => {
                     templateId: 'd-a4ab319a6e974a7e89cc31424194e411',
                     dynamic_template_data: {
                         sender_name: user.firstName,
-                        reset_url:  link,
-                     }
-                //     subject: 'Password change request',
-                //     html: `Hi ${user.email} \n 
-                //   <br/>Please click on the following link ${link} to reset your password. \n\n 
-                //   <br/>If you did not request this, please ignore this email and your password will remain unchanged.\n`,
-                 };
+                        reset_url: link,
+                    }
+                    //     subject: 'Password change request',
+                    //     html: `Hi ${user.email} \n 
+                    //   <br/>Please click on the following link ${link} to reset your password. \n\n 
+                    //   <br/>If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+                };
                 //  sgMail.send(msg);
                 sgMail
                     .send(msg)
@@ -87,19 +87,25 @@ exports.resetPassword = (req, res) => {
             // Save
             user.save((err) => {
                 if (err) return res.status(500).json({ message: err.message });
-
+                let link = `${process.env.WEBSITEURL}login`;
                 // send email
                 const mailOptions = {
                     to: user.email,
                     from: 'Keyframe <' + process.env.FROM_EMAIL + '>',
-                    subject: "Your password has been changed",
-                    text: `Hi ${user.firstName} \n 
-                    This is a confirmation that the password for your account ${user.email} has just been changed.\n`
+                    // subject: "Your password has been changed",
+                    // text: `Hi ${user.firstName} \n 
+                    // This is a confirmation that the password for your account ${user.email} has just been changed.\n`
+                    templateId: 'd-6a5602253edc41f68458b24e401110a8',
+                    dynamic_template_data: {
+                        sender_name: user.firstName,
+                        login_url: link,
+                        sender_email: user.email,
+                    }
                 };
 
                 sgMail.send(mailOptions, (error, result) => {
                     if (error) return res.status(500).json({ message: error.message });
-
+                    console.log(result);
                     res.status(200).json({ message: 'Your password has been updated.' });
                 });
             });
