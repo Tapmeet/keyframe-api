@@ -13,7 +13,7 @@ exports.support = async function (req, res) {
   const { message } = req.body;
   // send email
   const mailOptions = {
-    to: 'amit86274@gmail.com',
+    to: 'tapmeet@gmail.com',
     from: "Keyframe <" + process.env.FROM_EMAIL + ">",
     templateId: "d-76d05aa865a34d659eb6b07f3959243c",
     dynamic_template_data: {
