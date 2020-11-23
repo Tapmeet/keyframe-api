@@ -116,7 +116,24 @@ function sendEmail(user, req, res) {
     const token = user.generateVerificationToken();
     // Save the verification token
     token.save(function (err) {
-        if (err) return res.status(500).json({ message: err.message });
-        res.status(200).json({ message: 'Congrats! Your account is created. Please Login' });
+        if (err) { return res.status(500).json({ message: err.message }); }
+        else {
+            let link = `${process.env.WEBSITEURL}login`;
+            // send email
+            const mailOptions = {
+                to: user.email,
+                from: 'Keyframe <' + process.env.FROM_EMAIL + '>',
+                templateId: 'd-26e7ac009e3149a3924d3499deedb0c4',
+                dynamic_template_data: {
+                    sender_name: user.firstName,
+                    login_url: link,
+                }
+            };
+
+            sgMail.send(mailOptions, (error, result) => {
+                if (error) return res.status(500).json({ message: error.message });
+                res.status(200).json({ message: 'Congrats! Your account is created. Please Login' });
+            });
+        }
     });
 }

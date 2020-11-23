@@ -1,6 +1,7 @@
 const auth = require('./auth');
 const user = require('./user');
 const template = require('./template');
+const common = require('./common');
 module.exports = app => {
   app.get('/', (req, res) => {
     res.status(200).send({ message: "Welcome to the AUTHENTICATION API. Register or Login to test Authentication." });
@@ -8,4 +9,5 @@ module.exports = app => {
   app.use('/api/auth', auth);
   app.use('/api/user', user);
   app.use('/api/template', template);
+  app.use('/api/common', common);
  };
