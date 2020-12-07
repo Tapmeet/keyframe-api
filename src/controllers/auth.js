@@ -17,15 +17,20 @@ const Token = require('../models/token');
 exports.register = async (req, res) => {
   try {
     const {email} = req.body;
+    const {userRole} = req.body;
     // Make sure this account doesn't already exist
     const user = await User.findOne({email});
 
     if (user) return res.status(401).json({message: 'The email address you have entered is already associated with another account.'});
 
-    const newUser = new User({...req.body});
+    const newUser = new User({...req.body, isVerified: true});
 
     const user_ = await newUser.save();
-    sendEmail(user_, req, res);
+    if (userRole) {
+      res.status(200).json({message: 'Congrats! Account is created.'});
+    } else {
+      sendEmail(user_, req, res);
+    }
   } catch (error) {
     res.status(500).json({success: false, message: error.message});
   }
