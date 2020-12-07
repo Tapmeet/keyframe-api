@@ -6,28 +6,28 @@ const router = express.Router();
  */
 const multer = require('multer');
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'src/Assets/User')
+  destination: function(req, file, cb) {
+    cb(null, 'src/Assets/User');
   },
-  filename: function (req, file, cb) {
-    const fileName = file.originalname.split(" ").join("");;
-    cb(null, file.fieldname + '-' + Date.now() +'-'+ fileName)
-  }
-})
-const upload = multer({ storage: storage });
-//INDEX
+  filename: function(req, file, cb) {
+    const fileName = file.originalname.split(' ').join(''); ;
+    cb(null, file.fieldname + '-' + Date.now() +'-'+ fileName);
+  },
+});
+const upload = multer({storage: storage});
+// INDEX
 router.get('/', User.index);
 
-//SHOW
-router.get('/:id',  User.show);
+// SHOW
+router.get('/:id', User.show);
 
-//UPDATE
-router.put('/:id',  User.update);
+// UPDATE
+router.put('/:id', User.update);
 
-//DELETE
+// DELETE
 router.delete('/:id', User.destroy);
 
-//UPLOAD
+// UPLOAD
 router.post('/upload', upload.single('profileImage'), User.upload);
 
 module.exports = router;
