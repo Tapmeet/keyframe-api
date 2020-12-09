@@ -23,12 +23,14 @@ exports.register = async (req, res) => {
 
     if (user) return res.status(401).json({message: 'The email address you have entered is already associated with another account.'});
 
-    const newUser = new User({...req.body, isVerified: true});
-
-    const user_ = await newUser.save();
     if (userRole) {
+      const newUser = new User({...req.body, isVerified: true});
+      const user_ = await newUser.save();
       res.status(200).json({message: 'Congrats! Account is created.'});
     } else {
+      const newUser = new User({...req.body, isVerified: false});
+
+      const user_ = await newUser.save();
       sendEmail(user_, req, res);
     }
   } catch (error) {
