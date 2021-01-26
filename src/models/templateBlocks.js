@@ -5,17 +5,12 @@ const templatesBlocksSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  templateNumber: {
+  sceneId: {
     type: String,
     required: true,
   },
-  blockId: {
-    type: String,
-    required: true,
-  },
-  blockData: {
+  sceneData: {
     type: Object,
-
   },
 
 }, {timestamps: true});

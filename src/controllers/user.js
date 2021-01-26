@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable valid-jsdoc */
 
 const Datauri = require('datauri');
