@@ -2,7 +2,8 @@ const auth = require('./auth');
 const user = require('./user');
 const template = require('./template');
 const common = require('./common');
-const signals = require('./signals');
+const scene = require('./scene');
+const sceneCategory = require('./sceneCategory');
 module.exports = (app) => {
   app.get('/', (req, res) => {
     res.status(200).send({message: 'Welcome to the AUTHENTICATION API. Register or Login to test Authentication.'});
@@ -11,5 +12,6 @@ module.exports = (app) => {
   app.use('/api/user', user);
   app.use('/api/template', template);
   app.use('/api/common', common);
-  app.use('/api/signals', signals);
+  app.use('/api/scene', scene);
+  app.use('/api/category', sceneCategory);
 };
