@@ -6,6 +6,9 @@ const templatesSchema = new mongoose.Schema({
     required: true,
     ref: 'User',
   },
+  sceneOrder: {
+    type: Array,
+  },
 
 }, {timestamps: true});
 

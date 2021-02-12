@@ -9,6 +9,12 @@ const sceneSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  sceneThumbnail: {
+    type: String,
+  },
+  sceneCategory: {
+    type: String,
+  },
   sceneData: {
     type: Object,
   },
