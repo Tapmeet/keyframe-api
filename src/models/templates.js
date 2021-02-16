@@ -6,10 +6,25 @@ const templatesSchema = new mongoose.Schema({
     required: true,
     ref: 'User',
   },
+  title: {
+    type: String,
+  },
+  templateImage: {
+    type: String,
+  },
+  templatePreview: {
+    type: String,
+  },
+  adminTemplate: {
+    type: Boolean,
+  },
   sceneOrder: {
     type: Array,
+  },
+  templateCategory: {
+    type: String,
   },
 
 }, {timestamps: true});
 
-module.exports = mongoose.model('Templates', templatesSchema)
+module.exports = mongoose.model('Templates', templatesSchema);

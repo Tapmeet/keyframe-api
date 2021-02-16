@@ -74,6 +74,50 @@ exports.upload = async (req, res, next) => {
   }
 };
 
+/** @route GET admin/user
+ *   @desc Returns all users
+ *   @access Public
+ */
+exports.getAdminTemplates = async function (req, res) {
+  const template = await Template.find({ adminTemplate: true });
+  res.status(200).json({ template });
+};
+
+/** @route GET admin/user
+ *   @desc Returns all users
+ *   @access Public
+ */
+
+exports.addAdminTemplates = async function (req, res) {
+  ///console.log(req.body);
+  var sceneOrder = req.body.sceneOrder;
+  var newArr = [];
+  sceneOrder.map((data, index) => {
+    newArr[index] = {
+      id: data._id,
+      sceneId: data.sceneId,
+      sceneTitle: data.sceneTitle,
+    };
+  });
+  //console.log(newArr);
+  const newTemplate = new Template({
+    userId: req.body.userId,
+    title: req.body.title,
+    templateImage: req.body.templateImage,
+    templatePreview: req.body.templatePreview,
+    adminTemplate: req.body.adminTemplate,
+    sceneOrder: newArr,
+    templateCategory: req.body.templateCategory
+  });
+  const tempateData = await newTemplate.save();
+  // console.log(tempateData);
+  await sceneOrder.map(async (data, index) => {
+    const newBlock = new Block({ ...data, templateId: tempateData._id });
+    const blockData = await newBlock.save();
+  });
+  res.status(200).json({ message: "Template created", tempateData });
+};
+
 /** @route Delete block
  *   @desc Delete block
  *   @access Public
@@ -144,8 +188,6 @@ exports.deleteBlock = async function (req, res) {
 //Upload
 exports.getTemplate = async (req, res, next) => {
   var mongoose = require("mongoose");
-
-
   const { userId } = req.query;
   const { templateId } = req.query;
   var id = mongoose.Types.ObjectId(templateId);
@@ -303,26 +345,31 @@ exports.addBlock = async (req, res, next) => {
   }
 };
 
-
 /** @route PUT api/division/{id}
-*   @desc Update division details
-*   @access Public
-*/
+ *   @desc Update division details
+ *   @access Public
+ */
 exports.update = async function (req, res) {
-    try {
-      const { id } = req.body;
-      //Make sure to update existing division 
-      const scene= await Block.findOne({ _id: id });
-      if (!scene) { return res.status(200).json({ message: 'Scene not found' }); }
-  
-      // Update existing division  
-      const sceneUpdate = await Block.findOneAndUpdate({ _id: id }, { $set: req.body }, { new: true, useFindAndModify: false });
-      res.status(200).json({ sceneUpdate, message: 'Scene has been updated' });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
+  try {
+    const { id } = req.body;
+    //Make sure to update existing division
+    const scene = await Block.findOne({ _id: id });
+    if (!scene) {
+      return res.status(200).json({ message: "Scene not found" });
     }
-  };
-  
+
+    // Update existing division
+    const sceneUpdate = await Block.findOneAndUpdate(
+      { _id: id },
+      { $set: req.body },
+      { new: true, useFindAndModify: false }
+    );
+    res.status(200).json({ sceneUpdate, message: "Scene has been updated" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 /**
  * @function  addBlock used to create new Event
  * @route POST /api/template/create-videos
@@ -457,15 +504,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             };
             block1VideoTxt(datas, req, res);
           } else {
-            return res
-              .status(200)
-              .json({
-                message: "Video created",
-                data:
-                  "template/videos/" +
-                  userId +
-                  "/template1/block-1-video-1.mp4",
-              });
+            return res.status(200).json({
+              message: "Video created",
+              data:
+                "template/videos/" + userId + "/template1/block-1-video-1.mp4",
+            });
           }
         });
     } else {
@@ -500,15 +543,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             };
             block1VideoTxt(datas, req, res);
           } else {
-            res
-              .status(200)
-              .json({
-                message: "Video created",
-                data:
-                  "template/videos/" +
-                  userId +
-                  "/template1/block-1-video-1.mp4",
-              });
+            res.status(200).json({
+              message: "Video created",
+              data:
+                "template/videos/" + userId + "/template1/block-1-video-1.mp4",
+            });
             return;
           }
         });
@@ -637,15 +676,13 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           ) {
             block2Video(block2, req, res);
           } else {
-            res
-              .status(200)
-              .json({
-                message: "Video created",
-                data:
-                  "template/videos/" +
-                  userId +
-                  "/template1/block-1-text-video.mp4",
-              });
+            res.status(200).json({
+              message: "Video created",
+              data:
+                "template/videos/" +
+                userId +
+                "/template1/block-1-text-video.mp4",
+            });
             console.log("success");
             return;
           }
@@ -1125,13 +1162,10 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           if (block3 && typeof block3.blockData != "undefined") {
             block3Video(block3, req, res);
           } else {
-            res
-              .status(200)
-              .json({
-                message: "Video created",
-                data:
-                  "template/videos/" + userId + "/template1/block2final.mp4",
-              });
+            res.status(200).json({
+              message: "Video created",
+              data: "template/videos/" + userId + "/template1/block2final.mp4",
+            });
             return;
           }
         }
@@ -1471,13 +1505,10 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
               block4Video(block4, req, res);
             }, 600);
           } else {
-            res
-              .status(200)
-              .json({
-                message: "Video created",
-                data:
-                  "template/videos/" + userId + "/template1/block3video.mp4",
-              });
+            res.status(200).json({
+              message: "Video created",
+              data: "template/videos/" + userId + "/template1/block3video.mp4",
+            });
             //             return;
           }
         })
@@ -2082,12 +2113,10 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
 
           // }, 600);
 
-          res
-            .status(200)
-            .json({
-              message: "Video created",
-              data: "template/videos/" + userId + "/template1/mergedBlock4.mp4",
-            });
+          res.status(200).json({
+            message: "Video created",
+            data: "template/videos/" + userId + "/template1/mergedBlock4.mp4",
+          });
           //             return;
         })
         .mergeToFile(
