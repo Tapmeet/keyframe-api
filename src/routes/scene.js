@@ -7,6 +7,7 @@ const router = express.Router();
 router.get('/all-scenes', scene.index);
 router.post('/add-scene', scene.addScene);
 router.get('/get-scene', scene.getScene);
+router.get('/category-scenes', scene.getCategoryScenes);
 // router.delete('/delete-scene/', template.deleteBlock);
 router.put('/:id', scene.update);
 module.exports = router;

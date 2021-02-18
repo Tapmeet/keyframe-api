@@ -107,7 +107,7 @@ exports.addAdminTemplates = async function (req, res) {
     templatePreview: req.body.templatePreview,
     adminTemplate: req.body.adminTemplate,
     sceneOrder: newArr,
-    templateCategory: req.body.templateCategory
+    templateCategory: req.body.templateCategory,
   });
   const tempateData = await newTemplate.save();
   // console.log(tempateData);
@@ -116,6 +116,78 @@ exports.addAdminTemplates = async function (req, res) {
     const blockData = await newBlock.save();
   });
   res.status(200).json({ message: "Template created", tempateData });
+};
+
+exports.updateTemplate = async function (req, res) {
+  try {
+    const { id } = req.body;
+    // Make sure to update existing division
+    const template = await Template.findOne({ _id: id });
+    if (!template) {
+      return res.status(200).json({ message: "Template not found" });
+    }
+    // // Update existing division
+    const templateUpdate = await Template.findOneAndUpdate(
+      { _id: id },
+      { $set: req.body },
+      { new: true, useFindAndModify: false }
+    );
+    const newBlock = new Block({
+      templateId: id,
+      sceneId: req.body.data.sceneId,
+      sceneTitle: req.body.data.sceneTitle,
+      sceneThumbnail: req.body.data.sceneThumbnail,
+      sceneData: req.body.data.sceneData
+    });
+    const blockData = await newBlock.save();
+    res
+      .status(200)
+      .json({ templateUpdate, message: "Template has been updated" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.getAdminTemplate = async (req, res, next) => {
+  var mongoose = require("mongoose");
+  const { templateId } = req.query;
+  var id = mongoose.Types.ObjectId(templateId);
+  try {
+    const datas = Template.aggregate(
+      [
+        {
+          $match: { _id: id },
+        },
+        {
+          $project: {
+            _id: {
+              $toString: "$_id",
+            },
+            userId: "$userId",
+            title: "$title",
+            templateImage: "$templateImage",
+            templatePreview: "$templatePreview",
+            sceneOrder: "$sceneOrder",
+            templateCategory: "$templateCategory",
+          },
+        },
+        {
+          $lookup: {
+            from: `templateblocks`,
+            localField: "_id",
+            foreignField: "templateId",
+            as: "blocks",
+          },
+        },
+      ],
+      function (err, data) {
+        if (err) throw err;
+        res.status(200).json({ message: "Template Data", data: data });
+      }
+    );
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 /** @route Delete block

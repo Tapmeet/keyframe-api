@@ -20,6 +20,19 @@ exports.addScene = async (req, res, next) => {
   }
 };
 
+exports.getCategoryScenes = async function(req, res) {
+  const {categoryId} = req.query;
+  try {
+    const scene= await Scene.find({sceneCategory: categoryId});
+    if (!scene) {
+      return res.status(200).json({message: 'Scene Category not found'});
+    } else {
+      return res.status(200).json({message: 'Scene Category data found', scenes: scene});
+    }
+  } catch (error) {
+    res.status(500).json({message: error.message});
+  }
+};
 
 /** @route GET admin/user
 *   @desc Returns all users

@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 /* eslint-disable max-len */
 /* eslint-disable valid-jsdoc */
 /* eslint-disable no-unused-vars */
@@ -26,9 +27,41 @@ exports.addScene = async (req, res, next) => {
 *   @access Public
 */
 exports.index = async function(req, res) {
-  const scenes = await Scene.find({});
-  res.status(200).json({scenes});
+  // const scenes = await Scene.find({});
+  // res.status(200).json({scenes});
+  try {
+    const datas = Scene.aggregate(
+        [
+          {
+            $project: {
+              _id: {
+                $toString: '$_id',
+              },
+              userId: '$userId',
+              title: '$title',
+              categoryImage: '$categoryImage',
+
+            },
+          },
+          {
+            $lookup: {
+              from: `scenes`,
+              localField: '_id',
+              foreignField: 'sceneCategory',
+              as: 'scenes',
+            },
+          },
+        ],
+        function(err, data) {
+          if (err) throw err;
+          res.status(200).json({message: 'Template Data', scenes: data});
+        },
+    );
+  } catch (error) {
+    res.status(500).json({message: error.message});
+  }
 };
+
 
 /** @route PUT api/division/{id}
 *   @desc Update division details
@@ -56,7 +89,6 @@ exports.update = async function(req, res) {
 * @access Public
 */
 exports.getScene = async function(req, res) {
-
   try {
     const id = req.query.id;
     const scene= await Scene.findOne({_id: id});
