@@ -5,6 +5,9 @@ const templatesBlocksSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  order: {
+    type: String,
+  },
   sceneId: {
     type: String,
     required: true,

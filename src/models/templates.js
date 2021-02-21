@@ -18,9 +18,6 @@ const templatesSchema = new mongoose.Schema({
   adminTemplate: {
     type: Boolean,
   },
-  sceneOrder: {
-    type: Array,
-  },
   templateCategory: {
     type: String,
   },

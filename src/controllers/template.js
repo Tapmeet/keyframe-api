@@ -79,8 +79,42 @@ exports.upload = async (req, res, next) => {
  *   @access Public
  */
 exports.getAdminTemplates = async function (req, res) {
-  const template = await Template.find({ adminTemplate: true });
-  res.status(200).json({ template });
+  try {
+    const datas = Template.aggregate(
+      [
+        {
+          $match: { adminTemplate: true },
+        },
+        {
+          $project: {
+            _id: {
+              $toString: "$_id",
+            },
+            userId: "$userId",
+            title: "$title",
+            templateImage: "$templateImage",
+            templatePreview: "$templatePreview",
+            sceneOrder: "$sceneOrder",
+            templateCategory: "$templateCategory",
+          },
+        },
+        {
+          $lookup: {
+            from: `templateblocks`,
+            localField: "_id",
+            foreignField: "templateId",
+            as: "blocks",
+          },
+        },
+      ],
+      function (err, data) {
+        if (err) throw err;
+        res.status(200).json({ message: "Template Data", template: data });
+      }
+    );
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 /** @route GET admin/user
@@ -90,32 +124,32 @@ exports.getAdminTemplates = async function (req, res) {
 
 exports.addAdminTemplates = async function (req, res) {
   ///console.log(req.body);
-  var sceneOrder = req.body.sceneOrder;
-  var newArr = [];
-  sceneOrder.map((data, index) => {
-    newArr[index] = {
-      id: data._id,
-      sceneId: data.sceneId,
-      sceneTitle: data.sceneTitle,
-    };
-  });
-  //console.log(newArr);
-  const newTemplate = new Template({
-    userId: req.body.userId,
-    title: req.body.title,
-    templateImage: req.body.templateImage,
-    templatePreview: req.body.templatePreview,
-    adminTemplate: req.body.adminTemplate,
-    sceneOrder: newArr,
-    templateCategory: req.body.templateCategory,
-  });
-  const tempateData = await newTemplate.save();
-  // console.log(tempateData);
-  await sceneOrder.map(async (data, index) => {
-    const newBlock = new Block({ ...data, templateId: tempateData._id });
-    const blockData = await newBlock.save();
-  });
-  res.status(200).json({ message: "Template created", tempateData });
+  try {
+    const sceneOrder = req.body.sceneOrder;
+    //console.log(newArr);
+    const newTemplate = new Template({
+      userId: req.body.userId,
+      title: req.body.title,
+      templateImage: req.body.templateImage,
+      templatePreview: req.body.templatePreview,
+      adminTemplate: req.body.adminTemplate,
+      templateCategory: req.body.templateCategory,
+    });
+    const tempateData = await newTemplate.save();
+    // console.log(tempateData);
+    var newArr = [];
+    await sceneOrder.map(async (data, index) => {
+      const newBlock = new Block({
+        ...data,
+        order: index + 1,
+        templateId: tempateData._id,
+      });
+      const blockData = await newBlock.save();
+    });
+    res.status(200).json({ message: "Template created", tempateData });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 exports.updateTemplate = async function (req, res) {
@@ -126,23 +160,35 @@ exports.updateTemplate = async function (req, res) {
     if (!template) {
       return res.status(200).json({ message: "Template not found" });
     }
+
     // // Update existing division
     const templateUpdate = await Template.findOneAndUpdate(
       { _id: id },
       { $set: req.body },
       { new: true, useFindAndModify: false }
     );
-    const newBlock = new Block({
-      templateId: id,
-      sceneId: req.body.data.sceneId,
-      sceneTitle: req.body.data.sceneTitle,
-      sceneThumbnail: req.body.data.sceneThumbnail,
-      sceneData: req.body.data.sceneData
-    });
-    const blockData = await newBlock.save();
-    res
-      .status(200)
-      .json({ templateUpdate, message: "Template has been updated" });
+    if (typeof req.body.data != undefined) {
+      const templateBlock = await Block.find({ templateId: id });
+      const order = parseInt(templateBlock[templateBlock.length - 1].order) + 1;
+      const newBlock = new Block({
+        templateId: id,
+        order: order,
+        sceneId: req.body.data.sceneId,
+        sceneTitle: req.body.data.sceneTitle,
+        sceneThumbnail: req.body.data.sceneThumbnail,
+        sceneData: req.body.data.sceneData,
+      });
+      const blockData = await newBlock.save();
+      res.status(200).json({
+        templateUpdate,
+        message: "Template has been updated",
+      });
+    } else {
+      res.status(200).json({
+        templateUpdate,
+        message: "Template has been updated",
+      });
+    }
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -174,13 +220,25 @@ exports.getAdminTemplate = async (req, res, next) => {
         {
           $lookup: {
             from: `templateblocks`,
-            localField: "_id",
-            foreignField: "templateId",
+            // localField: "_id",
+            // foreignField: "templateId",
+            'let': {
+              'templateId': '$_id'
+            },  
+            pipeline: [
+              {
+                '$match': { '$expr': { '$eq': ['$templateId', '$$templateId'] } }
+              },
+              {
+                $sort: { order: 1 },
+              },
+            ],
             as: "blocks",
           },
         },
       ],
       function (err, data) {
+
         if (err) throw err;
         res.status(200).json({ message: "Template Data", data: data });
       }
@@ -197,60 +255,9 @@ exports.getAdminTemplate = async (req, res, next) => {
 exports.deleteBlock = async function (req, res) {
   try {
     const id = req.query.blockId;
-    const templateId = req.query.templateId;
     const block = await Block.findOneAndDelete({
-      blockId: id,
-      templateId: templateId,
+      _id: id,
     });
-    if (
-      typeof block.blockData != "undefined" &&
-      typeof block.blockData.containerOne != "undefined"
-    ) {
-      let path = "./src/Assets/" + block.blockData.containerOne;
-      fs.unlink(path, (err) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-      });
-    }
-    if (
-      typeof block.blockData != "undefined" &&
-      typeof block.blockData.containerTwo != "undefined"
-    ) {
-      let path = "./src/Assets/" + block.blockData.containerTwo;
-      fs.unlink(path, (err) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-      });
-    }
-    if (
-      typeof block.blockData != "undefined" &&
-      typeof block.blockData.containerThree != "undefined"
-    ) {
-      let path = "./src/Assets/" + block.blockData.containerThree;
-      fs.unlink(path, (err) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-      });
-    }
-    if (
-      typeof block.blockData != "undefined" &&
-      typeof block.blockData.containerFour != "undefined"
-    ) {
-      let path = "./src/Assets/" + block.blockData.containerFour;
-      fs.unlink(path, (err) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-      });
-    }
-
     res.status(200).json({ message: "Block has been deleted" });
   } catch (error) {
     res.status(500).json({ message: error.message });
