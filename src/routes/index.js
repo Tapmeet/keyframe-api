@@ -3,6 +3,7 @@ const user = require('./user');
 const template = require('./template');
 const common = require('./common');
 const scene = require('./scene');
+const lastBlock = require('./lastBlock');
 const sceneCategory = require('./sceneCategory');
 const templateCategory = require('./templateCategory');
 module.exports = (app) => {
@@ -14,6 +15,7 @@ module.exports = (app) => {
   app.use('/api/template', template);
   app.use('/api/common', common);
   app.use('/api/scene', scene);
+  app.use('/api/last-block', lastBlock);
   app.use('/api/category', sceneCategory);
   app.use('/api/template-category', templateCategory);
 };
