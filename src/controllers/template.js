@@ -137,11 +137,15 @@ exports.addAdminTemplates = async function (req, res) {
       templateCategory: req.body.templateCategory,
     });
     const tempateData = await newTemplate.save();
-    // console.log(tempateData);
+    console.log(sceneOrder);
     var newArr = [];
     await sceneOrder.map(async (data, index) => {
       const newBlock = new Block({
-        ...data,
+        sceneId: data.sceneId,
+        templateId: data._id,
+        sceneTitle: data.sceneTitle,
+        sceneThumbnail: data.sceneThumbnail,
+        sceneData: data.sceneData,
         order: index + 1,
         templateId: tempateData._id,
       });
