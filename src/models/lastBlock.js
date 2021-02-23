@@ -15,7 +15,6 @@ const lastBlocksSchema = new mongoose.Schema({
   },
   sceneThumbnail: {
     type: String,
-
   },
   sceneData: {
     type: Object,

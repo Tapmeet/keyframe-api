@@ -1,6 +1,7 @@
 const Template = require("../models/templates");
 const Userupload = require("../models/upload");
 const Block = require("../models/templateBlocks");
+const Scene = require("../models/lastBlock");
 const fs = require("fs");
 var gl = require("gl")(10, 10);
 const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
@@ -146,6 +147,15 @@ exports.addAdminTemplates = async function (req, res) {
       });
       const blockData = await newBlock.save();
     });
+    const sceneData = await Scene.findOne({ templateId: "1" });
+    const newScene = new Scene({
+      sceneId: sceneData.sceneId,
+      templateId: tempateData._id,
+      sceneTitle: sceneData.sceneTitle,
+      sceneThumbnail: sceneData.sceneThumbnail,
+      sceneData: sceneData.sceneData,
+    });
+    const blockData = await newScene.save();
     res.status(200).json({ message: "Template created", tempateData });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -222,12 +232,12 @@ exports.getAdminTemplate = async (req, res, next) => {
             from: `templateblocks`,
             // localField: "_id",
             // foreignField: "templateId",
-            'let': {
-              'templateId': '$_id'
-            },  
+            let: {
+              templateId: "$_id",
+            },
             pipeline: [
               {
-                '$match': { '$expr': { '$eq': ['$templateId', '$$templateId'] } }
+                $match: { $expr: { $eq: ["$templateId", "$$templateId"] } },
               },
               {
                 $sort: { order: 1 },
@@ -238,7 +248,6 @@ exports.getAdminTemplate = async (req, res, next) => {
         },
       ],
       function (err, data) {
-
         if (err) throw err;
         res.status(200).json({ message: "Template Data", data: data });
       }
