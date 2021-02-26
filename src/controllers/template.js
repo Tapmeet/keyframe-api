@@ -137,8 +137,8 @@ exports.addAdminTemplates = async function (req, res) {
       templateCategory: req.body.templateCategory,
     });
     const tempateData = await newTemplate.save();
-    console.log(sceneOrder);
     var newArr = [];
+    var blockData
     await sceneOrder.map(async (data, index) => {
       const newBlock = new Block({
         sceneId: data.sceneId,
@@ -149,7 +149,7 @@ exports.addAdminTemplates = async function (req, res) {
         order: index + 1,
         templateId: tempateData._id,
       });
-      const blockData = await newBlock.save();
+       blockData = await newBlock.save();
     });
     const sceneData = await Scene.findOne({ templateId: "1" });
     const newScene = new Scene({
@@ -159,14 +159,15 @@ exports.addAdminTemplates = async function (req, res) {
       sceneThumbnail: sceneData.sceneThumbnail,
       sceneData: sceneData.sceneData,
     });
-    const blockData = await newScene.save();
-    res.status(200).json({ message: "Template created", tempateData });
+    const blockDatas = await newScene.save();
+    res.status(200).json({ message: "Template created",  blockData: blockData });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
 exports.updateTemplate = async function (req, res) {
+  console.log(req.body);
   try {
     const { id } = req.body;
     // Make sure to update existing division
@@ -181,7 +182,7 @@ exports.updateTemplate = async function (req, res) {
       { $set: req.body },
       { new: true, useFindAndModify: false }
     );
-    if (typeof req.body.data != undefined) {
+    if (req.body.data && typeof req.body.data != undefined) {
       const templateBlock = await Block.find({ templateId: id });
       const order = parseInt(templateBlock[templateBlock.length - 1].order) + 1;
       const newBlock = new Block({

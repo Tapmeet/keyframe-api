@@ -26,8 +26,47 @@ exports.addTemplate = async (req, res, next) => {
 *   @access Public
 */
 exports.index = async function(req, res) {
-  const templates = await Template.find({});
-  res.status(200).json({templates});
+  // const templates = await Template.find({});
+  // res.status(200).json({templates});
+  try {
+    const datas = Template.aggregate(
+        [
+          {
+            $project: {
+              _id: {
+                $toString: '$_id',
+              },
+              title: '$title',
+              categoryImage: '$categoryImage',
+            },
+          },
+          {
+            $lookup: {
+              from: `templates`,
+              let: {
+                templateCategory: '$_id',
+              },
+              pipeline: [
+                {
+                  // $match: {$expr: {$eq: ['$adminTemplate', 'true']}},
+                  $match: {'$expr': {$eq: ['$templateCategory', '$$templateCategory']},
+                    'adminTemplate': true,
+                  },
+                },
+
+              ],
+              as: 'template',
+            },
+          },
+        ],
+        function(err, data) {
+          if (err) throw err;
+          res.status(200).json({message: 'Template Data', templates: data});
+        },
+    );
+  } catch (error) {
+    res.status(500).json({message: error.message});
+  }
 };
 
 /** @route PUT api/division/{id}
