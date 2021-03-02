@@ -167,7 +167,6 @@ exports.addAdminTemplates = async function (req, res) {
 };
 
 exports.updateTemplate = async function (req, res) {
-  console.log(req.body);
   try {
     const { id } = req.body;
     // Make sure to update existing division
