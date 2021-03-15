@@ -20,11 +20,13 @@ const upload = multer({storage: storage});
 
 // UPLOAD
 router.post('/add-image/upload', upload.single('file'), template.upload);
+router.post('/add-media/upload', upload.single('file'), template.uploadMedia);
 router.post('/add-template', template.addTemplate);
 router.post('/add-block', template.addBlock);
 router.post('/create-videos', template.createVideo);
 router.get('/get-template', template.getTemplate);
 router.get('/get-uploads', template.getUploads);
+router.get('/get-music', template.getMusicUploads);
 router.delete('/delete-block/', template.deleteBlock);
 router.put('/update-scene/:id', template.update);
 router.put('/update-template/:id', template.updateTemplate);

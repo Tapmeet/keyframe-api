@@ -1,5 +1,6 @@
 const Template = require("../models/templates");
 const Userupload = require("../models/upload");
+const Musicupload = require("../models/uploadMedia");
 const Block = require("../models/templateBlocks");
 const Scene = require("../models/lastBlock");
 const fs = require("fs");
@@ -7,7 +8,7 @@ var gl = require("gl")(10, 10);
 const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 const ffmpeg = require("fluent-ffmpeg");
 var ffprobe = require("ffprobe-static");
-ffmpeg.setFfprobePath(ffprobe.path);
+ffmpeg.setFfprobePath(ffprobe.path); 
 ffmpeg.setFfmpegPath(ffmpegPath);
 
 var userId;
@@ -74,7 +75,34 @@ exports.upload = async (req, res, next) => {
     res.status(500).json({ message: error.message });
   }
 };
-
+//Upload
+exports.uploadMedia = async (req, res, next) => {
+  try {
+    const file = req.file;
+    if (file) {
+      const filePath = file.path;
+      //console.log(file)
+      //Save Event Image
+      if (filePath) {
+        try {
+          const newUpload = new Musicupload({
+            ...file,
+            userId: req.body.userId,
+            adminMedia: req.body.adminMedia
+          });
+          const uploadData = await newUpload.save();
+          res.status(200).json({ message: filePath });
+        } catch (error) {
+          res.status(500).json({ message: error.message });
+        }
+      }
+    } else {
+      res.status(500).json({ message: error.message });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 /** @route GET admin/user
  *   @desc Returns all users
  *   @access Public
@@ -97,6 +125,7 @@ exports.getAdminTemplates = async function (req, res) {
             templatePreview: "$templatePreview",
             sceneOrder: "$sceneOrder",
             templateCategory: "$templateCategory",
+            musicFile:"$musicFile"
           },
         },
         {
@@ -229,6 +258,7 @@ exports.getAdminTemplate = async (req, res, next) => {
             templatePreview: "$templatePreview",
             sceneOrder: "$sceneOrder",
             templateCategory: "$templateCategory",
+            musicFile:"$musicFile"
           },
         },
         {
@@ -281,13 +311,11 @@ exports.deleteBlock = async function (req, res) {
 exports.getTemplate = async (req, res, next) => {
   var mongoose = require("mongoose");
   const { userId } = req.query;
-  const { templateId } = req.query;
-  var id = mongoose.Types.ObjectId(templateId);
   try {
     const datas = Template.aggregate(
       [
         {
-          $match: { userId: userId, _id: id },
+          $match: { userId: userId, adminTemplate: false },
         },
         {
           $project: {
@@ -295,6 +323,10 @@ exports.getTemplate = async (req, res, next) => {
               $toString: "$_id",
             },
             userId: "$userId",
+            title: "$title",
+            templateImage: "$templateImage",
+            templatePreview: "$templatePreview",
+            templateCategory: "$templateCategory"
           },
         },
         {
@@ -328,6 +360,35 @@ exports.getUploads = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+
+exports.getMusicUploads = async (req, res, next) => {
+  const { userId } = req.query;
+  if(userId){
+    try {
+      const uploads = await Musicupload.find({ userId: userId });
+      if (typeof uploads !== "undefined" && uploads.length > 0) {
+        res.status(200).json({ message: "Uploads List", data: uploads });
+      } else {
+        res.status(200).json({ message: "No Data Found" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+  else{
+    try {
+      const uploads = await Musicupload.find({ adminMedia: true });
+      if (typeof uploads !== "undefined" && uploads.length > 0) {
+        res.status(200).json({ message: "Uploads List", data: uploads });
+      } else {
+        res.status(200).json({ message: "No Data Found" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+
 };
 /**
  * @function  addTemplate used to create new Event
