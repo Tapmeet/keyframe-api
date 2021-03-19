@@ -307,6 +307,28 @@ exports.deleteBlock = async function (req, res) {
   }
 };
 
+/** @route Delete block
+ *   @desc Delete block
+ *   @access Public
+ */
+exports.deleteTemplate = async function (req, res) {
+  
+  try {
+    const id = req.query.templateId;
+    const template = await Template.findOneAndDelete({
+      _id: id,
+    });
+    const block = await Block.deleteMany({
+      templateId: id,
+    });
+    const lasttemplate = await Scene.findOneAndDelete({
+      templateId: id,
+    });
+    res.status(200).json({ message: "Block has been deleted" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 //Upload
 exports.getTemplate = async (req, res, next) => {
   var mongoose = require("mongoose");

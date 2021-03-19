@@ -34,6 +34,7 @@ router.put('/update-template/:id', template.updateTemplate);
 router.get('/all-templates', template.getAdminTemplates);
 router.post('/create-template', template.addAdminTemplates);
 router.get('/get-admin-template', template.getAdminTemplate);
+router.delete('/delete-template/', template.deleteTemplate);
 module.exports = router;
 
 
