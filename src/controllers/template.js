@@ -8,7 +8,7 @@ var gl = require("gl")(10, 10);
 const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 const ffmpeg = require("fluent-ffmpeg");
 var ffprobe = require("ffprobe-static");
-ffmpeg.setFfprobePath(ffprobe.path); 
+ffmpeg.setFfprobePath(ffprobe.path);
 ffmpeg.setFfmpegPath(ffmpegPath);
 
 var userId;
@@ -58,11 +58,13 @@ exports.upload = async (req, res, next) => {
       //Save Event Image
       if (filePath) {
         try {
-          const newUpload = new Userupload({
-            ...file,
-            userId: req.body.userId,
-          });
-          const uploadData = await newUpload.save();
+          if (!req.body.noUpload) {
+            const newUpload = new Userupload({
+              ...file,
+              userId: req.body.userId,
+            });
+            const uploadData = await newUpload.save();
+          }
           res.status(200).json({ message: filePath });
         } catch (error) {
           res.status(500).json({ message: error.message });
@@ -88,7 +90,7 @@ exports.uploadMedia = async (req, res, next) => {
           const newUpload = new Musicupload({
             ...file,
             userId: req.body.userId,
-            adminMedia: req.body.adminMedia
+            adminMedia: req.body.adminMedia,
           });
           const uploadData = await newUpload.save();
           res.status(200).json({ message: filePath });
@@ -125,7 +127,7 @@ exports.getAdminTemplates = async function (req, res) {
             templatePreview: "$templatePreview",
             sceneOrder: "$sceneOrder",
             templateCategory: "$templateCategory",
-            musicFile:"$musicFile"
+            musicFile: "$musicFile",
           },
         },
         {
@@ -167,7 +169,7 @@ exports.addAdminTemplates = async function (req, res) {
     });
     const tempateData = await newTemplate.save();
     var newArr = [];
-    var blockData
+    var blockData;
     await sceneOrder.map(async (data, index) => {
       const newBlock = new Block({
         sceneId: data.sceneId,
@@ -178,7 +180,7 @@ exports.addAdminTemplates = async function (req, res) {
         order: index + 1,
         templateId: tempateData._id,
       });
-       blockData = await newBlock.save();
+      blockData = await newBlock.save();
     });
     const sceneData = await Scene.findOne({ templateId: "1" });
     const newScene = new Scene({
@@ -189,7 +191,7 @@ exports.addAdminTemplates = async function (req, res) {
       sceneData: sceneData.sceneData,
     });
     const blockDatas = await newScene.save();
-    res.status(200).json({ message: "Template created",  blockData: blockData });
+    res.status(200).json({ message: "Template created", blockData: blockData });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -258,7 +260,7 @@ exports.getAdminTemplate = async (req, res, next) => {
             templatePreview: "$templatePreview",
             sceneOrder: "$sceneOrder",
             templateCategory: "$templateCategory",
-            musicFile:"$musicFile"
+            musicFile: "$musicFile",
           },
         },
         {
@@ -307,12 +309,31 @@ exports.deleteBlock = async function (req, res) {
   }
 };
 
+exports.deleteMedia = async function (req, res) {
+  try {
+    const id = req.query.mediaId;
+    const mediaPath = req.query.media;
+   
+   
+    const block = await Userupload.findOneAndDelete({
+      _id: id,
+    });
+    var fs = require("fs");
+    fs.unlink(assetsPath + mediaPath, function (err) {
+      if (err) throw err;
+      console.log("File deleted!");
+    });
+    res.status(200).json({ message: "File deleted" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 /** @route Delete block
  *   @desc Delete block
  *   @access Public
  */
 exports.deleteTemplate = async function (req, res) {
-  
   try {
     const id = req.query.templateId;
     const template = await Template.findOneAndDelete({
@@ -348,7 +369,7 @@ exports.getTemplate = async (req, res, next) => {
             title: "$title",
             templateImage: "$templateImage",
             templatePreview: "$templatePreview",
-            templateCategory: "$templateCategory"
+            templateCategory: "$templateCategory",
           },
         },
         {
@@ -386,7 +407,7 @@ exports.getUploads = async (req, res, next) => {
 
 exports.getMusicUploads = async (req, res, next) => {
   const { userId } = req.query;
-  if(userId){
+  if (userId) {
     try {
       const uploads = await Musicupload.find({ userId: userId });
       if (typeof uploads !== "undefined" && uploads.length > 0) {
@@ -397,8 +418,7 @@ exports.getMusicUploads = async (req, res, next) => {
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
-  }
-  else{
+  } else {
     try {
       const uploads = await Musicupload.find({ adminMedia: true });
       if (typeof uploads !== "undefined" && uploads.length > 0) {
@@ -410,7 +430,6 @@ exports.getMusicUploads = async (req, res, next) => {
       res.status(500).json({ message: error.message });
     }
   }
-
 };
 /**
  * @function  addTemplate used to create new Event
