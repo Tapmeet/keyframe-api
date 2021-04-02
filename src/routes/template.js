@@ -1,6 +1,7 @@
 /* eslint-disable new-cap */
 const express = require('express');
 const template = require('../controllers/template');
+const video = require('../controllers/createVideo');
 const router = express.Router();
 /**
  * Upload Profile Image
@@ -23,7 +24,7 @@ router.post('/add-image/upload', upload.single('file'), template.upload);
 router.post('/add-media/upload', upload.single('file'), template.uploadMedia);
 router.post('/add-template', template.addTemplate);
 router.post('/add-block', template.addBlock);
-router.post('/create-videos', template.createVideo);
+router.post('/create-videos', video.createVideo);
 router.get('/get-template', template.getTemplate);
 router.get('/get-uploads', template.getUploads);
 router.get('/get-music', template.getMusicUploads);

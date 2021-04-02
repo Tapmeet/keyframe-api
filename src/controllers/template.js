@@ -571,6 +571,7 @@ exports.update = async function (req, res) {
  * @access Admin
  */
 exports.createVideo = async (req, res, next) => {
+  console.log('here')
   const { templateId } = req.body;
   try {
     const templateBlock = await Block.find({ templateId: templateId });
