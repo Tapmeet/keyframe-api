@@ -94,6 +94,7 @@ exports.createVideo = async (req, res, next) => {
       order: 1,
     });
     const template = await Template.findOne({ _id: templateId });
+    const lastScene = await Scene.findOne({ templateId: templateId });
     const data = {
       templateBlock: templateBlock,
       template: template,
@@ -109,20 +110,21 @@ exports.createVideo = async (req, res, next) => {
         console.error(err);
       }
       // const functionName = "videoTemplate" + template.templateNumber;
+      lastSceneVideo(lastScene);
 
-      const promises = templateBlock.map(async (data) => {
-        const functionName = "videoTemplate" + data.sceneId;
-        const response = await global[functionName](data, req, res);
-        return response;
-      });
-      Promise.all(promises)
-        .then((results) => {
-          console.log(results);
-          res.status(200).json({ message: "final" });
-        })
-        .catch((e) => {
-          console.error(e);
-        });
+      // const promises = templateBlock.map(async (data) => {
+      //   const functionName = "videoTemplate" + data.sceneId;
+      //   const response = await global[functionName](data, req, res);
+      //   return response;
+      // });
+      // Promise.all(promises)
+      //   .then((results) => {
+      //     console.log(results);
+      //     res.status(200).json({ message: "final" });
+      //   })
+      //   .catch((e) => {
+      //     console.error(e);
+      //   });
     } else {
       res.status(200).json({ message: "Video failed 1" });
     }
@@ -274,7 +276,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         });
         var commands = ffmpeg();
         var titleColor = datas.block.textColor;
-        if (titleColor.lenth == "4") {
+        if (titleColor.length == "4") {
           titleColor = titleColor.replaceAll(
             "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
             "#$1$1$2$2$3$3"
@@ -543,14 +545,14 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
           }
         }
       });
-      if (titleColor.lenth == "4") {
+      if (titleColor.length == "4") {
         titleColor = titleColor.replaceAll(
           "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
           "#$1$1$2$2$3$3"
         );
       }
       var subtitleColor = data.sceneData.textColor;
-      if (subtitleColor.lenth == "4") {
+      if (subtitleColor.length == "4") {
         subtitleColor = subtitleColor.replaceAll(
           "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
           "#$1$1$2$2$3$3"
@@ -981,7 +983,7 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
     function block3VideoTxt() {
       var commands = new ffmpeg();
       var titleColor = data.sceneData.textColor;
-      if (titleColor.lenth == "4") {
+      if (titleColor.length == "4") {
         titleColor = titleColor.replaceAll(
           "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
           "#$1$1$2$2$3$3"
@@ -1093,7 +1095,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
       }
     });
     var titleColor = data.sceneData.textArray[0].fontColor;
-    if (titleColor.lenth == "4") {
+    if (titleColor.length == "4") {
       titleColor = titleColor.replaceAll(
         "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
         "#$1$1$2$2$3$3"
@@ -1264,7 +1266,10 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
       } else {
         commands
           .input(assetsPath + data.sceneData.media[1].url)
-          .complexFilter(["crop=iw-400:ih-40,scale=960:1080[checked]"], "checked")
+          .complexFilter(
+            ["crop=iw-400:ih-40,scale=960:1080[checked]"],
+            "checked"
+          )
           .loop(4)
           .addOption("-pix_fmt", "yuv420p")
           .addOption("-framerate", "50")
@@ -1351,7 +1356,10 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
       } else {
         commands
           .input(assetsPath + data.sceneData.media[2].url)
-          .complexFilter(["crop=iw-400:ih-40,scale=960:1080[checked]"], "checked")
+          .complexFilter(
+            ["crop=iw-400:ih-40,scale=960:1080[checked]"],
+            "checked"
+          )
           .loop(4)
           .addOption("-pix_fmt", "yuv420p")
           .addOption("-framerate", "50")
@@ -1401,7 +1409,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
         }
       });
       var titleColor = data.sceneData.textArray[1].fontColor;
-      if (titleColor.lenth == "4") {
+      if (titleColor.length == "4") {
         titleColor = titleColor.replaceAll(
           "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
           "#$1$1$2$2$3$3"
@@ -1592,7 +1600,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
         .complexFilter(
           "[0:v]  setpts=PTS-STARTPTS, scale=950:1070,pad=960:1080:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=950:1070,pad=960:1080:5:5:white [a1];[a0][a1]xstack=inputs=2:layout=0_0|w0_0[out]"
         )
-        .addOption("-map", "[out]") 
+        .addOption("-map", "[out]")
         .addOption("-c:v", "libx264")
         .save(
           "./src/Assets/template/videos/" +
@@ -1615,3 +1623,318 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
     }
   });
 };
+
+function lastSceneVideo(data) {
+  //console.log(data);
+  var commands = new ffmpeg();
+  commands
+    .input(assetsPath + "whitebgVideo.mp4")
+    .input(assetsPath + data.sceneData.media[0].url)
+    .complexFilter(
+      "overlay=x=(main_w-overlay_w-100):y=(main_h-overlay_h)/2[outs]"
+    )
+    .addOption("-map", "[outs]")
+    .addOption("-c:v", "libx264")
+    .addOption("-pix_fmt", "yuv420p")
+    .addOption("-framerate", "50")
+    .addOption("-c:v", "libx264")
+    .save(
+      "./src/Assets/template/videos/" + userId + "/template1/lastvideoLeft.mp4"
+    )
+    .on("start", function (commandLine) {
+      console.log("leastVideo1");
+    })
+    .on("error", function (er) {
+      console.log(er);
+      return;
+    })
+    .on("end", function (commandLine) {
+      console.log("here");
+      lastVideoText();
+    });
+  function lastVideoText() {
+    var commands = new ffmpeg();
+    // console.log(data.sceneData.textArray)
+    if (data.sceneData.textArray[0] != undefined) {
+      var titleColor1 = data.sceneData.textArray[0].fontColor;
+      let fontfamily = data.sceneData.textArray[0].fontFamily;
+      var fontSize1 = data.sceneData.textArray[0].fontSize;
+      var selectedfonts1;
+      fonts.map(function (font) {
+        if (font.family == fontfamily) {
+          if (data.sceneData.textArray[0].fontWeight == "light") {
+            selectedfonts1 = font.light;
+          } else if (data.sceneData.textArray[0].fontWeight == "normal") {
+            selectedfonts1 = font.file;
+          } else if (data.sceneData.textArray[0].fontWeight == "bold") {
+            selectedfonts1 = font.bold;
+          }
+        }
+      });
+      if (titleColor1.length == "4") {
+        var $hex = titleColor1;
+        titleColor1 =
+          "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
+      }
+      var fieldText1 = data.sceneData.textArray[0].text;
+    } else {
+      var fieldText1 = "";
+      var titleColor1 = "#00000";
+      var selectedfonts1 = fonts[0].file;
+      var fontSize1 = "20";
+    }
+    if (data.sceneData.textArray[1] != undefined) {
+      var fieldText2 = data.sceneData.textArray[1].text;
+      var titleColor2 = data.sceneData.textArray[1].fontColor;
+      let fontfamily = data.sceneData.textArray[1].fontFamily;
+      var fontSize2 = data.sceneData.textArray[1].fontSize;
+      var selectedfonts2;
+      fonts.map(function (font) {
+        if (font.family == fontfamily) {
+          if (data.sceneData.textArray[1].fontWeight == "light") {
+            selectedfonts2 = font.light;
+          } else if (data.sceneData.textArray[1].fontWeight == "normal") {
+            selectedfonts2 = font.file;
+          } else if (data.sceneData.textArray[1].fontWeight == "bold") {
+            selectedfonts2 = font.bold;
+          }
+        }
+      });
+      if (titleColor2.length == "4") {
+        var $hex = titleColor2;
+        titleColor2 =
+          "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
+      }
+    } else {
+      var fieldText2 = "";
+      var titleColor2 = "#00000";
+      var selectedfonts2 = fonts[0].file;
+      let fontSize2 = "20";
+    }
+    if (data.sceneData.textArray[2] != undefined) {
+      var fieldText3 = data.sceneData.textArray[2].text;
+      var titleColor3 = data.sceneData.textArray[2].fontColor;
+      let fontfamily = data.sceneData.textArray[2].fontFamily;
+      var fontSize3 = data.sceneData.textArray[2].fontSize;
+      var selectedfonts3;
+      fonts.map(function (font) {
+        if (font.family == fontfamily) {
+          if (data.sceneData.textArray[2].fontWeight == "light") {
+            selectedfonts3 = font.light;
+          } else if (data.sceneData.textArray[2].fontWeight == "normal") {
+            selectedfonts3 = font.file;
+          } else if (data.sceneData.textArray[2].fontWeight == "bold") {
+            selectedfonts3 = font.bold;
+          }
+        }
+      });
+      if (titleColor3.length == "4") {
+        var $hex = titleColor3;
+        titleColor3 =
+          "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
+      }
+    } else {
+      var fieldText3 = "";
+      var titleColor3 = "#00000";
+      var selectedfonts3 = fonts[0].file;
+      var fontSize3 = "20";
+    }
+    if (data.sceneData.textArray[3] != undefined) {
+      var fieldText4 = data.sceneData.textArray[3].text;
+      var titleColor4 = data.sceneData.textArray[3].fontColor;
+      let fontfamily = data.sceneData.textArray[3].fontFamily;
+      var fontSize4 = data.sceneData.textArray[3].fontSize;
+      var selectedfonts4;
+      fonts.map(function (font) {
+        if (font.family == fontfamily) {
+          if (data.sceneData.textArray[3].fontWeight == "light") {
+            selectedfonts4 = font.light;
+          } else if (data.sceneData.textArray[3].fontWeight == "normal") {
+            selectedfonts4 = font.file;
+          } else if (data.sceneData.textArray[3].fontWeight == "bold") {
+            selectedfonts4 = font.bold;
+          }
+        }
+      });
+      if (titleColor4.length == "4") {
+        var $hex = titleColor4;
+        titleColor4 =
+          "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
+      }
+    } else {
+      var fieldText4 = "";
+      var titleColor4 = "#00000";
+      var fontSize4 = "20";
+      var selectedfonts4 = fonts[0].file;
+    }
+    commands
+      .input(assetsPath + "whitebgVideo.mp4")
+      .complexFilter(
+        [
+          "scale=960:1080[checked]",
+          {
+            filter: "drawtext",
+            options: {
+              fontfile: selectedfonts1,
+              text: fieldText1,
+              fontsize: parseInt(fontSize1) + 15,
+              fontcolor: titleColor1,
+              line_spacing: 20,
+              x: "100",
+              y: "((h-text_h)/2)-(text_h-(th/6)) - 100",
+              box: 1,
+              boxcolor: "white@0.0",
+              boxborderw: "30",
+              bordercolor: "white",
+              enable: "gte(t,1)",
+            },
+            inputs: "checked",
+            outputs: "output1",
+          },
+          {
+            filter: "drawtext",
+            options: {
+              fontfile: selectedfonts2,
+              text: fieldText2,
+              fontsize: parseInt(fontSize2) + 15,
+              fontcolor: titleColor2,
+              line_spacing: 20,
+              x: "100",
+              y: "((h-text_h)/2)+(text_h-(th/4))- 100",
+              box: 1,
+              boxcolor: "white@0.0",
+              boxborderw: "30",
+              bordercolor: "white",
+              enable: "gte(t,1)",
+            },
+            inputs: "output1",
+            outputs: "output2",
+          },
+          {
+            filter: "drawtext",
+            options: {
+              fontfile: selectedfonts3,
+              text: fieldText3,
+              fontsize: parseInt(fontSize3) + 15,
+              fontcolor: titleColor3,
+              line_spacing: 20,
+              x: "100",
+              y: "((h-text_h)/2)+(text_h-(th/4))+50- 100",
+              box: 1,
+              boxcolor: "white@0.0",
+              boxborderw: "30",
+              bordercolor: "white",
+              enable: "gte(t,1)",
+            },
+            inputs: "output2",
+            outputs: "output3",
+          },
+          {
+            filter: "drawtext",
+            options: {
+              fontfile: selectedfonts4,
+              text: fieldText4,
+              fontsize: parseInt(fontSize4) + 15,
+              fontcolor: titleColor4,
+              line_spacing: 20,
+              x: "100",
+              y: "((h-text_h)/2)+(text_h-(th/4))+ 110 - 100",
+              box: 1,
+              boxcolor: "white@0.0",
+              boxborderw: "30",
+              bordercolor: "white",
+              enable: "gte(t,1)",
+            },
+            inputs: "output3",
+            outputs: "output",
+          },
+        ],
+        "output"
+      )
+      .save(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/lastvideoRight.mp4"
+      )
+      .on("start", function (commandLine) {
+        console.log("leastVideo1");
+      })
+      .on("error", function (er) {
+        console.log(er);
+        return;
+      })
+      .on("end", function (commandLine) {
+        addLogo();
+      });
+    function addLogo() {
+      var commands = new ffmpeg();
+      commands
+        .input(
+          assetsPath +
+            "template/videos/" +
+            userId +
+            "/template1/lastvideoRight.mp4"
+        )
+        .input(assetsPath + data.sceneData.media[1].url)
+        .complexFilter("overlay=x=(100):y=(main_h + 220 -overlay_h )/2[outs]")
+        .addOption("-map", "[outs]")
+        .addOption("-c:v", "libx264")
+        .addOption("-pix_fmt", "yuv420p")
+        .addOption("-framerate", "50")
+        .addOption("-c:v", "libx264")
+        .save(
+          "./src/Assets/template/videos/" +
+            userId +
+            "/template1/lastvideoLeftFinal.mp4"
+        )
+        .on("start", function (commandLine) {
+          console.log("leastVideo1");
+        })
+        .on("error", function (er) {
+          console.log(er);
+          return;
+        })
+        .on("end", function (commandLine) {
+          lastVideoFinalmerged()
+        });
+    }
+    function lastVideoFinalmerged() {
+      var command = new ffmpeg();
+      command.input(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/lastvideoLeft.mp4"
+      );
+      command.input(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/lastvideoLeftFinal.mp4"
+      );
+      command
+        .complexFilter(
+          "[0:v]  setpts=PTS-STARTPTS, scale=950:1070,pad=960:1080:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=950:1070,pad=960:1080:5:5:white [a1];[a0][a1]xstack=inputs=2:layout=0_0|w0_0[out]"
+        )
+        .addOption("-map", "[out]")
+        .addOption("-c:v", "libx264")
+        .save(
+          "./src/Assets/template/videos/" +
+            userId +
+            "/template1/lastvideoFinal.mp4"
+        )
+        .on("start", function (commandLine) {
+          console.log(commandLine);
+        })
+        .on("error", function (er) {
+          console.log(er);
+          res.status(200).json({ message: "Video failed 24" });
+          return;
+        })
+        .on("end", function () {
+          const finalvideo =
+            "template/videos/" + userId + "/template1/lastvideoFinal.mp4";
+         // resolve(finalvideo);
+         console.log("done")
+        });
+    }
+  }
+}
