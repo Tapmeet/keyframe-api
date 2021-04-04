@@ -80,7 +80,45 @@ var fonts = [
     bold: "./src/Assets/fonts/OpenSans-Bold.ttf",
   },
 ];
+/**
+ * @function  "createVideo" used to create new Event
+ * @route POST /api/template/create-videos
+ * @desc Add Event
+ * @access Admin
+ */
+exports.mergeVideo = async (req, res, next) => {
+  //console.log(req.body.videos);
+  const transitions = [];
+  const { templateId } = req.body;
+  const template = await Template.findOne({ _id: templateId });
+  const videos = req.body.videos;
+  const userId = template.userId;
 
+  req.body.videos.map((data, index) => {
+    if (index > 0) {
+      transitions.push({
+        name: "fade",
+        duration: 500,
+      });
+    }
+  });
+
+  const promises = await concat({
+    output:
+      "./src/Assets/template/videos/" + userId + "/template1/finalVideos.mp4",
+    videos: videos,
+    transitions: transitions,
+    concurrency: videos.length,
+  });
+  console.log(promises);  
+  if (typeof Createdvideo4 == "undefined") {
+    res.status(200).json({
+      message: "successfull",
+      data: "./src/Assets/template/videos/" + userId + "/template1/finalVideos.mp4",
+    });
+  }
+ 
+};
 /**
  * @function  "createVideo" used to create new Event
  * @route POST /api/template/create-videos
@@ -110,21 +148,24 @@ exports.createVideo = async (req, res, next) => {
         console.error(err);
       }
       // const functionName = "videoTemplate" + template.templateNumber;
-      lastSceneVideo(lastScene);
+      const lastVideo = await lastSceneVideo(lastScene);
 
-      // const promises = templateBlock.map(async (data) => {
-      //   const functionName = "videoTemplate" + data.sceneId;
-      //   const response = await global[functionName](data, req, res);
-      //   return response;
-      // });
-      // Promise.all(promises)
-      //   .then((results) => {
-      //     console.log(results);
-      //     res.status(200).json({ message: "final" });
-      //   })
-      //   .catch((e) => {
-      //     console.error(e);
-      //   });
+      const promises = templateBlock.map(async (data) => {
+        const functionName = "videoTemplate" + data.sceneId;
+        const response = await global[functionName](data, req, res);
+        return response;
+      });
+      Promise.all(promises)
+        .then((results) => {
+          const result = [...results, lastVideo];
+          res.status(200).json({
+            message: "successfull",
+            data: result,
+          });
+        })
+        .catch((e) => {
+          console.error(e);
+        });
     } else {
       res.status(200).json({ message: "Video failed 1" });
     }
@@ -361,7 +402,10 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           .on("end", function (commandLine) {
             console.log("success");
             var finalvideo1 =
-              "template/videos/" + userId + "/template1/block-1-text-video.mp4";
+              assetsPath +
+              "template/videos/" +
+              userId +
+              "/template1/block-1-text-video.mp4";
             resolve(finalvideo1);
           });
       }
@@ -380,13 +424,13 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
       var commands = new ffmpeg();
       if (
         data.sceneData.media[0].type == "image" ||
-        data.sceneData.media[0].type == "image"
+        data.sceneData.media[1].type == "image"
       ) {
         commands
           .input(assetsPath + input)
           .complexFilter(
             [
-              "scale=1280:720:force_original_aspect_ratio=decrease[rescaled]",
+              "scale=1920:1080[rescaled]",
               {
                 filter: "zoompan",
                 options: "z='zoom+0.0009'",
@@ -598,234 +642,232 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
         var fieldTitle5 = "";
         var fieldText5 = "";
       }
-
-      setTimeout(function () {
-        commands
-          .input(
-            "./src/Assets/template/videos/" +
-              userId +
-              "/template1/blockmerged.mp4"
-          )
-          .complexFilter(
-            [
-              "scale=1920:1080[checked]",
-              {
-                filter: "drawbox",
-                options: {
-                  x: 0,
-                  y: 0,
-                  width: 480,
-                  color: "white",
-                  t: "fill",
-                },
-                inputs: "checked",
-                outputs: "firstOne",
+      commands
+        .input(
+          "./src/Assets/template/videos/" +
+            userId +
+            "/template1/blockmerged.mp4"
+        )
+        .complexFilter(
+          [
+            "scale=1920:1080[checked]",
+            {
+              filter: "drawbox",
+              options: {
+                x: 0,
+                y: 0,
+                width: 480,
+                color: "white",
+                t: "fill",
               },
-              {
-                filter: "drawtext",
-                options: {
-                  fontfile: selectedfonts,
-                  text: fieldTitle1,
-                  fontsize: parseInt(titletextSize) + 15,
-                  fontcolor: titleColor,
-                  line_spacing: "20",
-                  x: "120",
-                  y: "150",
-                  box: 1,
-                  boxcolor: "white@0.0",
-                  boxborderw: "50",
-                  bordercolor: "white",
-                  enable: "between(t,1.1,10000)",
-                },
-                inputs: "firstOne",
-                outputs: "output2",
+              inputs: "checked",
+              outputs: "firstOne",
+            },
+            {
+              filter: "drawtext",
+              options: {
+                fontfile: selectedfonts,
+                text: fieldTitle1,
+                fontsize: parseInt(titletextSize) + 15,
+                fontcolor: titleColor,
+                line_spacing: "20",
+                x: "120",
+                y: "150",
+                box: 1,
+                boxcolor: "white@0.0",
+                boxborderw: "50",
+                bordercolor: "white",
+                enable: "between(t,1.1,10000)",
               },
-              {
-                filter: "drawtext",
-                options: {
-                  fontfile: selectedfonts,
-                  text: fieldText1,
-                  fontsize: parseInt(data.sceneData.textSize) + 15,
-                  fontcolor: subtitleColor,
-                  x: "120",
-                  y: "220",
-                  box: 1,
-                  boxcolor: "white@0.0",
-                  boxborderw: "50",
-                  bordercolor: "white",
-                  enable: "between(t,1.3,10000)",
-                },
-                inputs: "output2",
-                outputs: "output3",
+              inputs: "firstOne",
+              outputs: "output2",
+            },
+            {
+              filter: "drawtext",
+              options: {
+                fontfile: selectedfonts,
+                text: fieldText1,
+                fontsize: parseInt(data.sceneData.textSize) + 15,
+                fontcolor: subtitleColor,
+                x: "120",
+                y: "220",
+                box: 1,
+                boxcolor: "white@0.0",
+                boxborderw: "50",
+                bordercolor: "white",
+                enable: "between(t,1.3,10000)",
               },
-              {
-                filter: "drawtext",
-                options: {
-                  fontfile: selectedfonts,
-                  text: fieldTitle2,
-                  fontsize: parseInt(titletextSize) + 15,
-                  fontcolor: titleColor,
-                  x: "120",
-                  y: "320",
-                  box: 1,
-                  boxcolor: "white@0.0",
-                  boxborderw: "50",
-                  bordercolor: "white",
-                  enable: "between(t,1.5,10000)",
-                },
-                inputs: "output3",
-                outputs: "output4",
+              inputs: "output2",
+              outputs: "output3",
+            },
+            {
+              filter: "drawtext",
+              options: {
+                fontfile: selectedfonts,
+                text: fieldTitle2,
+                fontsize: parseInt(titletextSize) + 15,
+                fontcolor: titleColor,
+                x: "120",
+                y: "320",
+                box: 1,
+                boxcolor: "white@0.0",
+                boxborderw: "50",
+                bordercolor: "white",
+                enable: "between(t,1.5,10000)",
               },
-              {
-                filter: "drawtext",
-                options: {
-                  fontfile: selectedfonts,
-                  text: fieldText2,
-                  fontsize: parseInt(data.sceneData.textSize) + 15,
-                  fontcolor: subtitleColor,
-                  x: "120",
-                  y: "370",
-                  box: 1,
-                  boxcolor: "white@0.0",
-                  boxborderw: "50",
-                  bordercolor: "white",
-                  enable: "between(t,1.8,10000)",
-                },
-                inputs: "output4",
-                outputs: "output5",
+              inputs: "output3",
+              outputs: "output4",
+            },
+            {
+              filter: "drawtext",
+              options: {
+                fontfile: selectedfonts,
+                text: fieldText2,
+                fontsize: parseInt(data.sceneData.textSize) + 15,
+                fontcolor: subtitleColor,
+                x: "120",
+                y: "370",
+                box: 1,
+                boxcolor: "white@0.0",
+                boxborderw: "50",
+                bordercolor: "white",
+                enable: "between(t,1.8,10000)",
               },
-              {
-                filter: "drawtext",
-                options: {
-                  fontfile: selectedfonts,
-                  text: fieldTitle3,
-                  fontsize: parseInt(titletextSize) + 15,
-                  fontcolor: titleColor,
-                  x: "120",
-                  y: "470",
-                  box: 1,
-                  boxcolor: "white@0.0",
-                  boxborderw: "50",
-                  bordercolor: "white",
-                  enable: "between(t,2,10000)",
-                },
-                inputs: "output5",
-                outputs: "output6",
+              inputs: "output4",
+              outputs: "output5",
+            },
+            {
+              filter: "drawtext",
+              options: {
+                fontfile: selectedfonts,
+                text: fieldTitle3,
+                fontsize: parseInt(titletextSize) + 15,
+                fontcolor: titleColor,
+                x: "120",
+                y: "470",
+                box: 1,
+                boxcolor: "white@0.0",
+                boxborderw: "50",
+                bordercolor: "white",
+                enable: "between(t,2,10000)",
               },
-              {
-                filter: "drawtext",
-                options: {
-                  fontfile: selectedfonts,
-                  text: fieldText3,
-                  fontsize: parseInt(data.sceneData.textSize) + 15,
-                  fontcolor: subtitleColor,
-                  x: "120",
-                  y: "520",
-                  box: 1,
-                  boxcolor: "white@0.0",
-                  boxborderw: "50",
-                  bordercolor: "white",
-                  enable: "between(t,2.2,10000)",
-                },
-                inputs: "output6",
-                outputs: "output7",
+              inputs: "output5",
+              outputs: "output6",
+            },
+            {
+              filter: "drawtext",
+              options: {
+                fontfile: selectedfonts,
+                text: fieldText3,
+                fontsize: parseInt(data.sceneData.textSize) + 15,
+                fontcolor: subtitleColor,
+                x: "120",
+                y: "520",
+                box: 1,
+                boxcolor: "white@0.0",
+                boxborderw: "50",
+                bordercolor: "white",
+                enable: "between(t,2.2,10000)",
               },
-              {
-                filter: "drawtext",
-                options: {
-                  fontfile: selectedfonts,
-                  text: fieldTitle4,
-                  fontsize: parseInt(titletextSize) + 15,
-                  fontcolor: titleColor,
-                  x: "120",
-                  y: "620",
-                  box: 1,
-                  boxcolor: "white@0.0",
-                  boxborderw: "50",
-                  bordercolor: "white",
-                  enable: "between(t,2.4,10000)",
-                },
-                inputs: "output7",
-                outputs: "output8",
+              inputs: "output6",
+              outputs: "output7",
+            },
+            {
+              filter: "drawtext",
+              options: {
+                fontfile: selectedfonts,
+                text: fieldTitle4,
+                fontsize: parseInt(titletextSize) + 15,
+                fontcolor: titleColor,
+                x: "120",
+                y: "620",
+                box: 1,
+                boxcolor: "white@0.0",
+                boxborderw: "50",
+                bordercolor: "white",
+                enable: "between(t,2.4,10000)",
               },
-              {
-                filter: "drawtext",
-                options: {
-                  fontfile: selectedfonts,
-                  text: fieldText4,
-                  fontsize: parseInt(data.sceneData.textSize) + 15,
-                  fontcolor: subtitleColor,
-                  x: "120",
-                  y: "670",
-                  box: 1,
-                  boxcolor: "white@0.0",
-                  boxborderw: "50",
-                  bordercolor: "white",
-                  enable: "between(t,2.6,10000)",
-                },
-                inputs: "output8",
-                outputs: "output9",
+              inputs: "output7",
+              outputs: "output8",
+            },
+            {
+              filter: "drawtext",
+              options: {
+                fontfile: selectedfonts,
+                text: fieldText4,
+                fontsize: parseInt(data.sceneData.textSize) + 15,
+                fontcolor: subtitleColor,
+                x: "120",
+                y: "670",
+                box: 1,
+                boxcolor: "white@0.0",
+                boxborderw: "50",
+                bordercolor: "white",
+                enable: "between(t,2.6,10000)",
               },
-              {
-                filter: "drawtext",
-                options: {
-                  fontfile: selectedfonts,
-                  text: fieldTitle5,
-                  fontsize: parseInt(titletextSize) + 15,
-                  fontcolor: titleColor,
-                  x: "120",
-                  y: "770",
-                  box: 1,
-                  boxcolor: "white@0.0",
-                  boxborderw: "50",
-                  bordercolor: "white",
-                  enable: "between(t,2.8,10000)",
-                },
-                inputs: "output9",
-                outputs: "output10",
+              inputs: "output8",
+              outputs: "output9",
+            },
+            {
+              filter: "drawtext",
+              options: {
+                fontfile: selectedfonts,
+                text: fieldTitle5,
+                fontsize: parseInt(titletextSize) + 15,
+                fontcolor: titleColor,
+                x: "120",
+                y: "770",
+                box: 1,
+                boxcolor: "white@0.0",
+                boxborderw: "50",
+                bordercolor: "white",
+                enable: "between(t,2.8,10000)",
               },
-              {
-                filter: "drawtext",
-                options: {
-                  fontfile: selectedfonts,
-                  text: fieldText5,
-                  fontsize: parseInt(data.sceneData.textSize) + 15,
-                  fontcolor: subtitleColor,
-                  x: "120",
-                  y: "820",
-                  box: 1,
-                  boxcolor: "white@0.0",
-                  boxborderw: "50",
-                  bordercolor: "white",
-                  enable: "between(t,3,10000)",
-                },
-                inputs: "output10",
-                outputs: "output",
+              inputs: "output9",
+              outputs: "output10",
+            },
+            {
+              filter: "drawtext",
+              options: {
+                fontfile: selectedfonts,
+                text: fieldText5,
+                fontsize: parseInt(data.sceneData.textSize) + 15,
+                fontcolor: subtitleColor,
+                x: "120",
+                y: "820",
+                box: 1,
+                boxcolor: "white@0.0",
+                boxborderw: "50",
+                bordercolor: "white",
+                enable: "between(t,3,10000)",
               },
-            ],
-            "output"
-          )
-          .addOption("-c:v", "libx264")
-          .save(
-            "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block2text.mp4"
-          )
-          .on("start", function (commandLine) {
-            console.log("step6");
-          })
-          .on("error", function (er) {
-            res.status(200).json({ message: " 7" });
-            console.log(er);
-            // console.log("error occured: " + er.message);
-            return;
-          })
-          .on("end", function (commandLine) {
-            let finalvideo2 =
-              "template/videos/" + userId + "/template1/block2text.mp4";
-            resolve(finalvideo2);
-          });
-      }, 600);
+              inputs: "output10",
+              outputs: "output",
+            },
+          ],
+          "output"
+        )
+        .addOption("-c:v", "libx264")
+        .save(
+          "./src/Assets/template/videos/" + userId + "/template1/block2text.mp4"
+        )
+        .on("start", function (commandLine) {
+          console.log("step6");
+        })
+        .on("error", function (er) {
+          res.status(200).json({ message: " 7" });
+          console.log(er);
+          // console.log("error occured: " + er.message);
+          return;
+        })
+        .on("end", function (commandLine) {
+          let finalvideo2 =
+            assetsPath +
+            "template/videos/" +
+            userId +
+            "/template1/block2text.mp4";
+          resolve(finalvideo2);
+        });
     }
   });
 };
@@ -1061,7 +1103,10 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
           .on("end", function (commandLine) {
             console.log("step6");
             let finalvideo3 =
-              "template/videos/" + userId + "/template1/block3FinalVideo.mp4";
+              assetsPath +
+              "template/videos/" +
+              userId +
+              "/template1/block3FinalVideo.mp4";
             resolve(finalvideo3);
           });
       }, 600);
@@ -1106,7 +1151,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
         .input(assetsPath + data.sceneData.media[0].url)
         .complexFilter(
           [
-            "crop=iw-400:ih-40, scale=960:1080[checked]",
+            "crop=iw-700:ih-200, scale=960:1080[checked]",
             {
               filter: "drawbox",
               options: {
@@ -1168,7 +1213,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
         .input(assetsPath + data.sceneData.media[0].url)
         .complexFilter(
           [
-            "crop=iw-400:ih-40,scale=960:1080[checked]",
+            "crop=iw-700:ih-200,scale=960:1080[checked]",
             {
               filter: "drawbox",
               options: {
@@ -1267,7 +1312,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
         commands
           .input(assetsPath + data.sceneData.media[1].url)
           .complexFilter(
-            ["crop=iw-400:ih-40,scale=960:1080[checked]"],
+            ["crop=iw-700:ih-40,scale=960:1080[checked]"],
             "checked"
           )
           .loop(4)
@@ -1357,7 +1402,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
         commands
           .input(assetsPath + data.sceneData.media[2].url)
           .complexFilter(
-            ["crop=iw-400:ih-40,scale=960:1080[checked]"],
+            ["crop=iw-700:ih-200,scale=960:1080[checked]"],
             "checked"
           )
           .loop(4)
@@ -1420,7 +1465,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
           .input(assetsPath + data.sceneData.media[3].url)
           .complexFilter(
             [
-              "crop=iw-400:ih-40,scale=960:1080[checked]",
+              "crop=iw-700:ih-200,scale=960:1080[checked]",
               {
                 filter: "drawbox",
                 options: {
@@ -1492,7 +1537,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
           .input(assetsPath + data.sceneData.containerFour)
           .complexFilter(
             [
-              "scale=crop=iw-400:ih-40,960:1080[checked]",
+              "scale=crop=iw-700:ih-200,960:1080[checked]",
               {
                 filter: "drawbox",
                 options: {
@@ -1617,7 +1662,10 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
         })
         .on("end", function () {
           const finalvideo =
-            "template/videos/" + userId + "/template1/block4Finalvideo.mp4";
+            assetsPath +
+            "template/videos/" +
+            userId +
+            "/template1/block4Finalvideo.mp4";
           resolve(finalvideo);
         });
     }
@@ -1625,236 +1673,23 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
 };
 
 function lastSceneVideo(data) {
-  //console.log(data);
-  var commands = new ffmpeg();
-  commands
-    .input(assetsPath + "whitebgVideo.mp4")
-    .input(assetsPath + data.sceneData.media[0].url)
-    .complexFilter(
-      "overlay=x=(main_w-overlay_w-100):y=(main_h-overlay_h)/2[outs]"
-    )
-    .addOption("-map", "[outs]")
-    .addOption("-c:v", "libx264")
-    .addOption("-pix_fmt", "yuv420p")
-    .addOption("-framerate", "50")
-    .addOption("-c:v", "libx264")
-    .save(
-      "./src/Assets/template/videos/" + userId + "/template1/lastvideoLeft.mp4"
-    )
-    .on("start", function (commandLine) {
-      console.log("leastVideo1");
-    })
-    .on("error", function (er) {
-      console.log(er);
-      return;
-    })
-    .on("end", function (commandLine) {
-      console.log("here");
-      lastVideoText();
-    });
-  function lastVideoText() {
+  return new Promise((resolve) => {
     var commands = new ffmpeg();
-    // console.log(data.sceneData.textArray)
-    if (data.sceneData.textArray[0] != undefined) {
-      var titleColor1 = data.sceneData.textArray[0].fontColor;
-      let fontfamily = data.sceneData.textArray[0].fontFamily;
-      var fontSize1 = data.sceneData.textArray[0].fontSize;
-      var selectedfonts1;
-      fonts.map(function (font) {
-        if (font.family == fontfamily) {
-          if (data.sceneData.textArray[0].fontWeight == "light") {
-            selectedfonts1 = font.light;
-          } else if (data.sceneData.textArray[0].fontWeight == "normal") {
-            selectedfonts1 = font.file;
-          } else if (data.sceneData.textArray[0].fontWeight == "bold") {
-            selectedfonts1 = font.bold;
-          }
-        }
-      });
-      if (titleColor1.length == "4") {
-        var $hex = titleColor1;
-        titleColor1 =
-          "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
-      }
-      var fieldText1 = data.sceneData.textArray[0].text;
-    } else {
-      var fieldText1 = "";
-      var titleColor1 = "#00000";
-      var selectedfonts1 = fonts[0].file;
-      var fontSize1 = "20";
-    }
-    if (data.sceneData.textArray[1] != undefined) {
-      var fieldText2 = data.sceneData.textArray[1].text;
-      var titleColor2 = data.sceneData.textArray[1].fontColor;
-      let fontfamily = data.sceneData.textArray[1].fontFamily;
-      var fontSize2 = data.sceneData.textArray[1].fontSize;
-      var selectedfonts2;
-      fonts.map(function (font) {
-        if (font.family == fontfamily) {
-          if (data.sceneData.textArray[1].fontWeight == "light") {
-            selectedfonts2 = font.light;
-          } else if (data.sceneData.textArray[1].fontWeight == "normal") {
-            selectedfonts2 = font.file;
-          } else if (data.sceneData.textArray[1].fontWeight == "bold") {
-            selectedfonts2 = font.bold;
-          }
-        }
-      });
-      if (titleColor2.length == "4") {
-        var $hex = titleColor2;
-        titleColor2 =
-          "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
-      }
-    } else {
-      var fieldText2 = "";
-      var titleColor2 = "#00000";
-      var selectedfonts2 = fonts[0].file;
-      let fontSize2 = "20";
-    }
-    if (data.sceneData.textArray[2] != undefined) {
-      var fieldText3 = data.sceneData.textArray[2].text;
-      var titleColor3 = data.sceneData.textArray[2].fontColor;
-      let fontfamily = data.sceneData.textArray[2].fontFamily;
-      var fontSize3 = data.sceneData.textArray[2].fontSize;
-      var selectedfonts3;
-      fonts.map(function (font) {
-        if (font.family == fontfamily) {
-          if (data.sceneData.textArray[2].fontWeight == "light") {
-            selectedfonts3 = font.light;
-          } else if (data.sceneData.textArray[2].fontWeight == "normal") {
-            selectedfonts3 = font.file;
-          } else if (data.sceneData.textArray[2].fontWeight == "bold") {
-            selectedfonts3 = font.bold;
-          }
-        }
-      });
-      if (titleColor3.length == "4") {
-        var $hex = titleColor3;
-        titleColor3 =
-          "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
-      }
-    } else {
-      var fieldText3 = "";
-      var titleColor3 = "#00000";
-      var selectedfonts3 = fonts[0].file;
-      var fontSize3 = "20";
-    }
-    if (data.sceneData.textArray[3] != undefined) {
-      var fieldText4 = data.sceneData.textArray[3].text;
-      var titleColor4 = data.sceneData.textArray[3].fontColor;
-      let fontfamily = data.sceneData.textArray[3].fontFamily;
-      var fontSize4 = data.sceneData.textArray[3].fontSize;
-      var selectedfonts4;
-      fonts.map(function (font) {
-        if (font.family == fontfamily) {
-          if (data.sceneData.textArray[3].fontWeight == "light") {
-            selectedfonts4 = font.light;
-          } else if (data.sceneData.textArray[3].fontWeight == "normal") {
-            selectedfonts4 = font.file;
-          } else if (data.sceneData.textArray[3].fontWeight == "bold") {
-            selectedfonts4 = font.bold;
-          }
-        }
-      });
-      if (titleColor4.length == "4") {
-        var $hex = titleColor4;
-        titleColor4 =
-          "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
-      }
-    } else {
-      var fieldText4 = "";
-      var titleColor4 = "#00000";
-      var fontSize4 = "20";
-      var selectedfonts4 = fonts[0].file;
-    }
     commands
       .input(assetsPath + "whitebgVideo.mp4")
+      .input(assetsPath + data.sceneData.media[0].url)
       .complexFilter(
-        [
-          "scale=960:1080[checked]",
-          {
-            filter: "drawtext",
-            options: {
-              fontfile: selectedfonts1,
-              text: fieldText1,
-              fontsize: parseInt(fontSize1) + 15,
-              fontcolor: titleColor1,
-              line_spacing: 20,
-              x: "100",
-              y: "((h-text_h)/2)-(text_h-(th/6)) - 100",
-              box: 1,
-              boxcolor: "white@0.0",
-              boxborderw: "30",
-              bordercolor: "white",
-              enable: "gte(t,1)",
-            },
-            inputs: "checked",
-            outputs: "output1",
-          },
-          {
-            filter: "drawtext",
-            options: {
-              fontfile: selectedfonts2,
-              text: fieldText2,
-              fontsize: parseInt(fontSize2) + 15,
-              fontcolor: titleColor2,
-              line_spacing: 20,
-              x: "100",
-              y: "((h-text_h)/2)+(text_h-(th/4))- 100",
-              box: 1,
-              boxcolor: "white@0.0",
-              boxborderw: "30",
-              bordercolor: "white",
-              enable: "gte(t,1)",
-            },
-            inputs: "output1",
-            outputs: "output2",
-          },
-          {
-            filter: "drawtext",
-            options: {
-              fontfile: selectedfonts3,
-              text: fieldText3,
-              fontsize: parseInt(fontSize3) + 15,
-              fontcolor: titleColor3,
-              line_spacing: 20,
-              x: "100",
-              y: "((h-text_h)/2)+(text_h-(th/4))+50- 100",
-              box: 1,
-              boxcolor: "white@0.0",
-              boxborderw: "30",
-              bordercolor: "white",
-              enable: "gte(t,1)",
-            },
-            inputs: "output2",
-            outputs: "output3",
-          },
-          {
-            filter: "drawtext",
-            options: {
-              fontfile: selectedfonts4,
-              text: fieldText4,
-              fontsize: parseInt(fontSize4) + 15,
-              fontcolor: titleColor4,
-              line_spacing: 20,
-              x: "100",
-              y: "((h-text_h)/2)+(text_h-(th/4))+ 110 - 100",
-              box: 1,
-              boxcolor: "white@0.0",
-              boxborderw: "30",
-              bordercolor: "white",
-              enable: "gte(t,1)",
-            },
-            inputs: "output3",
-            outputs: "output",
-          },
-        ],
-        "output"
+        "overlay=x=(main_w-overlay_w-100):y=(main_h-overlay_h)/2[outs]"
       )
+      .addOption("-map", "[outs]")
+      .addOption("-c:v", "libx264")
+      .addOption("-pix_fmt", "yuv420p")
+      .addOption("-framerate", "50")
+      .addOption("-c:v", "libx264")
       .save(
         "./src/Assets/template/videos/" +
           userId +
-          "/template1/lastvideoRight.mp4"
+          "/template1/lastvideoLeft.mp4"
       )
       .on("start", function (commandLine) {
         console.log("leastVideo1");
@@ -1864,28 +1699,212 @@ function lastSceneVideo(data) {
         return;
       })
       .on("end", function (commandLine) {
-        addLogo();
+        console.log("here");
+        lastVideoText();
       });
-    function addLogo() {
+    function lastVideoText() {
       var commands = new ffmpeg();
+      // console.log(data.sceneData.textArray)
+      if (data.sceneData.textArray[0] != undefined) {
+        var titleColor1 = data.sceneData.textArray[0].fontColor;
+        let fontfamily = data.sceneData.textArray[0].fontFamily;
+        var fontSize1 = data.sceneData.textArray[0].fontSize;
+        var selectedfonts1;
+        fonts.map(function (font) {
+          if (font.family == fontfamily) {
+            if (data.sceneData.textArray[0].fontWeight == "light") {
+              selectedfonts1 = font.light;
+            } else if (data.sceneData.textArray[0].fontWeight == "normal") {
+              selectedfonts1 = font.file;
+            } else if (data.sceneData.textArray[0].fontWeight == "bold") {
+              selectedfonts1 = font.bold;
+            }
+          }
+        });
+        if (titleColor1.length == "4") {
+          var $hex = titleColor1;
+          titleColor1 =
+            "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
+        }
+        var fieldText1 = data.sceneData.textArray[0].text;
+      } else {
+        var fieldText1 = "";
+        var titleColor1 = "#00000";
+        var selectedfonts1 = fonts[0].file;
+        var fontSize1 = "20";
+      }
+      if (data.sceneData.textArray[1] != undefined) {
+        var fieldText2 = data.sceneData.textArray[1].text;
+        var titleColor2 = data.sceneData.textArray[1].fontColor;
+        let fontfamily = data.sceneData.textArray[1].fontFamily;
+        var fontSize2 = data.sceneData.textArray[1].fontSize;
+        var selectedfonts2;
+        fonts.map(function (font) {
+          if (font.family == fontfamily) {
+            if (data.sceneData.textArray[1].fontWeight == "light") {
+              selectedfonts2 = font.light;
+            } else if (data.sceneData.textArray[1].fontWeight == "normal") {
+              selectedfonts2 = font.file;
+            } else if (data.sceneData.textArray[1].fontWeight == "bold") {
+              selectedfonts2 = font.bold;
+            }
+          }
+        });
+        if (titleColor2.length == "4") {
+          var $hex = titleColor2;
+          titleColor2 =
+            "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
+        }
+      } else {
+        var fieldText2 = "";
+        var titleColor2 = "#00000";
+        var selectedfonts2 = fonts[0].file;
+        let fontSize2 = "20";
+      }
+      if (data.sceneData.textArray[2] != undefined) {
+        var fieldText3 = data.sceneData.textArray[2].text;
+        var titleColor3 = data.sceneData.textArray[2].fontColor;
+        let fontfamily = data.sceneData.textArray[2].fontFamily;
+        var fontSize3 = data.sceneData.textArray[2].fontSize;
+        var selectedfonts3;
+        fonts.map(function (font) {
+          if (font.family == fontfamily) {
+            if (data.sceneData.textArray[2].fontWeight == "light") {
+              selectedfonts3 = font.light;
+            } else if (data.sceneData.textArray[2].fontWeight == "normal") {
+              selectedfonts3 = font.file;
+            } else if (data.sceneData.textArray[2].fontWeight == "bold") {
+              selectedfonts3 = font.bold;
+            }
+          }
+        });
+        if (titleColor3.length == "4") {
+          var $hex = titleColor3;
+          titleColor3 =
+            "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
+        }
+      } else {
+        var fieldText3 = "";
+        var titleColor3 = "#00000";
+        var selectedfonts3 = fonts[0].file;
+        var fontSize3 = "20";
+      }
+      if (data.sceneData.textArray[3] != undefined) {
+        var fieldText4 = data.sceneData.textArray[3].text;
+        var titleColor4 = data.sceneData.textArray[3].fontColor;
+        let fontfamily = data.sceneData.textArray[3].fontFamily;
+        var fontSize4 = data.sceneData.textArray[3].fontSize;
+        var selectedfonts4;
+        fonts.map(function (font) {
+          if (font.family == fontfamily) {
+            if (data.sceneData.textArray[3].fontWeight == "light") {
+              selectedfonts4 = font.light;
+            } else if (data.sceneData.textArray[3].fontWeight == "normal") {
+              selectedfonts4 = font.file;
+            } else if (data.sceneData.textArray[3].fontWeight == "bold") {
+              selectedfonts4 = font.bold;
+            }
+          }
+        });
+        if (titleColor4.length == "4") {
+          var $hex = titleColor4;
+          titleColor4 =
+            "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
+        }
+      } else {
+        var fieldText4 = "";
+        var titleColor4 = "#00000";
+        var fontSize4 = "20";
+        var selectedfonts4 = fonts[0].file;
+      }
       commands
-        .input(
-          assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/lastvideoRight.mp4"
+        .input(assetsPath + "whitebgVideo.mp4")
+        .complexFilter(
+          [
+            "scale=960:1080[checked]",
+            {
+              filter: "drawtext",
+              options: {
+                fontfile: selectedfonts1,
+                text: fieldText1,
+                fontsize: parseInt(fontSize1) + 15,
+                fontcolor: titleColor1,
+                line_spacing: 20,
+                x: "100",
+                y: "((h-text_h)/2)-(text_h-(th/6)) - 100",
+                box: 1,
+                boxcolor: "white@0.0",
+                boxborderw: "30",
+                bordercolor: "white",
+                enable: "gte(t,1)",
+              },
+              inputs: "checked",
+              outputs: "output1",
+            },
+            {
+              filter: "drawtext",
+              options: {
+                fontfile: selectedfonts2,
+                text: fieldText2,
+                fontsize: parseInt(fontSize2) + 15,
+                fontcolor: titleColor2,
+                line_spacing: 20,
+                x: "100",
+                y: "((h-text_h)/2)+(text_h-(th/4))- 100",
+                box: 1,
+                boxcolor: "white@0.0",
+                boxborderw: "30",
+                bordercolor: "white",
+                enable: "gte(t,1)",
+              },
+              inputs: "output1",
+              outputs: "output2",
+            },
+            {
+              filter: "drawtext",
+              options: {
+                fontfile: selectedfonts3,
+                text: fieldText3,
+                fontsize: parseInt(fontSize3) + 15,
+                fontcolor: titleColor3,
+                line_spacing: 20,
+                x: "100",
+                y: "((h-text_h)/2)+(text_h-(th/4))+50- 100",
+                box: 1,
+                boxcolor: "white@0.0",
+                boxborderw: "30",
+                bordercolor: "white",
+                enable: "gte(t,1)",
+              },
+              inputs: "output2",
+              outputs: "output3",
+            },
+            {
+              filter: "drawtext",
+              options: {
+                fontfile: selectedfonts4,
+                text: fieldText4,
+                fontsize: parseInt(fontSize4) + 15,
+                fontcolor: titleColor4,
+                line_spacing: 20,
+                x: "100",
+                y: "((h-text_h)/2)+(text_h-(th/4))+ 110 - 100",
+                box: 1,
+                boxcolor: "white@0.0",
+                boxborderw: "30",
+                bordercolor: "white",
+                enable: "gte(t,1)",
+              },
+              inputs: "output3",
+              outputs: "output",
+            },
+          ],
+          "output"
         )
-        .input(assetsPath + data.sceneData.media[1].url)
-        .complexFilter("overlay=x=(100):y=(main_h + 220 -overlay_h )/2[outs]")
-        .addOption("-map", "[outs]")
-        .addOption("-c:v", "libx264")
-        .addOption("-pix_fmt", "yuv420p")
-        .addOption("-framerate", "50")
-        .addOption("-c:v", "libx264")
         .save(
           "./src/Assets/template/videos/" +
             userId +
-            "/template1/lastvideoLeftFinal.mp4"
+            "/template1/lastvideoRight.mp4"
         )
         .on("start", function (commandLine) {
           console.log("leastVideo1");
@@ -1895,46 +1914,81 @@ function lastSceneVideo(data) {
           return;
         })
         .on("end", function (commandLine) {
-          lastVideoFinalmerged()
+          addLogo();
         });
-    }
-    function lastVideoFinalmerged() {
-      var command = new ffmpeg();
-      command.input(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/lastvideoLeft.mp4"
-      );
-      command.input(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/lastvideoLeftFinal.mp4"
-      );
-      command
-        .complexFilter(
-          "[0:v]  setpts=PTS-STARTPTS, scale=950:1070,pad=960:1080:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=950:1070,pad=960:1080:5:5:white [a1];[a0][a1]xstack=inputs=2:layout=0_0|w0_0[out]"
-        )
-        .addOption("-map", "[out]")
-        .addOption("-c:v", "libx264")
-        .save(
+      function addLogo() {
+        var commands = new ffmpeg();
+        commands
+          .input(
+            assetsPath +
+              "template/videos/" +
+              userId +
+              "/template1/lastvideoRight.mp4"
+          )
+          .input(assetsPath + data.sceneData.media[1].url)
+          .complexFilter("overlay=x=(100):y=(main_h + 220 -overlay_h )/2[outs]")
+          .addOption("-map", "[outs]")
+          .addOption("-c:v", "libx264")
+          .addOption("-pix_fmt", "yuv420p")
+          .addOption("-framerate", "50")
+          .addOption("-c:v", "libx264")
+          .save(
+            "./src/Assets/template/videos/" +
+              userId +
+              "/template1/lastvideoLeftFinal.mp4"
+          )
+          .on("start", function (commandLine) {
+            console.log("leastVideo1");
+          })
+          .on("error", function (er) {
+            console.log(er);
+            return;
+          })
+          .on("end", function (commandLine) {
+            lastVideoFinalmerged();
+          });
+      }
+      function lastVideoFinalmerged() {
+        var command = new ffmpeg();
+        command.input(
           "./src/Assets/template/videos/" +
             userId +
-            "/template1/lastvideoFinal.mp4"
-        )
-        .on("start", function (commandLine) {
-          console.log(commandLine);
-        })
-        .on("error", function (er) {
-          console.log(er);
-          res.status(200).json({ message: "Video failed 24" });
-          return;
-        })
-        .on("end", function () {
-          const finalvideo =
-            "template/videos/" + userId + "/template1/lastvideoFinal.mp4";
-         // resolve(finalvideo);
-         console.log("done")
-        });
+            "/template1/lastvideoLeft.mp4"
+        );
+        command.input(
+          "./src/Assets/template/videos/" +
+            userId +
+            "/template1/lastvideoLeftFinal.mp4"
+        );
+        command
+          .complexFilter(
+            "[0:v]  setpts=PTS-STARTPTS, scale=950:1070,pad=960:1080:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=950:1070,pad=960:1080:5:5:white [a1];[a0][a1]xstack=inputs=2:layout=0_0|w0_0[out]"
+          )
+          .addOption("-map", "[out]")
+          .addOption("-c:v", "libx264")
+          .save(
+            "./src/Assets/template/videos/" +
+              userId +
+              "/template1/lastvideoFinal.mp4"
+          )
+          .on("start", function (commandLine) {
+            console.log(commandLine);
+          })
+          .on("error", function (er) {
+            console.log(er);
+            res.status(200).json({ message: "Video failed 24" });
+            return;
+          })
+          .on("end", function () {
+            var finalvideoLast =
+              assetsPath +
+              "template/videos/" +
+              userId +
+              "/template1/lastvideoFinal.mp4";
+            resolve(finalvideoLast);
+            // console.log("done");
+          });
+      }
     }
-  }
+  });
 }

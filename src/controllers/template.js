@@ -370,6 +370,7 @@ exports.getTemplate = async (req, res, next) => {
             templateImage: "$templateImage",
             templatePreview: "$templatePreview",
             templateCategory: "$templateCategory",
+            musicFile:"$musicFile"
           },
         },
         {

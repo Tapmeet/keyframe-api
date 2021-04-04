@@ -25,6 +25,7 @@ router.post('/add-media/upload', upload.single('file'), template.uploadMedia);
 router.post('/add-template', template.addTemplate);
 router.post('/add-block', template.addBlock);
 router.post('/create-videos', video.createVideo);
+router.post('/merge-videos', video.mergeVideo);
 router.get('/get-template', template.getTemplate);
 router.get('/get-uploads', template.getUploads);
 router.get('/get-music', template.getMusicUploads);
