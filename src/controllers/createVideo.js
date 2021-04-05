@@ -1788,6 +1788,7 @@ function lastSceneVideo(data) {
         console.log("leastVideo1");
       })
       .on("error", function (er) {
+        console.log("1heres");
         console.log(er);
         return;
       })
