@@ -654,13 +654,9 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
         });
 
         if (typeof createdvideo == "undefined") {
-          setTimeout(function () {
-            block2VideoTxt();
-          }, 200);
+          block2VideoTxt();
         }
-      } catch {
-       // res.status(500).json({ message: "video failed 6" });
-      }
+      } catch {console.log("failed heres"); }
     }
     function block2VideoTxt() {
       var commands = new ffmpeg();
@@ -1090,7 +1086,7 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
       }
       k = k + 1;
     });
-    async function mergeBlock3Videos(data, req, res) { 
+    async function mergeBlock3Videos(data, req, res) {
       try {
         const createdvideo = await concat({
           output:
@@ -1111,7 +1107,8 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
           }, 600);
         }
       } catch {
-       // res.status(500).json({ message: "Video failed 11" });
+        console.log("failed here");
+        // res.status(500).json({ message: "Video failed 11" });
       }
     }
 
@@ -1802,7 +1799,7 @@ function lastSceneVideo(data) {
         var titleColor1 = data.sceneData.textArray[0].fontColor;
         let fontfamily = data.sceneData.textArray[0].fontFamily;
         var fontSize1 = data.sceneData.textArray[0].fontSize;
-        var selectedfonts1 ='';
+        var selectedfonts1 = "";
         fonts.map(function (font) {
           if (font.family == fontfamily) {
             if (data.sceneData.textArray[0].fontWeight == "light") {
@@ -1834,7 +1831,7 @@ function lastSceneVideo(data) {
         var titleColor2 = data.sceneData.textArray[1].fontColor;
         let fontfamily = data.sceneData.textArray[1].fontFamily;
         var fontSize2 = data.sceneData.textArray[1].fontSize;
-        var selectedfonts2 = '';
+        var selectedfonts2 = "";
         fonts.map(function (font) {
           if (font.family == fontfamily) {
             if (data.sceneData.textArray[1].fontWeight == "light") {
@@ -1865,7 +1862,7 @@ function lastSceneVideo(data) {
         var titleColor3 = data.sceneData.textArray[2].fontColor;
         let fontfamily = data.sceneData.textArray[2].fontFamily;
         var fontSize3 = data.sceneData.textArray[2].fontSize;
-        var selectedfonts3 = '';
+        var selectedfonts3 = "";
         fonts.map(function (font) {
           if (font.family == fontfamily) {
             if (data.sceneData.textArray[2].fontWeight == "light") {
