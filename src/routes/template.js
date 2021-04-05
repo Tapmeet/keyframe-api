@@ -40,4 +40,3 @@ router.delete('/delete-template/', template.deleteTemplate);
 router.delete('/delete-media/', template.deleteMedia);
 module.exports = router;
 
-
