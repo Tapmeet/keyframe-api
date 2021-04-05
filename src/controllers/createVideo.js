@@ -1954,7 +1954,7 @@ function lastSceneVideo(data) {
                 enable: "gte(t,1)",
               },
               inputs: "output1",
-              outputs: "output",
+              outputs: "output2",
             },
             {
               filter: "drawtext",
