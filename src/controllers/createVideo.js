@@ -243,22 +243,22 @@ exports.createVideo = async (req, res, next) => {
       // const functionName = "videoTemplate" + template.templateNumber;
       const lastVideo = await lastSceneVideo(lastScene);
 
-      const promises = templateBlock.map(async (data) => {
-        const functionName = "videoTemplate" + data.sceneId;
-        const response = await global[functionName](data, req, res);
-        return response;
-      });
-      Promise.all(promises)
-        .then((results) => {
-          const result = [...results, lastVideo];
-          res.status(200).json({
-            message: "successfull",
-            data: result,
-          });
-        })
-        .catch((e) => {
-          console.error(e);
-        });
+      // const promises = templateBlock.map(async (data) => {
+      //   const functionName = "videoTemplate" + data.sceneId;
+      //   const response = await global[functionName](data, req, res);
+      //   return response;
+      // });
+      // Promise.all(promises)
+      //   .then((results) => {
+      //     const result = [...results, lastVideo];
+      //     res.status(200).json({
+      //       message: "successfull",
+      //       data: result,
+      //     });
+      //   })
+      //   .catch((e) => {
+      //     console.error(e);
+      //   });
     } else {
       res.status(200).json({ message: "Video failed 1" });
     }
@@ -1911,7 +1911,7 @@ function lastSceneVideo(data) {
         var fontSize4 = "20";
         var selectedfonts4 = fonts[0].file;
       }
-      console.log("present there")
+    
       commands
         .input(assetsPath + "whitebgVideo.mp4")
         .complexFilter(
@@ -2002,7 +2002,7 @@ function lastSceneVideo(data) {
             "/template1/lastvideoRight.mp4"
         )
         .on("start", function (commandLine) {
-          console.log("leastVideo1");
+          console.log("there");
         })
         .on("error", function (er) {
           console.log(er);
