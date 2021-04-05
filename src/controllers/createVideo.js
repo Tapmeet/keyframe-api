@@ -95,7 +95,7 @@ exports.mergeVideo = async (req, res, next) => {
   const userId = template.userId;
 
   if (req.body.videos.length > 2) {
-    const promises =  concat({
+    const promises = concat({
       output:
         "./src/Assets/template/videos/" + userId + "/template1/finalVideo.mp4",
       videos: [videos[0], videos[1]],
@@ -107,7 +107,7 @@ exports.mergeVideo = async (req, res, next) => {
     });
     if (typeof promises == "undefined") {
       if (req.body.videos.length > 3) {
-        const promises =  concat({
+        const promises = concat({
           output:
             "./src/Assets/template/videos/" +
             userId +
@@ -126,7 +126,7 @@ exports.mergeVideo = async (req, res, next) => {
         });
         if (typeof promises == "undefined") {
           if (req.body.videos.length > 4) {
-            const promises =  concat({
+            const promises = concat({
               output:
                 "./src/Assets/template/videos/" +
                 userId +
@@ -153,7 +153,7 @@ exports.mergeVideo = async (req, res, next) => {
               });
             }
           } else {
-            const promises =  concat({
+            const promises = concat({
               output:
                 "./src/Assets/template/videos/" +
                 userId +
@@ -182,7 +182,7 @@ exports.mergeVideo = async (req, res, next) => {
           }
         }
       } else {
-        const promises =  concat({
+        const promises = concat({
           output:
             "./src/Assets/template/videos/" +
             userId +
@@ -1802,7 +1802,7 @@ function lastSceneVideo(data) {
         var titleColor1 = data.sceneData.textArray[0].fontColor;
         let fontfamily = data.sceneData.textArray[0].fontFamily;
         var fontSize1 = data.sceneData.textArray[0].fontSize;
-        var selectedfonts1;
+        var selectedfonts1 ='';
         fonts.map(function (font) {
           if (font.family == fontfamily) {
             if (data.sceneData.textArray[0].fontWeight == "light") {
@@ -1820,6 +1820,9 @@ function lastSceneVideo(data) {
             "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
         }
         var fieldText1 = data.sceneData.textArray[0].text;
+        if (selectedfonts1 == "") {
+          selectedfonts1 = fonts[0].file;
+        }
       } else {
         var fieldText1 = "";
         var titleColor1 = "#00000";
@@ -1831,7 +1834,7 @@ function lastSceneVideo(data) {
         var titleColor2 = data.sceneData.textArray[1].fontColor;
         let fontfamily = data.sceneData.textArray[1].fontFamily;
         var fontSize2 = data.sceneData.textArray[1].fontSize;
-        var selectedfonts2;
+        var selectedfonts2 = '';
         fonts.map(function (font) {
           if (font.family == fontfamily) {
             if (data.sceneData.textArray[1].fontWeight == "light") {
@@ -1848,6 +1851,9 @@ function lastSceneVideo(data) {
           titleColor2 =
             "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
         }
+        if (selectedfonts2 == "") {
+          selectedfonts2 = fonts[0].file;
+        }
       } else {
         var fieldText2 = "";
         var titleColor2 = "#00000";
@@ -1859,7 +1865,7 @@ function lastSceneVideo(data) {
         var titleColor3 = data.sceneData.textArray[2].fontColor;
         let fontfamily = data.sceneData.textArray[2].fontFamily;
         var fontSize3 = data.sceneData.textArray[2].fontSize;
-        var selectedfonts3;
+        var selectedfonts3 = '';
         fonts.map(function (font) {
           if (font.family == fontfamily) {
             if (data.sceneData.textArray[2].fontWeight == "light") {
@@ -1876,6 +1882,9 @@ function lastSceneVideo(data) {
           titleColor3 =
             "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
         }
+        if (selectedfonts3 == "") {
+          selectedfonts3 = fonts[0].file;
+        }
       } else {
         var fieldText3 = "";
         var titleColor3 = "#00000";
@@ -1887,7 +1896,7 @@ function lastSceneVideo(data) {
         var titleColor4 = data.sceneData.textArray[3].fontColor;
         let fontfamily = data.sceneData.textArray[3].fontFamily;
         var fontSize4 = data.sceneData.textArray[3].fontSize;
-        var selectedfonts4;
+        var selectedfonts4 = "";
         fonts.map(function (font) {
           if (font.family == fontfamily) {
             if (data.sceneData.textArray[3].fontWeight == "light") {
@@ -1904,16 +1913,15 @@ function lastSceneVideo(data) {
           titleColor4 =
             "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
         }
+        if (selectedfonts4 == "") {
+          selectedfonts4 = fonts[0].file;
+        }
       } else {
         var fieldText4 = "";
         var titleColor4 = "#00000";
         var fontSize4 = "20";
         var selectedfonts4 = fonts[0].file;
       }
-      console.log(selectedfonts4);
-      console.log(titleColor4)
-      console.log(fontSize4)
-      console.log(fieldText4)
       commands
         .input(assetsPath + "whitebgVideo.mp4")
         .complexFilter(
