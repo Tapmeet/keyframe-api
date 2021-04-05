@@ -945,7 +945,7 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
           "./src/Assets/template/videos/" + userId + "/template1/block2text.mp4"
         )
         .on("start", function (commandLine) {
-          console.log("step6");
+          console.log(commandLine);
         })
         .on("error", function (er) {
           res.status(200).json({ message: " 7" });
@@ -1186,7 +1186,7 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
               "/template1/block3FinalVideo.mp4"
           )
           .on("start", function (commandLine) {
-            console.log("step6");
+            console.log("step6 start");
           })
           .on("error", function (er) {
             res.status(200).json({ message: "Video failed 12" });
@@ -1194,7 +1194,7 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
             return;
           })
           .on("end", function (commandLine) {
-            console.log("step6");
+            console.log("step6 end");
             let finalvideo3 =
               assetsPath +
               "template/videos/" +
