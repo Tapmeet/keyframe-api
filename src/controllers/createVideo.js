@@ -243,11 +243,11 @@ exports.createVideo = async (req, res, next) => {
       // const functionName = "videoTemplate" + template.templateNumber;
       const lastVideo = await lastSceneVideo(lastScene);
 
-      const promises = templateBlock.map(async (data) => {
-        const functionName = "videoTemplate" + data.sceneId;
-        const response = await global[functionName](data, req, res);
-        return response;
-      });
+      // const promises = templateBlock.map(async (data) => {
+      //   const functionName = "videoTemplate" + data.sceneId;
+      //   const response = await global[functionName](data, req, res);
+      //   return response;
+      // });
       Promise.all(promises)
         .then((results) => {
           const result = [...results, lastVideo];
@@ -1910,6 +1910,10 @@ function lastSceneVideo(data) {
         var fontSize4 = "20";
         var selectedfonts4 = fonts[0].file;
       }
+      console.log(selectedfonts3);
+      console.log(titleColor3)
+      console.log(fontSize3)
+      console.log(fieldText3)
       commands
         .input(assetsPath + "whitebgVideo.mp4")
         .complexFilter(
@@ -1970,27 +1974,27 @@ function lastSceneVideo(data) {
                 enable: "gte(t,1)",
               },
               inputs: "output2",
-              outputs: "output3",
-            },
-            {
-              filter: "drawtext",
-              options: {
-                fontfile: selectedfonts4,
-                text: fieldText4,
-                fontsize: parseInt(fontSize4) + 15,
-                fontcolor: titleColor4,
-                line_spacing: 20,
-                x: "100",
-                y: "((h-text_h)/2)+(text_h-(th/4))+ 110 - 100",
-                box: 1,
-                boxcolor: "white@0.0",
-                boxborderw: "30",
-                bordercolor: "white",
-                enable: "gte(t,1)",
-              },
-              inputs: "output3",
               outputs: "output",
             },
+            // {
+            //   filter: "drawtext",
+            //   options: {
+            //     fontfile: selectedfonts4,
+            //     text: fieldText4,
+            //     fontsize: parseInt(fontSize4) + 15,
+            //     fontcolor: titleColor4,
+            //     line_spacing: 20,
+            //     x: "100",
+            //     y: "((h-text_h)/2)+(text_h-(th/4))+ 110 - 100",
+            //     box: 1,
+            //     boxcolor: "white@0.0",
+            //     boxborderw: "30",
+            //     bordercolor: "white",
+            //     enable: "gte(t,1)",
+            //   },
+            //   inputs: "output3",
+            //   outputs: "output",
+            // },
           ],
           "output"
         )
