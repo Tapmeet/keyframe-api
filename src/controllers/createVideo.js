@@ -109,6 +109,7 @@ exports.mergeVideo = async (req, res, next) => {
     function test(log){
       console.log(log)
     }
+    console.log(promises)
     if (typeof promises == "undefined") {
       console.log('here')
       if (req.body.videos.length > 3) {
