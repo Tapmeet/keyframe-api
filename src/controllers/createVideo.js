@@ -1823,7 +1823,7 @@ function lastSceneVideo(data) {
         }
         var fieldText1 = data.sceneData.textArray[0].text;
       } else {
-        var fieldText1 = " ";
+        var fieldText1 = "";
         var titleColor1 = "#00000";
         var selectedfonts1 = fonts[0].file;
         var fontSize1 = "20";
@@ -1851,7 +1851,7 @@ function lastSceneVideo(data) {
             "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
         }
       } else {
-        var fieldText2 = " ";
+        var fieldText2 = "";
         var titleColor2 = "#00000";
         var selectedfonts2 = fonts[0].file;
         let fontSize2 = "20";
@@ -1879,7 +1879,7 @@ function lastSceneVideo(data) {
             "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
         }
       } else {
-        var fieldText3 = " ";
+        var fieldText3 = "here";
         var titleColor3 = "#00000";
         var selectedfonts3 = fonts[0].file;
         var fontSize3 = "20";
