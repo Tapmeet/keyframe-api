@@ -1911,6 +1911,7 @@ function lastSceneVideo(data) {
         var fontSize4 = "20";
         var selectedfonts4 = fonts[0].file;
       }
+      console.log("present there")
       commands
         .input(assetsPath + "whitebgVideo.mp4")
         .complexFilter(
