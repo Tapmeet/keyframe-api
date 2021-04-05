@@ -113,7 +113,7 @@ exports.mergeVideo = async (req, res, next) => {
     if (typeof promises == "undefined") {
       console.log('here')
       if (req.body.videos.length > 3) {
-        const promises = concat({
+        const promises = await concat({
           output:
             "./src/Assets/template/videos/" +
             userId +
@@ -203,8 +203,13 @@ exports.mergeVideo = async (req, res, next) => {
             name: "fade",
             duration: 500,
           },
+          log:tests,
           cleanupFrames: true,
         });
+        function tests(log){
+          console.log(log)
+        }
+        console.log(promises)
         if (typeof promises == "undefined") {
           res.status(200).json({
             message: "successfull",
