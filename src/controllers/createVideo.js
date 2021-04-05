@@ -638,7 +638,7 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
     });
     async function mergeBlock2Videos(datas, data) {
       try {
-        const Createdvideo = await concat({
+        const createdvideo = await concat({
           output:
             "./src/Assets/template/videos/" +
             userId +
@@ -653,13 +653,13 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
           ],
         });
 
-        if (typeof Createdvideo == "undefined") {
+        if (typeof createdvideo == "undefined") {
           setTimeout(function () {
             block2VideoTxt();
           }, 200);
         }
       } catch {
-        res.status(500).json({ message: "video failed 6" });
+       // res.status(500).json({ message: "video failed 6" });
       }
     }
     function block2VideoTxt() {
