@@ -644,6 +644,7 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
             userId +
             "/template1/blockmerged.mp4",
           videos: [datas.video1, datas.video2],
+          log: test,
           transitions: [
             {
               name: "directional",
@@ -651,12 +652,16 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
               duration: 1000,
             },
           ],
-        });
-
+        });s
+        function test(log) {
+          console.log(log);
+        }
         if (typeof createdvideo == "undefined") {
           block2VideoTxt();
         }
-      } catch {console.log("failed heres"); }
+      } catch {
+        console.log("failed heres");
+      }
     }
     function block2VideoTxt() {
       var commands = new ffmpeg();
