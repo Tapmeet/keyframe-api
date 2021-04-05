@@ -241,13 +241,14 @@ exports.createVideo = async (req, res, next) => {
         console.error(err);
       }
       // const functionName = "videoTemplate" + template.templateNumber;
-      const lastVideo = await lastSceneVideo(lastScene);
+     
 
       const promises = templateBlock.map(async (data) => {
         const functionName = "videoTemplate" + data.sceneId;
         const response = await global[functionName](data, req, res);
         return response;
       });
+      const lastVideo = await lastSceneVideo(lastScene);
       Promise.all(promises)
         .then((results) => {
           const result = [...results, lastVideo];
