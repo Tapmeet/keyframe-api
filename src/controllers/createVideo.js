@@ -1090,9 +1090,9 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
       }
       k = k + 1;
     });
-    async function mergeBlock3Videos(data, req, res) {
+    async function mergeBlock3Videos(data, req, res) { 
       try {
-        const Createdvideo = await concat({
+        const createdvideo = await concat({
           output:
             "./src/Assets/template/videos/" +
             userId +
@@ -1105,13 +1105,13 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
             },
           ],
         });
-        if (typeof Createdvideo == "undefined") {
+        if (typeof createdvideo == "undefined") {
           setTimeout(function () {
             block3VideoTxt();
           }, 600);
         }
       } catch {
-        res.status(500).json({ message: "Video failed 11" });
+       // res.status(500).json({ message: "Video failed 11" });
       }
     }
 
