@@ -107,8 +107,6 @@ exports.mergeVideo = async (req, res, next) => {
     cleanupFrames: true,
 
   });
-  const probe = await ffmpegProbe(output);
-  console.log(probe)
   if (typeof promises == "undefined") {
     res.status(200).json({
       message: "successfull",
