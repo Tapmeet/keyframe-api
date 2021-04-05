@@ -626,7 +626,7 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
                   video1: video1,
                   video2: video2,
                 };
-                console.log("here");
+                console.log("here1");
                 mergeBlock2Videos(datas, data);
               }, 500);
             }
@@ -1367,7 +1367,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
     function block4video2() {
       var commands = new ffmpeg();
       if (data.sceneData.media[1].type == "image") {
-        console.log("here");
+        console.log("here2");
         commands
           .input(assetsPath + data.sceneData.media[1].url)
           .complexFilter(["scale=960:1080[checked]"], "checked")
@@ -1792,7 +1792,7 @@ function lastSceneVideo(data) {
         return;
       })
       .on("end", function (commandLine) {
-        console.log("here");
+        console.log("heres");
         lastVideoText();
       });
     function lastVideoText() {
