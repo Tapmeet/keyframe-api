@@ -95,7 +95,7 @@ exports.mergeVideo = async (req, res, next) => {
   const userId = template.userId;
 
   if (req.body.videos.length > 2) {
-    const promises = concat({
+    const promises = await concat({
       output:
         "./src/Assets/template/videos/" + userId + "/template1/finalVideo.mp4",
       videos: [videos[0], videos[1]],
@@ -132,7 +132,7 @@ exports.mergeVideo = async (req, res, next) => {
         });
         if (typeof promises == "undefined") {
           if (req.body.videos.length > 4) {
-            const promises = concat({
+            const promises = await concat({
               output:
                 "./src/Assets/template/videos/" +
                 userId +
@@ -159,7 +159,7 @@ exports.mergeVideo = async (req, res, next) => {
               });
             }
           } else {
-            const promises = concat({
+            const promises =await concat({
               output:
                 "./src/Assets/template/videos/" +
                 userId +
@@ -188,7 +188,7 @@ exports.mergeVideo = async (req, res, next) => {
           }
         }
       } else {
-        const promises = concat({
+        const promises = await concat({
           output:
             "./src/Assets/template/videos/" +
             userId +
