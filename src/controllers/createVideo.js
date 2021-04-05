@@ -670,7 +670,9 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
           block2VideoTxt();
         }
       } catch {
+
         console.log("failed heres");
+        block2VideoTxt();
       }
     }
     function block2VideoTxt() {
