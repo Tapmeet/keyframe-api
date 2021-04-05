@@ -103,9 +103,14 @@ exports.mergeVideo = async (req, res, next) => {
         name: "fade",
         duration: 500,
       },
+      log:test,
       cleanupFrames: true,
     });
+    function test(log){
+      console.log(log)
+    }
     if (typeof promises == "undefined") {
+      console.log('here')
       if (req.body.videos.length > 3) {
         const promises = concat({
           output:
@@ -210,6 +215,9 @@ exports.mergeVideo = async (req, res, next) => {
         }
       }
     }
+  }
+  else{
+    
   }
 };
 /**
@@ -670,8 +678,7 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
           block2VideoTxt();
         }
       } catch {
-
-        console.log("failed heres");
+        //console.log("failed heres");
         block2VideoTxt();
       }
     }
