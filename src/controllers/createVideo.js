@@ -240,15 +240,24 @@ exports.createVideo = async (req, res, next) => {
       } catch (err) {
         console.error(err);
       }
+      const folderNames =
+        "./src/Assets/template/videos/" + userId + "/template1";
+      try {
+        if (!fs.existsSync(folderNames)) {
+          fs.mkdirSync(folderNames);
+        }
+      } catch (err) {
+        console.error(err);
+      }
       // const functionName = "videoTemplate" + template.templateNumber;
      
-
+      const lastVideo = await lastSceneVideo(lastScene);
       const promises = templateBlock.map(async (data) => {
         const functionName = "videoTemplate" + data.sceneId;
         const response = await global[functionName](data, req, res);
         return response;
       });
-      const lastVideo = await lastSceneVideo(lastScene);
+  
       Promise.all(promises)
         .then((results) => {
           const result = [...results, lastVideo];
