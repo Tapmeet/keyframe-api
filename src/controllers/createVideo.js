@@ -1450,6 +1450,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
             userId +
             "/template1/block4merged1.mp4",
           videos: [data.video1, data.video2],
+          log:test1,
           transitions: [
             {
               name: "directional",
@@ -1458,11 +1459,15 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
             },
           ],
         });
+        function test1(log){
+          console.log(log)
+        }
         if (typeof Createdvideo3 == "undefined") {
           block4video3();
         }
       } catch {
-        res.status(500).json({ message: "Video failed 18" });
+        console.log('failed 18')
+        // res.status(500).json({ message: "Video failed 18" });
       }
     }
 
