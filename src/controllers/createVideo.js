@@ -243,22 +243,22 @@ exports.createVideo = async (req, res, next) => {
       // const functionName = "videoTemplate" + template.templateNumber;
       const lastVideo = await lastSceneVideo(lastScene);
 
-      // const promises = templateBlock.map(async (data) => {
-      //   const functionName = "videoTemplate" + data.sceneId;
-      //   const response = await global[functionName](data, req, res);
-      //   return response;
-      // });
-      // Promise.all(promises)
-      //   .then((results) => {
-      //     const result = [...results, lastVideo];
-      //     res.status(200).json({
-      //       message: "successfull",
-      //       data: result,
-      //     });
-      //   })
-      //   .catch((e) => {
-      //     console.error(e);
-      //   });
+      const promises = templateBlock.map(async (data) => {
+        const functionName = "videoTemplate" + data.sceneId;
+        const response = await global[functionName](data, req, res);
+        return response;
+      });
+      Promise.all(promises)
+        .then((results) => {
+          const result = [...results, lastVideo];
+          res.status(200).json({
+            message: "successfull",
+            data: result,
+          });
+        })
+        .catch((e) => {
+          console.error(e);
+        });
     } else {
       res.status(200).json({ message: "Video failed 1" });
     }
@@ -626,7 +626,7 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
                   video1: video1,
                   video2: video2,
                 };
-                console.log("here1");
+                console.log("here");
                 mergeBlock2Videos(datas, data);
               }, 500);
             }
@@ -1367,7 +1367,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
     function block4video2() {
       var commands = new ffmpeg();
       if (data.sceneData.media[1].type == "image") {
-        console.log("here2");
+        console.log("here");
         commands
           .input(assetsPath + data.sceneData.media[1].url)
           .complexFilter(["scale=960:1080[checked]"], "checked")
@@ -1767,36 +1767,34 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
 
 function lastSceneVideo(data) {
   return new Promise((resolve) => {
-    lastVideoText();
-    // var commands = new ffmpeg();
-    // commands
-    //   .input(assetsPath + "whitebgVideo.mp4")
-    //   .input(assetsPath + data.sceneData.media[0].url)
-    //   .complexFilter(
-    //     "overlay=x=(main_w-overlay_w-100):y=(main_h-overlay_h)/2[outs]"
-    //   )
-    //   .addOption("-map", "[outs]")
-    //   .addOption("-c:v", "libx264")
-    //   .addOption("-pix_fmt", "yuv420p")
-    //   .addOption("-framerate", "50")
-    //   .addOption("-c:v", "libx264")
-    //   .save(
-    //     "./src/Assets/template/videos/" +
-    //       userId +
-    //       "/template1/lastvideoLeft.mp4"
-    //   )
-    //   .on("start", function (commandLine) {
-    //     console.log("leastVideo1");
-    //   })
-    //   .on("error", function (er) {
-    //     console.log("1heres");
-    //     console.log(er);
-    //     return;
-    //   })
-    //   .on("end", function (commandLine) {
-    //     console.log("heres");
-    //     lastVideoText();
-    //   });
+    var commands = new ffmpeg();
+    commands
+      .input(assetsPath + "whitebgVideo.mp4")
+      .input(assetsPath + data.sceneData.media[0].url)
+      .complexFilter(
+        "overlay=x=(main_w-overlay_w-100):y=(main_h-overlay_h)/2[outs]"
+      )
+      .addOption("-map", "[outs]")
+      .addOption("-c:v", "libx264")
+      .addOption("-pix_fmt", "yuv420p")
+      .addOption("-framerate", "50")
+      .addOption("-c:v", "libx264")
+      .save(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/lastvideoLeft.mp4"
+      )
+      .on("start", function (commandLine) {
+        console.log("leastVideo1");
+      })
+      .on("error", function (er) {
+        console.log(er);
+        return;
+      })
+      .on("end", function (commandLine) {
+        console.log("here");
+        lastVideoText();
+      });
     function lastVideoText() {
       var commands = new ffmpeg();
       // console.log(data.sceneData.textArray)
@@ -1879,7 +1877,7 @@ function lastSceneVideo(data) {
             "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
         }
       } else {
-        var fieldText3 = "here";
+        var fieldText3 = "";
         var titleColor3 = "#00000";
         var selectedfonts3 = fonts[0].file;
         var fontSize3 = "20";
@@ -1907,12 +1905,11 @@ function lastSceneVideo(data) {
             "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
         }
       } else {
-        var fieldText4 = " ";
+        var fieldText4 = "";
         var titleColor4 = "#00000";
         var fontSize4 = "20";
         var selectedfonts4 = fonts[0].file;
       }
-    
       commands
         .input(assetsPath + "whitebgVideo.mp4")
         .complexFilter(
@@ -1973,27 +1970,27 @@ function lastSceneVideo(data) {
                 enable: "gte(t,1)",
               },
               inputs: "output2",
+              outputs: "output3",
+            },
+            {
+              filter: "drawtext",
+              options: {
+                fontfile: selectedfonts4,
+                text: fieldText4,
+                fontsize: parseInt(fontSize4) + 15,
+                fontcolor: titleColor4,
+                line_spacing: 20,
+                x: "100",
+                y: "((h-text_h)/2)+(text_h-(th/4))+ 110 - 100",
+                box: 1,
+                boxcolor: "white@0.0",
+                boxborderw: "30",
+                bordercolor: "white",
+                enable: "gte(t,1)",
+              },
+              inputs: "output3",
               outputs: "output",
             },
-            // {
-            //   filter: "drawtext",
-            //   options: {
-            //     fontfile: selectedfonts4,
-            //     text: fieldText4,
-            //     fontsize: parseInt(fontSize4) + 15,
-            //     fontcolor: titleColor4,
-            //     line_spacing: 20,
-            //     x: "100",
-            //     y: "((h-text_h)/2)+(text_h-(th/4))+ 110 - 100",
-            //     box: 1,
-            //     boxcolor: "white@0.0",
-            //     boxborderw: "30",
-            //     bordercolor: "white",
-            //     enable: "gte(t,1)",
-            //   },
-            //   inputs: "output3",
-            //   outputs: "output",
-            // },
           ],
           "output"
         )
@@ -2003,7 +2000,7 @@ function lastSceneVideo(data) {
             "/template1/lastvideoRight.mp4"
         )
         .on("start", function (commandLine) {
-          console.log("there");
+          console.log("leastVideo1");
         })
         .on("error", function (er) {
           console.log(er);
