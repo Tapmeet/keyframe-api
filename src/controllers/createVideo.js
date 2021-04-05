@@ -1767,35 +1767,36 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
 
 function lastSceneVideo(data) {
   return new Promise((resolve) => {
-    var commands = new ffmpeg();
-    commands
-      .input(assetsPath + "whitebgVideo.mp4")
-      .input(assetsPath + data.sceneData.media[0].url)
-      .complexFilter(
-        "overlay=x=(main_w-overlay_w-100):y=(main_h-overlay_h)/2[outs]"
-      )
-      .addOption("-map", "[outs]")
-      .addOption("-c:v", "libx264")
-      .addOption("-pix_fmt", "yuv420p")
-      .addOption("-framerate", "50")
-      .addOption("-c:v", "libx264")
-      .save(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/lastvideoLeft.mp4"
-      )
-      .on("start", function (commandLine) {
-        console.log("leastVideo1");
-      })
-      .on("error", function (er) {
-        console.log("1heres");
-        console.log(er);
-        return;
-      })
-      .on("end", function (commandLine) {
-        console.log("heres");
-        lastVideoText();
-      });
+    lastVideoText();
+    // var commands = new ffmpeg();
+    // commands
+    //   .input(assetsPath + "whitebgVideo.mp4")
+    //   .input(assetsPath + data.sceneData.media[0].url)
+    //   .complexFilter(
+    //     "overlay=x=(main_w-overlay_w-100):y=(main_h-overlay_h)/2[outs]"
+    //   )
+    //   .addOption("-map", "[outs]")
+    //   .addOption("-c:v", "libx264")
+    //   .addOption("-pix_fmt", "yuv420p")
+    //   .addOption("-framerate", "50")
+    //   .addOption("-c:v", "libx264")
+    //   .save(
+    //     "./src/Assets/template/videos/" +
+    //       userId +
+    //       "/template1/lastvideoLeft.mp4"
+    //   )
+    //   .on("start", function (commandLine) {
+    //     console.log("leastVideo1");
+    //   })
+    //   .on("error", function (er) {
+    //     console.log("1heres");
+    //     console.log(er);
+    //     return;
+    //   })
+    //   .on("end", function (commandLine) {
+    //     console.log("heres");
+    //     lastVideoText();
+    //   });
     function lastVideoText() {
       var commands = new ffmpeg();
       // console.log(data.sceneData.textArray)
