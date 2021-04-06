@@ -17,7 +17,7 @@ const fs = require("fs");
 const gl = require("gl")(10, 10);
 const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 const ffmpeg = require("fluent-ffmpeg");
-const ffmpegProbe = require('ffmpeg-probe')
+const ffmpegProbe = require("ffmpeg-probe");
 const ffprobe = require("ffprobe-static");
 ffmpeg.setFfprobePath(ffprobe.path);
 ffmpeg.setFfmpegPath(ffmpegPath);
@@ -81,6 +81,13 @@ var fonts = [
     bold: "./src/Assets/fonts/OpenSans-Bold.ttf",
   },
 ];
+
+function deleteFiles(file) {
+  var fs = require("fs");
+  fs.unlink(file, function (err) {
+    if (err) throw err;
+  });
+}
 /**
  * @function  "createVideo" used to create new Event
  * @route POST /api/template/create-videos
@@ -94,7 +101,6 @@ exports.mergeVideo = async (req, res, next) => {
   const template = await Template.findOne({ _id: templateId });
   const videos = req.body.videos;
   const userId = template.userId;
-
   const promises = await concat({
     output:
       "./src/Assets/template/videos/" + userId + "/template1/finalVideo.mp4",
@@ -105,142 +111,50 @@ exports.mergeVideo = async (req, res, next) => {
     },
     concurrency: videos.length,
     cleanupFrames: true,
-
   });
   if (typeof promises == "undefined") {
-    res.status(200).json({
-      message: "successfull",
-      data: "template/videos/" + userId + "/template1/finalVideo.mp4",
+    videos.map(async (data) => {
+      deleteFiles(data);
     });
+    if (template.musicFile) {
+      mergeAudio();
+    } else {
+      res.status(200).json({
+        message: "successfull",
+        data: "template/videos/" + userId + "/template1/finalVideo.mp4",
+      });
+    }
   }
-  // if (req.body.videos.length > 2) {
-  //   const promises = await concat({
-  //     output:
-  //       "./src/Assets/template/videos/" + userId + "/template1/finalVideo.mp4",
-  //     videos: [videos[0], videos[1]],
-  //     transition: {
-  //       name: "fade",
-  //       duration: 500,
-  //     },
-  //     log:test,
-  //     cleanupFrames: true,
-  //   });
-  //   function test(log){
-  //     console.log(log)
-  //   }
-  //   console.log(promises)
-  //   if (typeof promises == "undefined") {
-  //     console.log('here')
-  //     if (req.body.videos.length > 3) {
-  //       const promises = await concat({
-  //         output:
-  //           "./src/Assets/template/videos/" +
-  //           userId +
-  //           "/template1/finalVideo1.mp4",
-  //         videos: [
-  //           "./src/Assets/template/videos/" +
-  //             userId +
-  //             "/template1/finalVideo.mp4",
-  //           videos[2],
-  //         ],
-  //         transition: {
-  //           name: "fade",
-  //           duration: 500,
-  //         },
-  //         cleanupFrames: true,
-  //       });
-  //       if (typeof promises == "undefined") {
-  //         if (req.body.videos.length > 4) {
-  //           const promises = await concat({
-  //             output:
-  //               "./src/Assets/template/videos/" +
-  //               userId +
-  //               "/template1/finalVideo2.mp4",
-  //             videos: [
-  //               "./src/Assets/template/videos/" +
-  //                 userId +
-  //                 "/template1/finalVideo1.mp4",
-  //               videos[3],
-  //             ],
-  //             transition: {
-  //               name: "fade",
-  //               duration: 500,
-  //             },
-  //             cleanupFrames: true,
-  //           });
-  //           if (typeof promises == "undefined") {
-  //             res.status(200).json({
-  //               message: "successfull",
-  //               data:
-  //                 "./src/Assets/template/videos/" +
-  //                 userId +
-  //                 "/template1/finalVideo2.mp4",
-  //             });
-  //           }
-  //         } else {
-  //           const promises =await concat({
-  //             output:
-  //               "./src/Assets/template/videos/" +
-  //               userId +
-  //               "/template1/finalVideo2.mp4",
-  //             videos: [
-  //               "./src/Assets/template/videos/" +
-  //                 userId +
-  //                 "/template1/finalVideo1.mp4",
-  //               videos[2],
-  //             ],
-  //             transition: {
-  //               name: "fade",
-  //               duration: 500,
-  //             },
-  //             cleanupFrames: true,
-  //           });
-  //           if (typeof promises == "undefined") {
-  //             res.status(200).json({
-  //               message: "successfull",
-  //               data:
-  //                 "./src/Assets/template/videos/" +
-  //                 userId +
-  //                 "/template1/finalVideo2.mp4",
-  //             });
-  //           }
-  //         }
-  //       }
-  //     } else {
-  //       const promises = await concat({
-  //         output:
-  //           "./src/Assets/template/videos/" +
-  //           userId +
-  //           "/template1/finalVideo1.mp4",
-  //         videos: [
-  //           "./src/Assets/template/videos/" +
-  //             userId +
-  //             "/template1/finalVideo.mp4",
-  //           videos[2],
-  //         ],
-  //         transition: {
-  //           name: "fade",
-  //           duration: 500,
-  //         },
-  //         log:tests,
-  //         cleanupFrames: true,
-  //       });
-  //       function tests(log){
-  //         console.log(log)
-  //       }
-  //       console.log(promises)
-  //       if (typeof promises == "undefined") {
-  //         res.status(200).json({
-  //           message: "successfull",
-  //           data:
-  //             "./src/Assets/template/videos/" +
-  //             userId +
-  //             "/template1/finalVideo1.mp4",
-  //         });
-  //       }
-  //     }
-  //   }
-  // }
+  function mergeAudio() {
+    var command = new ffmpeg();
+    command.input(
+      "./src/Assets/template/videos/" + userId + "/template1/finalVideo.mp4"
+    );
+    command.input(assetsPath + template.musicFile);
+    command
+      .addOption("-map", "0")
+      .addOption("-map", "1:a")
+      .addOption("-c:v", "copy")
+      .addOption("-shortest")
+      .save(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/finalVideoAudio.mp4"
+      )
+      .on("start", function (commandLine) {
+        console.log(commandLine);
+      })
+      .on("error", function (er) {
+        res.status(200).json({ message: "Video failed" });
+        return;
+      })
+      .on("end", function () {
+        res.status(200).json({
+          message: "successfull",
+          data: "template/videos/" + userId + "/template1/finalVideoAudio.mp4",
+        });
+      });
+  }
 };
 /**
  * @function  "createVideo" used to create new Event
@@ -539,6 +453,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
               "template/videos/" +
               userId +
               "/template1/block-1-text-video.mp4";
+            deleteFiles(
+              "./src/Assets/template/videos/" +
+                userId +
+                "/template1/block-1-video-1.mp4"
+            );
             resolve(finalvideo1);
           });
       }
@@ -692,14 +611,12 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
             },
           ],
         });
-        s;
-  
         if (typeof createdvideo == "undefined") {
           block2VideoTxt();
         }
       } catch {
-        //console.log("failed heres");
-        block2VideoTxt();
+        console.log("failed heres");
+        //block2VideoTxt();
       }
     }
     function block2VideoTxt() {
@@ -994,11 +911,28 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
           return;
         })
         .on("end", function (commandLine) {
+          console.log("here");
           let finalvideo2 =
             assetsPath +
             "template/videos/" +
             userId +
             "/template1/block2text.mp4";
+
+          deleteFiles(
+            "./src/Assets/template/videos/" +
+              userId +
+              "/template1/block-2-2.mp4"
+          );
+          deleteFiles(
+            "./src/Assets/template/videos/" +
+              userId +
+              "/template1/block-2-1.mp4"
+          );
+          deleteFiles(
+            "./src/Assets/template/videos/" +
+              userId +
+              "/template1/blockmerged.mp4"
+          );
           resolve(finalvideo2);
         });
     }
@@ -1241,6 +1175,21 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
               "template/videos/" +
               userId +
               "/template1/block3FinalVideo.mp4";
+            deleteFiles(
+              "./src/Assets/template/videos/" +
+                userId +
+                "/template1/block-3-2.mp4"
+            );
+            deleteFiles(
+              "./src/Assets/template/videos/" +
+                userId +
+                "/template1/block-3-1.mp4"
+            );
+            deleteFiles(
+              "./src/Assets/template/videos/" +
+                userId +
+                "/template1/block3merged.mp4"
+            );
             resolve(finalvideo3);
           });
       }, 600);
@@ -1497,7 +1446,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
             },
           ],
         });
-   
+
         if (typeof Createdvideo3 == "undefined") {
           block4video3();
         }
@@ -1802,6 +1751,36 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
             "template/videos/" +
             userId +
             "/template1/block4Finalvideo.mp4";
+          deleteFiles(
+            "./src/Assets/template/videos/" +
+              userId +
+              "/template1/block4video1.mp4"
+          );
+          deleteFiles(
+            "./src/Assets/template/videos/" +
+              userId +
+              "/template1/block4video2.mp4"
+          );
+          deleteFiles(
+            "./src/Assets/template/videos/" +
+              userId +
+              "/template1/block4merged1.mp4"
+          );
+          deleteFiles(
+            "./src/Assets/template/videos/" +
+              userId +
+              "/template1/block4video3.mp4"
+          );
+          deleteFiles(
+            "./src/Assets/template/videos/" +
+              userId +
+              "/template1/block4video4.mp4"
+          );
+          deleteFiles(
+            "./src/Assets/template/videos/" +
+              userId +
+              "/template1/block4merged2.mp4"
+          );
           resolve(finalvideo);
         });
     }
@@ -2133,6 +2112,22 @@ function lastSceneVideo(data) {
               "template/videos/" +
               userId +
               "/template1/lastvideoFinal.mp4";
+            deleteFiles(
+              "./src/Assets/template/videos/" +
+                userId +
+                "/template1/lastvideoLeft.mp4"
+            );
+            deleteFiles(
+              "./src/Assets/template/videos/" +
+                userId +
+                "/template1/lastvideoLeftFinal.mp4"
+            );
+            deleteFiles(
+              "./src/Assets/template/videos/" +
+                userId +
+                "/template1/lastvideoRight.mp4"
+            );
+
             resolve(finalvideoLast);
             // console.log("done");
           });
