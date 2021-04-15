@@ -13,6 +13,7 @@
 const Template = require("../models/templates");
 const Block = require("../models/templateBlocks");
 const Scene = require("../models/lastBlock");
+const UserVideos = require("../models/userVideos");
 const fs = require("fs");
 const gl = require("gl")(10, 10);
 const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
@@ -24,60 +25,61 @@ ffmpeg.setFfmpegPath(ffmpegPath);
 let userId;
 const concat = require("ffmpeg-concat");
 const glob = require("glob");
+const { title } = require("process");
 const assetsPath = "./src/Assets/";
 var fonts = [
   {
     family: "Montserrat",
     file: "./src/Assets/fonts/Montserrat-Regular.ttf",
-    light: "./src/Assets/fonts/Montserrat-Light.ttf",
+    lighter: "./src/Assets/fonts/Montserrat-Light.ttf",
     bold: "./src/Assets/fonts/Montserrat-Bold.ttf",
   },
   {
     family: "Lato",
     file: "./src/Assets/fonts/Lato-Regular.ttf",
-    light: "./src/Assets/fonts/Lato-Light.ttf",
+    lighter: "./src/Assets/fonts/Lato-Light.ttf",
     bold: "./src/Assets/fonts/Lato-Bold.ttf",
   },
   {
     family: "Oswald",
     file: "./src/Assets/fonts/Oswald-Regular.ttf",
-    light: "./src/Assets/fonts/Oswald-Light.ttf",
+    lighter: "./src/Assets/fonts/Oswald-Light.ttf",
     bold: "./src/Assets/fonts/Oswald-Bold.ttf",
   },
   {
     family: "Roboto",
     file: "./src/Assets/fonts/Roboto-Regular.ttf",
-    light: "./src/Assets/fonts/Roboto-Light.ttf",
+    lighter: "./src/Assets/fonts/Roboto-Light.ttf",
     bold: "./src/Assets/fonts/Roboto-Bold.ttf",
   },
   {
     family: "Noto Serif",
     file: "./src/Assets/fonts/NotoSerif-Regular.ttf",
-    light: "./src/Assets/fonts/NotoSerif-Regular.ttf",
+    lighter: "./src/Assets/fonts/NotoSerif-Regular.ttf",
     bold: "./src/Assets/fonts/NotoSerif-Bold.ttf",
   },
   {
     family: "Josefin Sans",
     file: "./src/Assets/fonts/JosefinSans-Regular.ttf",
-    light: "./src/Assets/fonts/JosefinSans-Light.ttf",
+    lighter: "./src/Assets/fonts/JosefinSans-Light.ttf",
     bold: "./src/Assets/fonts/JosefinSans-Bold.ttf",
   },
   {
     family: "Arimo",
     file: "./src/Assets/fonts/Arimo-Regular.ttf",
-    light: "./src/Assets/fonts/Arimo-Medium.ttf",
+    lighter: "./src/Assets/fonts/Arimo-Medium.ttf",
     bold: "./src/Assets/fonts/Arimo-Bold.ttf",
   },
   {
     family: "Barlow",
     file: "./src/Assets/fonts/Barlow-Regular.ttf",
-    light: "./src/Assets/fonts/Barlow-Light.ttf",
+    lighter: "./src/Assets/fonts/Barlow-Light.ttf",
     bold: "./src/Assets/fonts/Barlow-Bold.ttf",
   },
   {
     family: "Open Sans",
     file: "./src/Assets/fonts/OpenSans-Regular.ttf",
-    light: "./src/Assets/fonts/OpenSans-Light.ttf",
+    lighter: "./src/Assets/fonts/OpenSans-Light.ttf",
     bold: "./src/Assets/fonts/OpenSans-Bold.ttf",
   },
 ];
@@ -85,7 +87,7 @@ var fonts = [
 function deleteFiles(file) {
   var fs = require("fs");
   fs.unlink(file, function (err) {
-    if (err) throw err;
+    // if (err) throw err;
   });
 }
 /**
@@ -101,9 +103,15 @@ exports.mergeVideo = async (req, res, next) => {
   const template = await Template.findOne({ _id: templateId });
   const videos = req.body.videos;
   const userId = template.userId;
+  const templateTitle = template.title.split(" ").join("-");
+  const videoName = templateTitle + Date.now();
   const promises = await concat({
     output:
-      "./src/Assets/template/videos/" + userId + "/template1/finalVideo.mp4",
+      "./src/Assets/template/videos/" +
+      userId +
+      "/template1/" +
+      videoName +
+      ".mp4",
     videos: videos,
     transition: {
       name: "fade",
@@ -119,16 +127,28 @@ exports.mergeVideo = async (req, res, next) => {
     if (template.musicFile) {
       mergeAudio();
     } else {
-      res.status(200).json({
-        message: "successfull",
-        data: "template/videos/" + userId + "/template1/finalVideo.mp4",
-      });
+      saveVideoDb(
+        template.title,
+        "template/videos/" +
+          userId +
+          "/template1/" +
+          videoName +
+          ".mp4"
+      );
+      // res.status(200).json({
+      //   message: "successfull",
+      //   data: "template/videos/" + userId + "/template1/finalVideo.mp4",
+      // });
     }
   }
   function mergeAudio() {
     var command = new ffmpeg();
     command.input(
-      "./src/Assets/template/videos/" + userId + "/template1/finalVideo.mp4"
+      "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        videoName +
+        ".mp4"
     );
     command.input(assetsPath + template.musicFile);
     command
@@ -139,7 +159,9 @@ exports.mergeVideo = async (req, res, next) => {
       .save(
         "./src/Assets/template/videos/" +
           userId +
-          "/template1/finalVideoAudio.mp4"
+          "/template1/" +
+          videoName +
+          "-audio.mp4"
       )
       .on("start", function (commandLine) {
         console.log(commandLine);
@@ -149,11 +171,40 @@ exports.mergeVideo = async (req, res, next) => {
         return;
       })
       .on("end", function () {
-        res.status(200).json({
-          message: "successfull",
-          data: "template/videos/" + userId + "/template1/finalVideoAudio.mp4",
-        });
+        deleteFiles(
+          "./src/Assets/template/videos/" +
+            userId +
+            "/template1/" +
+            videoName +
+            ".mp4"
+        );
+        saveVideoDb(
+          template.title,
+          "template/videos/" +
+            userId +
+            "/template1/" +
+            videoName +
+            "-audio.mp4"
+        );
+        
       });
+  }
+  async function saveVideoDb(videoTitle, path) {
+    try {
+      const newUpload = new UserVideos({
+        userId: userId,
+        videoTitle: videoTitle,
+        templateImage:template.templateImage,
+        path: path,
+      });
+      const uploadData = await newUpload.save();
+      res.status(200).json({
+        message: "successfull",
+        data: path,
+      });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
   }
 };
 /**
@@ -353,8 +404,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         fontfamily = datas.block.fontFamily;
         fonts.map(function (font) {
           if (font.family == fontfamily) {
-            if (datas.block.fontWeight == "light") {
-              selectedfonts = font.light;
+            if (datas.block.fontWeight == "lighter") {
+              selectedfonts = font.lighter;
             } else if (datas.block.fontWeight == "normal") {
               selectedfonts = font.file;
             } else if (datas.block.fontWeight == "bold") {
@@ -630,8 +681,8 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
       let selectedfonts;
       fonts.map(function (font) {
         if (font.family == fontfamily) {
-          if (data.sceneData.fontWeight == "light") {
-            selectedfonts = font.light;
+          if (data.sceneData.fontWeight == "lighter") {
+            selectedfonts = font.lighter;
           } else if (data.sceneData.fontWeight == "normal") {
             selectedfonts = font.file;
           } else if (data.sceneData.fontWeight == "bold") {
@@ -1112,8 +1163,8 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
       let selectedfonts;
       fonts.map(function (font) {
         if (font.family == fontfamily) {
-          if (data.sceneData.fontWeight == "light") {
-            selectedfonts = font.light;
+          if (data.sceneData.fontWeight == "lighter") {
+            selectedfonts = font.lighter;
           } else if (data.sceneData.fontWeight == "normal") {
             selectedfonts = font.file;
           } else if (data.sceneData.fontWeight == "bold") {
@@ -1213,8 +1264,8 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
     let selectedfonts;
     fonts.map(function (font) {
       if (font.family == fontfamily) {
-        if (data.sceneData.textArray[0].fontWeight == "light") {
-          selectedfonts = font.light;
+        if (data.sceneData.textArray[0].fontWeight == "lighter") {
+          selectedfonts = font.lighter;
         } else if (data.sceneData.textArray[0].fontWeight == "normal") {
           selectedfonts = font.file;
         } else if (data.sceneData.textArray[0].fontWeight == "bold") {
@@ -1529,8 +1580,8 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
       let selectedfonts;
       fonts.map(function (font) {
         if (font.family == fontfamily) {
-          if (data.sceneData.textArray[1].fontWeight == "light") {
-            selectedfonts = font.light;
+          if (data.sceneData.textArray[1].fontWeight == "lighter") {
+            selectedfonts = font.lighter;
           } else if (data.sceneData.textArray[1].fontWeight == "normal") {
             selectedfonts = font.file;
           } else if (data.sceneData.textArray[1].fontWeight == "bold") {
@@ -1742,8 +1793,8 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
         })
         .on("error", function (er) {
           console.log(er);
-          res.status(200).json({ message: "Video failed 24" });
-          return;
+          //  res.status(200).json({ message: "Video failed 24" });
+          //return;
         })
         .on("end", function () {
           const finalvideo =
@@ -1811,7 +1862,7 @@ function lastSceneVideo(data) {
       })
       .on("error", function (er) {
         console.log(er);
-        return;
+        //return;
       })
       .on("end", function (commandLine) {
         console.log("here");
@@ -1827,8 +1878,8 @@ function lastSceneVideo(data) {
         var selectedfonts1 = "";
         fonts.map(function (font) {
           if (font.family == fontfamily) {
-            if (data.sceneData.textArray[0].fontWeight == "light") {
-              selectedfonts1 = font.light;
+            if (data.sceneData.textArray[0].fontWeight == "lighter") {
+              selectedfonts1 = font.lighter;
             } else if (data.sceneData.textArray[0].fontWeight == "normal") {
               selectedfonts1 = font.file;
             } else if (data.sceneData.textArray[0].fontWeight == "bold") {
@@ -1859,8 +1910,8 @@ function lastSceneVideo(data) {
         var selectedfonts2 = "";
         fonts.map(function (font) {
           if (font.family == fontfamily) {
-            if (data.sceneData.textArray[1].fontWeight == "light") {
-              selectedfonts2 = font.light;
+            if (data.sceneData.textArray[1].fontWeight == "lighter") {
+              selectedfonts2 = font.lighter;
             } else if (data.sceneData.textArray[1].fontWeight == "normal") {
               selectedfonts2 = font.file;
             } else if (data.sceneData.textArray[1].fontWeight == "bold") {
@@ -1890,8 +1941,8 @@ function lastSceneVideo(data) {
         var selectedfonts3 = "";
         fonts.map(function (font) {
           if (font.family == fontfamily) {
-            if (data.sceneData.textArray[2].fontWeight == "light") {
-              selectedfonts3 = font.light;
+            if (data.sceneData.textArray[2].fontWeight == "lighter") {
+              selectedfonts3 = font.lighter;
             } else if (data.sceneData.textArray[2].fontWeight == "normal") {
               selectedfonts3 = font.file;
             } else if (data.sceneData.textArray[2].fontWeight == "bold") {
@@ -1921,8 +1972,8 @@ function lastSceneVideo(data) {
         var selectedfonts4 = "";
         fonts.map(function (font) {
           if (font.family == fontfamily) {
-            if (data.sceneData.textArray[3].fontWeight == "light") {
-              selectedfonts4 = font.light;
+            if (data.sceneData.textArray[3].fontWeight == "lighter") {
+              selectedfonts4 = font.lighter;
             } else if (data.sceneData.textArray[3].fontWeight == "normal") {
               selectedfonts4 = font.file;
             } else if (data.sceneData.textArray[3].fontWeight == "bold") {
@@ -1963,7 +2014,8 @@ function lastSceneVideo(data) {
                 boxcolor: "white@0.0",
                 boxborderw: "30",
                 bordercolor: "white",
-                enable: "gte(t,1)",
+                alpha:
+                "if(lt(t,0),0,if(lt(t,2),(t-0)/2,if(lt(t,3),1,if(lt(t,503),(500-(t-3))/500,0))))",
               },
               inputs: "checked",
               outputs: "output1",
@@ -1982,7 +2034,8 @@ function lastSceneVideo(data) {
                 boxcolor: "white@0.0",
                 boxborderw: "30",
                 bordercolor: "white",
-                enable: "gte(t,1)",
+                alpha:
+                    "if(lt(t,0),0,if(lt(t,2),(t-0)/2,if(lt(t,3),1,if(lt(t,503),(500-(t-3))/500,0))))",
               },
               inputs: "output1",
               outputs: "output2",
@@ -2001,7 +2054,8 @@ function lastSceneVideo(data) {
                 boxcolor: "white@0.0",
                 boxborderw: "30",
                 bordercolor: "white",
-                enable: "gte(t,1)",
+                alpha:
+                    "if(lt(t,0),0,if(lt(t,2),(t-0)/2,if(lt(t,3),1,if(lt(t,503),(500-(t-3))/500,0))))",
               },
               inputs: "output2",
               outputs: "output3",
@@ -2020,7 +2074,8 @@ function lastSceneVideo(data) {
                 boxcolor: "white@0.0",
                 boxborderw: "30",
                 bordercolor: "white",
-                enable: "gte(t,1)",
+                alpha:
+                "if(lt(t,0),0,if(lt(t,2),(t-0)/2,if(lt(t,3),1,if(lt(t,503),(500-(t-3))/500,0))))",
               },
               inputs: "output3",
               outputs: "output",
@@ -2038,7 +2093,7 @@ function lastSceneVideo(data) {
         })
         .on("error", function (er) {
           console.log(er);
-          return;
+          //return;
         })
         .on("end", function (commandLine) {
           addLogo();
@@ -2104,7 +2159,7 @@ function lastSceneVideo(data) {
           .on("error", function (er) {
             console.log(er);
             res.status(200).json({ message: "Video failed 24" });
-            return;
+            //  return;
           })
           .on("end", function () {
             var finalvideoLast =

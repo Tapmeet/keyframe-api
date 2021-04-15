@@ -3,6 +3,7 @@ const Userupload = require("../models/upload");
 const Musicupload = require("../models/uploadMedia");
 const Block = require("../models/templateBlocks");
 const Scene = require("../models/lastBlock");
+const UserVideos = require("../models/userVideos");
 const fs = require("fs");
 var gl = require("gl")(10, 10);
 const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
@@ -20,6 +21,7 @@ var userId;
 // ffprobe.FFPROBE_PATH = ffprobeInstaller.path
 const concat = require("ffmpeg-concat");
 const glob = require("glob");
+const userVideos = require("../models/userVideos");
 
 var assetsPath = "./src/Assets/";
 var fonts = [
@@ -320,7 +322,26 @@ exports.deleteMedia = async function (req, res) {
     });
     var fs = require("fs");
     fs.unlink(assetsPath + mediaPath, function (err) {
-      if (err) throw err;
+     // if (err) throw err;
+      console.log("File deleted!");
+    });
+    res.status(200).json({ message: "File deleted" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.deleteVideo = async function (req, res) {
+  console.log(req.query)
+  try {
+    const id = req.query.mediaId;
+    const mediaPath = req.query.media;
+    const block = await userVideos.findOneAndDelete({
+      _id: id,
+    });
+    var fs = require("fs");
+    fs.unlink(assetsPath + mediaPath, function (err) {
+     // if (err) throw err;
       console.log("File deleted!");
     });
     res.status(200).json({ message: "File deleted" });
@@ -395,7 +416,7 @@ exports.getTemplate = async (req, res, next) => {
 exports.getUploads = async (req, res, next) => {
   const { userId } = req.query;
   try {
-    const uploads = await Userupload.find({ userId: userId });
+    const uploads = await Userupload.find({ userId: userId }).sort( { "createdAt": -1 } );
     if (typeof uploads !== "undefined" && uploads.length > 0) {
       res.status(200).json({ message: "Uploads List", data: uploads });
     } else {
@@ -405,6 +426,21 @@ exports.getUploads = async (req, res, next) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.getVideos = async (req, res, next) => {
+  const { userId } = req.query;
+  try {
+    const uploads = await UserVideos.find({ userId: userId }).sort( { "createdAt": -1 } );
+    if (typeof uploads !== "undefined" && uploads.length > 0) {
+      res.status(200).json({ message: "Uploads List", data: uploads });
+    } else {
+      res.status(200).json({ message: "No Data Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 
 exports.getMusicUploads = async (req, res, next) => {
   const { userId } = req.query;

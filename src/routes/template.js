@@ -38,5 +38,11 @@ router.post('/create-template', template.addAdminTemplates);
 router.get('/get-admin-template', template.getAdminTemplate);
 router.delete('/delete-template/', template.deleteTemplate);
 router.delete('/delete-media/', template.deleteMedia);
+
+// User Template Videos
+
+router.get('/get-user-videos', template.getVideos);
+router.delete('/delete-user-videos/', template.deleteVideo);
+
 module.exports = router;
 
