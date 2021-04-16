@@ -129,11 +129,7 @@ exports.mergeVideo = async (req, res, next) => {
     } else {
       saveVideoDb(
         template.title,
-        "template/videos/" +
-          userId +
-          "/template1/" +
-          videoName +
-          ".mp4"
+        "template/videos/" + userId + "/template1/" + videoName + ".mp4"
       );
       // res.status(200).json({
       //   message: "successfull",
@@ -180,13 +176,8 @@ exports.mergeVideo = async (req, res, next) => {
         );
         saveVideoDb(
           template.title,
-          "template/videos/" +
-            userId +
-            "/template1/" +
-            videoName +
-            "-audio.mp4"
+          "template/videos/" + userId + "/template1/" + videoName + "-audio.mp4"
         );
-        
       });
   }
   async function saveVideoDb(videoTitle, path) {
@@ -194,7 +185,7 @@ exports.mergeVideo = async (req, res, next) => {
       const newUpload = new UserVideos({
         userId: userId,
         videoTitle: videoTitle,
-        templateImage:template.templateImage,
+        templateImage: template.templateImage,
         path: path,
       });
       const uploadData = await newUpload.save();
@@ -778,7 +769,8 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
                 boxcolor: "white@0.0",
                 boxborderw: "50",
                 bordercolor: "white",
-                enable: "between(t,1.1,10000)",
+                alpha:
+                  "if(lt(t,0),0,if(lt(t,1),(t-0)/1,if(lt(t,2),1,if(lt(t,30002),(30000-(t-2))/30000,0))))",
               },
               inputs: "firstOne",
               outputs: "output2",
@@ -796,7 +788,8 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
                 boxcolor: "white@0.0",
                 boxborderw: "50",
                 bordercolor: "white",
-                enable: "between(t,1.3,10000)",
+                alpha:
+                  "if(lt(t,0),0,if(lt(t,1),(t-0)/1,if(lt(t,2),1,if(lt(t,30002),(30000-(t-2))/30000,0))))",
               },
               inputs: "output2",
               outputs: "output3",
@@ -814,7 +807,8 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
                 boxcolor: "white@0.0",
                 boxborderw: "50",
                 bordercolor: "white",
-                enable: "between(t,1.5,10000)",
+                alpha:
+                  "if(lt(t,1),0,if(lt(t,2),(t-1)/1,if(lt(t,4),1,if(lt(t,30004),(30000-(t-4))/30000,0))))",
               },
               inputs: "output3",
               outputs: "output4",
@@ -832,7 +826,8 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
                 boxcolor: "white@0.0",
                 boxborderw: "50",
                 bordercolor: "white",
-                enable: "between(t,1.8,10000)",
+                alpha:
+                  "if(lt(t,1),0,if(lt(t,2),(t-1)/1,if(lt(t,4),1,if(lt(t,30004),(30000-(t-4))/30000,0))))",
               },
               inputs: "output4",
               outputs: "output5",
@@ -851,6 +846,8 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
                 boxborderw: "50",
                 bordercolor: "white",
                 enable: "between(t,2,10000)",
+                alpha:
+                  "if(lt(t,2),0,if(lt(t,3),(t-2)/1,if(lt(t,5.5),1,if(lt(t,30005.5),(30000-(t-5.5))/30000,0))))",
               },
               inputs: "output5",
               outputs: "output6",
@@ -868,7 +865,8 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
                 boxcolor: "white@0.0",
                 boxborderw: "50",
                 bordercolor: "white",
-                enable: "between(t,2.2,10000)",
+                alpha:
+                  "if(lt(t,2),0,if(lt(t,3),(t-2)/1,if(lt(t,5.5),1,if(lt(t,30005.5),(30000-(t-5.5))/30000,0))))",
               },
               inputs: "output6",
               outputs: "output7",
@@ -886,7 +884,8 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
                 boxcolor: "white@0.0",
                 boxborderw: "50",
                 bordercolor: "white",
-                enable: "between(t,2.4,10000)",
+                alpha:
+                  "if(lt(t,3),0,if(lt(t,4),(t-3)/1,if(lt(t,7),1,if(lt(t,30007),(30000-(t-7))/30000,0))))",
               },
               inputs: "output7",
               outputs: "output8",
@@ -904,7 +903,8 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
                 boxcolor: "white@0.0",
                 boxborderw: "50",
                 bordercolor: "white",
-                enable: "between(t,2.6,10000)",
+                alpha:
+                  "if(lt(t,3),0,if(lt(t,4),(t-3)/1,if(lt(t,7),1,if(lt(t,30007),(30000-(t-7))/30000,0))))",
               },
               inputs: "output8",
               outputs: "output9",
@@ -922,7 +922,8 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
                 boxcolor: "white@0.0",
                 boxborderw: "50",
                 bordercolor: "white",
-                enable: "between(t,2.8,10000)",
+                alpha:
+                  "if(lt(t,4),0,if(lt(t,5),(t-4)/1,if(lt(t,9),1,if(lt(t,30009),(30000-(t-9))/30000,0))))",
               },
               inputs: "output9",
               outputs: "output10",
@@ -940,7 +941,8 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
                 boxcolor: "white@0.0",
                 boxborderw: "50",
                 bordercolor: "white",
-                enable: "between(t,3,10000)",
+                alpha:
+                  "if(lt(t,4),0,if(lt(t,5),(t-4)/1,if(lt(t,9),1,if(lt(t,30009),(30000-(t-9))/30000,0))))",
               },
               inputs: "output10",
               outputs: "output",
@@ -1190,14 +1192,14 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
                   fontsize: parseInt(data.sceneData.textSize) + 25,
                   fontcolor: titleColor,
                   line_spacing: 30,
-                  x: "20",
+                  x: "min(4*(tw+10)-(abs(4-2*(t-1)))*(tw+10)-tw,10)",
                   y: "H-th-100",
                   box: 1,
                   boxcolor: "white@1",
                   boxborderw: "50",
                   bordercolor: "white",
-                  alpha:
-                    "if(lt(t,0),0,if(lt(t,2),(t-0)/2,if(lt(t,3),1,if(lt(t,503),(500-(t-3))/500,0))))",
+                  // alpha:
+                  //   "if(lt(t,0),0,if(lt(t,2),(t-0)/2,if(lt(t,3),1,if(lt(t,503),(500-(t-3))/500,0))))",
                 },
                 inputs: "checked",
                 outputs: "output",
@@ -1308,7 +1310,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
                 fontcolor: titleColor,
                 line_spacing: 20,
                 x: "50",
-                y: "H-th - 20",
+                y: "h - th- 25 - min(4*(th+10)-(abs(4-2*(t-1)))*(th+10)-th,10)",
                 box: 1,
                 boxcolor: "white@1",
                 boxborderw: "30",
@@ -1370,7 +1372,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
                 fontcolor: titleColor,
                 line_spacing: 20,
                 x: "50",
-                y: "H-th - 20",
+                y: "h - th- 25 - min(4*(th+10)-(abs(4-2*(t-1)))*(th+10)-th,10)",
                 box: 1,
                 boxcolor: "white@1",
                 boxborderw: "30",
@@ -1624,7 +1626,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
                   fontcolor: titleColor,
                   line_spacing: 20,
                   x: "50",
-                  y: "H-th - 20",
+                  y: "h - th- 25 - min(4*(th+10)-(abs(4-2*(t-1)))*(th+10)-th,10)",
                   box: 1,
                   boxcolor: "white@1",
                   boxborderw: "30",
@@ -1696,7 +1698,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
                   fontcolor: titleColor,
                   line_spacing: 20,
                   x: "50",
-                  y: "H-th - 20",
+                  y: "h - th- 25 - min(4*(th+10)-(abs(4-2*(t-1)))*(th+10)-th,10)",
                   box: 1,
                   boxcolor: "white@1",
                   boxborderw: "30",
@@ -2015,7 +2017,7 @@ function lastSceneVideo(data) {
                 boxborderw: "30",
                 bordercolor: "white",
                 alpha:
-                "if(lt(t,0),0,if(lt(t,2),(t-0)/2,if(lt(t,3),1,if(lt(t,503),(500-(t-3))/500,0))))",
+                  "if(lt(t,0),0,if(lt(t,2),(t-0)/2,if(lt(t,3),1,if(lt(t,503),(500-(t-3))/500,0))))",
               },
               inputs: "checked",
               outputs: "output1",
@@ -2035,7 +2037,7 @@ function lastSceneVideo(data) {
                 boxborderw: "30",
                 bordercolor: "white",
                 alpha:
-                    "if(lt(t,0),0,if(lt(t,2),(t-0)/2,if(lt(t,3),1,if(lt(t,503),(500-(t-3))/500,0))))",
+                  "if(lt(t,0),0,if(lt(t,2),(t-0)/2,if(lt(t,3),1,if(lt(t,503),(500-(t-3))/500,0))))",
               },
               inputs: "output1",
               outputs: "output2",
@@ -2055,7 +2057,7 @@ function lastSceneVideo(data) {
                 boxborderw: "30",
                 bordercolor: "white",
                 alpha:
-                    "if(lt(t,0),0,if(lt(t,2),(t-0)/2,if(lt(t,3),1,if(lt(t,503),(500-(t-3))/500,0))))",
+                  "if(lt(t,0),0,if(lt(t,2),(t-0)/2,if(lt(t,3),1,if(lt(t,503),(500-(t-3))/500,0))))",
               },
               inputs: "output2",
               outputs: "output3",
@@ -2075,7 +2077,7 @@ function lastSceneVideo(data) {
                 boxborderw: "30",
                 bordercolor: "white",
                 alpha:
-                "if(lt(t,0),0,if(lt(t,2),(t-0)/2,if(lt(t,3),1,if(lt(t,503),(500-(t-3))/500,0))))",
+                  "if(lt(t,0),0,if(lt(t,2),(t-0)/2,if(lt(t,3),1,if(lt(t,503),(500-(t-3))/500,0))))",
               },
               inputs: "output3",
               outputs: "output",

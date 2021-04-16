@@ -11,5 +11,5 @@ router.get('/category-scenes', scene.getCategoryScenes);
 // router.delete('/delete-scene/', template.deleteBlock);
 router.put('/:id', scene.update);
 module.exports = router;
-
+ 
 
