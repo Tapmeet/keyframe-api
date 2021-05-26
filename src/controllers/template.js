@@ -53,6 +53,7 @@ var fonts = [
 ];
 //Upload
 exports.upload = async (req, res, next) => {
+
   try {
     const file = req.file;
     if (file) {
@@ -64,6 +65,7 @@ exports.upload = async (req, res, next) => {
             const newUpload = new Userupload({
               ...file,
               userId: req.body.userId,
+              templateId: req.body.templateId,
             });
             const uploadData = await newUpload.save();
           }
@@ -81,6 +83,7 @@ exports.upload = async (req, res, next) => {
 };
 //Upload
 exports.uploadMedia = async (req, res, next) => {
+  console.log("here");
   try {
     const file = req.file;
     if (file) {
@@ -92,6 +95,7 @@ exports.uploadMedia = async (req, res, next) => {
           const newUpload = new Musicupload({
             ...file,
             userId: req.body.userId,
+            templateId: req.body.templateId,
             adminMedia: req.body.adminMedia,
           });
           const uploadData = await newUpload.save();
@@ -130,6 +134,7 @@ exports.getAdminTemplates = async function (req, res) {
             sceneOrder: "$sceneOrder",
             templateCategory: "$templateCategory",
             musicFile: "$musicFile",
+            templateScenes: "$templateScenes",
           },
         },
         {
@@ -161,6 +166,14 @@ exports.addAdminTemplates = async function (req, res) {
   try {
     const sceneOrder = req.body.sceneOrder;
     //console.log(newArr);
+    var scenes = [];
+    await sceneOrder.map((data, index) => {
+      scenes = [...scenes]; // copying the old datas array
+      scenes[index] = {
+        sceneTitle: data.sceneTitle,
+        id: data._id,
+      };
+    });
     const newTemplate = new Template({
       userId: req.body.userId,
       title: req.body.title,
@@ -168,22 +181,28 @@ exports.addAdminTemplates = async function (req, res) {
       templatePreview: req.body.templatePreview,
       adminTemplate: req.body.adminTemplate,
       templateCategory: req.body.templateCategory,
+      templateScenes: scenes
     });
     const tempateData = await newTemplate.save();
     var newArr = [];
-    var blockData;
-    await sceneOrder.map(async (data, index) => {
-      const newBlock = new Block({
-        sceneId: data.sceneId,
-        templateId: data._id,
-        sceneTitle: data.sceneTitle,
-        sceneThumbnail: data.sceneThumbnail,
-        sceneData: data.sceneData,
-        order: index + 1,
-        templateId: tempateData._id,
+    var blockData = [];
+
+    await sceneOrder
+      .sort((a, b) => a.order - b.order)
+      .map(async (data, index) => {
+        const newBlock = new Block({
+          sceneId: data.sceneId,
+          templateId: data._id,
+          sceneTitle: data.sceneTitle,
+          sceneThumbnail: data.sceneThumbnail,
+          sceneData: data.sceneData,
+          order: index + 1,
+          templateId: tempateData._id,
+        });
+        let newblockData = await newBlock.save();
+        console.log(newblockData);
+        blockData.push(newblockData);
       });
-      blockData = await newBlock.save();
-    });
     const sceneData = await Scene.findOne({ templateId: "1" });
     const newScene = new Scene({
       sceneId: sceneData.sceneId,
@@ -263,6 +282,7 @@ exports.getAdminTemplate = async (req, res, next) => {
             sceneOrder: "$sceneOrder",
             templateCategory: "$templateCategory",
             musicFile: "$musicFile",
+            templateScenes: "$templateScenes",
           },
         },
         {
@@ -315,14 +335,13 @@ exports.deleteMedia = async function (req, res) {
   try {
     const id = req.query.mediaId;
     const mediaPath = req.query.media;
-   
-   
+
     const block = await Userupload.findOneAndDelete({
       _id: id,
     });
     var fs = require("fs");
     fs.unlink(assetsPath + mediaPath, function (err) {
-     // if (err) throw err;
+      // if (err) throw err;
       console.log("File deleted!");
     });
     res.status(200).json({ message: "File deleted" });
@@ -332,7 +351,7 @@ exports.deleteMedia = async function (req, res) {
 };
 
 exports.deleteVideo = async function (req, res) {
-  console.log(req.query)
+  console.log(req.query);
   try {
     const id = req.query.mediaId;
     const mediaPath = req.query.media;
@@ -341,7 +360,7 @@ exports.deleteVideo = async function (req, res) {
     });
     var fs = require("fs");
     fs.unlink(assetsPath + mediaPath, function (err) {
-     // if (err) throw err;
+      // if (err) throw err;
       console.log("File deleted!");
     });
     res.status(200).json({ message: "File deleted" });
@@ -391,7 +410,7 @@ exports.getTemplate = async (req, res, next) => {
             templateImage: "$templateImage",
             templatePreview: "$templatePreview",
             templateCategory: "$templateCategory",
-            musicFile:"$musicFile"
+            musicFile: "$musicFile",
           },
         },
         {
@@ -415,8 +434,21 @@ exports.getTemplate = async (req, res, next) => {
 
 exports.getUploads = async (req, res, next) => {
   const { userId } = req.query;
+  const { templateId } = req.query;
+  console.log(req.query);
   try {
-    const uploads = await Userupload.find({ userId: userId }).sort( { "createdAt": -1 } );
+    if (templateId) {
+      var uploads = await Userupload.find({
+        userId: userId,
+        templateId: templateId,
+      }).sort({
+        createdAt: -1,
+      });
+    } else {
+      var uploads = await Userupload.find({ userId: userId }).sort({
+        createdAt: -1,
+      });
+    }
     if (typeof uploads !== "undefined" && uploads.length > 0) {
       res.status(200).json({ message: "Uploads List", data: uploads });
     } else {
@@ -430,7 +462,9 @@ exports.getUploads = async (req, res, next) => {
 exports.getVideos = async (req, res, next) => {
   const { userId } = req.query;
   try {
-    const uploads = await UserVideos.find({ userId: userId }).sort( { "createdAt": -1 } );
+    const uploads = await UserVideos.find({ userId: userId }).sort({
+      createdAt: -1,
+    });
     if (typeof uploads !== "undefined" && uploads.length > 0) {
       res.status(200).json({ message: "Uploads List", data: uploads });
     } else {
@@ -440,7 +474,6 @@ exports.getVideos = async (req, res, next) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 exports.getMusicUploads = async (req, res, next) => {
   const { userId } = req.query;
@@ -608,7 +641,7 @@ exports.update = async function (req, res) {
  * @access Admin
  */
 exports.createVideo = async (req, res, next) => {
-  console.log('here')
+  console.log("here");
   const { templateId } = req.body;
   try {
     const templateBlock = await Block.find({ templateId: templateId });
@@ -1472,7 +1505,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
               typeof video1 != "undefined" &&
               typeof video2 != "undefined"
             ) {
-              console.log("heres");
+              //console.log("heres");
               setTimeout(function () {
                 let data = {
                   video1: video1,

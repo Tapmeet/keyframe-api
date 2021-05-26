@@ -24,6 +24,9 @@ const templatesSchema = new mongoose.Schema({
   musicFile: {
     type: String,
   },
+  templateScenes: {
+    type: Array,
+  },
 
 }, {timestamps: true});
 

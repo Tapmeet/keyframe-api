@@ -24,6 +24,9 @@ const UploadMediaSchema = new mongoose.Schema(
         type: Boolean,
         default: false,
       },
+      templateId: {
+        type: String,
+      },
     },
     {timestamps: true},
 );

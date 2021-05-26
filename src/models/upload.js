@@ -19,6 +19,9 @@ const UploadSchema = new mongoose.Schema({
   size: {
     type: String,
   },
+  templateId: {
+    type: String,
+  },
 }, {timestamps: true});
 
 module.exports = mongoose.model('Upload', UploadSchema);
