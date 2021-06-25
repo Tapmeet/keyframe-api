@@ -246,23 +246,23 @@ exports.createVideo = async (req, res, next) => {
       // const functionName = "videoTemplate" + template.templateNumber;
 
       const lastVideo = await lastSceneVideo(lastScene);
-      const promises = templateBlock.map(async (data) => {
-        const functionName = "videoTemplate" + data.sceneId;
-        const response = await global[functionName](data, req, res);
-        return response;
-      });
+      // const promises = templateBlock.map(async (data) => {
+      //   const functionName = "videoTemplate" + data.sceneId;
+      //   const response = await global[functionName](data, req, res);
+      //   return response;
+      // });
 
-      Promise.all(promises)
-        .then((results) => {
-          const result = [...results, lastVideo];
-          res.status(200).json({
-            message: "successfull",
-            data: result,
-          });
-        })
-        .catch((e) => {
-          console.error(e);
-        });
+      // Promise.all(promises)
+      //   .then((results) => {
+      //     const result = [...results, lastVideo];
+      //     res.status(200).json({
+      //       message: "successfull",
+      //       data: result,
+      //     });
+      //   })
+      //   .catch((e) => {
+      //     console.error(e);
+      //   });
     } else {
       res.status(200).json({ message: "Video failed 1" });
     }
@@ -2013,25 +2013,25 @@ function lastSceneVideo(data) {
 
     const text = new FFText({ text: fieldText1, fontSize: fontSize1 , x: 1060, y: 300 });
     text.setColor(titleColor1);
-    //text.setBackgroundColor("#000000");
+    text.setFont(selectedfonts1);
     text.addEffect("fadeInRight", 1.1, 1.1);
     scene1.addChild(text);
 
     const text2 = new FFText({ text: fieldText2, fontSize: fontSize2 , x: 1060, y:370 });
     text2.setColor(titleColor2);
-    //text.setBackgroundColor("#000000");
+    text.setFont(selectedfonts2);
     text2.addEffect("fadeInRight", 1.2, 1.2);
     scene1.addChild(text2);
 
     const text3 = new FFText({ text: fieldText3, fontSize: fontSize3  , x: 1060, y:420 });
     text3.setColor(titleColor3);
-    //text.setBackgroundColor("#000000");
+    text.setFont(selectedfonts3);
     text3.addEffect("fadeInRight", 1.3, 1.3);
     scene1.addChild(text3);
 
     const text4 = new FFText({ text: fieldText4, fontSize: fontSize4  , x: 1060, y:470 });
     text4.setColor(titleColor3);
-    //text.setBackgroundColor("#000000");
+    text.setFont(selectedfonts4);
     text4.addEffect("fadeInRight", 1.4, 1.4);
     scene1.addChild(text4);
 
