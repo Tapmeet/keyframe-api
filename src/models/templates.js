@@ -27,6 +27,9 @@ const templatesSchema = new mongoose.Schema({
   templateScenes: {
     type: Array,
   },
+  templateId: {
+    type: String,
+  },
 
 }, {timestamps: true});
 

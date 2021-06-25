@@ -10,6 +10,14 @@
 /* eslint-disable quotes */
 /* eslint-disable no-unused-vars */
 /* eslint-disable valid-jsdoc */
+const path = require('path');
+const {
+  FFCreatorCenter,
+  FFScene,
+  FFImage,
+  FFText,
+  FFCreator,
+} = require("ffcreatorlite");
 const Template = require("../models/templates");
 const Block = require("../models/templateBlocks");
 const Scene = require("../models/lastBlock");
@@ -1626,7 +1634,8 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
                   fontcolor: titleColor,
                   line_spacing: 20,
                   x: "50",
-                  y: "h - th- 25 - min(4*(th+10)-(abs(4-2*(t-1)))*(th+10)-th,10)",
+                  y:
+                    "h - th- 25 - min(4*(th+10)-(abs(4-2*(t-1)))*(th+10)-th,10)",
                   box: 1,
                   boxcolor: "white@1",
                   boxborderw: "30",
@@ -1698,7 +1707,8 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
                   fontcolor: titleColor,
                   line_spacing: 20,
                   x: "50",
-                  y: "h - th- 25 - min(4*(th+10)-(abs(4-2*(t-1)))*(th+10)-th,10)",
+                  y:
+                    "h - th- 25 - min(4*(th+10)-(abs(4-2*(t-1)))*(th+10)-th,10)",
                   box: 1,
                   boxcolor: "white@1",
                   boxborderw: "30",
@@ -1842,34 +1852,241 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
 
 function lastSceneVideo(data) {
   return new Promise((resolve) => {
-    var commands = new ffmpeg();
-    commands
-      .input(assetsPath + "whitebgVideo.mp4")
-      .input(assetsPath + data.sceneData.media[0].url)
-      .complexFilter(
-        "overlay=x=(main_w-overlay_w-100):y=(main_h-overlay_h)/2[outs]"
-      )
-      .addOption("-map", "[outs]")
-      .addOption("-c:v", "libx264")
-      .addOption("-pix_fmt", "yuv420p")
-      .addOption("-framerate", "50")
-      .addOption("-c:v", "libx264")
-      .save(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/lastvideoLeft.mp4"
-      )
-      .on("start", function (commandLine) {
-        console.log("leastVideo1");
-      })
-      .on("error", function (er) {
-        console.log(er);
-        //return;
-      })
-      .on("end", function (commandLine) {
-        console.log("here");
-        lastVideoText();
+    if (data.sceneData.textArray[0] != undefined) {
+      var titleColor1 = data.sceneData.textArray[0].fontColor;
+      let fontfamily = data.sceneData.textArray[0].fontFamily;
+      var fontSize1 = parseFloat(data.sceneData.textArray[0].fontSize) + 15;
+      var selectedfonts1 = "";
+      fonts.map(function (font) {
+        if (font.family == fontfamily) {
+          if (data.sceneData.textArray[0].fontWeight == "lighter") {
+            selectedfonts1 = font.lighter;
+          } else if (data.sceneData.textArray[0].fontWeight == "normal") {
+            selectedfonts1 = font.file;
+          } else if (data.sceneData.textArray[0].fontWeight == "bold") {
+            selectedfonts1 = font.bold;
+          }
+        }
       });
+      if (titleColor1.length == "4") {
+        var $hex = titleColor1;
+        titleColor1 =
+          "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
+      }
+      var fieldText1 = data.sceneData.textArray[0].text;
+      if (selectedfonts1 == "") {
+        selectedfonts1 = fonts[0].file;
+      }
+    } else {
+      var fieldText1 = "";
+      var titleColor1 = "#00000";
+      var selectedfonts1 = fonts[0].file;
+      var fontSize1 = "20";
+    }
+    if (data.sceneData.textArray[1] != undefined) {
+      var fieldText2 = data.sceneData.textArray[1].text;
+      var titleColor2 = data.sceneData.textArray[1].fontColor;
+      let fontfamily = data.sceneData.textArray[1].fontFamily;
+      var fontSize2 = parseFloat(data.sceneData.textArray[1].fontSize) + 15;
+      var selectedfonts2 = "";
+      fonts.map(function (font) {
+        if (font.family == fontfamily) {
+          if (data.sceneData.textArray[1].fontWeight == "lighter") {
+            selectedfonts2 = font.lighter;
+          } else if (data.sceneData.textArray[1].fontWeight == "normal") {
+            selectedfonts2 = font.file;
+          } else if (data.sceneData.textArray[1].fontWeight == "bold") {
+            selectedfonts2 = font.bold;
+          }
+        }
+      });
+      if (titleColor2.length == "4") {
+        var $hex = titleColor2;
+        titleColor2 =
+          "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
+      }
+      if (selectedfonts2 == "") {
+        selectedfonts2 = fonts[0].file;
+      }
+    } else {
+      var fieldText2 = "";
+      var titleColor2 = "#00000";
+      var selectedfonts2 = fonts[0].file;
+      let fontSize2 = "20";
+    }
+    if (data.sceneData.textArray[2] != undefined) {
+      var fieldText3 = data.sceneData.textArray[2].text;
+      var titleColor3 = data.sceneData.textArray[2].fontColor;
+      let fontfamily = data.sceneData.textArray[2].fontFamily;
+      var fontSize3 =  parseFloat(data.sceneData.textArray[2].fontSize) + 15;
+      var selectedfonts3 = "";
+      fonts.map(function (font) {
+        if (font.family == fontfamily) {
+          if (data.sceneData.textArray[2].fontWeight == "lighter") {
+            selectedfonts3 = font.lighter;
+          } else if (data.sceneData.textArray[2].fontWeight == "normal") {
+            selectedfonts3 = font.file;
+          } else if (data.sceneData.textArray[2].fontWeight == "bold") {
+            selectedfonts3 = font.bold;
+          }
+        }
+      });
+      if (titleColor3.length == "4") {
+        var $hex = titleColor3;
+        titleColor3 =
+          "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
+      }
+      if (selectedfonts3 == "") {
+        selectedfonts3 = fonts[0].file;
+      }
+    } else {
+      var fieldText3 = "";
+      var titleColor3 = "#00000";
+      var selectedfonts3 = fonts[0].file;
+      var fontSize3 = "30";
+    }
+    if (data.sceneData.textArray[3] != undefined) {
+      var fieldText4 = data.sceneData.textArray[3].text;
+      var titleColor4 = data.sceneData.textArray[3].fontColor;
+      let fontfamily = data.sceneData.textArray[3].fontFamily;
+      var fontSize4 = parseFloat(data.sceneData.textArray[3].fontSize) + 15;
+      var selectedfonts4 = "";
+      fonts.map(function (font) {
+        if (font.family == fontfamily) {
+          if (data.sceneData.textArray[3].fontWeight == "lighter") {
+            selectedfonts4 = font.lighter;
+          } else if (data.sceneData.textArray[3].fontWeight == "normal") {
+            selectedfonts4 = font.file;
+          } else if (data.sceneData.textArray[3].fontWeight == "bold") {
+            selectedfonts4 = font.bold;
+          }
+        }
+      });
+      if (titleColor4.length == "4") {
+        var $hex = titleColor4;
+        titleColor4 =
+          "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
+      }
+      if (selectedfonts4 == "") {
+        selectedfonts4 = fonts[0].file;
+      }
+    } else {
+      var fieldText4 = "";
+      var titleColor4 = "#00000";
+      var fontSize4 = "40";
+      var selectedfonts4 = fonts[0].file;
+    }
+
+    const {
+      FFScene,
+      FFText,
+      FFVideo,
+      FFAlbum,
+      FFImage,
+      FFCreator,
+    } = require("ffcreator");
+    const outputDir = path.join(__dirname,"./src/Assets/template/videos/" + userId + "/template1");
+    const creator = new FFCreator({
+      //  cacheDir,
+      outputDir,
+      width: 1920,
+      height: 1080,
+      log: true,
+    });
+    const scene1 = new FFScene();
+    scene1.setBgColor("#fff");
+
+    const fbg = new FFImage({
+      path: assetsPath + data.sceneData.media[0].url,
+      x: 720,
+      y: 480,
+    });
+    fbg.addEffect("fadeInLeft", 0.6, 1.2);
+    scene1.addChild(fbg);
+    const fimg1 = new FFImage({
+      path: assetsPath + data.sceneData.media[1].url,
+      x: 1160,
+      y: 600,
+    });
+    fimg1.addEffect("fadeInUp", 1.5, 1.8);
+    scene1.addChild(fimg1);
+
+    const text = new FFText({ text: fieldText1, fontSize: fontSize1 , x: 1060, y: 300 });
+    text.setColor(titleColor1);
+    //text.setBackgroundColor("#000000");
+    text.addEffect("fadeInRight", 1.1, 1.1);
+    scene1.addChild(text);
+
+    const text2 = new FFText({ text: fieldText2, fontSize: fontSize2 , x: 1060, y:370 });
+    text2.setColor(titleColor2);
+    //text.setBackgroundColor("#000000");
+    text2.addEffect("fadeInRight", 1.2, 1.2);
+    scene1.addChild(text2);
+
+    const text3 = new FFText({ text: fieldText3, fontSize: fontSize3  , x: 1060, y:420 });
+    text3.setColor(titleColor3);
+    //text.setBackgroundColor("#000000");
+    text3.addEffect("fadeInRight", 1.3, 1.3);
+    scene1.addChild(text3);
+
+    const text4 = new FFText({ text: fieldText4, fontSize: fontSize4  , x: 1060, y:470 });
+    text4.setColor(titleColor3);
+    //text.setBackgroundColor("#000000");
+    text4.addEffect("fadeInRight", 1.4, 1.4);
+    scene1.addChild(text4);
+
+    scene1.setDuration(4);
+    creator.addChild(scene1);
+    creator.start();
+    creator.on("error", (e) => {
+    //  console.log(`FFCreator error: ${JSON.stringify(e)}`);
+    });
+    creator.on("progress", (e) => {
+     // console.log(`FFCreatorLite progress: ${(e.percent * 100) >> 0}%`);
+    });
+
+    creator.on("complete", (e) => {
+      fs.rename(e.output,  "./src/Assets/template/videos/" +
+      userId +
+      "/template1/lastvideoFinal.mp4", () => {
+        console.log("\nFile Renamed!\n");
+        var finalvideoLast =
+        assetsPath +
+        "template/videos/" +
+        userId +
+        "/template1/lastvideoFinal.mp4";
+         resolve(finalvideoLast);
+      });
+      console.log(e);
+    });
+    // var commands = new ffmpeg();
+    // commands
+    //   .input(assetsPath + "whitebgVideo.mp4")
+    //   .input(assetsPath + data.sceneData.media[0].url)
+    //   .complexFilter(
+    //     "overlay=x=(main_w-overlay_w-100):y=(main_h-overlay_h)/2[outs]"
+    //   )
+    //   .addOption("-map", "[outs]")
+    //   .addOption("-c:v", "libx264")
+    //   .addOption("-pix_fmt", "yuv420p")
+    //   .addOption("-framerate", "50")
+    //   .addOption("-c:v", "libx264")
+    //   .save(
+    //     "./src/Assets/template/videos/" +
+    //       userId +
+    //       "/template1/lastvideoLeft.mp4"
+    //   )
+    //   .on("start", function (commandLine) {
+    //     console.log("leastVideo1");
+    //   })
+    //   .on("error", function (er) {
+    //     console.log(er);
+    //     //return;
+    //   })
+    //   .on("end", function (commandLine) {
+    //     console.log("here");
+    //     lastVideoText();
+    //   });
     function lastVideoText() {
       var commands = new ffmpeg();
       // console.log(data.sceneData.textArray)

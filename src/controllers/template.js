@@ -135,6 +135,7 @@ exports.getAdminTemplates = async function (req, res) {
             templateCategory: "$templateCategory",
             musicFile: "$musicFile",
             templateScenes: "$templateScenes",
+            templateId: "$templateId"
           },
         },
         {
@@ -174,8 +175,15 @@ exports.addAdminTemplates = async function (req, res) {
         id: data._id,
       };
     });
+    var tempId =''
+    if(req.body.templateId){
+       tempId = req.body.templateId
+    }
+ 
+    //console.log(tempId);
     const newTemplate = new Template({
       userId: req.body.userId,
+      templateId:tempId, 
       title: req.body.title,
       templateImage: req.body.templateImage,
       templatePreview: req.body.templatePreview,
@@ -184,6 +192,7 @@ exports.addAdminTemplates = async function (req, res) {
       templateScenes: scenes
     });
     const tempateData = await newTemplate.save();
+    //console.log(tempateData);
     var newArr = [];
     var blockData = [];
 
@@ -200,7 +209,7 @@ exports.addAdminTemplates = async function (req, res) {
           templateId: tempateData._id,
         });
         let newblockData = await newBlock.save();
-        console.log(newblockData);
+      
         blockData.push(newblockData);
       });
     const sceneData = await Scene.findOne({ templateId: "1" });
@@ -283,6 +292,7 @@ exports.getAdminTemplate = async (req, res, next) => {
             templateCategory: "$templateCategory",
             musicFile: "$musicFile",
             templateScenes: "$templateScenes",
+            templateId: "$templateId"
           },
         },
         {
@@ -351,7 +361,7 @@ exports.deleteMedia = async function (req, res) {
 };
 
 exports.deleteVideo = async function (req, res) {
-  console.log(req.query);
+  //console.log(req.query);
   try {
     const id = req.query.mediaId;
     const mediaPath = req.query.media;
@@ -435,7 +445,7 @@ exports.getTemplate = async (req, res, next) => {
 exports.getUploads = async (req, res, next) => {
   const { userId } = req.query;
   const { templateId } = req.query;
-  console.log(req.query);
+  //console.log(req.query);
   try {
     if (templateId) {
       var uploads = await Userupload.find({
