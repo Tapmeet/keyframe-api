@@ -246,23 +246,23 @@ exports.createVideo = async (req, res, next) => {
       // const functionName = "videoTemplate" + template.templateNumber;
 
       const lastVideo = await lastSceneVideo(lastScene);
-      // const promises = templateBlock.map(async (data) => {
-      //   const functionName = "videoTemplate" + data.sceneId;
-      //   const response = await global[functionName](data, req, res);
-      //   return response;
-      // });
+      const promises = templateBlock.map(async (data) => {
+        const functionName = "videoTemplate" + data.sceneId;
+        const response = await global[functionName](data, req, res);
+        return response;
+      });
 
-      // Promise.all(promises)
-      //   .then((results) => {
-      //     const result = [...results, lastVideo];
-      //     res.status(200).json({
-      //       message: "successfull",
-      //       data: result,
-      //     });
-      //   })
-      //   .catch((e) => {
-      //     console.error(e);
-      //   });
+      Promise.all(promises)
+        .then((results) => {
+          const result = [...results, lastVideo];
+          res.status(200).json({
+            message: "successfull",
+            data: result,
+          });
+        })
+        .catch((e) => {
+          console.error(e);
+        });
     } else {
       res.status(200).json({ message: "Video failed 1" });
     }
