@@ -459,7 +459,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           x: 960,
           y: 540,
         });
-        fimg1.addEffect("fadeInUp", 1, 1.2);
+        fimg1.addEffect("fadeInUp", 1, 1);
         //fimg1.setScale(0.5);
         
         scene1.addChild(fimg1);
@@ -472,7 +472,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         });
         text.setColor(titleColor);
         text.setFont(selectedfonts);
-        text.addEffect("fadeInDown", 1.8, 1.1);
+        text.addEffect("fadeInDown", 1.5, 1.3);
         const text2 = new FFText({
           text: contentParts[1],
           fontSize: fontSize1,
@@ -488,7 +488,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         scene1.addChild(text);
         text2.setColor(titleColor);
         text2.setFont(selectedfonts);
-        text2.addEffect("fadeInDown", 1.8, 1.1);
+        text2.addEffect("fadeInDown", 1.5, 1.3);
         scene1.addChild(text2);
 
         scene1.setDuration(5);
