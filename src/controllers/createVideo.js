@@ -10,7 +10,7 @@
 /* eslint-disable quotes */
 /* eslint-disable no-unused-vars */
 /* eslint-disable valid-jsdoc */
-const path = require('path');
+const path = require("path");
 const {
   FFCreatorCenter,
   FFScene,
@@ -358,7 +358,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
       } else {
         command
           .complexFilter(
-            "[0:v]  setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=630:470,pad=640:480:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=630:470,pad=640:480:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|w0_0|0_h0|w0_h0[out]"
+            "[0:v]  setpts=PTS-STARTPTS, scale=950:530,pad=960:540:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=950:530,pad=960:540:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=950:530,pad=960:540:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=950:530,pad=960:540:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|w0_0|0_h0|w0_h0[out]"
           )
           .loop("5")
           .addOption("-map", "[out]")
@@ -422,94 +422,199 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         }
         const content = datas.block.content;
         const contentParts = content.split("\n");
-        ffmpeg(datas.file)
-          .complexFilter(
-            [
-              "scale=1920:1080[rescaled]",
-              {
-                filter: "drawbox",
-                options: {
-                  x: "(iw/2 - iw/5 - 35)",
-                  y: "(ih/2 - ih/6)",
-                  height: 340,
-                  width: 840,
-                  color: "white",
-                  t: "fill",
-                  enable: "between(t,0.50,60000)",
-                },
-                inputs: "rescaled",
-                outputs: "output2",
-              },
-              {
-                filter: "drawtext",
-                options: {
-                  fontfile: selectedfonts,
-                  text: contentParts[0],
-                  fontsize: parseInt(datas.block.textSize) + 20,
-                  fontcolor: titleColor,
-                  x: "(w-tw)/2",
-                  y: "((h-text_h)/2)-(text_h-(th/4))",
-                  box: 1,
-                  boxcolor: "white@0.0",
-                  boxborderw: "50",
-                  bordercolor: "white",
-                  // enable: "between(t,1.1,10000)",
-                  alpha:
-                    "if(lt(t,1),0,if(lt(t,3),(t-1)/2,if(lt(t,4),1,if(lt(t,504),(500-(t-4))/500,0))))",
-                },
-                inputs: "output2",
-                outputs: "output4",
-              },
-              {
-                filter: "drawtext",
-                options: {
-                  fontfile: selectedfonts,
-                  text: contentParts[1],
-                  fontsize: parseInt(datas.block.textSize) + 20,
-                  fontcolor: titleColor,
-                  x: "(w-tw)/2",
-                  y: "((h-text_h)/2)+(text_h-(th/4))",
-                  box: 1,
-                  boxcolor: "white@0.0",
-                  boxborderw: "50",
-                  bordercolor: "white",
-                  // enable: "between(t,2,10000)",
-                  alpha:
-                    "if(lt(t,1),0,if(lt(t,3),(t-1)/2,if(lt(t,4),1,if(lt(t,504),(500-(t-4))/500,0))))",
-                },
-                inputs: "output4",
-                outputs: "output",
-              },
-            ],
-            "output"
-          )
-          .addOption("-c:v", "libx264")
-          .save(
+        const {
+          FFScene,
+          FFText,
+          FFVideo,
+          FFAlbum,
+          FFImage,
+          FFCreator,
+        } = require("ffcreator");
+        const outputDir = path.join(
+          __dirname,
+          "./src/Assets/template/videos/" + userId + "/template1"
+        );
+        const creator = new FFCreator({
+          //  cacheDir,
+          outputDir,
+          width: 1920,
+          height: 1080,
+          log: true,
+        });
+        const scene1 = new FFScene();
+        scene1.setBgColor("#fff");
+
+        const video = new FFVideo({
+          path: datas.file,
+          x: 960,
+          y:540, 
+          width: 1920, 
+          height: 1080 
+        });
+        video.addEffect("zoomIn", 1, 0);
+        scene1.addChild(video);
+
+        const fimg1 = new FFImage({
+          path: assetsPath + "whitebg.png",
+          x: 960,
+          y: 540,
+        });
+        fimg1.addEffect("fadeInUp", 1, 1.2);
+        //fimg1.setScale(0.5);
+        
+        scene1.addChild(fimg1);
+        const fontSize1 = parseInt(datas.block.textSize) + 20;
+        const text = new FFText({
+          text: contentParts[0],
+          fontSize: fontSize1,
+          x: 960,
+          y: 500,
+        });
+        text.setColor(titleColor);
+        text.setFont(selectedfonts);
+        text.addEffect("fadeInDown", 1.8, 1.1);
+        const text2 = new FFText({
+          text: contentParts[1],
+          fontSize: fontSize1,
+          x: 960,
+          y: 560,
+        });
+        text.alignCenter();
+        text.setStyle({ padding: [0, 20, 10, 20] });
+
+        text2.alignCenter();
+        text2.setStyle({ padding: [4, 20, 6, 20] });
+
+        scene1.addChild(text);
+        text2.setColor(titleColor);
+        text2.setFont(selectedfonts);
+        text2.addEffect("fadeInDown", 1.8, 1.1);
+        scene1.addChild(text2);
+
+        scene1.setDuration(5);
+        creator.addChild(scene1);
+        //creator.output(path.join(__dirname, "./src/Assets/template/videos/" + userId + "/template1/block-1-text-video.mp4"));
+        creator.start();
+        creator.on("error", (e) => {
+          //  console.log(`FFCreator error: ${JSON.stringify(e)}`);
+        });
+        creator.on("progress", (e) => {
+          // console.log(`FFCreatorLite progress: ${(e.percent * 100) >> 0}%`);
+        });
+
+        creator.on("complete", (e) => {
+          console.log("herer")
+          fs.rename(
+            e.output,
             "./src/Assets/template/videos/" +
               userId +
-              "/template1/block-1-text-video.mp4"
-          )
-          .on("start", function (commandLine) {
-            console.log("step2");
-          })
-          .on("error", function (er) {
-            console.log(er);
-            return;
-          })
-          .on("end", function (commandLine) {
-            console.log("success");
-            var finalvideo1 =
-              assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/block-1-text-video.mp4";
-            deleteFiles(
-              "./src/Assets/template/videos/" +
+              "/template1/block-1-text-video.mp4",
+            () => {
+              console.log("\nFile Renamed hreee!\n");  
+              var finalvideo1 =
+                assetsPath +
+                "template/videos/" +
                 userId +
-                "/template1/block-1-video-1.mp4"
-            );
-            resolve(finalvideo1);
-          });
+                "/template1/block-1-text-video.mp4";
+              resolve(finalvideo1);
+            }
+          );
+            
+            // deleteFiles(
+            //   "./src/Assets/template/videos/" +
+            //     userId +
+            //     "/template1/block-1-video-1.mp4"
+            // );
+            //resolve(finalvideo1);
+        });
+        // ffmpeg(datas.file)
+        //   .complexFilter(
+        //     [
+        //       "scale=1920:1080[rescaled]",
+        //       {
+        //         filter: "drawbox",
+        //         options: {
+        //           x: "(iw/2 - iw/5 - 35)",
+        //           y: "(ih/2 - ih/6)",
+        //           height: 340,
+        //           width: 840,
+        //           color: "white",
+        //           t: "fill",
+        //           enable: "between(t,0.50,60000)",
+        //         },
+        //         inputs: "rescaled",
+        //         outputs: "output2",
+        //       },
+        //       {
+        //         filter: "drawtext",
+        //         options: {
+        //           fontfile: selectedfonts,
+        //           text: contentParts[0],
+        //           fontsize: parseInt(datas.block.textSize) + 20,
+        //           fontcolor: titleColor,
+        //           x: "(w-tw)/2",
+        //           y: "((h-text_h)/2)-(text_h-(th/4))",
+        //           box: 1,
+        //           boxcolor: "white@0.0",
+        //           boxborderw: "50",
+        //           bordercolor: "white",
+        //           // enable: "between(t,1.1,10000)",
+        //           alpha:
+        //             "if(lt(t,1),0,if(lt(t,3),(t-1)/2,if(lt(t,4),1,if(lt(t,504),(500-(t-4))/500,0))))",
+        //         },
+        //         inputs: "output2",
+        //         outputs: "output4",
+        //       },
+        //       {
+        //         filter: "drawtext",
+        //         options: {
+        //           fontfile: selectedfonts,
+        //           text: contentParts[1],
+        //           fontsize: parseInt(datas.block.textSize) + 20,
+        //           fontcolor: titleColor,
+        //           x: "(w-tw)/2",
+        //           y: "((h-text_h)/2)+(text_h-(th/4))",
+        //           box: 1,
+        //           boxcolor: "white@0.0",
+        //           boxborderw: "50",
+        //           bordercolor: "white",
+        //           // enable: "between(t,2,10000)",
+        //           alpha:
+        //             "if(lt(t,1),0,if(lt(t,3),(t-1)/2,if(lt(t,4),1,if(lt(t,504),(500-(t-4))/500,0))))",
+        //         },
+        //         inputs: "output4",
+        //         outputs: "output",
+        //       },
+        //     ],
+        //     "output"
+        //   )
+        //   .addOption("-c:v", "libx264")
+        //   .save(
+        //     "./src/Assets/template/videos/" +
+        //       userId +
+        //       "/template1/block-1-text-video.mp4"
+        //   )
+        //   .on("start", function (commandLine) {
+        //     console.log("step2");
+        //   })
+        //   .on("error", function (er) {
+        //     console.log(er);
+        //     return;
+        //   })
+        //   .on("end", function (commandLine) {
+        //     console.log("success");
+        //     var finalvideo1 =
+        //       assetsPath +
+        //       "template/videos/" +
+        //       userId +
+        //       "/template1/block-1-text-video.mp4";
+        //     deleteFiles(
+        //       "./src/Assets/template/videos/" +
+        //         userId +
+        //         "/template1/block-1-video-1.mp4"
+        //     );
+        //     resolve(finalvideo1);
+        //   });
       }
     }
   });
@@ -1918,7 +2023,7 @@ function lastSceneVideo(data) {
       var fieldText3 = data.sceneData.textArray[2].text;
       var titleColor3 = data.sceneData.textArray[2].fontColor;
       let fontfamily = data.sceneData.textArray[2].fontFamily;
-      var fontSize3 =  parseFloat(data.sceneData.textArray[2].fontSize) + 15;
+      var fontSize3 = parseFloat(data.sceneData.textArray[2].fontSize) + 15;
       var selectedfonts3 = "";
       fonts.map(function (font) {
         if (font.family == fontfamily) {
@@ -1985,7 +2090,10 @@ function lastSceneVideo(data) {
       FFImage,
       FFCreator,
     } = require("ffcreator");
-    const outputDir = path.join(__dirname,"./src/Assets/template/videos/" + userId + "/template1");
+    const outputDir = path.join(
+      __dirname,
+      "./src/Assets/template/videos/" + userId + "/template1"
+    );
     const creator = new FFCreator({
       //  cacheDir,
       outputDir,
@@ -2011,25 +2119,45 @@ function lastSceneVideo(data) {
     fimg1.addEffect("fadeInUp", 1.5, 1.8);
     scene1.addChild(fimg1);
 
-    const text = new FFText({ text: fieldText1, fontSize: fontSize1 , x: 1060, y: 300 });
+    const text = new FFText({
+      text: fieldText1,
+      fontSize: fontSize1,
+      x: 1060,
+      y: 300,
+    });
     text.setColor(titleColor1);
     text.setFont(selectedfonts1);
     text.addEffect("fadeInRight", 1.1, 1.1);
     scene1.addChild(text);
 
-    const text2 = new FFText({ text: fieldText2, fontSize: fontSize2 , x: 1060, y:370 });
+    const text2 = new FFText({
+      text: fieldText2,
+      fontSize: fontSize2,
+      x: 1060,
+      y: 370,
+    });
     text2.setColor(titleColor2);
     text.setFont(selectedfonts2);
     text2.addEffect("fadeInRight", 1.2, 1.2);
     scene1.addChild(text2);
 
-    const text3 = new FFText({ text: fieldText3, fontSize: fontSize3  , x: 1060, y:420 });
+    const text3 = new FFText({
+      text: fieldText3,
+      fontSize: fontSize3,
+      x: 1060,
+      y: 420,
+    });
     text3.setColor(titleColor3);
     text.setFont(selectedfonts3);
     text3.addEffect("fadeInRight", 1.3, 1.3);
     scene1.addChild(text3);
 
-    const text4 = new FFText({ text: fieldText4, fontSize: fontSize4  , x: 1060, y:470 });
+    const text4 = new FFText({
+      text: fieldText4,
+      fontSize: fontSize4,
+      x: 1060,
+      y: 470,
+    });
     text4.setColor(titleColor3);
     text.setFont(selectedfonts4);
     text4.addEffect("fadeInRight", 1.4, 1.4);
@@ -2039,24 +2167,28 @@ function lastSceneVideo(data) {
     creator.addChild(scene1);
     creator.start();
     creator.on("error", (e) => {
-    //  console.log(`FFCreator error: ${JSON.stringify(e)}`);
+      //  console.log(`FFCreator error: ${JSON.stringify(e)}`);
     });
     creator.on("progress", (e) => {
-     // console.log(`FFCreatorLite progress: ${(e.percent * 100) >> 0}%`);
+      // console.log(`FFCreatorLite progress: ${(e.percent * 100) >> 0}%`);
     });
 
     creator.on("complete", (e) => {
-      fs.rename(e.output,  "./src/Assets/template/videos/" +
-      userId +
-      "/template1/lastvideoFinal.mp4", () => {
-        console.log("\nFile Renamed!\n");
-        var finalvideoLast =
-        assetsPath +
-        "template/videos/" +
-        userId +
-        "/template1/lastvideoFinal.mp4";
-         resolve(finalvideoLast);
-      });
+      fs.rename(
+        e.output,
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/lastvideoFinal.mp4",
+        () => {
+          console.log("\nFile Renamed!\n");
+          var finalvideoLast =
+            assetsPath +
+            "template/videos/" +
+            userId +
+            "/template1/lastvideoFinal.mp4";
+          resolve(finalvideoLast);
+        }
+      );
       console.log(e);
     });
     // var commands = new ffmpeg();
