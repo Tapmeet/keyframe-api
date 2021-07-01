@@ -360,7 +360,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           .complexFilter(
             "[0:v]  setpts=PTS-STARTPTS, scale=950:530,pad=960:540:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=950:530,pad=960:540:5:5:white [a1];[2:v] setpts=PTS-STARTPTS,  scale=950:530,pad=960:540:5:5:white [a2];[3:v] setpts=PTS-STARTPTS,  scale=950:530,pad=960:540:5:5:white [a3];[a0][a1][a2][a3]xstack=inputs=4:layout=0_0|w0_0|0_h0|w0_h0[out]"
           )
-          .loop("5")
+          .loop("6")
           .addOption("-map", "[out]")
           .addOption("-t", "5")
           .addOption("-c:v", "libx264")
@@ -510,7 +510,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
               userId +
               "/template1/block-1-text-video.mp4",
             () => {
-              console.log("\nFile Renamed hreee!\n");  
+              console.log("\nFile Renamed hreee!\n");
               var finalvideo1 =
                 assetsPath +
                 "template/videos/" +
