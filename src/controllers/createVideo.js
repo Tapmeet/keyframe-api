@@ -113,6 +113,54 @@ exports.mergeVideo = async (req, res, next) => {
   const userId = template.userId;
   const templateTitle = template.title.split(" ").join("-");
   const videoName = templateTitle + Date.now();
+  const tractionsVideos = [
+    {
+      name: "circleOpen",
+      duration: 1000,
+    },
+    {
+      duration: 1000,
+      name: "fade",
+    },
+    {
+      duration: 1000,
+      name: "swap",
+    },
+    {
+      name: "crossWarp",
+      duration: 1000,
+    },
+    {
+      name: "directionalWarp",
+      duration: 1000,
+      params: { direction: [1, -1] },
+    },
+    {
+      name: "squaresWire",
+      duration:1000,
+    },
+    {
+      name: "dreamy",
+      duration: 1000,
+    },
+    {
+      name: "squareswire",
+      duration: 1000,
+    },
+    {
+      name: "angular",
+      duration: 1000,
+    },
+  ];
+
+  var transitionsvideo = [];
+  videos.map((video, index) => {
+    if (index + 1 < videos.length) {
+      var transaionsRand = Math.floor(Math.random() * 9);
+      var trans = tractionsVideos[transaionsRand];
+      transitionsvideo.push(trans);
+    }
+  });
   const promises = await concat({
     output:
       "./src/Assets/template/videos/" +
@@ -121,10 +169,7 @@ exports.mergeVideo = async (req, res, next) => {
       videoName +
       ".mp4",
     videos: videos,
-    transition: {
-      name: "fade",
-      duration: 500,
-    },
+    transitions: transitionsvideo,
     concurrency: videos.length,
     cleanupFrames: true,
   });
@@ -225,6 +270,7 @@ exports.createVideo = async (req, res, next) => {
       template: template,
     };
     userId = template.userId;
+
     if (templateBlock) {
       const folderName = "./src/Assets/template/videos/" + userId;
       try {
@@ -447,9 +493,9 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         const video = new FFVideo({
           path: datas.file,
           x: 960,
-          y:540, 
-          width: 1920, 
-          height: 1080 
+          y: 540,
+          width: 1920,
+          height: 1080,
         });
         video.addEffect("zoomIn", 1, 0);
         scene1.addChild(video);
@@ -461,7 +507,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         });
         fimg1.addEffect("fadeInUp", 1, 1);
         //fimg1.setScale(0.5);
-        
+
         scene1.addChild(fimg1);
         const fontSize1 = parseInt(datas.block.textSize) + 20;
         const text = new FFText({
@@ -503,7 +549,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         });
 
         creator.on("complete", (e) => {
-          console.log("herer")
+          console.log("herer");
           fs.rename(
             e.output,
             "./src/Assets/template/videos/" +
@@ -516,16 +562,21 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 "template/videos/" +
                 userId +
                 "/template1/block-1-text-video.mp4";
+              deleteFiles(
+                "./src/Assets/template/videos/" +
+                  userId +
+                  "/template1/block-1-video-1.mp4"
+              );
               resolve(finalvideo1);
             }
           );
-            
-            // deleteFiles(
-            //   "./src/Assets/template/videos/" +
-            //     userId +
-            //     "/template1/block-1-video-1.mp4"
-            // );
-            //resolve(finalvideo1);
+
+          // deleteFiles(
+          //   "./src/Assets/template/videos/" +
+          //     userId +
+          //     "/template1/block-1-video-1.mp4"
+          // );
+          //resolve(finalvideo1);
         });
         // ffmpeg(datas.file)
         //   .complexFilter(
@@ -1367,14 +1418,17 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
   return new Promise((resolve) => {
     var commands = new ffmpeg();
     var result = data.sceneData.textArray[0].text.split(" ");
-    var text = "";
+    var text1 = "";
+    var text2 = "";
     for (var i = 0; i < result.length; i++) {
-      if (i == 6) {
-        text = text + result[i] + " \n ";
+      if (i >= 6) {
+        //  text1= text1 + result[i] + " \n ";
+        text2 = text2 + result[i] + " ";
       } else {
-        text = text + result[i] + " ";
+        text1 = text1 + result[i] + " ";
       }
     }
+    // console.log(text2);
     let fontfamily = data.sceneData.textArray[0].fontFamily;
     let selectedfonts;
     fonts.map(function (font) {
@@ -1396,67 +1450,150 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
       );
     }
     if (data.sceneData.media[0].type == "image") {
-      commands
-        .input(assetsPath + data.sceneData.media[0].url)
-        .complexFilter(
-          [
-            "crop=iw-700:ih-200, scale=960:1080[checked]",
-            {
-              filter: "drawbox",
-              options: {
-                x: 0,
-                y: "920",
-                height: 200,
-                width: 960,
-                color: "white",
-                t: "fill",
-              },
-              inputs: "checked",
-              outputs: "output1",
-            },
-            {
-              filter: "drawtext",
-              options: {
-                fontfile: selectedfonts,
-                text: text,
-                fontsize: parseInt(data.sceneData.textArray[0].fontSize) + 15,
-                fontcolor: titleColor,
-                line_spacing: 20,
-                x: "50",
-                y: "h - th- 25 - min(4*(th+10)-(abs(4-2*(t-1)))*(th+10)-th,10)",
-                box: 1,
-                boxcolor: "white@1",
-                boxborderw: "30",
-                bordercolor: "white",
-                enable: "gte(t,1)",
-              },
-              inputs: "output1",
-              outputs: "output",
-            },
-          ],
-          "output"
-        )
-        .loop(4)
-        .addOption("-pix_fmt", "yuv420p")
-        .addOption("-framerate", "50")
-        .addOption("-c:v", "libx264")
-        .save(
+      const {
+        FFScene,
+        FFText,
+        FFVideo,
+        FFAlbum,
+        FFImage,
+        FFCreator,
+      } = require("ffcreator");
+      const outputDir = path.join(
+        __dirname,
+        "./src/Assets/template/videos/" + userId + "/template1"
+      );
+      const creator = new FFCreator({
+        //  cacheDir,
+        outputDir,
+        width: 960,
+        height: 1080,
+        log: true,
+      });
+      const scene1 = new FFScene();
+      const image = new FFImage({
+        path: assetsPath + data.sceneData.media[0].url,
+        x: 480,
+        y: 540,
+      });
+      image.addEffect("moveInUp", 1, 1);
+      scene1.addChild(image);
+      scene1.setBgColor("#fff");
+      const fimg1 = new FFImage({
+        path: assetsPath + "whitebg2.png",
+        x: 480,
+        y: 1010,
+      });
+      fimg1.addEffect("fadeInUp", 1, 1);
+      //fimg1.setScale(0.5);
+
+      scene1.addChild(fimg1);
+      const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 15;
+      const text = new FFText({
+        text: text1,
+        fontSize: fontSize1,
+        x: 50,
+        y: 950,
+      });
+      text.setColor(titleColor);
+      text.setFont(selectedfonts);
+      text.addEffect("fadeInUp", 1.5, 1.5);
+      scene1.addChild(text);
+      if (text2 != "") {
+        const textNext = new FFText({
+          text: text2,
+          fontSize: fontSize1,
+          x: 50,
+          y: 1000,
+        });
+        textNext.setColor(titleColor);
+        textNext.setFont(selectedfonts);
+        textNext.addEffect("fadeInUp", 1.5, 1.5);
+        scene1.addChild(textNext);
+      }
+      scene1.setDuration(4);
+      creator.addChild(scene1);
+      //creator.output(path.join(__dirname, "./src/Assets/template/videos/" + userId + "/template1/block-1-text-video.mp4"));
+      creator.start();
+      creator.on("error", (e) => {
+        //  console.log(`FFCreator error: ${JSON.stringify(e)}`);
+      });
+      creator.on("progress", (e) => {
+        // console.log(`FFCreatorLite progress: ${(e.percent * 100) >> 0}%`);
+      });
+
+      creator.on("complete", (e) => {
+        fs.rename(
+          e.output,
           "./src/Assets/template/videos/" +
             userId +
-            "/template1/block4video1.mp4"
-        )
-        .on("start", function (commandLine) {
-          console.log("step62");
-        })
-        .on("error", function (er) {
-          res.status(200).json({ message: "Video failed 14" });
-          console.log(er);
-          // console.log("error occured: " + er.message);
-          return;
-        })
-        .on("end", function (commandLine) {
-          block4video2();
-        });
+            "/template1/block4video1.mp4",
+          () => {
+            console.log("\nFile Renamed hreee!\n");
+            block4video2();
+          }
+        );
+      });
+      // commands
+      //   .input(assetsPath + data.sceneData.media[0].url)
+      //   .complexFilter(
+      //     [
+      //       "crop=iw-700:ih-200, scale=960:1080[checked]",
+      //       {
+      //         filter: "drawbox",
+      //         options: {
+      //           x: 0,
+      //           y: "920",
+      //           height: 200,
+      //           width: 960,
+      //           color: "white",
+      //           t: "fill",
+      //         },
+      //         inputs: "checked",
+      //         outputs: "output1",
+      //       },
+      //       {
+      //         filter: "drawtext",
+      //         options: {
+      //           fontfile: selectedfonts,
+      //           text: text,
+      //           fontsize: parseInt(data.sceneData.textArray[0].fontSize) + 15,
+      //           fontcolor: titleColor,
+      //           line_spacing: 20,
+      //           x: "50",
+      //           y: "h - th- 25 - min(4*(th+10)-(abs(4-2*(t-1)))*(th+10)-th,10)",
+      //           box: 1,
+      //           boxcolor: "white@1",
+      //           boxborderw: "30",
+      //           bordercolor: "white",
+      //           enable: "gte(t,1)",
+      //         },
+      //         inputs: "output1",
+      //         outputs: "output",
+      //       },
+      //     ],
+      //     "output"
+      //   )
+      //   .loop(4)
+      //   .addOption("-pix_fmt", "yuv420p")
+      //   .addOption("-framerate", "50")
+      //   .addOption("-c:v", "libx264")
+      //   .save(
+      //     "./src/Assets/template/videos/" +
+      //       userId +
+      //       "/template1/block4video1.mp4"
+      //   )
+      //   .on("start", function (commandLine) {
+      //     console.log("step62");
+      //   })
+      //   .on("error", function (er) {
+      //     res.status(200).json({ message: "Video failed 14" });
+      //     console.log(er);
+      //     // console.log("error occured: " + er.message);
+      //     return;
+      //   })
+      //   .on("end", function (commandLine) {
+      //     block4video2();
+      //   });
     } else {
       commands
         .input(assetsPath + data.sceneData.media[0].url)
@@ -1683,14 +1820,23 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
     function block4video4() {
       var commands = new ffmpeg();
       var result = data.sceneData.textArray[1].text.split(" ");
-      var text = "";
+      var text1 = "";
+      var text2 = "";
       for (var i = 0; i < result.length; i++) {
-        if (i == 6) {
-          text = text + result[i] + " \n ";
+        if (i >= 6) {
+          //  text1= text1 + result[i] + " \n ";
+          text2 = text2 + result[i] + " ";
         } else {
-          text = text + result[i] + " ";
+          text1 = text1 + result[i] + " ";
         }
       }
+      // for (var i = 0; i < result.length; i++) {
+      //   if (i == 6) {
+      //     text = text + result[i] + " \n ";
+      //   } else {
+      //     text = text + result[i] + " ";
+      //   }
+      // }
       let fontfamily = data.sceneData.textArray[1].fontFamily;
       let selectedfonts;
       fonts.map(function (font) {
@@ -1712,78 +1858,172 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
         );
       }
       if (data.sceneData.media[3].type == "image") {
-        commands
-          .input(assetsPath + data.sceneData.media[3].url)
-          .complexFilter(
-            [
-              "crop=iw-700:ih-200,scale=960:1080[checked]",
-              {
-                filter: "drawbox",
-                options: {
-                  x: 0,
-                  y: "920",
-                  height: 200,
-                  width: 960,
-                  color: "white",
-                  t: "fill",
-                },
-                inputs: "checked",
-                outputs: "output1",
-              },
-              {
-                filter: "drawtext",
-                options: {
-                  fontfile: selectedfonts,
-                  text: text,
-                  fontsize: parseInt(data.sceneData.textArray[1].fontSize) + 15,
-                  fontcolor: titleColor,
-                  line_spacing: 20,
-                  x: "50",
-                  y:
-                    "h - th- 25 - min(4*(th+10)-(abs(4-2*(t-1)))*(th+10)-th,10)",
-                  box: 1,
-                  boxcolor: "white@1",
-                  boxborderw: "30",
-                  bordercolor: "white",
-                  enable: "gte(t,1)",
-                },
-                inputs: "output1",
-                outputs: "output",
-              },
-            ],
-            "output"
-          )
-          .loop(4)
-          .addOption("-pix_fmt", "yuv420p")
-          .addOption("-framerate", "50")
-          .addOption("-c:v", "libx264")
-          .save(
+        const {
+          FFScene,
+          FFText,
+          FFVideo,
+          FFAlbum,
+          FFImage,
+          FFCreator,
+        } = require("ffcreator");
+        const outputDir = path.join(
+          __dirname,
+          "./src/Assets/template/videos/" + userId + "/template1"
+        );
+        const creator = new FFCreator({
+          //  cacheDir,
+          outputDir,
+          width: 960,
+          height: 1080,
+          log: true,
+        });
+        const scene1 = new FFScene();
+        const image = new FFImage({
+          path: assetsPath + data.sceneData.media[0].url,
+          x: 480,
+          y: 540,
+        });
+        image.addEffect("moveInUp", 1, 1);
+        image.addEffect("fadeOutDown", 1, 4);
+        scene1.addChild(image);
+        scene1.setBgColor("#fff");
+        const fimg1 = new FFImage({
+          path: assetsPath + "whitebg2.png",
+          x: 480,
+          y: 1010,
+        });
+        fimg1.addEffect("fadeInUp", 1, 1);
+        //fimg1.setScale(0.5);
+
+        scene1.addChild(fimg1);
+        const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 15;
+        const text = new FFText({
+          text: text1,
+          fontSize: fontSize1,
+          x: 50,
+          y: 950,
+        });
+        text.setColor(titleColor);
+        text.setFont(selectedfonts);
+        text.addEffect("fadeInUp", 1.5, 1.5);
+        scene1.addChild(text);
+        if (text2 != "") {
+          const textNext = new FFText({
+            text: text2,
+            fontSize: fontSize1,
+            x: 50,
+            y: 1000,
+          });
+          textNext.setColor(titleColor);
+          textNext.setFont(selectedfonts);
+          textNext.addEffect("fadeInUp", 1.5, 1.5);
+          scene1.addChild(textNext);
+        }
+        scene1.setDuration(4);
+        creator.addChild(scene1);
+        //creator.output(path.join(__dirname, "./src/Assets/template/videos/" + userId + "/template1/block-1-text-video.mp4"));
+        creator.start();
+        creator.on("error", (e) => {
+          //  console.log(`FFCreator error: ${JSON.stringify(e)}`);
+        });
+        creator.on("progress", (e) => {
+          // console.log(`FFCreatorLite progress: ${(e.percent * 100) >> 0}%`);
+        });
+
+        creator.on("complete", (e) => {
+          fs.rename(
+            e.output,
             "./src/Assets/template/videos/" +
               userId +
-              "/template1/block4video4.mp4"
-          )
-          .on("start", function (commandLine) {
-            console.log("step62");
-          })
-          .on("error", function (er) {
-            res.status(200).json({ message: "Video failed 21" });
-            console.log(er);
-            // console.log("error occured: " + er.message);
-            return;
-          })
-          .on("end", function (commandLine) {
-            let datas = {
-              video1:
-                "./src/Assets/template/videos/" +
-                userId +
-                "/template1/block4video3.mp4",
-              video2:
-                "./src/Assets/template/videos/" +
-                userId +
-                "/template1/block4video4.mp4",
-            };
-            mergeBlock4Videos2(datas);
-          });
+              "/template1/block4video4.mp4",
+            () => {
+              console.log("\nFile Renamed hreee!\n");
+              let datas = {
+                video1:
+                  "./src/Assets/template/videos/" +
+                  userId +
+                  "/template1/block4video3.mp4",
+                video2:
+                  "./src/Assets/template/videos/" +
+                  userId +
+                  "/template1/block4video4.mp4",
+              };
+              mergeBlock4Videos2(datas);
+            }
+          );
+        });
+        // commands
+        //   .input(assetsPath + data.sceneData.media[3].url)
+        //   .complexFilter(
+        //     [
+        //       "crop=iw-700:ih-200,scale=960:1080[checked]",
+        //       {
+        //         filter: "drawbox",
+        //         options: {
+        //           x: 0,
+        //           y: "920",
+        //           height: 200,
+        //           width: 960,
+        //           color: "white",
+        //           t: "fill",
+        //         },
+        //         inputs: "checked",
+        //         outputs: "output1",
+        //       },
+        //       {
+        //         filter: "drawtext",
+        //         options: {
+        //           fontfile: selectedfonts,
+        //           text: text,
+        //           fontsize: parseInt(data.sceneData.textArray[1].fontSize) + 15,
+        //           fontcolor: titleColor,
+        //           line_spacing: 20,
+        //           x: "50",
+        //           y:
+        //             "h - th- 25 - min(4*(th+10)-(abs(4-2*(t-1)))*(th+10)-th,10)",
+        //           box: 1,
+        //           boxcolor: "white@1",
+        //           boxborderw: "30",
+        //           bordercolor: "white",
+        //           enable: "gte(t,1)",
+        //         },
+        //         inputs: "output1",
+        //         outputs: "output",
+        //       },
+        //     ],
+        //     "output"
+        //   )
+        //   .loop(4)
+        //   .addOption("-pix_fmt", "yuv420p")
+        //   .addOption("-framerate", "50")
+        //   .addOption("-c:v", "libx264")
+        //   .save(
+        //     "./src/Assets/template/videos/" +
+        //       userId +
+        //       "/template1/block4video4.mp4"
+        //   )
+        //   .on("start", function (commandLine) {
+        //     console.log("step62");
+        //   })
+        //   .on("error", function (er) {
+        //     res.status(200).json({ message: "Video failed 21" });
+        //     console.log(er);
+        //     // console.log("error occured: " + er.message);
+        //     return;
+        //   })
+        //   .on("end", function (commandLine) {
+        //     let datas = {
+        //       video1:
+        //         "./src/Assets/template/videos/" +
+        //         userId +
+        //         "/template1/block4video3.mp4",
+        //       video2:
+        //         "./src/Assets/template/videos/" +
+        //         userId +
+        //         "/template1/block4video4.mp4",
+        //     };
+        //     mergeBlock4Videos2(datas);
+        //   });
       } else {
         commands
           .input(assetsPath + data.sceneData.containerFour)
