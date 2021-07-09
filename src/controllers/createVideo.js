@@ -1492,7 +1492,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
         text: text1,
         fontSize: fontSize1,
         x: 50,
-        y: 950,
+        y: 960,
       });
       text.setColor(titleColor);
       text.setFont(selectedfonts);
@@ -1503,7 +1503,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
           text: text2,
           fontSize: fontSize1,
           x: 50,
-          y: 1000,
+          y: 1010,
         });
         textNext.setColor(titleColor);
         textNext.setFont(selectedfonts);
@@ -1901,7 +1901,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
           text: text1,
           fontSize: fontSize1,
           x: 50,
-          y: 950,
+          y: 960,
         });
         text.setColor(titleColor);
         text.setFont(selectedfonts);
@@ -1912,7 +1912,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
             text: text2,
             fontSize: fontSize1,
             x: 50,
-            y: 1000,
+            y: 1010,
           });
           textNext.setColor(titleColor);
           textNext.setFont(selectedfonts);
