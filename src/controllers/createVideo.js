@@ -1353,7 +1353,7 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
         FFAlbum,
         FFImage,
         FFCreator,
-      } = require("ffcreatorlite");
+      } = require("ffcreator");
       const outputDir = path.join(
         __dirname,
         "./src/Assets/template/videos/" + userId + "/template1"
@@ -1572,7 +1572,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
         FFAlbum,
         FFImage,
         FFCreator,
-      } = require("ffcreatorlite");
+      } = require("ffcreator");
       const outputDir = path.join(
         __dirname,
         "./src/Assets/template/videos/" + userId + "/template1"
@@ -1980,7 +1980,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
           FFAlbum,
           FFImage,
           FFCreator,
-        } = require("ffcreatorlite");
+        } = require("ffcreator");
         const outputDir = path.join(
           __dirname,
           "./src/Assets/template/videos/" + userId + "/template1"
@@ -2444,7 +2444,7 @@ function lastSceneVideo(data) {
       FFAlbum,
       FFImage,
       FFCreator,
-    } = require("ffcreatorlite");
+    } = require("ffcreator");
     const outputDir = path.join(
       __dirname,
       "./src/Assets/template/videos/" + userId + "/template1"
