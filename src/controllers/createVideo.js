@@ -746,7 +746,7 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
                   video2: video2,
                 };
                 mergeBlock2Videos(datas, data);
-                console.log("there");
+               // console.log("there");
               }, 500);
             }
             i = i + 1;
@@ -794,7 +794,7 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
                   video1: video1,
                   video2: video2,
                 };
-                console.log("here");
+                //console.log("here");
                 mergeBlock2Videos(datas, data);
               }, 500);
             }
@@ -1131,7 +1131,7 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
           return;
         })
         .on("end", function (commandLine) {
-          console.log("here");
+          //console.log("here");
           let finalvideo2 =
             assetsPath +
             "template/videos/" +
@@ -1343,164 +1343,90 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
           }
         }
       });
-      const {
-        FFScene,
-        FFText,
-        FFVideo,
-        FFAlbum,
-        FFImage,
-        FFCreator,
-      } = require("ffcreator");
-      const outputDir = path.join(
-        __dirname,
-        "./src/Assets/template/videos/" + userId + "/template1"
-      );
-      const creator = new FFCreator({
-        //  cacheDir,
-        outputDir,
-        width: 1920,
-        height: 1080,
-        log: true,
-      });
-      const scene1 = new FFScene();
-      const video = new FFVideo({
-        path: "./src/Assets/template/videos/" +
-                userId +
-                 "/template1/block3merged.mp4",
-        x: 960,
-        y: 540,
-        width: 1920,
-        height: 1080,
-      });
-      //video.addEffect("zoomIn", 1, 0);
-      scene1.addChild(video);
-      scene1.setBgColor("#fff");
-      const fimg1 = new FFImage({
-        path: assetsPath + "whitebg2.png",
-        x: 480,
-        y: 950,
-      });
-      fimg1.addEffect("fadeInLeftBig", 2, 0.5);
-      //fimg1.setScale(0.5);
+      // const {
+      //   FFScene,
+      //   FFText,
+      //   FFVideo,
+      //   FFAlbum,
+      //   FFImage,
+      //   FFCreator,
+      // } = require("ffcreator");
+      // const outputDir = path.join(
+      //   __dirname,
+      //   "./src/Assets/template/videos/" + userId + "/template1"
+      // );
+      // const creator = new FFCreator({
+      //   //  cacheDir,
+      //   outputDir,
+      //   width: 1920,
+      //   height: 1080,
+      //   log: true,
+      // });
+      // const scene1 = new FFScene();
+      // const video = new FFVideo({
+      //   path: "./src/Assets/template/videos/" +
+      //           userId +
+      //            "/template1/block3merged.mp4",
+      //   x: 960,
+      //   y: 540,
+      //   width: 1920,
+      //   height: 1080,
+      // });
+      // //video.addEffect("zoomIn", 1, 0);
+      // scene1.addChild(video);
+      // scene1.setBgColor("#fff");
+      // const fimg1 = new FFImage({
+      //   path: assetsPath + "whitebg2.png",
+      //   x: 480,
+      //   y: 950,
+      // });
+      // fimg1.addEffect("fadeInLeftBig", 2, 0.5);
+      // //fimg1.setScale(0.5);
 
-      scene1.addChild(fimg1);
-      const fontSize1 = parseInt(data.sceneData.textSize) + 25;
-      let textOne = new FFText({
-        text: text1,
-        fontSize: fontSize1,
-        x: 50,
-        y: 900,
-      });
-      textOne.setColor(titleColor);
-      textOne.setFont(selectedfonts);
-      textOne.addEffect("fadeInUp", 2, 1);
-      scene1.addChild(textOne);
-      if (text2 != "") {
-        const textNext = new FFText({
-          text: text2,
-          fontSize: fontSize1,
-          x: 50,
-          y: 960,
-        });
-        textNext.setColor(titleColor);
-        textNext.setFont(selectedfonts);
-        textNext.addEffect("fadeInUp", 2, 1);
-        scene1.addChild(textNext);
-      }
-      scene1.setDuration(6);
-      creator.addChild(scene1);
-      //creator.output(path.join(__dirname, "./src/Assets/template/videos/" + userId + "/template1/block-1-text-video.mp4"));
-      creator.start();
-      creator.on("error", (e) => {
-        //  console.log(`FFCreator error: ${JSON.stringify(e)}`);
-      });
-      creator.on("progress", (e) => {
-        // console.log(`FFCreatorLite progress: ${(e.percent * 100) >> 0}%`);
-      });
+      // scene1.addChild(fimg1);
+      // const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+      // let textOne = new FFText({
+      //   text: text1,
+      //   fontSize: fontSize1,
+      //   x: 50,
+      //   y: 900,
+      // });
+      // textOne.setColor(titleColor);
+      // textOne.setFont(selectedfonts);
+      // textOne.addEffect("fadeInUp", 2, 1);
+      // scene1.addChild(textOne);
+      // if (text2 != "") {
+      //   const textNext = new FFText({
+      //     text: text2,
+      //     fontSize: fontSize1,
+      //     x: 50,
+      //     y: 960,
+      //   });
+      //   textNext.setColor(titleColor);
+      //   textNext.setFont(selectedfonts);
+      //   textNext.addEffect("fadeInUp", 2, 1);
+      //   scene1.addChild(textNext);
+      // }
+      // scene1.setDuration(5);
+      // creator.addChild(scene1);
+      // //creator.output(path.join(__dirname, "./src/Assets/template/videos/" + userId + "/template1/block-1-text-video.mp4"));
+      // creator.start();
+      // creator.on("error", (e) => {
+      //   //  console.log(`FFCreator error: ${JSON.stringify(e)}`);
+      // });
+      // creator.on("progress", (e) => {
+      //   // console.log(`FFCreatorLite progress: ${(e.percent * 100) >> 0}%`);
+      // });
  
-      creator.on("complete", (e) => {
-        console.log("3video Done")
-        fs.rename(
-          e.output,
-          "./src/Assets/template/videos/" +
-            userId +
-            "/template1/block3FinalVideo.mp4",
-          () => {
-           // console.log("\nFile Renamed hreee!\n");
-            let finalvideo3 =
-              assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/block3FinalVideo.mp4";
-            deleteFiles(
-              "./src/Assets/template/videos/" +
-                userId +
-                "/template1/block-3-2.mp4"
-            );
-            deleteFiles(
-              "./src/Assets/template/videos/" +
-                userId +
-                "/template1/block-3-1.mp4"
-            );
-            deleteFiles(
-              "./src/Assets/template/videos/" +
-                userId +
-                "/template1/block3merged.mp4"
-            );
-            resolve(finalvideo3);
-          }
-        );
-        console.log(e)
-      });
-      // setTimeout(function () {
-      //   commands
-      //     .input(
-      //       "./src/Assets/template/videos/" +
-      //         userId +
-      //         "/template1/block3merged.mp4"
-      //     )
-      //     .complexFilter(
-      //       [
-      //         "scale=1920:1080[checked]",
-      //         {
-      //           filter: "drawtext",
-      //           options: {
-      //             fontfile: selectedfonts,
-      //             text: text,
-      //             fontsize: parseInt(data.sceneData.textSize) + 25,
-      //             fontcolor: titleColor,
-      //             line_spacing: 30,
-      //             x: "min(4*(tw+10)-(abs(4-1*(t-1)))*(tw+10)-tw,10)",
-      //             y: "H-th-100",
-      //             box: 1,
-      //             boxcolor: "white@1",
-      //             boxborderw: "50",
-      //             bordercolor: "white",
-      //             // alpha:
-      //             //   "if(lt(t,0),0,if(lt(t,2),(t-0)/2,if(lt(t,3),1,if(lt(t,503),(500-(t-3))/500,0))))",
-      //           },
-      //           inputs: "checked",
-      //           outputs: "output",
-      //         },
-      //       ],
-      //       "output"
-      //     )
-      //     .addOption("-c:v", "libx264")
-      //     .save(
-      //       "./src/Assets/template/videos/" +
-      //         userId +
-      //         "/template1/block3FinalVideo.mp4"
-      //     )
-      //     .on("start", function (commandLine) {
-      //       console.log("step6 start");
-      //     })
-      //     .on("error", function (er) {
-      //       res.status(200).json({ message: "Video failed 12" });
-      //       console.log(er);
-      //       return;
-      //     })
-      //     .on("end", function (commandLine) {
-      //       console.log("step6 end");
+      // creator.on("complete", (e) => {
+      //   console.log("3video Done")
+      //   fs.rename(
+      //     e.output,
+      //     "./src/Assets/template/videos/" +
+      //       userId +
+      //       "/template1/block3FinalVideo.mp4",
+      //     () => {
+      //      // console.log("\nFile Renamed hreee!\n");
       //       let finalvideo3 =
       //         assetsPath +
       //         "template/videos/" +
@@ -1522,8 +1448,82 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
       //           "/template1/block3merged.mp4"
       //       );
       //       resolve(finalvideo3);
-      //     });
-      // }, 600);
+      //     }
+      //   );
+      //  // console.log(e)
+      // });
+      setTimeout(function () {
+        commands
+          .input(
+            "./src/Assets/template/videos/" +
+              userId +
+              "/template1/block3merged.mp4"
+          )
+          .complexFilter(
+            [
+              "scale=1920:1080[checked]",
+              {
+                filter: "drawtext",
+                options: {
+                  fontfile: selectedfonts,
+                  text: text,
+                  fontsize: parseInt(data.sceneData.textSize) + 25,
+                  fontcolor: titleColor,
+                  line_spacing: 30,
+                  x: "min(4*(tw+10)-(abs(4-1*(t-1)))*(tw+10)-tw,10)",
+                  y: "H-th-100",
+                  box: 1,
+                  boxcolor: "white@1",
+                  boxborderw: "50",
+                  bordercolor: "white",
+                  // alpha:
+                  //   "if(lt(t,0),0,if(lt(t,2),(t-0)/2,if(lt(t,3),1,if(lt(t,503),(500-(t-3))/500,0))))",
+                },
+                inputs: "checked",
+                outputs: "output",
+              },
+            ],
+            "output"
+          )
+          .addOption("-c:v", "libx264")
+          .save(
+            "./src/Assets/template/videos/" +
+              userId +
+              "/template1/block3FinalVideo.mp4"
+          )
+          .on("start", function (commandLine) {
+            console.log("step6 start");
+          })
+          .on("error", function (er) {
+            res.status(200).json({ message: "Video failed 12" });
+            console.log(er);
+            return;
+          })
+          .on("end", function (commandLine) {
+            console.log("step6 end");
+            let finalvideo3 =
+              assetsPath +
+              "template/videos/" +
+              userId +
+              "/template1/block3FinalVideo.mp4";
+            deleteFiles(
+              "./src/Assets/template/videos/" +
+                userId +
+                "/template1/block-3-2.mp4"
+            );
+            deleteFiles(
+              "./src/Assets/template/videos/" +
+                userId +
+                "/template1/block-3-1.mp4"
+            );
+            deleteFiles(
+              "./src/Assets/template/videos/" +
+                userId +
+                "/template1/block3merged.mp4"
+            );
+            resolve(finalvideo3);
+          });
+      }, 600);
     }
   });
 };
@@ -1774,7 +1774,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
     function block4video2() {
       var commands = new ffmpeg();
       if (data.sceneData.media[1].type == "image") {
-        console.log("here");
+        //console.log("here");
         commands
           .input(assetsPath + data.sceneData.media[1].url)
           .complexFilter(["scale=960:1080[checked]"], "checked")
