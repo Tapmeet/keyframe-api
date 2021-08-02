@@ -169,7 +169,7 @@ exports.mergeVideo = async (req, res, next) => {
       videoName +
       ".mp4",
     videos: videos,
-    transition:  {
+    transition: {
       name: "fade",
       duration: 1000,
     },
@@ -300,14 +300,22 @@ exports.createVideo = async (req, res, next) => {
         const response = await global[functionName](data, req, res);
         return response;
       });
-
+      var resultsVideo = [];
       Promise.all(promises)
         .then((results) => {
           const result = [...results, lastVideo];
+          resultsVideo = result;
           res.status(200).json({
             message: "successfull",
             data: result,
           });
+        })
+        .then((data) => {
+          // res.status(200).json({
+          //   message: "successfull",
+          //   data: resultsVideo,
+          // });
+          console.log("Second handler", data);
         })
         .catch((e) => {
           console.error(e);
@@ -500,7 +508,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           width: 1920,
           height: 1080,
         });
-       // video.addEffect("zoomIn", 1, 0);
+        // video.addEffect("zoomIn", 1, 0);
         scene1.addChild(video);
 
         const fimg1 = new FFImage({
@@ -553,7 +561,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         });
 
         creator.on("complete", (e) => {
-          console.log("1 video Done")
+          console.log("1 video Done");
           fs.rename(
             e.output,
             "./src/Assets/template/videos/" +
@@ -746,7 +754,7 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
                   video2: video2,
                 };
                 mergeBlock2Videos(datas, data);
-               // console.log("there");
+                // console.log("there");
               }, 500);
             }
             i = i + 1;
@@ -1320,14 +1328,14 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
         );
       }
       var result = data.sceneData.content.split(" ");
-      var text1 = "";
+      var text = "";
       var text2 = "";
       for (var i = 0; i < result.length; i++) {
         if (i >= 6) {
-          //  text1= text1 + result[i] + " \n ";
-          text2 = text2 + result[i] + " ";
+          text1 = text + result[i] + " \n ";
+          //text = text + result[i] + " ";
         } else {
-          text1 = text1 + result[i] + " ";
+          text = text + result[i] + " ";
         }
       }
       let fontfamily = data.sceneData.fontFamily;
@@ -1417,7 +1425,7 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
       // creator.on("progress", (e) => {
       //   // console.log(`FFCreatorLite progress: ${(e.percent * 100) >> 0}%`);
       // });
- 
+
       // creator.on("complete", (e) => {
       //   console.log("3video Done")
       //   fs.rename(
@@ -1636,7 +1644,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
       });
 
       creator.on("complete", (e) => {
-        console.log("4 1video  Done")
+        console.log("4 1video  Done");
         fs.rename(
           e.output,
           "./src/Assets/template/videos/" +
@@ -1972,12 +1980,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
         );
       }
       if (data.sceneData.media[3].type == "image") {
-        const {
-          FFScene,
-          FFText,
-          FFImage,
-          FFCreator,
-        } = require("ffcreator");
+        const { FFScene, FFText, FFImage, FFCreator } = require("ffcreator");
         const outputDir = path.join(
           __dirname,
           "./src/Assets/template/videos/" + userId + "/template1"
@@ -2043,7 +2046,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
         });
 
         creator.on("complete", (e) => {
-          console.log("4video Done")
+          console.log("4video Done");
           fs.rename(
             e.output,
             "./src/Assets/template/videos/" +
@@ -2434,12 +2437,7 @@ function lastSceneVideo(data) {
       var selectedfonts4 = fonts[0].file;
     }
 
-    const {
-      FFScene,
-      FFText,
-      FFImage,
-      FFCreator,
-    } = require("ffcreator");
+    const { FFScene, FFText, FFImage, FFCreator } = require("ffcreator");
     const outputDir = path.join(
       __dirname,
       "./src/Assets/template/videos/" + userId + "/template1"
@@ -2524,14 +2522,14 @@ function lastSceneVideo(data) {
     });
 
     creator.on("complete", (e) => {
-      console.log("lastvideo Done")
+      console.log("lastvideo Done");
       fs.rename(
         e.output,
         "./src/Assets/template/videos/" +
           userId +
           "/template1/lastvideoFinal.mp4",
         () => {
-         // console.log("\nFile Renamed!\n");
+          // console.log("\nFile Renamed!\n");
           var finalvideoLast =
             assetsPath +
             "template/videos/" +
