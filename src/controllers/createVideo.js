@@ -1068,7 +1068,6 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
 // Video Scene 3
 global.videoTemplate3 = async function videoTemplate3(data, req, res) {
   return new Promise((resolve) => {
-    var commands = new ffmpeg();
     var i = 1;
     var k = 1;
     var video1, video2;
