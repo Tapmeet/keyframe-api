@@ -1,3 +1,5 @@
+/* eslint-disable object-curly-spacing */
+/* eslint-disable new-cap */
 /* eslint-disable max-len */
 /* eslint-disable valid-jsdoc */
 /* eslint-disable no-unused-vars */
@@ -94,12 +96,58 @@ exports.update = async function(req, res) {
 * @desc Returns a specific user
 * @access Public
 */
-exports.getTemplate = async function(req, res) {
+exports.getTemplateCategory = async function(req, res) {
+  // try {
+  //   const id = req.query.id;
+  //   const template= await Template.findOne({_id: id});
+  //   if (!template) return res.status(404).json({message: 'Template Category does not exist'});
+  //   res.status(200).json({template});
+  // } catch (error) {
+  //   res.status(500).json({message: error.message});
+  // }
+  const mongoose = require('mongoose');
+  const {category} = req.query;
+
+  const id = mongoose.Types.ObjectId(category);
   try {
-    const id = req.query.id;
-    const template= await Template.findOne({_id: id});
-    if (!template) return res.status(404).json({message: 'Template Category does not exist'});
-    res.status(200).json({template});
+    const datas = Template.aggregate(
+        [
+          {
+            $match: { _id: id },
+          },
+          {
+            $project: {
+              _id: {
+                $toString: '$_id',
+              },
+              title: '$title',
+              categoryImage: '$categoryImage',
+            },
+          },
+          {
+            $lookup: {
+              from: `templates`,
+              let: {
+                templateCategory: '$_id',
+              },
+              pipeline: [
+                {
+                  // $match: {$expr: {$eq: ['$adminTemplate', 'true']}},
+                  $match: {'$expr': {$eq: ['$templateCategory', '$$templateCategory']},
+                    'adminTemplate': true,
+                  },
+                },
+
+              ],
+              as: 'template',
+            },
+          },
+        ],
+        function(err, data) {
+          if (err) throw err;
+          res.status(200).json({message: 'Template Data', templates: data});
+        },
+    );
   } catch (error) {
     res.status(500).json({message: error.message});
   }
