@@ -11,13 +11,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable valid-jsdoc */
 const path = require("path");
-const {
-  FFCreatorCenter,
-  FFScene,
-  FFImage,
-  FFText,
-  FFCreator,
-} = require("ffcreatorlite");
 const Template = require("../models/templates");
 const Block = require("../models/templateBlocks");
 const Scene = require("../models/lastBlock");
@@ -32,8 +25,6 @@ ffmpeg.setFfprobePath(ffprobe.path);
 ffmpeg.setFfmpegPath(ffmpegPath);
 let userId;
 const concat = require("ffmpeg-concat");
-const glob = require("glob");
-const { title } = require("process");
 const assetsPath = "./src/Assets/";
 var fonts = [
   {
@@ -485,10 +476,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         );
         const creator = new FFCreator({
           //  cacheDir,
-          outputDir,
+         // outputDir,
           width: 1920,
           height: 1080,
-          log: true,
+          log: false,
+          parallel: 10
         });
         const scene1 = new FFScene();
         scene1.setBgColor("#fff");
@@ -1581,7 +1573,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
         outputDir,
         width: 960,
         height: 1080,
-        log: true,
+        parallel: 10
       });
       const scene1 = new FFScene();
       const image = new FFImage({
@@ -1984,10 +1976,10 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
         );
         const creator = new FFCreator({
           //  cacheDir,
-          outputDir,
+        //  outputDir,
           width: 960,
           height: 1080,
-          log: true,
+          parallel: 10
         });
         const scene1 = new FFScene();
         const image = new FFImage({
@@ -2449,7 +2441,7 @@ function lastSceneVideo(data) {
       outputDir,
       width: 1920,
       height: 1080,
-      log: true,
+      parallel: 10
     });
     const scene1 = new FFScene();
     scene1.setBgColor("#fff");
@@ -2521,7 +2513,7 @@ function lastSceneVideo(data) {
     });
     creator.on("progress", (e) => {
       // console.log(`FFCreatorLite progress: ${(e.percent * 100) >> 0}%`);
-    });
+    }); 
 
     creator.on("complete", (e) => {
       console.log("lastvideo Done")
