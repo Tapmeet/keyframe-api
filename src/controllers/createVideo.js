@@ -105,7 +105,7 @@ function deleteFiles(file) {
  * @access Admin
  */
 exports.mergeVideo = async (req, res, next) => {
-  //console.log(req.body.videos);
+  // console.log(req.body.videos);
   const transitions = [];
   const { templateId } = req.body;
   const template = await Template.findOne({ _id: templateId });
@@ -595,7 +595,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           //   height: 1080,
           // });
           // scene1.addChild(video);
-          //video.addEffect("zoomIn", 1, 0);
+          // video.addEffect("zoomIn", 1, 0);
           const img1 = new FFImage({
             path:
               assetsPath + "template/videos/" + userId + "/template1/img1.png",
@@ -637,7 +637,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           });
           // fimg1.addEffect("slideInUp", 1.5, 1);
           fimg1.addEffect("zoomIn", 1, 0.5);
-          //fimg1.setScale(0.5);
+          // fimg1.setScale(0.5);
 
           scene1.addChild(fimg1);
           const fontSize1 = parseInt(datas.block.textSize) + 20;
@@ -684,7 +684,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
 
           scene1.setDuration(5);
           creator.addChild(scene1);
-          //creator.output(path.join(__dirname, "./src/Assets/template/videos/" + userId + "/template1/block-1-text-video.mp4"));
+          // creator.output(path.join(__dirname, "./src/Assets/template/videos/" + userId + "/template1/block-1-text-video.mp4"));
           creator.start();
           creator.on("error", (e) => {
             //  console.log(`FFCreator error: ${JSON.stringify(e)}`);
@@ -741,7 +741,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             //     userId +
             //     "/template1/block-1-video-1.mp4"
             // );
-            //resolve(finalvideo1);
+            // resolve(finalvideo1);
           });
         }
         // ffmpeg(datas.file)
@@ -968,7 +968,7 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
     //       });
     //   }
     //   k = k + 1;
-    //});
+    // });
     // async function mergeBlock2Videos(datas, data) {
     //   try {
     //     const createdvideo = await concat({
@@ -994,8 +994,8 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
     //   }
     // }
     function block2VideoTxt() {
-      //var commands = new ffmpeg();
-      //console.log(data.sceneData);
+      // var commands = new ffmpeg();
+      // console.log(data.sceneData);
       if (data.sceneData.titleColor) {
         var titleColor = data.sceneData.titleColor;
       } else {
@@ -1283,7 +1283,7 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
       scene1.addChild(fcloud);
       scene1.setDuration(5);
       creator.addChild(scene1);
-      //creator.output(path.join(__dirname, "./src/Assets/template/videos/" + userId + "/template1/block-1-text-video.mp4"));
+      // creator.output(path.join(__dirname, "./src/Assets/template/videos/" + userId + "/template1/block-1-text-video.mp4"));
       creator.start();
       creator.on("error", (e) => {
         //  console.log(`FFCreator error: ${JSON.stringify(e)}`);
@@ -1325,7 +1325,7 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
         //     userId +
         //     "/template1/block-1-video-1.mp4"
         // );
-        //resolve(finalvideo1);
+        // resolve(finalvideo1);
       });
       // commands
       //   .input(
@@ -1588,7 +1588,7 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
 // Video Scene 3
 global.videoTemplate3 = async function videoTemplate3(data, req, res) {
   return new Promise((resolve) => {
-    block3VideoTxt() 
+    block3VideoTxt();
     // var commands = new ffmpeg();
     // var i = 1;
     // var k = 1;
@@ -1762,7 +1762,7 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
     // }
 
     function block3VideoTxt() {
-      //var commands = new ffmpeg();
+      // var commands = new ffmpeg();
       var titleColor = data.sceneData.textColor;
       if (titleColor.length == "4") {
         titleColor = titleColor.replaceAll(
@@ -1826,7 +1826,6 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
       // });
       // //video.addEffect("zoomIn", 1, 0);
       // scene1.addChild(video);
-     
 
       const slide1 = new FFImage({
         path: assetsPath + data.sceneData.media[0].url,
@@ -1844,7 +1843,7 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
       // });
       slide1.addEffect("zoomingIn", 3.5, 1);
       scene1.addChild(slide1);
-      
+
       const slide2 = new FFImage({
         path: assetsPath + data.sceneData.media[1].url,
         y: 540,
@@ -1863,11 +1862,17 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
       scene1.setBgColor("#fff");
       const fimg1 = new FFImage({
         path: assetsPath + "whitebg2.png",
-        x: 480,
         y: 950,
       });
-      fimg1.addEffect("fadeInLeftBig", 2, 1);
-      //fimg1.setScale(0.5);
+      fimg1.addAnimate({
+        from: { x: -480 },
+        to: { x: 480 },
+        time: 1,
+        delay: 0.1,
+        ease: "Cubic.InOut",
+      });
+      // fimg1.addEffect("slideIn", 1.2, 0.5);
+      // fimg1.setScale(0.5);
 
       scene1.addChild(fimg1);
       const fontSize1 = parseInt(data.sceneData.textSize) + 25;
@@ -1875,36 +1880,38 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
         text: text,
         fontSize: fontSize1,
         x: 50,
+        y: 895,
       });
       textOne.setColor(titleColor);
       textOne.setFont(selectedfonts);
-      textOne.addEffect("fadeIn", 2, 2.3);
-      textOne.addAnimate({
-        from: { y: 940 },
-        to: { y: 900 },
-        time: 1,
-        delay: 2,
-        ease: "Cubic.InOut",
-      });
-     
+      textOne.addEffect("fadeIn", 1.5, 0.6);
+      // textOne.addAnimate({
+      //   from: { y: 940 },
+      //   to: { y: 900 },
+      //   time: 1,
+      //   delay: 1.0,
+      //   ease: "Cubic.InOut",
+      // });
+
       scene1.addChild(textOne);
       if (text2 != "") {
         const textNext = new FFText({
           text: text2,
           fontSize: fontSize1,
           x: 50,
+          y: 950,
         });
         textNext.setColor(titleColor);
         textNext.setFont(selectedfonts);
-        textNext.addEffect("fadeIn", 2, 2.3);
-        textNext.addAnimate({
-          from: { y: 980 },
-          to: { y: 960 },
-          time: 1,
-          delay: 2,
-          ease: "Cubic.InOut",
-        });
-        
+        textNext.addEffect("fadeIn", 1.5, 1.0);
+        // textNext.addAnimate({
+        //   from: { y: 980 },
+        //   to: { y: 960 },
+        //   time: 1,
+        //   delay: 1.3,
+        //   ease: "Cubic.InOut",
+        // });
+
         scene1.addChild(textNext);
       }
       const fcloud = new FFImage({
@@ -1918,10 +1925,22 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
         delay: 0,
         ease: "Cubic.InOut",
       });
-      scene1.addChild(fcloud); 
+      scene1.addChild(fcloud);
+      const fcloud2 = new FFImage({
+        path: assetsPath + "cropped.jpg",
+        x: 960,
+      });
+      fcloud2.addAnimate({
+        from: { y: 1620 },
+        to: { y: 540 },
+        time: 1,
+        delay: 4,
+        ease: "Cubic.InOut",
+      });
+      scene1.addChild(fcloud2);
       scene1.setDuration(5);
       creator.addChild(scene1);
-      //creator.output(path.join(__dirname, "./src/Assets/template/videos/" + userId + "/template1/block-1-text-video.mp4"));
+      // creator.output(path.join(__dirname, "./src/Assets/template/videos/" + userId + "/template1/block-1-text-video.mp4"));
       creator.start();
       creator.on("error", (e) => {
         //  console.log(`FFCreator error: ${JSON.stringify(e)}`);
@@ -2043,6 +2062,89 @@ global.videoTemplate3 = async function videoTemplate3(data, req, res) {
 // Video Scene 4
 global.videoTemplate4 = async function videoTemplate4(data, req, res) {
   return new Promise((resolve) => {
+    async function resizeimg() {
+      return new Promise((resolve) => {
+        Jimp.read(assetsPath + data.sceneData.media["0"].url)
+          .then((img) => {
+            img
+              .cover(
+                960,
+                1080,
+                Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP
+              )
+              .write(
+                assetsPath +
+                  "template/videos/" +
+                  userId +
+                  "/template1/img41.png"
+              ); // save
+            Jimp.read(assetsPath + data.sceneData.media["1"].url)
+              .then((img) => {
+                img
+                  .cover(
+                    960,
+                    1080,
+                    Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP
+                  )
+                  .write(
+                    assetsPath +
+                      "template/videos/" +
+                      userId +
+                      "/template1/img42.png"
+                  ); // save
+                Jimp.read(assetsPath + data.sceneData.media["2"].url)
+                  .then((img) => {
+                    img
+                      .cover(
+                        960,
+                        1080,
+                        Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP
+                      )
+                      .write(
+                        assetsPath +
+                          "template/videos/" +
+                          userId +
+                          "/template1/img43.png"
+                      ); // save
+                    Jimp.read(assetsPath + data.sceneData.media["3"].url)
+                      .then((img) => {
+                        img
+                          .cover(
+                            960,
+                            1080,
+                            Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP
+                          )
+                          .write(
+                            assetsPath +
+                              "template/videos/" +
+                              userId +
+                              "/template1/img44.png"
+                          ); // save
+                        setTimeout(function () {
+                          resolve("done");
+                        }, 500);
+                      })
+                      .catch((err) => {
+                        console.error(err);
+                      });
+                  })
+                  .catch((err) => {
+                    console.error(err);
+                  });
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      });
+    }
+    async function getcompressedImg() {
+      return await resizeimg();
+    }
+    console.log(getcompressedImg());
     var commands = new ffmpeg();
     var result = data.sceneData.textArray[0].text.split(" ");
     var text1 = "";
@@ -2077,14 +2179,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
       );
     }
     if (data.sceneData.media[0].type == "image") {
-      const {
-        FFScene,
-        FFText,
-        FFVideo,
-        FFAlbum,
-        FFImage,
-        FFCreator,
-      } = require("ffcreator");
+      const { FFScene, FFText, FFImage, FFCreator } = require("ffcreator");
       const outputDir = path.join(
         __dirname,
         "./src/Assets/template/videos/" + userId + "/template1"
@@ -2092,26 +2187,33 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
       const creator = new FFCreator({
         //  cacheDir,
         outputDir,
-        width: 960,
+        width: 1920,
         height: 1080,
         log: true,
       });
       const scene1 = new FFScene();
       const image = new FFImage({
-        path: assetsPath + data.sceneData.media[0].url,
-        x: 480,
+        path: assetsPath + "template/videos/" + userId + "/template1/img41.png",
+        x: 475,
         y: 540,
       });
-      image.addEffect("moveInUp", 1, 1);
+      // image.addEffect("moveInUp", 1, 1);
       scene1.addChild(image);
+      const image2 = new FFImage({
+        path: assetsPath + "template/videos/" + userId + "/template1/img42.png",
+        x: 1445,
+        y: 540,
+      });
+      // image.addEffect("moveInUp", 1, 1);
+      scene1.addChild(image2);
       scene1.setBgColor("#fff");
       const fimg1 = new FFImage({
         path: assetsPath + "whitebg2.png",
-        x: 480,
+        x: 475,
         y: 1010,
       });
-      fimg1.addEffect("fadeInUp", 1, 1);
-      //fimg1.setScale(0.5);
+      fimg1.addEffect("fadeInUp", 0.5, 1);
+      // fimg1.setScale(0.5);
 
       scene1.addChild(fimg1);
       const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 15;
@@ -2123,7 +2225,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
       });
       text.setColor(titleColor);
       text.setFont(selectedfonts);
-      text.addEffect("fadeInUp", 1.5, 1.5);
+      text.addEffect("fadeIn", 1.2, 1);
       scene1.addChild(text);
       if (text2 != "") {
         const textNext = new FFText({
@@ -2134,12 +2236,79 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
         });
         textNext.setColor(titleColor);
         textNext.setFont(selectedfonts);
-        textNext.addEffect("fadeInUp", 1.5, 1.5);
+        textNext.addEffect("fadeIn", 1.2, 1.2);
         scene1.addChild(textNext);
       }
-      scene1.setDuration(4);
+      const img3 = new FFImage({
+        path: assetsPath + "template/videos/" + userId + "/template1/img43.png",
+        x: 475,
+      });
+      img3.addAnimate({
+        from: { y: 1720 },
+        to: { y: 540 },
+        time: 1,
+        delay: 2.5,
+        ease: "Cubic.InOut",
+      });
+       scene1.addChild(img3);
+       const img4 = new FFImage({
+        path: assetsPath + "template/videos/" + userId + "/template1/img44.png",
+        x: 1445,
+      });
+      img4.addAnimate({
+        from: { y: 1720 },
+        to: { y: 540 },
+        time: 1,
+        delay: 2.8,
+        ease: "Cubic.InOut",
+      });
+       scene1.addChild(img4);
+       scene1.setBgColor("#fff");
+       const fimg2 = new FFImage({
+         path: assetsPath + "whitebg2.png",
+         x: 1445,
+         y: 1010,
+       });
+       fimg2.addEffect("fadeInUp", 3.2, 1);
+       scene1.addChild(fimg2);
+       const text3 = new FFText({
+        text: text1,
+        fontSize: fontSize1,
+        x: 1010,
+        y: 960,
+      });
+      text3.setColor(titleColor);
+      text3.setFont(selectedfonts);
+      text3.addEffect("fadeIn", 3.5, 1);
+      scene1.addChild(text3);
+      if (text2 != "") {
+        const textNext2 = new FFText({
+          text: text2,
+          fontSize: fontSize1,
+          x: 1010,
+          y: 1010,
+        });
+        textNext2.setColor(titleColor);
+        textNext2.setFont(selectedfonts);
+        textNext2.addEffect("fadeIn", 3.5, 1.2);
+        scene1.addChild(textNext2);
+      }
+      // const fcloud2 = new FFImage({
+      //   path: assetsPath + "cropped.jpg",
+      //   x: 960,
+      // });
+      // fcloud2.addAnimate({
+      //   from: { y: 1620 },
+      //   to: { y: 540 },
+      //   time: 1,
+      //   delay: 0,
+      //   ease: "Cubic.InOut",
+      // });
+      // scene1.addChild(fcloud2);
+
+      scene1.setDuration(6);
       creator.addChild(scene1);
-      //creator.output(path.join(__dirname, "./src/Assets/template/videos/" + userId + "/template1/block-1-text-video.mp4"));
+      // creator.output(path.join(__dirname, "./src/Assets/template/videos/" + userId + "/template1/block-1-text-video.mp4"));
       creator.start();
       creator.on("error", (e) => {
         //  console.log(`FFCreator error: ${JSON.stringify(e)}`);
@@ -2156,7 +2325,11 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
             userId +
             "/template1/block4video1.mp4",
           () => {
-            block4video2();
+            resolve(
+              "./src/Assets/template/videos/" +
+                userId +
+                "/template1/block4video1.mp4"
+            );
           }
         );
       });
@@ -2284,535 +2457,535 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
         });
     }
 
-    function block4video2() {
-      var commands = new ffmpeg();
-      if (data.sceneData.media[1].type == "image") {
-        //console.log("here");
-        commands
-          .input(assetsPath + data.sceneData.media[1].url)
-          .complexFilter(["scale=960:1080[checked]"], "checked")
-          .loop(4)
-          .addOption("-pix_fmt", "yuv420p")
-          .addOption("-framerate", "50")
-          .addOption("-c:v", "libx264")
-          .save(
-            "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block4video2.mp4"
-          )
-          .on("start", function (commandLine) {
-            console.log("step7");
-          })
-          .on("error", function (er) {
-            res.status(200).json({ message: "Video failed 16" });
-            console.log(er);
-            return;
-          })
-          .on("end", function (commandLine) {
-            let datas = {
-              video1:
-                "./src/Assets/template/videos/" +
-                userId +
-                "/template1/block4video1.mp4",
-              video2:
-                "./src/Assets/template/videos/" +
-                userId +
-                "/template1/block4video2.mp4",
-            };
-            mergeBlock4Videos1(datas, req, res);
-          });
-      } else {
-        commands
-          .input(assetsPath + data.sceneData.media[1].url)
-          .complexFilter(
-            ["crop=iw-700:ih-40,scale=960:1080[checked]"],
-            "checked"
-          )
-          .loop(4)
-          .addOption("-pix_fmt", "yuv420p")
-          .addOption("-framerate", "50")
-          .addOption("-c:v", "libx264")
-          .save(
-            "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block4video2.mp4"
-          )
-          .on("start", function (commandLine) {
-            console.log("step7");
-          })
-          .on("error", function (er) {
-            res.status(200).json({ message: "Video failed 17" });
-            console.log(er);
-            return;
-          })
-          .on("end", function (commandLine) {
-            let datas = {
-              video1:
-                "./src/Assets/template/videos/" +
-                userId +
-                "/template1/block4video1.mp4",
-              video2:
-                "./src/Assets/template/videos/" +
-                userId +
-                "/template1/block4video2.mp4",
-            };
-            mergeBlock4Videos1(datas, req, res);
-          });
-      }
-    }
-    async function mergeBlock4Videos1(data) {
-      try {
-        const Createdvideo3 = await concat({
-          output:
-            "./src/Assets/template/videos/" +
-            userId +
-            "/template1/block4merged1.mp4",
-          videos: [data.video1, data.video2],
-          transitions: [
-            {
-              name: "directional",
-              params: { direction: [0, 1] },
-              duration: 1000,
-            },
-          ],
-        });
+    // function block4video2() {
+    //   var commands = new ffmpeg();
+    //   if (data.sceneData.media[1].type == "image") {
+    //     //console.log("here");
+    //     commands
+    //       .input(assetsPath + data.sceneData.media[1].url)
+    //       .complexFilter(["scale=960:1080[checked]"], "checked")
+    //       .loop(4)
+    //       .addOption("-pix_fmt", "yuv420p")
+    //       .addOption("-framerate", "50")
+    //       .addOption("-c:v", "libx264")
+    //       .save(
+    //         "./src/Assets/template/videos/" +
+    //           userId +
+    //           "/template1/block4video2.mp4"
+    //       )
+    //       .on("start", function (commandLine) {
+    //         console.log("step7");
+    //       })
+    //       .on("error", function (er) {
+    //         res.status(200).json({ message: "Video failed 16" });
+    //         console.log(er);
+    //         return;
+    //       })
+    //       .on("end", function (commandLine) {
+    //         let datas = {
+    //           video1:
+    //             "./src/Assets/template/videos/" +
+    //             userId +
+    //             "/template1/block4video1.mp4",
+    //           video2:
+    //             "./src/Assets/template/videos/" +
+    //             userId +
+    //             "/template1/block4video2.mp4",
+    //         };
+    //         mergeBlock4Videos1(datas, req, res);
+    //       });
+    //   } else {
+    //     commands
+    //       .input(assetsPath + data.sceneData.media[1].url)
+    //       .complexFilter(
+    //         ["crop=iw-700:ih-40,scale=960:1080[checked]"],
+    //         "checked"
+    //       )
+    //       .loop(4)
+    //       .addOption("-pix_fmt", "yuv420p")
+    //       .addOption("-framerate", "50")
+    //       .addOption("-c:v", "libx264")
+    //       .save(
+    //         "./src/Assets/template/videos/" +
+    //           userId +
+    //           "/template1/block4video2.mp4"
+    //       )
+    //       .on("start", function (commandLine) {
+    //         console.log("step7");
+    //       })
+    //       .on("error", function (er) {
+    //         res.status(200).json({ message: "Video failed 17" });
+    //         console.log(er);
+    //         return;
+    //       })
+    //       .on("end", function (commandLine) {
+    //         let datas = {
+    //           video1:
+    //             "./src/Assets/template/videos/" +
+    //             userId +
+    //             "/template1/block4video1.mp4",
+    //           video2:
+    //             "./src/Assets/template/videos/" +
+    //             userId +
+    //             "/template1/block4video2.mp4",
+    //         };
+    //         mergeBlock4Videos1(datas, req, res);
+    //       });
+    //   }
+    // }
+    // async function mergeBlock4Videos1(data) {
+    //   try {
+    //     const Createdvideo3 = await concat({
+    //       output:
+    //         "./src/Assets/template/videos/" +
+    //         userId +
+    //         "/template1/block4merged1.mp4",
+    //       videos: [data.video1, data.video2],
+    //       transitions: [
+    //         {
+    //           name: "directional",
+    //           params: { direction: [0, 1] },
+    //           duration: 1000,
+    //         },
+    //       ],
+    //     });
 
-        if (typeof Createdvideo3 == "undefined") {
-          block4video3();
-        }
-      } catch {
-        console.log("failed 18");
-        // res.status(500).json({ message: "Video failed 18" });
-      }
-    }
+    //     if (typeof Createdvideo3 == "undefined") {
+    //       block4video3();
+    //     }
+    //   } catch {
+    //     console.log("failed 18");
+    //     // res.status(500).json({ message: "Video failed 18" });
+    //   }
+    // }
 
-    function block4video3() {
-      var commands = new ffmpeg();
-      if (data.sceneData.media[2].type == "image") {
-        commands
-          .input(assetsPath + data.sceneData.media[2].url)
-          .complexFilter(["scale=960:1080[checked]"], "checked")
-          .loop(5)
-          .addOption("-pix_fmt", "yuv420p")
-          .addOption("-framerate", "50")
-          .addOption("-c:v", "libx264")
-          .save(
-            "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block4video3.mp4"
-          )
-          .on("start", function (commandLine) {
-            console.log("step7");
-          })
-          .on("error", function (er) {
-            res.status(200).json({ message: "Video failed 19" });
-            console.log(er);
-            // console.log("error occured: " + er.message);
-            return;
-          })
-          .on("end", function (commandLine) {
-            block4video4();
-          });
-      } else {
-        commands
-          .input(assetsPath + data.sceneData.media[2].url)
-          .complexFilter(
-            ["crop=iw-700:ih-200,scale=960:1080[checked]"],
-            "checked"
-          )
-          .loop(4)
-          .addOption("-pix_fmt", "yuv420p")
-          .addOption("-framerate", "50")
-          .addOption("-c:v", "libx264")
-          .save(
-            "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block4video3.mp4"
-          )
-          .on("start", function (commandLine) {
-            console.log("step7");
-          })
-          .on("error", function (er) {
-            res.status(200).json({ message: "Video failed 20" });
-            console.log(er);
-            // console.log("error occured: " + er.message);
-            return;
-          })
-          .on("end", function (commandLine) {
-            block4video4();
-          });
-      }
-    }
+    // function block4video3() {
+    //   var commands = new ffmpeg();
+    //   if (data.sceneData.media[2].type == "image") {
+    //     commands
+    //       .input(assetsPath + data.sceneData.media[2].url)
+    //       .complexFilter(["scale=960:1080[checked]"], "checked")
+    //       .loop(5)
+    //       .addOption("-pix_fmt", "yuv420p")
+    //       .addOption("-framerate", "50")
+    //       .addOption("-c:v", "libx264")
+    //       .save(
+    //         "./src/Assets/template/videos/" +
+    //           userId +
+    //           "/template1/block4video3.mp4"
+    //       )
+    //       .on("start", function (commandLine) {
+    //         console.log("step7");
+    //       })
+    //       .on("error", function (er) {
+    //         res.status(200).json({ message: "Video failed 19" });
+    //         console.log(er);
+    //         // console.log("error occured: " + er.message);
+    //         return;
+    //       })
+    //       .on("end", function (commandLine) {
+    //         block4video4();
+    //       });
+    //   } else {
+    //     commands
+    //       .input(assetsPath + data.sceneData.media[2].url)
+    //       .complexFilter(
+    //         ["crop=iw-700:ih-200,scale=960:1080[checked]"],
+    //         "checked"
+    //       )
+    //       .loop(4)
+    //       .addOption("-pix_fmt", "yuv420p")
+    //       .addOption("-framerate", "50")
+    //       .addOption("-c:v", "libx264")
+    //       .save(
+    //         "./src/Assets/template/videos/" +
+    //           userId +
+    //           "/template1/block4video3.mp4"
+    //       )
+    //       .on("start", function (commandLine) {
+    //         console.log("step7");
+    //       })
+    //       .on("error", function (er) {
+    //         res.status(200).json({ message: "Video failed 20" });
+    //         console.log(er);
+    //         // console.log("error occured: " + er.message);
+    //         return;
+    //       })
+    //       .on("end", function (commandLine) {
+    //         block4video4();
+    //       });
+    //   }
+    // }
 
-    function block4video4() {
-      var commands = new ffmpeg();
-      var result = data.sceneData.textArray[1].text.split(" ");
-      var text1 = "";
-      var text2 = "";
-      for (var i = 0; i < result.length; i++) {
-        if (i >= 6) {
-          //  text1= text1 + result[i] + " \n ";
-          text2 = text2 + result[i] + " ";
-        } else {
-          text1 = text1 + result[i] + " ";
-        }
-      }
-      // for (var i = 0; i < result.length; i++) {
-      //   if (i == 6) {
-      //     text = text + result[i] + " \n ";
-      //   } else {
-      //     text = text + result[i] + " ";
-      //   }
-      // }
-      let fontfamily = data.sceneData.textArray[1].fontFamily;
-      let selectedfonts;
-      fonts.map(function (font) {
-        if (font.family == fontfamily) {
-          if (data.sceneData.textArray[1].fontWeight == "lighter") {
-            selectedfonts = font.lighter;
-          } else if (data.sceneData.textArray[1].fontWeight == "normal") {
-            selectedfonts = font.file;
-          } else if (data.sceneData.textArray[1].fontWeight == "bold") {
-            selectedfonts = font.bold;
-          }
-        }
-      });
-      var titleColor = data.sceneData.textArray[1].fontColor;
-      if (titleColor.length == "4") {
-        titleColor = titleColor.replaceAll(
-          "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-          "#$1$1$2$2$3$3"
-        );
-      }
-      if (data.sceneData.media[3].type == "image") {
-        const { FFScene, FFText, FFImage, FFCreator } = require("ffcreator");
-        const outputDir = path.join(
-          __dirname,
-          "./src/Assets/template/videos/" + userId + "/template1"
-        );
-        const creator = new FFCreator({
-          //  cacheDir,
-          outputDir,
-          width: 960,
-          height: 1080,
-          log: true,
-          parallel: 20,
-        });
-        const scene1 = new FFScene();
-        const image = new FFImage({
-          path: assetsPath + data.sceneData.media[0].url,
-          x: 480,
-          y: 540,
-        });
-        image.addEffect("moveInUp", 1, 1);
-        image.addEffect("fadeOutDown", 1, 4);
-        scene1.addChild(image);
-        scene1.setBgColor("#fff");
-        const fimg1 = new FFImage({
-          path: assetsPath + "whitebg2.png",
-          x: 480,
-          y: 1010,
-        });
-        fimg1.addEffect("fadeInUp", 1, 1);
-        //fimg1.setScale(0.5);
+    // function block4video4() {
+    //   var commands = new ffmpeg();
+    //   var result = data.sceneData.textArray[1].text.split(" ");
+    //   var text1 = "";
+    //   var text2 = "";
+    //   for (var i = 0; i < result.length; i++) {
+    //     if (i >= 6) {
+    //       //  text1= text1 + result[i] + " \n ";
+    //       text2 = text2 + result[i] + " ";
+    //     } else {
+    //       text1 = text1 + result[i] + " ";
+    //     }
+    //   }
+    //   // for (var i = 0; i < result.length; i++) {
+    //   //   if (i == 6) {
+    //   //     text = text + result[i] + " \n ";
+    //   //   } else {
+    //   //     text = text + result[i] + " ";
+    //   //   }
+    //   // }
+    //   let fontfamily = data.sceneData.textArray[1].fontFamily;
+    //   let selectedfonts;
+    //   fonts.map(function (font) {
+    //     if (font.family == fontfamily) {
+    //       if (data.sceneData.textArray[1].fontWeight == "lighter") {
+    //         selectedfonts = font.lighter;
+    //       } else if (data.sceneData.textArray[1].fontWeight == "normal") {
+    //         selectedfonts = font.file;
+    //       } else if (data.sceneData.textArray[1].fontWeight == "bold") {
+    //         selectedfonts = font.bold;
+    //       }
+    //     }
+    //   });
+    //   var titleColor = data.sceneData.textArray[1].fontColor;
+    //   if (titleColor.length == "4") {
+    //     titleColor = titleColor.replaceAll(
+    //       "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
+    //       "#$1$1$2$2$3$3"
+    //     );
+    //   }
+    //   if (data.sceneData.media[3].type == "image") {
+    //     const { FFScene, FFText, FFImage, FFCreator } = require("ffcreator");
+    //     const outputDir = path.join(
+    //       __dirname,
+    //       "./src/Assets/template/videos/" + userId + "/template1"
+    //     );
+    //     const creator = new FFCreator({
+    //       //  cacheDir,
+    //       outputDir,
+    //       width: 960,
+    //       height: 1080,
+    //       log: true,
+    //       parallel: 20,
+    //     });
+    //     const scene1 = new FFScene();
+    //     const image = new FFImage({
+    //       path: assetsPath + data.sceneData.media[0].url,
+    //       x: 480,
+    //       y: 540,
+    //     });
+    //     image.addEffect("moveInUp", 1, 1);
+    //     image.addEffect("fadeOutDown", 1, 4);
+    //     scene1.addChild(image);
+    //     scene1.setBgColor("#fff");
+    //     const fimg1 = new FFImage({
+    //       path: assetsPath + "whitebg2.png",
+    //       x: 480,
+    //       y: 1010,
+    //     });
+    //     fimg1.addEffect("fadeInUp", 1, 1);
+    //     //fimg1.setScale(0.5);
 
-        scene1.addChild(fimg1);
-        const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 15;
-        const text = new FFText({
-          text: text1,
-          fontSize: fontSize1,
-          x: 50,
-          y: 960,
-        });
-        text.setColor(titleColor);
-        text.setFont(selectedfonts);
-        text.addEffect("fadeInUp", 1.5, 1.5);
-        scene1.addChild(text);
-        if (text2 != "") {
-          const textNext = new FFText({
-            text: text2,
-            fontSize: fontSize1,
-            x: 50,
-            y: 1010,
-          });
-          textNext.setColor(titleColor);
-          textNext.setFont(selectedfonts);
-          textNext.addEffect("fadeInUp", 1.5, 1.5);
-          scene1.addChild(textNext);
-        }
-        scene1.setDuration(4);
-        creator.addChild(scene1);
-        //creator.output(path.join(__dirname, "./src/Assets/template/videos/" + userId + "/template1/block-1-text-video.mp4"));
-        creator.start();
-        creator.on("error", (e) => {
-          //  console.log(`FFCreator error: ${JSON.stringify(e)}`);
-        });
-        creator.on("progress", (e) => {
-          // console.log(`FFCreatorLite progress: ${(e.percent * 100) >> 0}%`);
-        });
+    //     scene1.addChild(fimg1);
+    //     const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 15;
+    //     const text = new FFText({
+    //       text: text1,
+    //       fontSize: fontSize1,
+    //       x: 50,
+    //       y: 960,
+    //     });
+    //     text.setColor(titleColor);
+    //     text.setFont(selectedfonts);
+    //     text.addEffect("fadeInUp", 1.5, 1.5);
+    //     scene1.addChild(text);
+    //     if (text2 != "") {
+    //       const textNext = new FFText({
+    //         text: text2,
+    //         fontSize: fontSize1,
+    //         x: 50,
+    //         y: 1010,
+    //       });
+    //       textNext.setColor(titleColor);
+    //       textNext.setFont(selectedfonts);
+    //       textNext.addEffect("fadeInUp", 1.5, 1.5);
+    //       scene1.addChild(textNext);
+    //     }
+    //     scene1.setDuration(4);
+    //     creator.addChild(scene1);
+    //     //creator.output(path.join(__dirname, "./src/Assets/template/videos/" + userId + "/template1/block-1-text-video.mp4"));
+    //     creator.start();
+    //     creator.on("error", (e) => {
+    //       //  console.log(`FFCreator error: ${JSON.stringify(e)}`);
+    //     });
+    //     creator.on("progress", (e) => {
+    //       // console.log(`FFCreatorLite progress: ${(e.percent * 100) >> 0}%`);
+    //     });
 
-        creator.on("complete", (e) => {
-          console.log("4video Done");
-          fs.rename(
-            e.output,
-            "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block4video4.mp4",
-            () => {
-              let datas = {
-                video1:
-                  "./src/Assets/template/videos/" +
-                  userId +
-                  "/template1/block4video3.mp4",
-                video2:
-                  "./src/Assets/template/videos/" +
-                  userId +
-                  "/template1/block4video4.mp4",
-              };
-              mergeBlock4Videos2(datas);
-            }
-          );
-        });
-        // commands
-        //   .input(assetsPath + data.sceneData.media[3].url)
-        //   .complexFilter(
-        //     [
-        //       "crop=iw-700:ih-200,scale=960:1080[checked]",
-        //       {
-        //         filter: "drawbox",
-        //         options: {
-        //           x: 0,
-        //           y: "920",
-        //           height: 200,
-        //           width: 960,
-        //           color: "white",
-        //           t: "fill",
-        //         },
-        //         inputs: "checked",
-        //         outputs: "output1",
-        //       },
-        //       {
-        //         filter: "drawtext",
-        //         options: {
-        //           fontfile: selectedfonts,
-        //           text: text,
-        //           fontsize: parseInt(data.sceneData.textArray[1].fontSize) + 15,
-        //           fontcolor: titleColor,
-        //           line_spacing: 20,
-        //           x: "50",
-        //           y:
-        //             "h - th- 25 - min(4*(th+10)-(abs(4-2*(t-1)))*(th+10)-th,10)",
-        //           box: 1,
-        //           boxcolor: "white@1",
-        //           boxborderw: "30",
-        //           bordercolor: "white",
-        //           enable: "gte(t,1)",
-        //         },
-        //         inputs: "output1",
-        //         outputs: "output",
-        //       },
-        //     ],
-        //     "output"
-        //   )
-        //   .loop(4)
-        //   .addOption("-pix_fmt", "yuv420p")
-        //   .addOption("-framerate", "50")
-        //   .addOption("-c:v", "libx264")
-        //   .save(
-        //     "./src/Assets/template/videos/" +
-        //       userId +
-        //       "/template1/block4video4.mp4"
-        //   )
-        //   .on("start", function (commandLine) {
-        //     console.log("step62");
-        //   })
-        //   .on("error", function (er) {
-        //     res.status(200).json({ message: "Video failed 21" });
-        //     console.log(er);
-        //     // console.log("error occured: " + er.message);
-        //     return;
-        //   })
-        //   .on("end", function (commandLine) {
-        //     let datas = {
-        //       video1:
-        //         "./src/Assets/template/videos/" +
-        //         userId +
-        //         "/template1/block4video3.mp4",
-        //       video2:
-        //         "./src/Assets/template/videos/" +
-        //         userId +
-        //         "/template1/block4video4.mp4",
-        //     };
-        //     mergeBlock4Videos2(datas);
-        //   });
-      } else {
-        commands
-          .input(assetsPath + data.sceneData.containerFour)
-          .complexFilter(
-            [
-              "scale=crop=iw-700:ih-200,960:1080[checked]",
-              {
-                filter: "drawbox",
-                options: {
-                  x: 0,
-                  y: "920",
-                  height: 200,
-                  width: 960,
-                  color: "white",
-                  t: "fill",
-                },
-                inputs: "checked",
-                outputs: "output1",
-              },
-              {
-                filter: "drawtext",
-                options: {
-                  fontfile: selectedfonts,
-                  text: text,
-                  fontsize: parseInt(data.sceneData.textArray[1].fontSize) + 15,
-                  fontcolor: titleColor,
-                  line_spacing: 20,
-                  x: "50",
-                  y:
-                    "h - th- 25 - min(4*(th+10)-(abs(4-2*(t-1)))*(th+10)-th,10)",
-                  box: 1,
-                  boxcolor: "white@1",
-                  boxborderw: "30",
-                  bordercolor: "white",
-                  enable: "gte(t,1)",
-                },
-                inputs: "output1",
-                outputs: "output",
-              },
-            ],
-            "output"
-          )
-          .addOption("-pix_fmt", "yuv420p")
-          .addOption("-framerate", "50")
-          .addOption("-c:v", "libx264")
-          .save(
-            "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block4video4.mp4"
-          )
-          .on("start", function (commandLine) {
-            console.log("step6 here");
-          })
-          .on("error", function (er) {
-            res.status(200).json({ message: "Video failed 22" });
-            console.log(er);
-            // console.log("error occured: " + er.message);
-            return;
-          })
-          .on("end", function (commandLine) {
-            let datas = {
-              video1:
-                "./src/Assets/template/videos/" +
-                userId +
-                "/template1/block4video3.mp4",
-              video2:
-                "./src/Assets/template/videos/" +
-                userId +
-                "/template1/block4video4.mp4",
-            };
-            mergeBlock4Videos2(datas);
-          });
-      }
-    }
-    async function mergeBlock4Videos2(datas) {
-      try {
-        const Createdvideo4 = await concat({
-          output:
-            "./src/Assets/template/videos/" +
-            userId +
-            "/template1/block4merged2.mp4",
-          videos: [datas.video1, datas.video2],
-          transitions: [
-            {
-              name: "directional",
-              params: { direction: [0, 1] },
-              duration: 1000,
-            },
-          ],
-        });
-        if (typeof Createdvideo4 == "undefined") {
-          block4Finalmerged();
-        }
-      } catch {
-        res.status(500).json({ message: "Video failed 23" });
-      }
-    }
+    //     creator.on("complete", (e) => {
+    //       console.log("4video Done");
+    //       fs.rename(
+    //         e.output,
+    //         "./src/Assets/template/videos/" +
+    //           userId +
+    //           "/template1/block4video4.mp4",
+    //         () => {
+    //           let datas = {
+    //             video1:
+    //               "./src/Assets/template/videos/" +
+    //               userId +
+    //               "/template1/block4video3.mp4",
+    //             video2:
+    //               "./src/Assets/template/videos/" +
+    //               userId +
+    //               "/template1/block4video4.mp4",
+    //           };
+    //           mergeBlock4Videos2(datas);
+    //         }
+    //       );
+    //     });
+    //     // commands
+    //     //   .input(assetsPath + data.sceneData.media[3].url)
+    //     //   .complexFilter(
+    //     //     [
+    //     //       "crop=iw-700:ih-200,scale=960:1080[checked]",
+    //     //       {
+    //     //         filter: "drawbox",
+    //     //         options: {
+    //     //           x: 0,
+    //     //           y: "920",
+    //     //           height: 200,
+    //     //           width: 960,
+    //     //           color: "white",
+    //     //           t: "fill",
+    //     //         },
+    //     //         inputs: "checked",
+    //     //         outputs: "output1",
+    //     //       },
+    //     //       {
+    //     //         filter: "drawtext",
+    //     //         options: {
+    //     //           fontfile: selectedfonts,
+    //     //           text: text,
+    //     //           fontsize: parseInt(data.sceneData.textArray[1].fontSize) + 15,
+    //     //           fontcolor: titleColor,
+    //     //           line_spacing: 20,
+    //     //           x: "50",
+    //     //           y:
+    //     //             "h - th- 25 - min(4*(th+10)-(abs(4-2*(t-1)))*(th+10)-th,10)",
+    //     //           box: 1,
+    //     //           boxcolor: "white@1",
+    //     //           boxborderw: "30",
+    //     //           bordercolor: "white",
+    //     //           enable: "gte(t,1)",
+    //     //         },
+    //     //         inputs: "output1",
+    //     //         outputs: "output",
+    //     //       },
+    //     //     ],
+    //     //     "output"
+    //     //   )
+    //     //   .loop(4)
+    //     //   .addOption("-pix_fmt", "yuv420p")
+    //     //   .addOption("-framerate", "50")
+    //     //   .addOption("-c:v", "libx264")
+    //     //   .save(
+    //     //     "./src/Assets/template/videos/" +
+    //     //       userId +
+    //     //       "/template1/block4video4.mp4"
+    //     //   )
+    //     //   .on("start", function (commandLine) {
+    //     //     console.log("step62");
+    //     //   })
+    //     //   .on("error", function (er) {
+    //     //     res.status(200).json({ message: "Video failed 21" });
+    //     //     console.log(er);
+    //     //     // console.log("error occured: " + er.message);
+    //     //     return;
+    //     //   })
+    //     //   .on("end", function (commandLine) {
+    //     //     let datas = {
+    //     //       video1:
+    //     //         "./src/Assets/template/videos/" +
+    //     //         userId +
+    //     //         "/template1/block4video3.mp4",
+    //     //       video2:
+    //     //         "./src/Assets/template/videos/" +
+    //     //         userId +
+    //     //         "/template1/block4video4.mp4",
+    //     //     };
+    //     //     mergeBlock4Videos2(datas);
+    //     //   });
+    //   } else {
+    //     commands
+    //       .input(assetsPath + data.sceneData.containerFour)
+    //       .complexFilter(
+    //         [
+    //           "scale=crop=iw-700:ih-200,960:1080[checked]",
+    //           {
+    //             filter: "drawbox",
+    //             options: {
+    //               x: 0,
+    //               y: "920",
+    //               height: 200,
+    //               width: 960,
+    //               color: "white",
+    //               t: "fill",
+    //             },
+    //             inputs: "checked",
+    //             outputs: "output1",
+    //           },
+    //           {
+    //             filter: "drawtext",
+    //             options: {
+    //               fontfile: selectedfonts,
+    //               text: text,
+    //               fontsize: parseInt(data.sceneData.textArray[1].fontSize) + 15,
+    //               fontcolor: titleColor,
+    //               line_spacing: 20,
+    //               x: "50",
+    //               y:
+    //                 "h - th- 25 - min(4*(th+10)-(abs(4-2*(t-1)))*(th+10)-th,10)",
+    //               box: 1,
+    //               boxcolor: "white@1",
+    //               boxborderw: "30",
+    //               bordercolor: "white",
+    //               enable: "gte(t,1)",
+    //             },
+    //             inputs: "output1",
+    //             outputs: "output",
+    //           },
+    //         ],
+    //         "output"
+    //       )
+    //       .addOption("-pix_fmt", "yuv420p")
+    //       .addOption("-framerate", "50")
+    //       .addOption("-c:v", "libx264")
+    //       .save(
+    //         "./src/Assets/template/videos/" +
+    //           userId +
+    //           "/template1/block4video4.mp4"
+    //       )
+    //       .on("start", function (commandLine) {
+    //         console.log("step6 here");
+    //       })
+    //       .on("error", function (er) {
+    //         res.status(200).json({ message: "Video failed 22" });
+    //         console.log(er);
+    //         // console.log("error occured: " + er.message);
+    //         return;
+    //       })
+    //       .on("end", function (commandLine) {
+    //         let datas = {
+    //           video1:
+    //             "./src/Assets/template/videos/" +
+    //             userId +
+    //             "/template1/block4video3.mp4",
+    //           video2:
+    //             "./src/Assets/template/videos/" +
+    //             userId +
+    //             "/template1/block4video4.mp4",
+    //         };
+    //         mergeBlock4Videos2(datas);
+    //       });
+    //   }
+    // }
+    // async function mergeBlock4Videos2(datas) {
+    //   try {
+    //     const Createdvideo4 = await concat({
+    //       output:
+    //         "./src/Assets/template/videos/" +
+    //         userId +
+    //         "/template1/block4merged2.mp4",
+    //       videos: [datas.video1, datas.video2],
+    //       transitions: [
+    //         {
+    //           name: "directional",
+    //           params: { direction: [0, 1] },
+    //           duration: 1000,
+    //         },
+    //       ],
+    //     });
+    //     if (typeof Createdvideo4 == "undefined") {
+    //       block4Finalmerged();
+    //     }
+    //   } catch {
+    //     res.status(500).json({ message: "Video failed 23" });
+    //   }
+    // }
 
-    function block4Finalmerged() {
-      var command = new ffmpeg();
-      command.input(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/block4merged1.mp4"
-      );
-      command.input(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/block4merged2.mp4"
-      );
-      command
-        .complexFilter(
-          "[0:v]  setpts=PTS-STARTPTS, scale=950:1070,pad=960:1080:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=950:1070,pad=960:1080:5:5:white [a1];[a0][a1]xstack=inputs=2:layout=0_0|w0_0[out]"
-        )
-        .addOption("-map", "[out]")
-        .addOption("-c:v", "libx264")
-        .save(
-          "./src/Assets/template/videos/" +
-            userId +
-            "/template1/block4Finalvideo.mp4"
-        )
-        .on("start", function (commandLine) {
-          console.log(commandLine);
-        })
-        .on("error", function (er) {
-          console.log(er);
-          //  res.status(200).json({ message: "Video failed 24" });
-          //return;
-        })
-        .on("end", function () {
-          const finalvideo =
-            assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/block4Finalvideo.mp4";
-          deleteFiles(
-            "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block4video1.mp4"
-          );
-          deleteFiles(
-            "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block4video2.mp4"
-          );
-          deleteFiles(
-            "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block4merged1.mp4"
-          );
-          deleteFiles(
-            "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block4video3.mp4"
-          );
-          deleteFiles(
-            "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block4video4.mp4"
-          );
-          deleteFiles(
-            "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block4merged2.mp4"
-          );
-          resolve(finalvideo);
-        });
-    }
+    // function block4Finalmerged() {
+    //   var command = new ffmpeg();
+    //   command.input(
+    //     "./src/Assets/template/videos/" +
+    //       userId +
+    //       "/template1/block4merged1.mp4"
+    //   );
+    //   command.input(
+    //     "./src/Assets/template/videos/" +
+    //       userId +
+    //       "/template1/block4merged2.mp4"
+    //   );
+    //   command
+    //     .complexFilter(
+    //       "[0:v]  setpts=PTS-STARTPTS, scale=950:1070,pad=960:1080:5:5:white [a0];[1:v] setpts=PTS-STARTPTS, scale=950:1070,pad=960:1080:5:5:white [a1];[a0][a1]xstack=inputs=2:layout=0_0|w0_0[out]"
+    //     )
+    //     .addOption("-map", "[out]")
+    //     .addOption("-c:v", "libx264")
+    //     .save(
+    //       "./src/Assets/template/videos/" +
+    //         userId +
+    //         "/template1/block4Finalvideo.mp4"
+    //     )
+    //     .on("start", function (commandLine) {
+    //       console.log(commandLine);
+    //     })
+    //     .on("error", function (er) {
+    //       console.log(er);
+    //       //  res.status(200).json({ message: "Video failed 24" });
+    //       //return;
+    //     })
+    //     .on("end", function () {
+    //       const finalvideo =
+    //         assetsPath +
+    //         "template/videos/" +
+    //         userId +
+    //         "/template1/block4Finalvideo.mp4";
+    //       deleteFiles(
+    //         "./src/Assets/template/videos/" +
+    //           userId +
+    //           "/template1/block4video1.mp4"
+    //       );
+    //       deleteFiles(
+    //         "./src/Assets/template/videos/" +
+    //           userId +
+    //           "/template1/block4video2.mp4"
+    //       );
+    //       deleteFiles(
+    //         "./src/Assets/template/videos/" +
+    //           userId +
+    //           "/template1/block4merged1.mp4"
+    //       );
+    //       deleteFiles(
+    //         "./src/Assets/template/videos/" +
+    //           userId +
+    //           "/template1/block4video3.mp4"
+    //       );
+    //       deleteFiles(
+    //         "./src/Assets/template/videos/" +
+    //           userId +
+    //           "/template1/block4video4.mp4"
+    //       );
+    //       deleteFiles(
+    //         "./src/Assets/template/videos/" +
+    //           userId +
+    //           "/template1/block4merged2.mp4"
+    //       );
+    //       resolve(finalvideo);
+    //     });
+    // }
   });
 };
 
@@ -2970,7 +3143,7 @@ function lastSceneVideo(data) {
       x: 1160,
       y: 600,
     });
-    fimg1.addEffect("fadeInUp", 1.5, 1.8);
+    fimg1.addEffect("fadeIn", 1.5, 1.8);
     scene1.addChild(fimg1);
 
     const text = new FFText({
@@ -3044,7 +3217,7 @@ function lastSceneVideo(data) {
           resolve(finalvideoLast);
         }
       );
-      //console.log(e);
+      // console.log(e);
     });
     // var commands = new ffmpeg();
     // commands
