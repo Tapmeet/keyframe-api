@@ -2210,9 +2210,15 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
       const fimg1 = new FFImage({
         path: assetsPath + "whitebg2.png",
         x: 475,
-        y: 1010,
       });
-      fimg1.addEffect("fadeInUp", 0.5, 1);
+      fimg1.addAnimate({
+        from: { y: 1720 },
+        to: { y: 1010 },
+        time: 1,
+        delay: 0.2,
+        ease: "Cubic.InOut",
+      });
+      // fimg1.addEffect("fadeInUp", 0.5, 1);
       // fimg1.setScale(0.5);
 
       scene1.addChild(fimg1);
@@ -2225,18 +2231,18 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
       });
       text.setColor(titleColor);
       text.setFont(selectedfonts);
-      text.addEffect("fadeIn", 1.2, 1);
+      text.addEffect("fadeIn", 1.2, 1.5);
       scene1.addChild(text);
       if (text2 != "") {
         const textNext = new FFText({
           text: text2,
           fontSize: fontSize1,
           x: 50,
-          y: 1010,
+          y: 1015,
         });
         textNext.setColor(titleColor);
         textNext.setFont(selectedfonts);
-        textNext.addEffect("fadeIn", 1.2, 1.2);
+        textNext.addEffect("fadeIn", 1.2, 1.7);
         scene1.addChild(textNext);
       }
       const img3 = new FFImage({
@@ -2267,9 +2273,15 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
        const fimg2 = new FFImage({
          path: assetsPath + "whitebg2.png",
          x: 1445,
-         y: 1010,
        });
-       fimg2.addEffect("fadeInUp", 3.2, 1);
+       fimg2.addAnimate({
+        from: { y: 1720 },
+        to: { y: 1010 },
+        time: 1,
+        delay: 3.2,
+        ease: "Cubic.InOut",
+      });
+       // fimg2.addEffect("fadeInUp", 1, 3.2);
        scene1.addChild(fimg2);
        const text3 = new FFText({
         text: text1,
@@ -2279,34 +2291,34 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
       });
       text3.setColor(titleColor);
       text3.setFont(selectedfonts);
-      text3.addEffect("fadeIn", 3.5, 1);
+      text3.addEffect("fadeIn", 1.2, 4.2);
       scene1.addChild(text3);
       if (text2 != "") {
         const textNext2 = new FFText({
           text: text2,
           fontSize: fontSize1,
           x: 1010,
-          y: 1010,
+          y: 1015,
         });
         textNext2.setColor(titleColor);
         textNext2.setFont(selectedfonts);
-        textNext2.addEffect("fadeIn", 3.5, 1.2);
+        textNext2.addEffect("fadeIn", 1.2, 4.4);
         scene1.addChild(textNext2);
       }
-      // const fcloud2 = new FFImage({
-      //   path: assetsPath + "cropped.jpg",
-      //   x: 960,
-      // });
-      // fcloud2.addAnimate({
-      //   from: { y: 1620 },
-      //   to: { y: 540 },
-      //   time: 1,
-      //   delay: 0,
-      //   ease: "Cubic.InOut",
-      // });
-      // scene1.addChild(fcloud2);
+      const fcloud2 = new FFImage({
+        path: assetsPath + "cropped.jpg",
+        x: 960,
+      });
+      fcloud2.addAnimate({
+        from: { y: 540 },
+        to: { y: -600 },
+        time: 1,
+        delay: 0,
+        ease: "Cubic.InOut",
+      });
+      scene1.addChild(fcloud2);
 
-      scene1.setDuration(6);
+      scene1.setDuration(7);
       creator.addChild(scene1);
       // creator.output(path.join(__dirname, "./src/Assets/template/videos/" + userId + "/template1/block-1-text-video.mp4"));
       creator.start();
