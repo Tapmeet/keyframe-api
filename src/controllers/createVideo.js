@@ -372,16 +372,22 @@ exports.createVideo = async (req, res, next) => {
 
           scene1.addChild(img4);
 
-          //
+          const fcloud2 = new FFImage({
+            path: assetsPath + "whitescene1.jpg",
+            y: 540,
+            x: 960,
+          });
+          fcloud2.addEffect("zoomOut", 1.3, 0);
+          scene1.addChild(fcloud2);
 
           const fimg1 = new FFImage({
-            path: assetsPath + "whitebg.png",
+            path: assetsPath + "whitescene1.jpg",
             x: 960,
             y: 540,
           });
           // fimg1.addEffect("slideInUp", 1.5, 1);
-          fimg1.addEffect("zoomIn", 1, 0.5);
-          // fimg1.setScale(0.5);
+          // fimg1.addEffect("fadeIn", 0.5, 1.1);
+          fimg1.setScale(0.5);
 
           scene1.addChild(fimg1);
           const fontSize1 = parseInt(data.sceneData.textSize) + 20;
@@ -393,7 +399,7 @@ exports.createVideo = async (req, res, next) => {
           });
           text.setColor(titleColor);
           text.setFont(selectedfonts);
-          text.addEffect("fadeIn", 1.5, 1.5);
+          text.addEffect("fadeIn", 1, 1.3);
           const text2 = new FFText({
             text: contentParts[1],
             fontSize: fontSize1,
@@ -409,7 +415,7 @@ exports.createVideo = async (req, res, next) => {
           scene1.addChild(text);
           text2.setColor(titleColor);
           text2.setFont(selectedfonts);
-          text2.addEffect("fadeIn", 1.5, 1.5);
+          text2.addEffect("fadeIn", 1.0, 1.4);
           scene1.addChild(text2);
 
           // add bottom cloud
@@ -420,18 +426,17 @@ exports.createVideo = async (req, res, next) => {
           fcloud.addAnimate({
             from: { x: -960 },
             to: { x: 960 },
-            time: 1,
+            time: 0.5,
             delay: 3.5,
             ease: "Cubic.InOut",
           });
           scene1.addChild(fcloud);
-          scene1.setDuration(5);
+          scene1.setDuration(4);
           creator.addChild(scene1);
           console.log(i);
           // scene1.setTransition("fade", 1.5);
           i++;
         } else if (templateBlock[i].sceneId == 2) {
-          console.log("here2");
           const data = templateBlock[i];
           let titleColor;
           if (data.sceneData.titleColor) {
@@ -835,8 +840,6 @@ exports.createVideo = async (req, res, next) => {
         } else if (templateBlock[i].sceneId == 4) { 
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate4(data);
-          console.log(fourthVideo);
-          console.log("here4");
           var result = data.sceneData.textArray[0].text.split(" ");
           var text1 = "";
           var text2 = "";
