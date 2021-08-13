@@ -1061,7 +1061,7 @@ exports.createVideo = async (req, res, next) => {
         }
       }
       if (lastScene) {
-        console.log('lastcsne');
+        console.log("lastcsne");
         let data = lastScene;
         if (data.sceneData.textArray[0] != undefined) {
           var titleColor1 = data.sceneData.textArray[0].fontColor;
@@ -1294,32 +1294,32 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
     Jimp.read(assetsPath + data.sceneData.media["0"].url)
       .then((img) => {
         img
+          .quality(60)
           .cover(950, 530, Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP)
-          .quality(70)
           .write(
             assetsPath + "template/videos/" + userId + "/template1/img1.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
             img
+            .quality(60)
               .cover(
                 950,
                 530,
                 Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP
               )
-              .quality(70)
               .write(
                 assetsPath + "template/videos/" + userId + "/template1/img2.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["2"].url)
               .then((img) => {
                 img
+                .quality(60)
                   .cover(
                     950,
                     530,
                     Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP
                   )
-                  .quality(70)
                   .write(
                     assetsPath +
                       "template/videos/" +
@@ -1329,12 +1329,12 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 Jimp.read(assetsPath + data.sceneData.media["3"].url)
                   .then((img) => {
                     img
+                    .quality(60)
                       .cover(
                         950,
                         530,
                         Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP
                       )
-                      .quality(70)
                       .write(
                         assetsPath +
                           "template/videos/" +
@@ -1369,24 +1369,24 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
     Jimp.read(assetsPath + data.sceneData.media["0"].url)
       .then((img) => {
         img
+        .quality(60)
           .cover(
             960,
             1080,
             Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP
           )
-          .quality(70)
           .write(
             assetsPath + "template/videos/" + userId + "/template1/img41.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
             img
+            .quality(60)
               .cover(
                 960,
                 1080,
                 Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP
               )
-              .quality(70)
               .write(
                 assetsPath +
                   "template/videos/" +
@@ -1396,12 +1396,12 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
             Jimp.read(assetsPath + data.sceneData.media["2"].url)
               .then((img) => {
                 img
+                .quality(60)
                   .cover(
                     960,
                     1080,
                     Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP
                   )
-                  .quality(70)
                   .write(
                     assetsPath +
                       "template/videos/" +
@@ -1411,12 +1411,12 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
                 Jimp.read(assetsPath + data.sceneData.media["3"].url)
                   .then((img) => {
                     img
+                    .quality(60)
                       .cover(
                         960,
                         1080,
                         Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP
                       )
-                      .quality(70)
                       .write(
                         assetsPath +
                           "template/videos/" +
