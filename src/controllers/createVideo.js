@@ -422,12 +422,12 @@ exports.createVideo = async (req, res, next) => {
           fcloud.addAnimate({
             from: { x: -960 },
             to: { x: 960 },
-            time: 0.5,
+            time: 1,
             delay: 3.5,
             ease: "Cubic.InOut",
           });
           scene1.addChild(fcloud);
-          scene1.setDuration(4);
+          scene1.setDuration(4.5);
           creator.addChild(scene1);
           console.log(i);
           console.log("scene1");
