@@ -302,7 +302,7 @@ exports.createVideo = async (req, res, next) => {
         width: 1920,
         height: 1080,
         log: true,
-        parallel: 200,
+        parallel: 50,
       });
       while (i < blockLength) {
         // Scene 1 Data
