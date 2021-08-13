@@ -20,6 +20,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.timeout = 60000;
 // === 2 - SET UP DATABASE
 // Configure mongoose's promise to global promise
 mongoose.promise = global.Promise;
