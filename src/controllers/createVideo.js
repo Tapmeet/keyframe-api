@@ -18,17 +18,13 @@ const Block = require("../models/templateBlocks");
 const Scene = require("../models/lastBlock");
 const UserVideos = require("../models/userVideos");
 const fs = require("fs");
-const gl = require("gl")(10, 10);
 const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 const ffmpeg = require("fluent-ffmpeg");
-const ffmpegProbe = require("ffmpeg-probe");
 const ffprobe = require("ffprobe-static");
 ffmpeg.setFfprobePath(ffprobe.path);
 ffmpeg.setFfmpegPath(ffmpegPath);
 let userId;
 const concat = require("ffmpeg-concat");
-const glob = require("glob");
-const { title } = require("process");
 const assetsPath = "./src/Assets/";
 var fonts = [
   {
@@ -306,7 +302,7 @@ exports.createVideo = async (req, res, next) => {
         width: 1920,
         height: 1080,
         log: true,
-        parallel: 20,
+        parallel: 50,
       });
       while (i < blockLength) {
         // Scene 1 Data
@@ -387,7 +383,7 @@ exports.createVideo = async (req, res, next) => {
           });
           // fimg1.addEffect("slideInUp", 1.5, 1);
           // fimg1.addEffect("fadeIn", 0.5, 1.1);
-          fimg1.setScale(0.5);
+          fimg1.setScale(0.35);
 
           scene1.addChild(fimg1);
           const fontSize1 = parseInt(data.sceneData.textSize) + 20;
@@ -706,12 +702,12 @@ exports.createVideo = async (req, res, next) => {
           fcloud.addAnimate({
             from: { x: -960 },
             to: { x: 960 },
-            time: 1.5,
+            time: 1,
             delay: 3.5,
             ease: "Cubic.InOut",
           });
           scene2.addChild(fcloud);
-          scene2.setDuration(5);
+          scene2.setDuration(4.5);
           creator.addChild(scene2);
           // scene2.setTransition("fade", 1);
           i++;
@@ -829,11 +825,11 @@ exports.createVideo = async (req, res, next) => {
             from: { y: 1620 },
             to: { y: 540 },
             time: 1,
-            delay: 4,
+            delay: 3.5,
             ease: "Cubic.InOut",
           });
           scene3.addChild(fcloud2);
-          scene3.setDuration(5);
+          scene3.setDuration(4.5);
           creator.addChild(scene3);
           console.log("here3");
           i++;
@@ -937,7 +933,7 @@ exports.createVideo = async (req, res, next) => {
               delay: 0.2,
               ease: "Cubic.InOut",
             });
-            scene4.addChild(fimg1); 
+            scene4.addChild(fimg1);
             const fontSize1 =
               parseInt(data.sceneData.textArray[0].fontSize) + 15;
             const fontSize2 =
@@ -1053,12 +1049,12 @@ exports.createVideo = async (req, res, next) => {
               from: { y: 1620 },
               to: { y: 540 },
               time: 1,
-              delay: 5.7,
+              delay: 5.5,
               ease: "Cubic.InOut",
             });
             scene4.addChild(fcloud3);
 
-            scene4.setDuration(7);
+            scene4.setDuration(6.5);
             creator.addChild(scene4);
           }
           i++;
