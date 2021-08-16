@@ -590,7 +590,7 @@ exports.createVideo = async (req, res, next) => {
           if (fieldText1 != "") {
             const textField = new FFText({
               text: fieldText1,
-              fontSize: fieldText1,
+              fontSize: fontSize1,
               x: 120,
               y: 220,
             });
