@@ -264,6 +264,7 @@ exports.createVideo = async (req, res, next) => {
       order: 1,
     });
     const template = await Template.findOne({ _id: templateId });
+    // console.log(template);
     const lastScene = await Scene.findOne({ templateId: templateId });
     const data = {
       templateBlock: templateBlock,
@@ -391,7 +392,7 @@ exports.createVideo = async (req, res, next) => {
             text: contentParts[0],
             fontSize: fontSize1,
             x: 960,
-            y: 520,
+            y: 515,
           });
           text.setColor(titleColor);
           text.setFont(selectedfonts);
@@ -400,7 +401,7 @@ exports.createVideo = async (req, res, next) => {
             text: contentParts[1],
             fontSize: fontSize1,
             x: 960,
-            y: 580,
+            y: 575,
           });
           text.alignCenter();
           text.setStyle({ padding: [0, 20, 10, 20] });
@@ -554,10 +555,10 @@ exports.createVideo = async (req, res, next) => {
             from: { x: -960 },
             to: { x: 960 },
             time: 1,
-            delay: 2,
+            delay: 3,
             ease: "Cubic.InOut",
           });
-          slide2.addEffect("zoomingIn", 3.5, 3);
+          slide2.addEffect("zoomingIn", 3.5, 4);
           scene2.addChild(slide2);
           const slidebg = new FFImage({
             path: assetsPath + "bgwhite.jpg",
@@ -704,11 +705,11 @@ exports.createVideo = async (req, res, next) => {
             from: { x: -960 },
             to: { x: 960 },
             time: 1,
-            delay: 3.5,
+            delay: 5.5,
             ease: "Cubic.InOut",
           });
           scene2.addChild(fcloud);
-          scene2.setDuration(4.5);
+          scene2.setDuration(6.5);
           creator.addChild(scene2);
           // scene2.setTransition("fade", 1);
           i++;
@@ -764,10 +765,10 @@ exports.createVideo = async (req, res, next) => {
             from: { x: -960 },
             to: { x: 960 },
             time: 1,
-            delay: 2,
+            delay: 3,
             ease: "Cubic.InOut",
           });
-          slide2.addEffect("zoomingIn", 3.5, 3);
+          slide2.addEffect("zoomingIn", 3.5, 4);
           scene3.addChild(slide2);
           scene3.setBgColor("#fff");
           const fimg1 = new FFImage({
@@ -826,11 +827,11 @@ exports.createVideo = async (req, res, next) => {
             from: { y: 1620 },
             to: { y: 540 },
             time: 1,
-            delay: 3.5,
+            delay: 4.5,
             ease: "Cubic.InOut",
           });
           scene3.addChild(fcloud2);
-          scene3.setDuration(4.5);
+          scene3.setDuration(5.5);
           creator.addChild(scene3);
           i++;
         } else if (templateBlock[i].sceneId == 4) {
@@ -916,7 +917,7 @@ exports.createVideo = async (req, res, next) => {
                 assetsPath +
                 "template/videos/" +
                 userId +
-                "/template1/img42.png",
+                "/template1/img43.png",
               x: 1445,
               y: 540,
             });
@@ -942,7 +943,8 @@ exports.createVideo = async (req, res, next) => {
               text: text1,
               fontSize: fontSize1,
               x: 50,
-              y: 960,
+              y: 955,
+              height: 100,
             });
             text.setColor(titleColor);
             text.setFont(selectedfonts);
@@ -954,6 +956,7 @@ exports.createVideo = async (req, res, next) => {
                 fontSize: fontSize1,
                 x: 50,
                 y: 1015,
+                height: 100,
               });
               textNext.setColor(titleColor);
               textNext.setFont(selectedfonts);
@@ -965,14 +968,14 @@ exports.createVideo = async (req, res, next) => {
                 assetsPath +
                 "template/videos/" +
                 userId +
-                "/template1/img43.png",
+                "/template1/img42.png",
               x: 475,
             });
             img3.addAnimate({
               from: { y: 1720 },
               to: { y: 540 },
               time: 1,
-              delay: 2.5,
+              delay: 3,
               ease: "Cubic.InOut",
             });
             scene4.addChild(img3);
@@ -988,7 +991,7 @@ exports.createVideo = async (req, res, next) => {
               from: { y: 1720 },
               to: { y: 540 },
               time: 1,
-              delay: 2.8,
+              delay: 3.2,
               ease: "Cubic.InOut",
             });
             scene4.addChild(img4);
@@ -1001,16 +1004,17 @@ exports.createVideo = async (req, res, next) => {
               from: { y: 1720 },
               to: { y: 1010 },
               time: 1,
-              delay: 3.2,
+              delay: 3.5,
               ease: "Cubic.InOut",
-            });
+            }); 
             // fimg2.addEffect("fadeInUp", 1, 3.2);
             scene4.addChild(fimg2);
             const textnext3 = new FFText({
               text: text3,
               fontSize: fontSize2,
               x: 1010,
-              y: 960,
+              y: 955,
+              height: 100,
             });
             textnext3.setColor(titleColor2);
             textnext3.setFont(selectedfonts2);
@@ -1022,6 +1026,7 @@ exports.createVideo = async (req, res, next) => {
                 fontSize: fontSize2,
                 x: 1010,
                 y: 1015,
+                height: 100,
               });
               textNext2.setColor(titleColor2);
               textNext2.setFont(selectedfonts2);
@@ -1049,12 +1054,12 @@ exports.createVideo = async (req, res, next) => {
               from: { y: 1620 },
               to: { y: 540 },
               time: 1,
-              delay: 5.5,
+              delay: 6.5,
               ease: "Cubic.InOut",
             });
             scene4.addChild(fcloud3);
 
-            scene4.setDuration(6.5);
+            scene4.setDuration(7.5);
             creator.addChild(scene4);
           }
           i++;
@@ -1262,23 +1267,29 @@ exports.createVideo = async (req, res, next) => {
       });
 
       creator.on("complete", (e) => {
-        console.log("1 video Done");
+        const templateTitle = template.title.split(" ").join("-");
+        const videoName = templateTitle + Date.now();
         fs.rename(
           e.output,
           "./src/Assets/template/videos/" +
             userId +
-            "/template1/finalVideo.mp4",
+            "/template1/" +
+            videoName +
+            ".mp4",
           () => {
             var finalvideo1 =
-              assetsPath +
               "template/videos/" +
               userId +
-              "/template1/finalVideo.mp4";
-            const result = [finalvideo1];
-            res.status(200).json({
-              message: "successfull",
-              data: result,
-            });
+              "/template1/" +
+              videoName +
+              ".mp4";
+
+            // const result = [finalvideo1];
+            saveVideoDb(template.title, finalvideo1, template.templateImage);
+            // res.status(200).json({
+            //   message: "successfull",
+            //   data: result,
+            // });
           }
         );
       });
@@ -1288,6 +1299,23 @@ exports.createVideo = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+  async function saveVideoDb(videoTitle, path, templateImage) {
+    try {
+      const newUpload = new UserVideos({
+        userId: userId,
+        videoTitle: videoTitle,
+        templateImage: templateImage,
+        path: path,
+      });
+      const uploadData = await newUpload.save();
+      res.status(200).json({
+        message: "successfull",
+        data: path,
+      });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
 };
 global.videoTemplate1 = async function videoTemplate1(data, req, res) {
   return new Promise((resolve) => {
@@ -1295,18 +1323,22 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
       .then((img) => {
         img
           .quality(60)
-          .cover(950, 530, Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP)
+          .cover(
+            950,
+            530,
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+          )
           .write(
             assetsPath + "template/videos/" + userId + "/template1/img1.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
             img
-            .quality(60)
+              .quality(60)
               .cover(
                 950,
                 530,
-                Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
               )
               .write(
                 assetsPath + "template/videos/" + userId + "/template1/img2.png"
@@ -1314,11 +1346,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             Jimp.read(assetsPath + data.sceneData.media["2"].url)
               .then((img) => {
                 img
-                .quality(60)
+                  .quality(60)
                   .cover(
                     950,
                     530,
-                    Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
                   )
                   .write(
                     assetsPath +
@@ -1329,11 +1361,12 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                 Jimp.read(assetsPath + data.sceneData.media["3"].url)
                   .then((img) => {
                     img
-                    .quality(60)
+                      .quality(60)
                       .cover(
                         950,
                         530,
-                        Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP
+                        Jimp.HORIZONTAL_ALIGN_CENTER |
+                          Jimp.VERTICAL_ALIGN_CENTER
                       )
                       .write(
                         assetsPath +
@@ -1369,11 +1402,11 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
     Jimp.read(assetsPath + data.sceneData.media["0"].url)
       .then((img) => {
         img
-        .quality(60)
+          .quality(60)
           .cover(
             960,
             1080,
-            Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
           )
           .write(
             assetsPath + "template/videos/" + userId + "/template1/img41.png"
@@ -1381,11 +1414,11 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
             img
-            .quality(60)
+              .quality(60)
               .cover(
                 960,
                 1080,
-                Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
               )
               .write(
                 assetsPath +
@@ -1396,11 +1429,11 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
             Jimp.read(assetsPath + data.sceneData.media["2"].url)
               .then((img) => {
                 img
-                .quality(60)
+                  .quality(60)
                   .cover(
                     960,
                     1080,
-                    Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
                   )
                   .write(
                     assetsPath +
@@ -1411,11 +1444,12 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
                 Jimp.read(assetsPath + data.sceneData.media["3"].url)
                   .then((img) => {
                     img
-                    .quality(60)
+                      .quality(60)
                       .cover(
                         960,
                         1080,
-                        Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP
+                        Jimp.HORIZONTAL_ALIGN_CENTER |
+                          Jimp.VERTICAL_ALIGN_CENTER
                       )
                       .write(
                         assetsPath +
@@ -1444,4 +1478,3 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
       });
   });
 };
-
