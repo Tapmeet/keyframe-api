@@ -1064,7 +1064,127 @@ exports.createVideo = async (req, res, next) => {
           }
           i++;
         }
+        else if (templateBlock[i].sceneId == 8) {
+          let data = templateBlock[i];
+          var titleColor = data.sceneData.textColor;
+          if (titleColor.length == "4") {
+            titleColor = titleColor.replaceAll(
+              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
+              "#$1$1$2$2$3$3"
+            );
+          }
+          var result = data.sceneData.content.split(" ");
+          console.log(result);
+          var text = "";
+          var text2 = "";
+          for (var m = 0; m < result.length; m++) {
+            if (m >= 13) {
+              text2 = text2 + result[m] + " ";
+            } else {
+              text = text + result[m] + " ";
+            }
+          }
+          console.log(text2);
+          let fontfamily = data.sceneData.fontFamily;
+          let selectedfonts;
+          fonts.map(function (font) {
+            if (font.family == fontfamily) {
+              if (data.sceneData.fontWeight == "lighter") {
+                selectedfonts = font.lighter;
+              } else if (data.sceneData.fontWeight == "normal") {
+                selectedfonts = font.file;
+              } else if (data.sceneData.fontWeight == "bold") {
+                selectedfonts = font.bold;
+              }
+            }
+          });
+          const scene3 = new FFScene();
+          const slide1 = new FFImage({
+            path: assetsPath + data.sceneData.media[0].url,
+            y: 540,
+            x: 960,
+            width: 1920,
+            height: 1080,
+          });
+          slide1.addEffect("zoomingIn", 3.5, 1);
+          scene3.addChild(slide1);
+          const slide2 = new FFImage({
+            path: assetsPath + data.sceneData.media[1].url,
+            y: 540,
+            x: 960,
+            width: 1920,
+            height: 1080,
+          });
+          slide2.addEffect("fadeIn", 1.5, 3);
+          slide2.addEffect("zoomingIn", 3.5, 4);
+          scene3.addChild(slide2);
+          scene3.setBgColor("#fff");
+          const fimg1 = new FFImage({
+            path: assetsPath + "whitestrip.jpg",
+            x: 960,
+          });
+          fimg1.addAnimate({
+            from: { y: -120 },
+            to: { y: 70 },
+            time: 1,
+            delay: 0.1,
+            ease: "Cubic.InOut",
+          });
+          scene3.addChild(fimg1);
+          const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+          let textOne = new FFText({
+            text: text,
+            fontSize: fontSize1,
+            x: 50,
+            y: 50,
+          });
+          textOne.setColor(titleColor);
+          textOne.setFont(selectedfonts);
+          textOne.addEffect("fadeIn", 1.5, 0.6);
+          scene3.addChild(textOne);
+          if (text2 != "") {
+            const textNext = new FFText({
+              text: text2,
+              fontSize: fontSize1,
+              x: 50,
+              y: 120,
+            });
+            textNext.setColor(titleColor);
+            textNext.setFont(selectedfonts);
+            textNext.addEffect("fadeIn", 1.0, 1.0);
+            scene3.addChild(textNext);
+          }
+
+          const scene3img = new FFImage({
+            path: assetsPath + "cropped.jpg",
+            y: 540,
+          });
+          scene3img.addAnimate({
+            from: { x: 960 },
+            to: { x: 3000 },
+            time: 1,
+            delay: 0,
+            ease: "Cubic.InOut",
+          });
+          scene3.addChild(scene3img);
+          const fcloud2 = new FFImage({
+            path: assetsPath + "cropped.jpg",
+            y: 540,
+          });
+          fcloud2.addAnimate({
+            from: { x: -1620 },
+            to: { x: 960 },
+            time: 1,
+            delay: 5,
+            ease: "Cubic.InOut",
+          });
+          scene3.addChild(fcloud2);
+          scene3.setDuration(6);
+          creator.addChild(scene3);
+          i++;
+        }
       }
+
       if (lastScene) {
         console.log("lastcsne");
         let data = lastScene;
