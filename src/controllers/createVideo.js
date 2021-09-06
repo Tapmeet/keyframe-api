@@ -1100,7 +1100,7 @@ exports.createVideo = async (req, res, next) => {
           const scene3 = new FFScene();
           const slide1 = new FFImage({
             path: assetsPath + data.sceneData.media[0].url,
-            y: 510,
+            y: 620,
             x: 960,
             width: 1920,
             height: 1080,
@@ -1109,7 +1109,7 @@ exports.createVideo = async (req, res, next) => {
           scene3.addChild(slide1);
           const slide2 = new FFImage({
             path: assetsPath + data.sceneData.media[1].url,
-            y: 510,
+            y: 620,
             x: 960,
             width: 1920,
             height: 1080,
