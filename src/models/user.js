@@ -1,3 +1,4 @@
+/* eslint-disable no-invalid-this */
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -32,7 +33,18 @@ const UserSchema = new mongoose.Schema({
   phone: {
     type: String,
     required: false,
-    max: 255,
+  },
+  website: {
+    type: String,
+    required: false,
+  },
+  agencyname: {
+    type: String,
+    required: false,
+  },
+  agencylogo: {
+    type: String,
+    required: false,
   },
   bio: {
     type: String,
@@ -98,6 +110,10 @@ UserSchema.methods.generateJWT = function() {
     language: this.language,
     phone: this.phone,
     userRole: this.userRole,
+    website: this.website,
+    agencyname: this.agencyname,
+    agencylogo: this.agencylogo,
+    profileImage: this.profileImage,
   };
 
   return jwt.sign(payload, new Buffer.from( process.env.JWT_SECRET, 'base64' ));

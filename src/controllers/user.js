@@ -46,11 +46,9 @@ exports.update = async function(req, res) {
     if (typeof email === 'undefined') {
       const user = await User.findOneAndUpdate({_id: id}, {$set: req.body}, {new: true, useFindAndModify: false});
       const users = await User.findOne({_id: id});
-
       res.status(200).json({token: users.generateJWT(), message: 'User has been updated'});
     } else {
       const user = await User.findOne({email});
-
       if (!user.comparePassword(password)) return res.status(401).json({message: 'Invalid current password'});
 
       // Set the new password
