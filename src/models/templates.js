@@ -24,6 +24,18 @@ const templatesSchema = new mongoose.Schema({
   musicFile: {
     type: String,
   },
+  fontSize: {
+    type: String,
+  },
+  fontFamily: {
+    type: String,
+  },
+  fontColor: {
+    type: String,
+  },
+  fontWeight: {
+    type: String,
+  },
   templateScenes: {
     type: Array,
   },

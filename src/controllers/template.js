@@ -53,7 +53,6 @@ var fonts = [
 ];
 //Upload
 exports.upload = async (req, res, next) => {
-
   try {
     const file = req.file;
     if (file) {
@@ -135,7 +134,11 @@ exports.getAdminTemplates = async function (req, res) {
             templateCategory: "$templateCategory",
             musicFile: "$musicFile",
             templateScenes: "$templateScenes",
-            templateId: "$templateId"
+            templateId: "$templateId",
+            fontWeight: "$fontWeight",
+            fontSize: "$fontSize",
+            fontFamily: "$fontFamily",
+            fontColor: "$fontColor",
           },
         },
         {
@@ -175,21 +178,21 @@ exports.addAdminTemplates = async function (req, res) {
         id: data._id,
       };
     });
-    var tempId =''
-    if(req.body.templateId){
-       tempId = req.body.templateId
+    var tempId = "";
+    if (req.body.templateId) {
+      tempId = req.body.templateId;
     }
- 
+
     //console.log(tempId);
     const newTemplate = new Template({
       userId: req.body.userId,
-      templateId:tempId, 
+      templateId: tempId,
       title: req.body.title,
       templateImage: req.body.templateImage,
       templatePreview: req.body.templatePreview,
       adminTemplate: req.body.adminTemplate,
       templateCategory: req.body.templateCategory,
-      templateScenes: scenes
+      templateScenes: scenes,
     });
     const tempateData = await newTemplate.save();
     //console.log(tempateData);
@@ -209,7 +212,7 @@ exports.addAdminTemplates = async function (req, res) {
           templateId: tempateData._id,
         });
         let newblockData = await newBlock.save();
-      
+
         blockData.push(newblockData);
       });
     const sceneData = await Scene.findOne({ templateId: "1" });
@@ -235,14 +238,148 @@ exports.updateTemplate = async function (req, res) {
     if (!template) {
       return res.status(200).json({ message: "Template not found" });
     }
-
+    //console.log(req.body);
     // // Update existing division
     const templateUpdate = await Template.findOneAndUpdate(
       { _id: id },
       { $set: req.body },
       { new: true, useFindAndModify: false }
     );
-    if (req.body.data && typeof req.body.data != undefined) {
+    if (req.body.fontFamily && typeof req.body.fontFamily != undefined) {
+      const templateBlock = await Block.find({ templateId: id });
+      const lastBlock = await Scene.find({ templateId: id });
+      //console.log(lastBlock);
+      //console.log(templateBlock);
+      let blockData;
+      lastBlock.map(async function (data) {
+        let color, textsize, fontweight, fontfamily;
+        if (req.body.fontFamily) {
+          fontfamily = req.body.fontFamily;
+        } else {
+          fontfamily = data.sceneData.fontFamily;
+        }
+        if (req.body.fontColor) {
+          color = req.body.fontColor;
+        } else {
+          color = data.sceneData.textColor;
+        }
+        if (req.body.fontWeight) {
+          fontweight = req.body.fontWeight;
+        } else {
+          fontweight = data.sceneData.fontWeight;
+        }
+        if (req.body.fontSize) {
+          textsize = req.body.fontSize;
+        } else {
+          textsize = data.sceneData.textSize;
+        }
+        if (data.sceneData.textArray) {
+          let newArr = [...data.sceneData.textArray]; // copying the old datas
+          data.sceneData.textArray.map(async function (data, arrayIndex) {
+            newArr[arrayIndex] = {
+              text: newArr[arrayIndex].text,
+              fontSize: textsize,
+              fontFamily: fontfamily,
+              fontWeight: fontweight,
+              fontLineHeight: newArr[arrayIndex].fontLineHeight,
+              fontAlignment: newArr[arrayIndex].fontAlignment,
+              fontColor: color,
+              fontCapitalize: newArr[arrayIndex].texttransform,
+              x: newArr[arrayIndex].x,
+              y: newArr[arrayIndex].y,
+              boxWidth: newArr[arrayIndex].boxWidth,
+              boxHeight: newArr[arrayIndex].boxHeight,
+            };
+          });
+          blockData = {
+            media: data.sceneData.media,
+            time: 4,
+            textArray: newArr,
+          };
+        }
+        const templateBlockUpdate = await Scene.findOneAndUpdate(
+          { _id: data._id },
+          { $set: { sceneData: blockData } },
+          { new: true, useFindAndModify: false }
+        );
+      });
+      templateBlock.map(async function (data) {
+        let color, textsize, fontweight, fontfamily;
+        if (req.body.fontFamily) {
+          fontfamily = req.body.fontFamily;
+        } else {
+          fontfamily = data.sceneData.fontFamily;
+        }
+        if (req.body.fontColor) {
+          color = req.body.fontColor;
+        } else {
+          color = data.sceneData.textColor;
+        }
+        if (req.body.fontWeight) {
+          fontweight = req.body.fontWeight;
+        } else {
+          fontweight = data.sceneData.fontWeight;
+        }
+        if (req.body.fontSize) {
+          textsize = req.body.fontSize;
+        } else {
+          textsize = data.sceneData.textSize;
+        }
+        if (data.sceneData.textArray) {
+          let newArr = [...data.sceneData.textArray]; // copying the old datas
+          data.sceneData.textArray.map(async function (data, arrayIndex) {
+            newArr[arrayIndex] = {
+              text: newArr[arrayIndex].text,
+              fontSize: textsize,
+              fontFamily: fontfamily,
+              fontWeight: fontweight,
+              fontLineHeight: newArr[arrayIndex].fontLineHeight,
+              fontAlignment: newArr[arrayIndex].fontAlignment,
+              fontColor: color,
+              fontCapitalize: newArr[arrayIndex].texttransform,
+              x: newArr[arrayIndex].x,
+              y: newArr[arrayIndex].y,
+              boxWidth: newArr[arrayIndex].boxWidth,
+              boxHeight: newArr[arrayIndex].boxHeight,
+            };
+          });
+          blockData = {
+            media: data.sceneData.media,
+            time: 4,
+            textArray: newArr,
+          };
+        } else {
+          blockData = {
+            content: data.sceneData.content,
+            textAligmnet: data.sceneData.textAligmnet,
+            textColor: color,
+            textlineHeight: data.sceneData.textlineHeight,
+            textSize: textsize,
+            x: data.sceneData.x,
+            y: data.sceneData.y,
+            boxwidth: data.sceneData.boxwidth,
+            boxheight: data.sceneData.boxheight,
+            textTransform: data.sceneData.textTransform,
+            media: data.sceneData.media,
+            time: data.sceneData.time,
+            fontFamily: fontfamily,
+            fontWeight: fontweight,
+            titleFontFamily: fontfamily,
+            titleFontWeight: fontweight,
+            titleColor: color,
+            titletextSize: textsize,
+          };
+        }
+        const templateBlockUpdate = await Block.findOneAndUpdate(
+          { _id: data._id },
+          { $set: { sceneData: blockData } },
+          { new: true, useFindAndModify: false }
+        );
+      });
+      res.status(200).json({
+        message: "Template has been updated",
+      });
+    } else if (req.body.data && typeof req.body.data != undefined) {
       const templateBlock = await Block.find({ templateId: id });
       const order = parseInt(templateBlock[templateBlock.length - 1].order) + 1;
       const newBlock = new Block({
@@ -292,7 +429,11 @@ exports.getAdminTemplate = async (req, res, next) => {
             templateCategory: "$templateCategory",
             musicFile: "$musicFile",
             templateScenes: "$templateScenes",
-            templateId: "$templateId"
+            templateId: "$templateId",
+            fontWeight: "$fontWeight",
+            fontSize: "$fontSize",
+            fontFamily: "$fontFamily",
+            fontColor: "$fontColor",
           },
         },
         {
