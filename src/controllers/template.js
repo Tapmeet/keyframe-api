@@ -4,6 +4,7 @@ const Musicupload = require("../models/uploadMedia");
 const Block = require("../models/templateBlocks");
 const Scene = require("../models/lastBlock");
 const UserVideos = require("../models/userVideos");
+const User = require("../models/user");
 const fs = require("fs");
 var gl = require("gl")(10, 10);
 const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
@@ -182,8 +183,8 @@ exports.addAdminTemplates = async function (req, res) {
     if (req.body.templateId) {
       tempId = req.body.templateId;
     }
-
-    //console.log(tempId);
+    const user = await User.findById(req.body.userId);
+    console.log(user);
     const newTemplate = new Template({
       userId: req.body.userId,
       templateId: tempId,
@@ -202,18 +203,34 @@ exports.addAdminTemplates = async function (req, res) {
     await sceneOrder
       .sort((a, b) => a.order - b.order)
       .map(async (data, index) => {
-        const newBlock = new Block({
-          sceneId: data.sceneId,
-          templateId: data._id,
-          sceneTitle: data.sceneTitle,
-          sceneThumbnail: data.sceneThumbnail,
-          sceneData: data.sceneData,
-          order: index + 1,
-          templateId: tempateData._id,
-        });
-        let newblockData = await newBlock.save();
+        if (user.userPlan == 0) {
+          if (index <= 1) {
+            const newBlock = new Block({
+              sceneId: data.sceneId,
+              templateId: data._id,
+              sceneTitle: data.sceneTitle,
+              sceneThumbnail: data.sceneThumbnail,
+              sceneData: data.sceneData,
+              order: index + 1,
+              templateId: tempateData._id,
+            });
+            let newblockData = await newBlock.save();
+            blockData.push(newblockData);
+          }
+        } else {
+          const newBlock = new Block({
+            sceneId: data.sceneId,
+            templateId: data._id,
+            sceneTitle: data.sceneTitle,
+            sceneThumbnail: data.sceneThumbnail,
+            sceneData: data.sceneData,
+            order: index + 1,
+            templateId: tempateData._id,
+          });
+          let newblockData = await newBlock.save();
 
-        blockData.push(newblockData);
+          blockData.push(newblockData);
+        }
       });
     const sceneData = await Scene.findOne({ templateId: "1" });
     const newScene = new Scene({

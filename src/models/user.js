@@ -60,6 +60,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: 'customer',
   },
+  userPlan: {
+    type: String,
+    default: '0',
+  },
   newsNotification: {
     type: Boolean,
     default: false,
@@ -114,6 +118,7 @@ UserSchema.methods.generateJWT = function() {
     agencyname: this.agencyname,
     agencylogo: this.agencylogo,
     profileImage: this.profileImage,
+    userPlan: this.userPlan,
   };
 
   return jwt.sign(payload, new Buffer.from( process.env.JWT_SECRET, 'base64' ));
