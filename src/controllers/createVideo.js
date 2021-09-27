@@ -17,6 +17,7 @@ const Template = require("../models/templates");
 const Block = require("../models/templateBlocks");
 const Scene = require("../models/lastBlock");
 const UserVideos = require("../models/userVideos");
+const User = require("../models/user");
 const fs = require("fs");
 const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 const ffmpeg = require("fluent-ffmpeg");
@@ -271,6 +272,8 @@ exports.createVideo = async (req, res, next) => {
       template: template,
     };
     userId = template.userId;
+    const user = await User.findById(userId);
+
     const folderName = "./src/Assets/template/videos/" + userId;
     try {
       if (!fs.existsSync(folderName)) {
@@ -359,6 +362,16 @@ exports.createVideo = async (req, res, next) => {
           });
           // fimg1.addEffect("slideInUp", 1.5, 1);
           scene1.addChild(img3);
+          if (user.userPlan == 0) {
+            const watermark = new FFImage({
+              path: assetsPath + "reveoLogo.png",
+              x: 150,
+              y: 50,
+            });
+            watermark.setOpacity(0.7);
+            watermark.setScale(0.5);
+            scene1.addChild(watermark);
+          }
           const img4 = new FFImage({
             path:
               assetsPath + "template/videos/" + userId + "/template1/img4.png",
@@ -697,6 +710,16 @@ exports.createVideo = async (req, res, next) => {
             text10.addEffect("fadeInLeft", 1, 1.3);
             scene2.addChild(text10);
           }
+          if (user.userPlan == 0) {
+            const watermark = new FFImage({
+              path: assetsPath + "reveoLogo.png",
+              x: 1680,
+              y: 50,
+            });
+            watermark.setOpacity(0.7);
+            watermark.setScale(0.5);
+            scene2.addChild(watermark);
+          }
           const fcloud = new FFImage({
             path: assetsPath + "cropped.jpg",
             y: 540,
@@ -805,6 +828,17 @@ exports.createVideo = async (req, res, next) => {
             textNext.setFont(selectedfonts);
             textNext.addEffect("fadeIn", 1.5, 1.0);
             scene3.addChild(textNext);
+          }
+          if (user.userPlan == 0) {
+            const watermark = new FFImage({
+              path: assetsPath + "reveoLogo.png",
+              x: 1680,
+              y: 50,
+            });
+            watermark.setOpacity(0.7);
+            watermark.setScale(0.5);
+            scene3.addChild(watermark);
+            
           }
 
           const scene3img = new FFImage({
@@ -1231,11 +1265,9 @@ exports.createVideo = async (req, res, next) => {
           for (var p = 0; p < result.length; p++) {
             if (p >= 7 && p < 14) {
               text2 = text2 + result[p] + " ";
-            }
-            else if (p > 13 ) {
+            } else if (p > 13) {
               text3 = text3 + result[p] + " ";
-            }
-            else {
+            } else {
               text1 = text1 + result[p] + " ";
             }
           }
@@ -1290,7 +1322,10 @@ exports.createVideo = async (req, res, next) => {
             scene4.addChild(image);
             const img3 = new FFImage({
               path:
-                assetsPath + "template/videos/" + userId + "/template1/img102.png",
+                assetsPath +
+                "template/videos/" +
+                userId +
+                "/template1/img102.png",
               x: 475,
               y: 810,
             });
@@ -1306,7 +1341,7 @@ exports.createVideo = async (req, res, next) => {
               parseInt(data.sceneData.textArray[0].fontSize) + 15;
             const fontSize2 =
               parseInt(data.sceneData.textArray[1].fontSize) + 15;
-              console.log(text1);
+            console.log(text1);
             const text = new FFText({
               text: text1,
               fontSize: fontSize1,
@@ -1375,8 +1410,7 @@ exports.createVideo = async (req, res, next) => {
             creator.addChild(scene4);
           }
           i++;
-        }
-        else if (templateBlock[i].sceneId == 11) {
+        } else if (templateBlock[i].sceneId == 11) {
           let data = templateBlock[i];
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
@@ -1433,7 +1467,7 @@ exports.createVideo = async (req, res, next) => {
           });
           fimg1.addAnimate({
             from: { y: 1180 },
-            to: { y: 1040},
+            to: { y: 1040 },
             time: 1,
             delay: 0.1,
             ease: "Cubic.InOut",
@@ -1733,59 +1767,37 @@ exports.createVideo = async (req, res, next) => {
       });
       const uploadData = await newUpload.save();
       deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/img1.png"
+        "./src/Assets/template/videos/" + userId + "/template1/img1.png"
       );
       deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/img2.png"
+        "./src/Assets/template/videos/" + userId + "/template1/img2.png"
       );
       deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/img3.png"
+        "./src/Assets/template/videos/" + userId + "/template1/img3.png"
       );
       deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/img4.png"
+        "./src/Assets/template/videos/" + userId + "/template1/img4.png"
       );
       deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/img41.png"
+        "./src/Assets/template/videos/" + userId + "/template1/img41.png"
       );
       deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/img42.png"
+        "./src/Assets/template/videos/" + userId + "/template1/img42.png"
       );
       deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/img43.png"
+        "./src/Assets/template/videos/" + userId + "/template1/img43.png"
       );
       deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/img44.png"
+        "./src/Assets/template/videos/" + userId + "/template1/img44.png"
       );
       deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/img101.png"
+        "./src/Assets/template/videos/" + userId + "/template1/img101.png"
       );
       deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/img102.png"
+        "./src/Assets/template/videos/" + userId + "/template1/img102.png"
       );
       deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/img103.png"
+        "./src/Assets/template/videos/" + userId + "/template1/img103.png"
       );
       res.status(200).json({
         message: "successfull",
