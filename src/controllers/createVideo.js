@@ -838,7 +838,6 @@ exports.createVideo = async (req, res, next) => {
             watermark.setOpacity(0.7);
             watermark.setScale(0.5);
             scene3.addChild(watermark);
-            
           }
 
           const scene3img = new FFImage({
@@ -1021,6 +1020,7 @@ exports.createVideo = async (req, res, next) => {
                 "/template1/img44.png",
               x: 1445,
             });
+
             img4.addAnimate({
               from: { y: 1720 },
               to: { y: 540 },
@@ -1066,6 +1066,16 @@ exports.createVideo = async (req, res, next) => {
               textNext2.setFont(selectedfonts2);
               textNext2.addEffect("fadeIn", 1.2, 4.4);
               scene4.addChild(textNext2);
+            }
+            if (user.userPlan == 0) {
+              const watermark = new FFImage({
+                path: assetsPath + "reveoLogo.png",
+                x: 1680,
+                y: 50,
+              });
+              watermark.setOpacity(0.7);
+              watermark.setScale(0.5);
+              scene4.addChild(watermark);
             }
             const fcloud2 = new FFImage({
               path: assetsPath + "cropped.jpg",
@@ -1715,7 +1725,16 @@ exports.createVideo = async (req, res, next) => {
         text.setFont(selectedfonts4);
         text4.addEffect("fadeInRight", 1.4, 1.4);
         sceneLast.addChild(text4);
-
+        if (user.userPlan == 0) {
+          const watermark = new FFImage({
+            path: assetsPath + "reveoLogo.png",
+            x: 1680,
+            y: 50,
+          });
+          watermark.setOpacity(0.7);
+          watermark.setScale(0.5);
+          sceneLast.addChild(watermark);
+        }
         sceneLast.setDuration(3);
         creator.addChild(sceneLast);
       }
