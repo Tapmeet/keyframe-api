@@ -371,6 +371,7 @@ exports.createVideo = async (req, res, next) => {
             watermark.setOpacity(0.7);
             watermark.setScale(0.5);
             scene1.addChild(watermark);
+            console.log("here");
           }
           const img4 = new FFImage({
             path:
@@ -407,22 +408,22 @@ exports.createVideo = async (req, res, next) => {
             x: 960,
             y: 515,
           });
+          scene1.addChild(text);
           text.setColor(titleColor);
           text.setFont(selectedfonts);
           text.addEffect("fadeIn", 1, 1.3);
+          text.alignCenter();
+          text.setStyle({ padding: [0, 20, 10, 20] });
+          scene1.addChild(text);
+
           const text2 = new FFText({
             text: contentParts[1],
             fontSize: fontSize1,
             x: 960,
             y: 575,
           });
-          text.alignCenter();
-          text.setStyle({ padding: [0, 20, 10, 20] });
-
           text2.alignCenter();
           text2.setStyle({ padding: [4, 20, 6, 20] });
-
-          scene1.addChild(text);
           text2.setColor(titleColor);
           text2.setFont(selectedfonts);
           text2.addEffect("fadeIn", 1.0, 1.4);
@@ -587,7 +588,6 @@ exports.createVideo = async (req, res, next) => {
           scene2.addChild(slidebg);
           const fontSize1 = parseInt(titletextSize) + 20;
           const fontSize2 = parseInt(textSize) + 20;
-
           if (fieldTitle1 != "") {
             const text1 = new FFText({
               text: fieldTitle1,
@@ -1538,8 +1538,12 @@ exports.createVideo = async (req, res, next) => {
       }
 
       if (lastScene) {
-        console.log("lastcsne");
+        console.log("lastscene");
+        //  `console.log(lastScene.sceneData.textArray);
+
         let data = lastScene;
+        const lastVideo = await videoTemplateLast(data);
+        console.log(lastVideo);
         if (data.sceneData.textArray[0] != undefined) {
           var titleColor1 = data.sceneData.textArray[0].fontColor;
           let fontfamily = data.sceneData.textArray[0].fontFamily;
@@ -1668,20 +1672,19 @@ exports.createVideo = async (req, res, next) => {
         sceneLast.setBgColor("#fff");
 
         const fbg = new FFImage({
-          path: assetsPath + data.sceneData.media[0].url,
+          path: assetsPath + "template/videos/" + userId + "/template1/imglast1.png",
           x: 720,
           y: 480,
         });
         fbg.addEffect("fadeInLeft", 0.6, 1.2);
         sceneLast.addChild(fbg);
         const fimg1 = new FFImage({
-          path: assetsPath + data.sceneData.media[1].url,
-          x: 1160,
+          path: assetsPath + "template/videos/" + userId + "/template1/imglast2.png",
+          x: 1260,
           y: 600,
         });
         fimg1.addEffect("fadeIn", 1.5, 1.5);
         sceneLast.addChild(fimg1);
-
         const text = new FFText({
           text: fieldText1,
           fontSize: fontSize1,
@@ -2040,6 +2043,49 @@ global.videoTemplate10 = async function videoTemplate10(data, req, res) {
               .catch((err) => {
                 console.error(err);
               });
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
+};
+
+global.videoTemplateLast = async function videoTemplateLast(data, req, res) {
+  return new Promise((resolve) => {
+    Jimp.read(assetsPath + data.sceneData.media["0"].url)
+      .then((img) => {
+        img
+          .quality(60)
+          .scaleToFit(
+            450,
+            300,
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+          )
+          .write(
+            assetsPath + "template/videos/" + userId + "/template1/imglast1.png"
+          ); // save
+        Jimp.read(assetsPath + data.sceneData.media["1"].url)
+          .then((img) => {
+            img
+              .quality(60)
+              .scaleToFit(
+                350,
+                120,
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+              )
+              .write(
+                assetsPath +
+                  "template/videos/" +
+                  userId +
+                  "/template1/imglast2.png"
+              ); // save
+            setTimeout(function () {
+              resolve("done");
+            }, 500);
           })
           .catch((err) => {
             console.error(err);
