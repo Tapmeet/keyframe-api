@@ -29,7 +29,6 @@ const UserSchema = new mongoose.Schema({
     required: 'First Name is required',
     max: 100,
   },
-
   phone: {
     type: String,
     required: false,

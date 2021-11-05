@@ -15,7 +15,7 @@ const teamSchema = new mongoose.Schema({
   },
   memberPhone: {
     type: String,
-    required: true,
+
   },
   memberEmail: {
     type: String,
@@ -23,7 +23,10 @@ const teamSchema = new mongoose.Schema({
   },
   memberProfilePic: {
     type: String,
-    required: true,
+  },
+  approve: {
+    type: Boolean,
+    default: false,
   },
 
 }, {timestamps: true});
