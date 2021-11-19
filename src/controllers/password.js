@@ -24,8 +24,8 @@ exports.recover = async (req, res) => {
           const link = `${process.env.WEBSITEURL}verification/?useremail=${user.email}&token=${user.resetPasswordToken}`;
           const msg = {
             to: user.email,
-            from: 'Keyframe <' + process.env.FROM_EMAIL + '>',
-            templateId: 'd-a4ab319a6e974a7e89cc31424194e411',
+            from: 'Reveo <' + process.env.FROM_EMAIL + '>',
+            templateId: 'd-43976d813ebe43d4bae2d4057412722f',
             dynamic_template_data: {
               sender_name: user.firstName,
               reset_url: link,
@@ -91,11 +91,11 @@ exports.resetPassword = (req, res) => {
           // send email
           const mailOptions = {
             to: user.email,
-            from: 'Keyframe <' + process.env.FROM_EMAIL + '>',
+            from: 'Reveo <' + process.env.FROM_EMAIL + '>',
             // subject: "Your password has been changed",
             // text: `Hi ${user.firstName} \n
             // This is a confirmation that the password for your account ${user.email} has just been changed.\n`
-            templateId: 'd-6a5602253edc41f68458b24e401110a8',
+            templateId: 'd-a33f29fc7e9d436bb9257c80e5ae9520',
             dynamic_template_data: {
               sender_name: user.firstName,
               login_url: link,

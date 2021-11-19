@@ -95,7 +95,7 @@ exports.verify = async (req, res) => {
         // send email
         const mailOptions = {
           to: user.email,
-          from: 'Keyframe <' + process.env.FROM_EMAIL + '>',
+          from: 'Reveo <' + process.env.FROM_EMAIL + '>',
           templateId: 'd-26e7ac009e3149a3924d3499deedb0c4',
           dynamic_template_data: {
             sender_name: user.firstName,
@@ -145,7 +145,7 @@ function sendEmail(user, req, res) {
       const link = `${process.env.WEBSITEURL}email-verification/?useremail=${user.email}&token=${token.token}`;
       const msg = {
         to: user.email,
-        from: 'Keyframe <' + process.env.FROM_EMAIL + '>',
+        from: 'Reveo <' + process.env.FROM_EMAIL + '>',
         templateId: 'd-5c65a85b95f44ef69658fc7c36abe6ea',
         dynamic_template_data: {
           sender_name: user.firstName,
