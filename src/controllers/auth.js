@@ -85,7 +85,7 @@ exports.verify = async (req, res) => {
     User.findOne({_id: token.userId}, (err, user) => {
       if (!user) return res.status(401).json({message: 'We were unable to find a user for this token.'});
 
-      if (user.isVerified) return res.status(200).json({message: 'This user has already been verified.'});
+      if (user.isVerified) return res.status(200).json({message: 'The account has been verified. Please log in.'});
 
       // Verify and save the user
       user.isVerified = true;
@@ -96,7 +96,7 @@ exports.verify = async (req, res) => {
         const mailOptions = {
           to: user.email,
           from: 'Reveo <' + process.env.FROM_EMAIL + '>',
-          templateId: 'd-26e7ac009e3149a3924d3499deedb0c4',
+          templateId: 'd-c6af786bf2374a7f91b9c1349d5f5b79',
           dynamic_template_data: {
             sender_name: user.firstName,
             login_url: link,
@@ -146,7 +146,7 @@ function sendEmail(user, req, res) {
       const msg = {
         to: user.email,
         from: 'Reveo <' + process.env.FROM_EMAIL + '>',
-        templateId: 'd-5c65a85b95f44ef69658fc7c36abe6ea',
+        templateId: 'd-f4bf6685164041c89b53f5b524193c0d',
         dynamic_template_data: {
           sender_name: user.firstName,
           reset_url: link,

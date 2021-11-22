@@ -8,6 +8,8 @@ router.get('/get-members', team.getMembers);
 router.post('/add-member', team.addMember);
 router.delete('/delete-member/', team.deleteBlock);
 router.get('/search-members', team.searchMembers);
+router.post('/invite-member', team.inviteMember);
+
 
 module.exports = router;
 
