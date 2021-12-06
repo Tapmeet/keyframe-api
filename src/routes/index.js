@@ -7,6 +7,7 @@ const lastBlock = require('./lastBlock');
 const sceneCategory = require('./sceneCategory');
 const templateCategory = require('./templateCategory');
 const team = require('./team');
+const ipn = require('./IPN');
 module.exports = (app) => {
   app.get('/', (req, res) => {
     res.status(200).send({message: 'Welcome to the AUTHENTICATION API. Register or Login to test Authentication.'});
@@ -20,5 +21,5 @@ module.exports = (app) => {
   app.use('/api/last-block', lastBlock);
   app.use('/api/category', sceneCategory);
   app.use('/api/template-category', templateCategory);
-  app.use('/api/ipn', templateCategory);
+  app.use('/api/ipn', ipn);
 };
