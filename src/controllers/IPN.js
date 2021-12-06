@@ -11,6 +11,7 @@ const Team = require('../models/team');
  * @access Admin
  */
 exports.index = async (req, res, next) => {
+  console.log('req.body');
   console.log(req.body);
   res.status(200).send('OK');
   res.end();
