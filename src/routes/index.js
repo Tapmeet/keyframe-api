@@ -20,4 +20,5 @@ module.exports = (app) => {
   app.use('/api/last-block', lastBlock);
   app.use('/api/category', sceneCategory);
   app.use('/api/template-category', templateCategory);
+  app.use('/api/ipn', templateCategory);
 };

@@ -402,7 +402,7 @@ exports.createVideo = async (req, res, next) => {
           fimg1.setScale(0.38);
 
           scene1.addChild(fimg1);
-          if (contentParts[2] != undefined && contentParts[2] != '') {
+          if (contentParts[2] != undefined && contentParts[2] != "") {
             const fontSize1 = parseInt(data.sceneData.textSize) + 20;
             const text = new FFText({
               text: contentParts[0],
@@ -492,7 +492,9 @@ exports.createVideo = async (req, res, next) => {
           i++;
           console.log(i);
         } else if (templateBlock[i].sceneId == 2) {
-          const data = templateBlock[i];
+          let data = templateBlock[i];
+          const firstVideo = await videoTemplate2(data);
+          console.log(firstVideo);
           let titleColor;
           if (data.sceneData.titleColor) {
             titleColor = data.sceneData.titleColor;
@@ -587,7 +589,8 @@ exports.createVideo = async (req, res, next) => {
 
           // add bottom cloud
           const slide1 = new FFImage({
-            path: assetsPath + data.sceneData.media[0].url,
+            path:
+            assetsPath + "template/videos/" + userId + "/template1/img21.png",
             y: 540,
             width: 1920,
             height: 1080,
@@ -603,7 +606,8 @@ exports.createVideo = async (req, res, next) => {
           scene2.addChild(slide1);
 
           const slide2 = new FFImage({
-            path: assetsPath + data.sceneData.media[1].url,
+            path:
+            assetsPath + "template/videos/" + userId + "/template1/img22.png",
             y: 540,
             width: 1920,
             height: 1080,
@@ -2032,6 +2036,49 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
               .catch((err) => {
                 console.error(err);
               });
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
+};
+
+global.videoTemplate2 = async function videoTemplate2(data, req, res) {
+  return new Promise((resolve) => {
+    Jimp.read(assetsPath + data.sceneData.media["0"].url)
+      .then((img) => {
+        img
+          .quality(60)
+          .scaleToFit(
+            1920,
+            1080,
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+          )
+          .write(
+            assetsPath + "template/videos/" + userId + "/template1/img21.png"
+          ); // save
+        Jimp.read(assetsPath + data.sceneData.media["1"].url)
+          .then((img) => {
+            img
+              .quality(60)
+              .scaleToFit(
+                1920,
+                1080,
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+              )
+              .write(
+                assetsPath +
+                  "template/videos/" +
+                  userId +
+                  "/template1/img22.png"
+              ); // save
+            setTimeout(function () {
+              resolve("done");
+            }, 500);
           })
           .catch((err) => {
             console.error(err);

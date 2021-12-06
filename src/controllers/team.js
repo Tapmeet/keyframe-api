@@ -77,6 +77,9 @@ exports.searchMembers = async function(req, res) {
  */
 exports.inviteMember = async function(req, res) {
   const {email} = req.body;
+  const {inviteEmail} = req.body;
+  const {inviteName} = req.body;
+
   try {
     const link = `${process.env.WEBSITEURL}signup`;
     // send email
@@ -86,6 +89,9 @@ exports.inviteMember = async function(req, res) {
       templateId: 'd-e5e70eb5ae8849048ba01e6c4cfffe51',
       dynamic_template_data: {
         login_url: link,
+        inviteEmail: inviteEmail,
+        inviteName: inviteName,
+
       },
     };
 
