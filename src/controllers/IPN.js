@@ -26,7 +26,7 @@ exports.index = async (req, res, next) => {
     console.log('thre');
     const user = await User.find({email: buyer_email});
     console.log('thress');
-    console.log(user);
+    console.log(user._id);
     const userid = user._id;
     const newTeam = new Ipn({...req.body, userId: userid});
     console.log(newTeam);
