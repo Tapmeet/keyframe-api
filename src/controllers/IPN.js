@@ -17,12 +17,16 @@ exports.index = async (req, res, next) => {
   console.log(req.body);
   console.log(buyer_email);
   try {
+    console.log('hre');
     const isValidated = await paykickstartIPNValidator(ipn, secret);
     if (!isValidated) {
       console.error('Error validating IPN message.');
       return;
     }
+    console.log('thre');
     const user = await User.find({email: buyer_email});
+    console.log('thress');
+    console.log(user);
     const userid = user._id;
     const newTeam = new IpnTb({...req.body, userId: userid});
     console.log(newTeam);
