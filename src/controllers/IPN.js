@@ -13,8 +13,7 @@ const paykickstartIPNValidator = require('paykickstart-ipn-validator');
  * @access Admin
  */
 exports.index = async (req, res, next) => {
-  console.log(req.body);
-  const buyer_email = req.body;
+  const {buyer_email} = req.body;
   console.log(req.body);
   console.log(buyer_email);
   try {
