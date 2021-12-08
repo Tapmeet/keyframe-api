@@ -15,7 +15,6 @@ const paykickstartIPNValidator = require('paykickstart-ipn-validator');
 exports.index = async (req, res, next) => {
   const {buyer_email} = req.body;
   console.log(req.body);
-  console.log(buyer_email);
   try {
     console.log('hre');
     const isValidated = await paykickstartIPNValidator(req.body, process.env.SECRETIPN);
@@ -23,14 +22,10 @@ exports.index = async (req, res, next) => {
       console.error('Error validating IPN message.');
       return;
     }
-    console.log('thre');
     const user = await User.find({email: buyer_email});
-    console.log('thress');
-    console.log(user[0]._id);
     const userid = user[0]._id;
     const newTeam = new Ipn({...req.body, userId: userid});
     const member = await newTeam.save();
-    console.log(member);
     res.status(200).send('OK');
     res.end();
   } catch (error) {
