@@ -18,7 +18,7 @@ exports.index = async (req, res, next) => {
   console.log(buyer_email);
   try {
     console.log('hre');
-    const isValidated = await paykickstartIPNValidator(ipn, secret);
+    const isValidated = await paykickstartIPNValidator(req.body, process.env.SECRETIPN);
     if (!isValidated) {
       console.error('Error validating IPN message.');
       return;
