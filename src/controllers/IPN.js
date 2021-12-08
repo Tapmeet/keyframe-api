@@ -26,8 +26,8 @@ exports.index = async (req, res, next) => {
     console.log('thre');
     const user = await User.find({email: buyer_email});
     console.log('thress');
-    console.log(user._id);
-    const userid = user._id;
+    console.log(user[0]._id);
+    const userid = user[0]._id;
     const newTeam = new Ipn({...req.body, userId: userid});
     console.log(newTeam);
     res.status(200).send('OK');
