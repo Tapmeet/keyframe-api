@@ -29,7 +29,8 @@ exports.index = async (req, res, next) => {
     console.log(user[0]._id);
     const userid = user[0]._id;
     const newTeam = new Ipn({...req.body, userId: userid});
-    console.log(newTeam);
+    const member = await newTeam.save();
+    console.log(member);
     res.status(200).send('OK');
     res.end();
   } catch (error) {
