@@ -46,21 +46,13 @@ exports.socialSignup = async (req, res) => {
   console.log(req.body);
   try {
     const {email} = req.body;
-    console.log('email');
-    console.log(email);
     // Make sure this account doesn't already exist
     const user = await User.findOne({email: email});
-
-    console.log('user');
-    console.log(email);
     if (user) {
       res.status(200).json({token: user.generateJWT(), user: user});
     } else {
       const newUser = new User({...req.body, isVerified: true});
       const user_ = await newUser.save();
-
-    console.log('user_');
-    console.log(user_);
       const link = `${process.env.WEBSITEURL}login`;
       // send email
       const mailOptions = {
@@ -74,7 +66,6 @@ exports.socialSignup = async (req, res) => {
       };
 
       sgMail.send(mailOptions, (error, result) => {
-        console.log(result);
         if (error) return res.status(500).json({message: error.message});
         res.status(200).json({token: user_.generateJWT(), user: user_});
       });
