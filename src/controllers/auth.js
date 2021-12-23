@@ -43,6 +43,7 @@ exports.register = async (req, res) => {
  *  @access Public
  */
 exports.socialSignup = async (req, res) => {
+  console.log(req.body)
   try {
     const {email} = req.body;
     // Make sure this account doesn't already exist
