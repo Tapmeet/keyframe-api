@@ -128,6 +128,7 @@ UserSchema.methods.generateJWT = function() {
     agencylogo: this.agencylogo,
     profileImage: this.profileImage,
     userPlan: this.userPlan,
+    loginType: this.loginType,
   };
 
   return jwt.sign(payload, new Buffer.from( process.env.JWT_SECRET, 'base64' ));
