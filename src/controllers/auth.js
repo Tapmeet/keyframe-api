@@ -76,7 +76,7 @@ exports.socialSignup = async (req, res) => {
       sgMail.send(mailOptions, (error, result) => {
         console.log(result);
         if (error) return res.status(500).json({message: error.message});
-        res.status(200).json({token: user.generateJWT(), user: user_});
+        res.status(200).json({token: user_.generateJWT(), user: user_});
       });
     }
   } catch (error) {
