@@ -23,6 +23,7 @@ router.post('/login', [
   check('password').not().isEmpty(),
 ], validate, Auth.login);
 
+router.post('/social-login', Auth.socialSignup);
 
 // EMAIL Verification
 router.get('/verify/:token', Auth.verify);
@@ -34,6 +35,8 @@ router.post('/recover', [
 ], validate, Password.recover);
 
 router.get('/reset/:token', Password.reset);
+
+router.get('/check-plan/', Auth.checkPlan);
 
 router.post('/reset/:token', [
   check('password').not().isEmpty().isLength({min: 6}).withMessage('Must be at least 6 chars long'),

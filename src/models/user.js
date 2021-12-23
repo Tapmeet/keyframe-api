@@ -18,6 +18,12 @@ const UserSchema = new mongoose.Schema({
     required: false,
 
   },
+  socialLoginId: {
+    type: String,
+  },
+  loginType: {
+    type: String,
+  },
   password: {
     type: String,
     required: 'Your password is required',
@@ -62,6 +68,10 @@ const UserSchema = new mongoose.Schema({
   userPlan: {
     type: String,
     default: '0',
+  },
+  userPlanBuyDate: {
+    type: Date,
+    required: false,
   },
   newsNotification: {
     type: Boolean,

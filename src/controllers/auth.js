@@ -38,6 +38,44 @@ exports.register = async (req, res) => {
   }
 };
 
+/** @route POST api/auth/register
+ *  @desc Register user
+ *  @access Public
+ */
+exports.socialSignup = async (req, res) => {
+  try {
+    const {email} = req.body;
+    // Make sure this account doesn't already exist
+    const user = await User.findOne({email: email});
+
+    if (user) {
+      res.status(200).json({token: user.generateJWT(), user: user});
+    }
+    else {
+      const newUser = new User({...req.body, isVerified: true});
+      const user_ = await newUser.save();
+      const link = `${process.env.WEBSITEURL}login`;
+      // send email
+      const mailOptions = {
+        to: user.email,
+        from: 'Reveo <' + process.env.FROM_EMAIL + '>',
+        templateId: 'd-c6af786bf2374a7f91b9c1349d5f5b79',
+        dynamic_template_data: {
+          sender_name: user.firstName,
+          login_url: link,
+        },
+      };
+
+      sgMail.send(mailOptions, (error, result) => {
+        if (error) return res.status(500).json({message: error.message});
+        res.status(200).json({token: user.generateJWT(), user: user_});
+      });
+    }
+  } catch (error) {
+    res.status(500).json({success: false, message: error.message});
+  }
+};
+
 
 /**
  *  @route POST api/auth/login
@@ -60,6 +98,23 @@ exports.login = async (req, res) => {
 
     // Login successful, write token, and send back user
     res.status(200).json({token: user.generateJWT(), user: user});
+  } catch (error) {
+    res.status(500).json({message: error.message});
+  }
+};
+
+/**
+ *  @route POST api/auth/login
+*   @desc Login user
+*   @return return JWT token
+*/
+exports.checkPlan = async (req, res) => {
+  try {
+    const {email} = req.query;
+    const user = await User.findOne({email});
+
+    // Login successful, write token, and send back user
+    res.status(200).json({user: user.userPlan, planDate: user.userPlanBuyDate});
   } catch (error) {
     res.status(500).json({message: error.message});
   }
@@ -167,23 +222,6 @@ function sendEmail(user, req, res) {
           });
 
       res.status(200).json({message: 'A  email has been sent to ' + user.email + '. Please confirm email before proceed'});
-
-      // const link = `${process.env.WEBSITEURL}login`;
-      // // send email
-      // const mailOptions = {
-      //   to: user.email,
-      //   from: 'Keyframe <' + process.env.FROM_EMAIL + '>',
-      //   templateId: 'd-26e7ac009e3149a3924d3499deedb0c4',
-      //   dynamic_template_data: {
-      //     sender_name: user.firstName,
-      //     login_url: link,
-      //   },
-      // };
-
-      // sgMail.send(mailOptions, (error, result) => {
-      //   if (error) return res.status(500).json({message: error.message});
-      //   res.status(200).json({message: 'Congrats! Your account is created. Please Login'});
-      // });
     }
   });
 }

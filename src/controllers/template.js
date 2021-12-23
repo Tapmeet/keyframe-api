@@ -111,6 +111,68 @@ exports.uploadMedia = async (req, res, next) => {
     res.status(500).json({ message: error.message });
   }
 };
+const cutVideo = async (sourcePath, outputPath, startTime, duration) => {
+  console.log("start cut video");
+  const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
+  const ffmpeg = require("fluent-ffmpeg");
+  var ffprobe = require("ffprobe-static");
+  ffmpeg.setFfprobePath(ffprobe.path);
+  ffmpeg.setFfmpegPath(ffmpegPath);
+  await new Promise((resolve, reject) => {
+    ffmpeg(sourcePath)
+      // .setFfmpegPath(ffmpegPath)
+      // .setFfprobePath(ffprobe)
+      .output(outputPath)
+      .setStartTime(startTime)
+      .setDuration(duration)
+      .withVideoCodec("copy")
+      .withAudioCodec("copy")
+      .on("end", function (err) {
+        if (!err) {
+          console.log("conversion Done");
+          resolve("ok");
+        }
+      })
+      .on("error", function (err) {
+        console.log("error: ", err);
+        reject(err);
+      })
+      .run();
+  });
+};
+//Upload
+exports.editVideo = async (req, res, next) => {
+  console.log("here");
+  console.log(req.body);
+  try {
+    let filename = "video-" + Date.now() + "-video.mp4";
+    let sourcePath = "./src/Assets/" + req.body.path;
+    var outputPath = "./src/Assets/template/" + filename;
+    let startTime = req.body.sceneData.start;
+    let duration =
+      parseFloat(req.body.sceneData.end) - req.body.sceneData.start;
+    const cut = await cutVideo(sourcePath, outputPath, startTime, duration);
+    if (cut == undefined) {
+      console.log("jhere")
+      console.log(outputPath)
+      const newUpload = new Musicupload({
+        originalname: filename,
+        mimetype: "video/mpeg",
+        filename: filename,
+        path:"./src/Assets/template/" + filename,
+        size: "296000077",
+        userId: req.body.userId,
+        templateId: req.body.templateId,
+        adminMedia: false,
+      });
+      const uploadData = await newUpload.save();
+      res.status(200).json({ message: "template/" + filename });
+    }
+    console.log(cut);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 /** @route GET admin/user
  *   @desc Returns all users
  *   @access Public

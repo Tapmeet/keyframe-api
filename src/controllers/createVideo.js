@@ -22,6 +22,7 @@ const fs = require("fs");
 const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 const ffmpeg = require("fluent-ffmpeg");
 const ffprobe = require("ffprobe-static");
+const { getVideoDurationInSeconds } = require("get-video-duration");
 ffmpeg.setFfprobePath(ffprobe.path);
 ffmpeg.setFfmpegPath(ffmpegPath);
 let userId;
@@ -295,7 +296,13 @@ exports.createVideo = async (req, res, next) => {
       console.log(blockLength);
       let i = 0;
       // init FFcreator
-      const { FFScene, FFText, FFImage, FFCreator } = require("ffcreator");
+      const {
+        FFScene,
+        FFText,
+        FFImage,
+        FFVideo,
+        FFCreator,
+      } = require("ffcreator");
       const outputDir = path.join(
         __dirname,
         "./src/Assets/template/videos/" + userId + "/template1"
@@ -590,7 +597,7 @@ exports.createVideo = async (req, res, next) => {
           // add bottom cloud
           const slide1 = new FFImage({
             path:
-            assetsPath + "template/videos/" + userId + "/template1/img21.png",
+              assetsPath + "template/videos/" + userId + "/template1/img21.png",
             y: 540,
             width: 1920,
             height: 1080,
@@ -607,7 +614,7 @@ exports.createVideo = async (req, res, next) => {
 
           const slide2 = new FFImage({
             path:
-            assetsPath + "template/videos/" + userId + "/template1/img22.png",
+              assetsPath + "template/videos/" + userId + "/template1/img22.png",
             y: 540,
             width: 1920,
             height: 1080,
@@ -1581,6 +1588,62 @@ exports.createVideo = async (req, res, next) => {
           scene3.setDuration(6);
           creator.addChild(scene3);
           i++;
+        } else if (templateBlock[i].sceneId == 12) {
+          let data = templateBlock[i];
+          console.log(data.sceneData.media[0]);
+          console.log(assetsPath + data.sceneData.media[0].url);
+          const scene3 = new FFScene();
+          if (data.sceneData.media[0].type == "video") {
+            const videoDuration = await videoTemplate12(data);
+            console.log(videoDuration);
+            var slide1 = new FFVideo({
+              path: assetsPath + data.sceneData.media[0].url,
+              y: 540,
+              x: 980,
+              width: 1920,
+              height: 1080,
+            });
+            scene3.setDuration(videoDuration);
+          } else {
+            var slide1 = new FFImage({
+              path: assetsPath + data.sceneData.media[0].url,
+              y: 540,
+              x: 960,
+              width: 1920,
+              height: 1080,
+            });
+            slide1.addEffect("zoomingIn", 3.5, 1);
+            scene3.addChild(slide1);
+            scene3.setBgColor("#fff");
+            const scene3img = new FFImage({
+              path: assetsPath + "cropped.jpg",
+              y: 540,
+            });
+            scene3img.addAnimate({
+              from: { x: 960 },
+              to: { x: 3000 },
+              time: 1,
+              delay: 0,
+              ease: "Cubic.InOut",
+            });
+            scene3.addChild(scene3img);
+            const fcloud2 = new FFImage({
+              path: assetsPath + "cropped.jpg",
+              y: 540,
+            });
+            fcloud2.addAnimate({
+              from: { x: -1620 },
+              to: { x: 960 },
+              time: 1,
+              delay: 4,
+              ease: "Cubic.InOut",
+            });
+            scene3.addChild(fcloud2);
+            scene3.setDuration(5);
+          }
+          scene3.addChild(slide1);
+          creator.addChild(scene3);
+          i++;
         }
       }
 
@@ -1885,6 +1948,7 @@ exports.createVideo = async (req, res, next) => {
     }
   }
 };
+
 global.videoTemplate1 = async function videoTemplate1(data, req, res) {
   return new Promise((resolve) => {
     Jimp.read(assetsPath + data.sceneData.media["0"].url)
@@ -2192,5 +2256,15 @@ global.videoTemplateLast = async function videoTemplateLast(data, req, res) {
       .catch((err) => {
         console.error(err);
       });
+  });
+};
+
+global.videoTemplate12 = async function videoTemplate12(data, req, res) {
+  return new Promise((resolve) => {
+    getVideoDurationInSeconds(assetsPath + data.sceneData.media[0].url).then(
+      (duration) => {
+        resolve(duration);
+      }
+    );
   });
 };

@@ -15,8 +15,14 @@ const paykickstartIPNValidator = require('paykickstart-ipn-validator');
 exports.index = async (req, res, next) => {
   const {buyer_email} = req.body;
   console.log(req.body);
+  const plansArray= [
+    {planId: '30167', planName: 'reveo Professional - Monthly - Reveo'},
+    {planId: '59653', planName: 'reveo Team - Monthly - Reveo'},
+    {planId: '59654', planName: 'reveo Team - Annual - Reveo'},
+    {planId: '59655', planName: 'reveo Professional - Annual'},
+    {planId: '59990', planName: 'reveo Free Plan'},
+  ];
   try {
-    console.log('hre');
     const isValidated = await paykickstartIPNValidator(req.body, process.env.SECRETIPN);
     if (!isValidated) {
       console.error('Error validating IPN message.');

@@ -28,6 +28,7 @@
     "ffmpeg-concat": "^1.2.3",
     "ffprobe-static": "^3.0.0",
     "fluent-ffmpeg": "^2.1.2",
+    "get-video-duration": "^4.0.0",
     "gl": "^4.9.0",
     "glob": "^7.1.6",
     "jimp": "^0.16.1",

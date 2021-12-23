@@ -44,5 +44,8 @@ router.delete('/delete-media/', template.deleteMedia);
 router.get('/get-user-videos', template.getVideos);
 router.delete('/delete-user-videos/', template.deleteVideo);
 
+router.post('/edit-video', template.editVideo);
+
+
 module.exports = router;
 

@@ -45,6 +45,39 @@ const ipnSchema = new mongoose.Schema(
       buyer_ip: {
         type: String,
       },
+      billing_address_1: {
+        type: String,
+      },
+      billing_address_2: {
+        type: String,
+      },
+      billing_state: {
+        type: String,
+      },
+      billing_zip: {
+        type: String,
+      },
+      billing_country: {
+        type: String,
+      },
+      shipping_address_1: {
+        type: String,
+      },
+      shipping_address_2: {
+        type: String,
+      },
+      shipping_city: {
+        type: String,
+      },
+      shipping_state: {
+        type: String,
+      },
+      shipping_zip: {
+        type: String,
+      },
+      shipping_country: {
+        type: String,
+      },
     },
     {timestamps: true},
 );
