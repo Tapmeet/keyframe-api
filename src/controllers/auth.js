@@ -64,11 +64,11 @@ exports.socialSignup = async (req, res) => {
       const link = `${process.env.WEBSITEURL}login`;
       // send email
       const mailOptions = {
-        to: user.email,
+        to: user_.email,
         from: 'Reveo <' + process.env.FROM_EMAIL + '>',
         templateId: 'd-c6af786bf2374a7f91b9c1349d5f5b79',
         dynamic_template_data: {
-          sender_name: user.firstName,
+          sender_name: user_.firstName,
           login_url: link,
         },
       };
