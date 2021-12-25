@@ -1942,6 +1942,7 @@ exports.createVideo = async (req, res, next) => {
       res.status(200).json({
         message: "successfull",
         data: path,
+        uploadData: uploadData,
       });
     } catch (error) {
       res.status(500).json({ message: error.message });

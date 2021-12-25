@@ -47,7 +47,7 @@ var fonts = [
     light: "./src/Assets/fonts/Roboto-Light.ttf",
   },
   {
-    family: "'Noto Serif', serif",
+    family: "'Noto Serif', serif", 
     file: "./src/Assets/fonts/NotoSerif-Regular.ttf",
     light: "./src/Assets/fonts/NotoSerif-Regular.ttf",
   },
@@ -703,6 +703,21 @@ exports.getVideos = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+exports.getVideo = async (req, res, next) => {
+  const { videoId } = req.query;
+  //console.log(videoId)
+  try {
+    const uploads = await UserVideos.findOne({ _id: videoId });
+   // console.log(uploads)
+    if (uploads) {
+      res.status(200).json({ message: "Uploads List", data: uploads });
+    } else {
+      res.status(200).json({ message: "No Data Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  } 
 };
 
 exports.getMusicUploads = async (req, res, next) => {
