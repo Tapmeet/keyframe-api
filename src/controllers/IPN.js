@@ -45,7 +45,7 @@ exports.index = async (req, res, next) => {
     console.log('member3');
     let selectedplan;
     plansArray.map(function(plan) {
-      if (plan.planId == product_id) {
+      if (plan.planId == req.body.product_id) {
         selectedplan = plan.planCode;
       }
     });
