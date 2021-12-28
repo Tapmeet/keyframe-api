@@ -42,7 +42,7 @@ exports.index = async (req, res, next) => {
       console.error('Error validating IPN message.');
       return;
     }
-    console.log('member3');
+    // console.log('member3');
     let selectedplan;
     plansArray.map(function(plan) {
       if (plan.planId == req.body.product_id) {
@@ -53,16 +53,16 @@ exports.index = async (req, res, next) => {
     const userid = user[0]._id;
     const newTeam = new Ipn({...req.body, userId: userid});
     const member = await newTeam.save();
-    console.log('member');
-    console.log(member);
+    // console.log('member');
+    // console.log(member);
     const today = new Date();
     const templateUpdate = await User.findOneAndUpdate(
         {_id: userid},
         {$set: {userPlan: selectedplan, userPlanBuyDate: today}},
         {new: true, useFindAndModify: false},
     );
-    console.log('templateUpdate');
-    console.log(templateUpdate);
+    // console.log('templateUpdate');
+    // console.log(templateUpdate);
     res.status(200).send('OK');
     res.end();
   } catch (error) {
