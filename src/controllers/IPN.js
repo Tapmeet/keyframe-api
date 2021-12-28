@@ -32,6 +32,8 @@ exports.index = async (req, res, next) => {
   ];
 
   try {
+    console.log('member');
+
     const isValidated = await paykickstartIPNValidator(
         req.body,
         process.env.SECRETIPN,
