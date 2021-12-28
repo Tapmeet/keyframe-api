@@ -32,7 +32,7 @@ exports.index = async (req, res, next) => {
   ];
 
   try {
-    console.log('member');
+    console.log('member2');
 
     const isValidated = await paykickstartIPNValidator(
         req.body,
@@ -42,6 +42,7 @@ exports.index = async (req, res, next) => {
       console.error('Error validating IPN message.');
       return;
     }
+    console.log('member3');
     let selectedplan;
     plansArray.map(function(plan) {
       if (plan.planId == product_id) {
