@@ -1599,7 +1599,7 @@ exports.createVideo = async (req, res, next) => {
             var slide1 = new FFVideo({
               path: assetsPath + data.sceneData.media[0].url,
               y: 540,
-              x: 980,
+              x: 960,
               width: 1920,
               height: 1080,
             });
