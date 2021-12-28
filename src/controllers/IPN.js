@@ -15,36 +15,48 @@ const paykickstartIPNValidator = require('paykickstart-ipn-validator');
 exports.index = async (req, res, next) => {
   const {buyer_email} = req.body;
   console.log(req.body);
-  const plansArray= [
-    {planId: '30167', planName: 'reveo Professional - Monthly - Reveo', planCode: '2'},
-    {planId: '59653', planName: 'reveo Team - Monthly - Reveo', planCode: '4'},
+  const plansArray = [
+    {
+      planId: '30167',
+      planName: 'reveo Professional - Monthly - Reveo',
+      planCode: '2',
+    },
+    {
+      planId: '59653',
+      planName: 'reveo Team - Monthly - Reveo',
+      planCode: '4',
+    },
     {planId: '59654', planName: 'reveo Team - Annual - Reveo', planCode: '5'},
     {planId: '59655', planName: 'reveo Professional - Annual', planCode: '3'},
     {planId: '59990', planName: 'reveo Free Plan', planCode: '1'},
   ];
- 
+
   try {
-    const isValidated = await paykickstartIPNValidator(req.body, process.env.SECRETIPN);
+    const isValidated = await paykickstartIPNValidator(
+        req.body,
+        process.env.SECRETIPN,
+    );
     if (!isValidated) {
       console.error('Error validating IPN message.');
       return;
     }
     let selectedplan;
-    plansArray.map( function(plan) { 
+    plansArray.map(function(plan) {
       if (plan.planId == product_id) {
-        selectedplan =plan.planCode;
-      } 
+        selectedplan = plan.planCode;
+      }
     });
     const user = await User.find({email: buyer_email});
     const userid = user[0]._id;
+    const newTeam = new Ipn({...req.body, userId: userid});
+    const member = await newTeam.save();
     const today = new Date();
     const templateUpdate = await User.findOneAndUpdate(
         {_id: userid},
         {$set: {userPlan: selectedplan, userPlanBuyDate: today}},
         {new: true, useFindAndModify: false},
     );
-    const newTeam = new Ipn({...req.body, userId: userid});
-    const member = await newTeam.save();
+    console.log(templateUpdate);
     res.status(200).send('OK');
     res.end();
   } catch (error) {
