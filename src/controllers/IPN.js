@@ -69,3 +69,19 @@ exports.index = async (req, res, next) => {
     res.status(500).json({message: error.message});
   }
 };
+
+exports.getIpns = async (req, res, next) => {
+  const {userId} = req.query;
+  try {
+    const uploads = await Ipn.find({userId: userId}).sort({
+      createdAt: -1,
+    });
+    if (typeof uploads !== 'undefined' && uploads.length > 0) {
+      res.status(200).json({message: 'Uploads List', data: uploads});
+    } else {
+      res.status(200).json({message: 'No Data Found'});
+    }
+  } catch (error) {
+    res.status(500).json({message: error.message});
+  }
+};

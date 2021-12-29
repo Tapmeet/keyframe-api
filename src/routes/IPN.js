@@ -5,7 +5,7 @@ const router = express.Router();
 
 // UPLOAD
 router.post('/validator', ipn.index);
-
+router.get('/get-ipns', ipn.getIpns);
 
 module.exports = router;
 
