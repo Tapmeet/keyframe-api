@@ -1161,7 +1161,255 @@ exports.createVideo = async (req, res, next) => {
             creator.addChild(scene4);
           }
           i++;
-        } else if (templateBlock[i].sceneId == 8) {
+        } else if (templateBlock[i].sceneId == 5) {
+          let data = templateBlock[i];
+          var titleColor = data.sceneData.textColor;
+          if (titleColor.length == "4") {
+            titleColor = titleColor.replaceAll(
+              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
+              "#$1$1$2$2$3$3"
+            );
+          }
+          var result = data.sceneData.content.split(" ");
+          var text = "";
+          var text2 = "";
+          for (var j = 0; j < result.length; j++) {
+            if (j >= 6) {
+              text2 = text2 + result[j] + " ";
+            } else {
+              text = text + result[j] + " ";
+            }
+          }
+          let fontfamily = data.sceneData.fontFamily;
+          let selectedfonts;
+          fonts.map(function (font) {
+            if (font.family == fontfamily) {
+              if (data.sceneData.fontWeight == "lighter") {
+                selectedfonts = font.lighter;
+              } else if (data.sceneData.fontWeight == "normal") {
+                selectedfonts = font.file;
+              } else if (data.sceneData.fontWeight == "bold") {
+                selectedfonts = font.bold;
+              }
+            }
+          });
+          const scene5 = new FFScene();
+          const slide1 = new FFImage({
+            path: assetsPath + data.sceneData.media[0].url,
+            y: 540,
+            x: 960,
+            width: 1920,
+            height: 1080,
+          });
+          slide1.addEffect("zoomingIn", 3.5, 1);
+          scene5.addChild(slide1);
+          scene5.setBgColor("#fff");
+          console.log('here1');
+          // const scene3img = new FFImage({
+          //   path: assetsPath + "cropped.jpg",
+          //   y: 540,
+          // });
+          // scene3img.addAnimate({
+          //   from: { x: 960 },
+          //   to: { x: 3000 },
+          //   time: 1,
+          //   delay: 0,
+          //   ease: "Cubic.InOut",
+          // });
+          const fimg1 = new FFImage({
+            path: assetsPath + "blackstrip.jpg",
+            y: 950,
+          });
+          fimg1.addAnimate({
+            from: { x: -480 },
+            to: { x: 520 },
+            time: 1,
+            delay: 0.1,
+            ease: "Cubic.InOut",
+          });
+          fimg1.setOpacity(0.6);
+          scene5.addChild(fimg1);
+          const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+          let textOne = new FFText({
+            text: text,
+            fontSize: fontSize1,
+            x: 150,
+            y: 900,
+          });
+          textOne.setColor(titleColor);
+          textOne.setFont(selectedfonts);
+          textOne.setStyle({ padding: 10 });
+          textOne.addEffect("fadeIn", 1.5, 0.6);
+          scene5.addChild(textOne);
+          if (text2 != "") {
+            const textNext = new FFText({
+              text: text2,
+              fontSize: fontSize1,
+              x: 150,
+              y: 950,
+            });
+            textNext.setStyle({ padding: 10 });
+            textNext.setColor(titleColor);
+            textNext.setFont(selectedfonts);
+            textNext.addEffect("fadeIn", 1.5, 1.0);
+            scene5.addChild(textNext);
+          }
+          if (user.userPlan == 0) {
+            const watermark = new FFImage({
+              path: assetsPath + "reveoLogo.png",
+              x: 1680,
+              y: 50,
+            });
+            watermark.setOpacity(0.7);
+            watermark.setScale(0.5);
+            scene5.addChild(watermark);
+          }
+         // scene5.addChild(scene3img);
+          const fcloud2 = new FFImage({
+            path: assetsPath + "cropped.jpg",
+            y: 540,
+          });
+          fcloud2.addAnimate({
+            from: { x: -1620 },
+            to: { x: 960 },
+            time: 1,
+            delay: 4,
+            ease: "Cubic.InOut",
+          });
+          console.log('here');
+          scene5.addChild(fcloud2);
+          scene5.setDuration(5);
+          creator.addChild(scene5);
+          i++;
+        }
+        else if (templateBlock[i].sceneId == 6) {
+          let data = templateBlock[i];
+          const sixVideo = await videoTemplate6(data);
+          var titleColor = data.sceneData.textColor;
+          if (titleColor.length == "4") {
+            titleColor = titleColor.replaceAll(
+              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
+              "#$1$1$2$2$3$3"
+            );
+          }
+          var result = data.sceneData.content.split(" ");
+          var text = "";
+          var text2 = "";
+          for (var j = 0; j < result.length; j++) {
+            if (j >= 15) {
+              text2 = text2 + result[j] + " ";
+            } else {
+              text = text + result[j] + " ";
+            }
+          }
+          let fontfamily = data.sceneData.fontFamily;
+          let selectedfonts;
+          fonts.map(function (font) {
+            if (font.family == fontfamily) {
+              if (data.sceneData.fontWeight == "lighter") {
+                selectedfonts = font.lighter;
+              } else if (data.sceneData.fontWeight == "normal") {
+                selectedfonts = font.file;
+              } else if (data.sceneData.fontWeight == "bold") {
+                selectedfonts = font.bold;
+              }
+            }
+          });
+          const scene6= new FFScene();
+         
+          const fimg1 = new FFImage({
+            path: assetsPath + "whitescenegallery.jpg",
+            y: 470,
+            x: 990,
+            width: 1368,
+            height: 768,
+          });
+          fimg1.addAnimate({
+            from: { x: 960, y: 500 },
+            to: { x: 990, y: 470 },
+            time: 0.5,
+            delay: 0.8,
+            ease: "Cubic.InOut",
+          });
+          fimg1.setOpacity(0.8);
+          scene6.addChild(fimg1);
+          const slide1 = new FFImage({
+            path: assetsPath + "template/videos/" + userId + "/template1/img61.png",
+            y: 500,
+            x: 960,
+            width: 1368,
+            height: 768,
+          });
+
+         // slide1.addEffect("zoomingIn", 3.5, 1);
+        scene6.addChild(slide1);
+        const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+        let textOne = new FFText({
+          text: text,
+          fontSize: fontSize1,
+          x: 150,
+          y: 920,
+        });
+        textOne.setColor(titleColor);
+        textOne.setFont(selectedfonts);
+        textOne.setStyle({ padding: 10 });
+        textOne.addEffect("fadeInUp", 1.5, 0.6);
+        scene6.addChild(textOne);
+        if (text2 != "") {
+          const textNext = new FFText({
+            text: text2,
+            fontSize: fontSize1,
+            x: 150,
+            y: 970,
+          });
+          textNext.setStyle({ padding: 10 });
+          textNext.setColor(titleColor);
+          textNext.setFont(selectedfonts);
+          textNext.addEffect("fadeIn", 1.5, 1.0);
+          scene6.addChild(textNext);
+        }
+        if (user.userPlan == 0) {
+          const watermark = new FFImage({
+            path: assetsPath + "reveoLogo.png",
+            x: 1680,
+            y: 50,
+          });
+          watermark.setOpacity(0.7);
+          watermark.setScale(0.5);
+          scene6.addChild(watermark);
+        }
+        const fcloud2 = new FFImage({
+          path: assetsPath + "cropped.jpg",
+          y: 540,
+        });
+        fcloud2.addAnimate({
+          from: { x: 960 },
+          to: { x: 3200 },
+          time: 1,
+          delay: 0.1,
+          ease: "Cubic.InOut",
+        });
+        console.log('here');
+        scene6.addChild(fcloud2);
+        const fcloud3 = new FFImage({
+          path: assetsPath + "cropped.jpg",
+          y: 540,
+        });
+        fcloud3.addAnimate({
+          from: { x: 3200 },
+          to: { x: 960 },
+          time: 1,
+          delay: 4.5,
+          ease: "Cubic.InOut",
+        });
+        scene6.addChild(fcloud3);
+        scene6.setBgColor("#399891");
+         // scene5.addChild(fcloud2);
+         scene6.setDuration(5.5);
+          creator.addChild(scene6);
+          i++;
+        }
+        else if (templateBlock[i].sceneId == 8) {
           let data = templateBlock[i];
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
@@ -2267,5 +2515,29 @@ global.videoTemplate12 = async function videoTemplate12(data, req, res) {
         resolve(duration);
       }
     );
+  });
+};
+
+global.videoTemplate6 = async function videoTemplate6(data, req, res) {
+  return new Promise((resolve) => {
+    Jimp.read(assetsPath + data.sceneData.media["0"].url)
+      .then((img) => {
+        img
+          .quality(80)
+          .scaleToFit(
+            1368,
+            768,
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+          )
+          .write(
+            assetsPath + "template/videos/" + userId + "/template1/img61.png"
+          ); // save
+          setTimeout(function () {
+            resolve("done");
+          }, 500);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   });
 };
