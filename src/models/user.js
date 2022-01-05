@@ -86,6 +86,39 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     required: false,
   },
+  billing_address_1: {
+    type: String,
+  },
+  billing_address_2: {
+    type: String,
+  },
+  billing_state: {
+    type: String,
+  },
+  billing_zip: {
+    type: String,
+  },
+  billing_country: {
+    type: String,
+  },
+  shipping_address_1: {
+    type: String,
+  },
+  shipping_address_2: {
+    type: String,
+  },
+  shipping_city: {
+    type: String,
+  },
+  shipping_state: {
+    type: String,
+  },
+  shipping_zip: {
+    type: String,
+  },
+  shipping_country: {
+    type: String,
+  },
 }, {timestamps: true});
 
 
@@ -129,6 +162,29 @@ UserSchema.methods.generateJWT = function() {
     profileImage: this.profileImage,
     userPlan: this.userPlan,
     loginType: this.loginType,
+    billing_address_1:
+      this.billing_address_1,
+    billing_address_2:
+      this.billing_address_2,
+    billing_state:
+      this. billing_state,
+    billing_zip:
+      this.billing_zip,
+    billing_country:
+      this. billing_country,
+    shipping_address_1:
+      this.shipping_address_1,
+    shipping_address_2:
+      this.shipping_address_2,
+    shipping_city:
+      this.shipping_city,
+    shipping_state:
+      this.shipping_state,
+    shipping_zip:
+      this.shipping_zip,
+    shipping_country:
+      this.shipping_country
+    ,
   };
 
   return jwt.sign(payload, new Buffer.from( process.env.JWT_SECRET, 'base64' ));
