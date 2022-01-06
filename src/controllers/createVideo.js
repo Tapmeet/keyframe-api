@@ -2027,8 +2027,512 @@ exports.createVideo = async (req, res, next) => {
           creator.addChild(scene3);
           i++;
         }
-      }
+        else if (templateBlock[i].sceneId == 13) {
+          console.log('firstVideo');
+          let data = templateBlock[i];
+          const firstVideo = await videoTemplate13(data);
+          console.log(firstVideo);
+          let titleColor;
+          if (data.sceneData.titleColor) {
+            titleColor = data.sceneData.titleColor;
+          } else {
+            titleColor = data.sceneData.textColor;
+          }
+          let fontfamily = data.sceneData.fontFamily;
+          let titlefontfamily = data.sceneData.titleFontFamily;
+          let selectedfonts;
+          let titlefonts;
+          fonts.map(function (font) {
+            if (font.family == fontfamily) {
+              if (data.sceneData.fontWeight == "lighter") {
+                selectedfonts = font.lighter;
+              } else if (data.sceneData.fontWeight == "normal") {
+                selectedfonts = font.file;
+              } else if (data.sceneData.fontWeight == "bold") {
+                selectedfonts = font.bold;
+              }
+            }
+            if (font.family == titlefontfamily) {
+              if (data.sceneData.titleFontWeight == "lighter") {
+                titlefonts = font.lighter;
+              } else if (data.sceneData.titleFontWeight == "normal") {
+                titlefonts = font.file;
+              } else if (data.sceneData.titleFontWeight == "bold") {
+                titlefonts = font.bold;
+              }
+            }
+          });
+          if (titleColor.length == "4") {
+            titleColor = titleColor.replaceAll(
+              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
+              "#$1$1$2$2$3$3"
+            );
+          }
+          var subtitleColor = data.sceneData.textColor;
+          if (subtitleColor.length == "4") {
+            subtitleColor = subtitleColor.replaceAll(
+              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
+              "#$1$1$2$2$3$3"
+            );
+          }
+          if (data.sceneData.titletextSize) {
+            var titletextSize = data.sceneData.titletextSize;
+          } else {
+            var titletextSize = data.sceneData.textSize;
+          }
+          if (data.sceneData.textSize) {
+            var textSize = data.sceneData.textSize;
+          } else {
+            var textSize = data.sceneData.textSize;
+          }
+          if (typeof data.sceneData.content[0].title == undefined) {
+            var fieldTitle1 = "";
+            var fieldText1 = "";
+          } else {
+            var fieldTitle1 = data.sceneData.content[0].title;
+            var fieldText1 = data.sceneData.content[0].text;
+          }
+          if (data.sceneData.content[1] == undefined) {
+            var fieldTitle2 = "";
+            var fieldText2 = "";
+          } else {
+            var fieldTitle2 = data.sceneData.content[1].title;
+            var fieldText2 = data.sceneData.content[1].text;
+          }
+          if (data.sceneData.content[2] == undefined) {
+            var fieldTitle3 = "";
+            var fieldText3 = "";
+          } else {
+            var fieldTitle3 = data.sceneData.content[2].title;
+            var fieldText3 = data.sceneData.content[2].text;
+          }
+          if (data.sceneData.content[3] == undefined) {
+            var fieldTitle4 = "";
+            var fieldText4 = "";
+          } else {
+            var fieldTitle4 = data.sceneData.content[3].title;
+            var fieldText4 = data.sceneData.content[3].text;
+          }
+          if (data.sceneData.content[4] != undefined) {
+            var fieldTitle5 = data.sceneData.content[4].title;
+            var fieldText5 = data.sceneData.content[4].text;
+          } else {
+            var fieldTitle5 = "";
+            var fieldText5 = "";
+          }
 
+          const scene2 = new FFScene();
+          scene2.setBgColor("#399891");
+         // scene2.setBgColor("#fff");
+          // add bottom cloud
+          const slide1 = new FFImage({
+            path:
+              assetsPath + "template/videos/" + userId + "/template1/img131.png",
+            y: 540,
+          });
+          slide1.addAnimate({
+            from: { x: -960 },
+            to: { x: 680 },
+            time: 1,
+            delay: 0,
+            ease: "Cubic.InOut",
+          });
+           slide1.addEffect("zoomingIn", 3.5, 1);
+          scene2.addChild(slide1);
+
+          const slide2 = new FFImage({
+            path:
+              assetsPath + "template/videos/" + userId + "/template1/img132.png",
+            y: 540,
+          });
+          slide2.addAnimate({
+            from: { x: -960 },
+            to: { x: 680 },
+            time: 1,
+            delay: 3,
+            ease: "Cubic.InOut",
+          });
+          slide2.addEffect("zoomingIn", 3.5, 4);
+         scene2.addChild(slide2);
+         const slidebg1 = new FFImage({
+          path: assetsPath + "greenbg.png",
+          y: 540,
+          x: -80
+        });
+        scene2.addChild(slide2);
+        const slidebg3 = new FFImage({
+         path: assetsPath + "greenbg2.png",
+         y: -50,
+         x: 960
+       });
+       slidebg3.setScale(2);
+       scene2.addChild(slidebg3);
+       const slidebg4 = new FFImage({
+        path: assetsPath + "greenbg2.png",
+        y: 1130,
+        x: 960
+      });
+      slidebg4.setScale(2);
+     scene2.addChild(slidebg4);
+        scene2.addChild(slidebg1);
+          const slidebg = new FFImage({
+            path: assetsPath + "greenbg.png",
+            y: 540,
+            x: 1620
+          });
+          // slidebg.addAnimate({
+          //   from: { x: -250 },
+          //   to: { x: 250 },
+          //   time: 1,
+          //   delay: 0.1,
+          //   ease: "Cubic.InOut",
+          // });
+          scene2.addChild(slidebg);
+          const fontSize1 = parseInt(titletextSize) + 20;
+          const fontSize2 = parseInt(textSize) + 20;
+          if (fieldTitle1 != "") {
+            const text1 = new FFText({
+              text: fieldTitle1,
+              fontSize: fontSize1,
+              x: 1540,
+              y: 170,
+            });
+            text1.setColor(titleColor);
+            text1.setFont(titlefonts);
+            text1.addEffect("fadeInLeft", 1, 0.5);
+            scene2.addChild(text1);
+          }
+          if (fieldText1 != "") {
+            const textField = new FFText({
+              text: fieldText1,
+              fontSize: fontSize1,
+              x: 1540,
+              y: 220,
+            });
+            textField.setColor(subtitleColor);
+            textField.setFont(selectedfonts);
+            textField.addEffect("fadeInLeft", 1, 0.5);
+            scene2.addChild(textField);
+          }
+          if (fieldTitle2 != "") {
+            const textTitle2 = new FFText({
+              text: fieldTitle2,
+              fontSize: fontSize1,
+              x: 1540,
+              y: 320,
+            });
+            textTitle2.setColor(titleColor);
+            textTitle2.setFont(titlefonts);
+            textTitle2.addEffect("fadeInLeft", 1, 0.7);
+            scene2.addChild(textTitle2);
+          }
+          if (fieldText2 != "") {
+            const textField2 = new FFText({
+              text: fieldText2,
+              fontSize: fontSize2,
+              x: 1540,
+              y: 370,
+            });
+            textField2.setColor(subtitleColor);
+            textField2.setFont(selectedfonts);
+            textField2.addEffect("fadeInLeft", 1, 0.7);
+            scene2.addChild(textField2);
+          }
+          if (fieldTitle3 != "") {
+            const text5 = new FFText({
+              text: fieldTitle3,
+              fontSize: fontSize1,
+              x: 1540,
+              y: 470,
+            });
+            text5.setColor(titleColor);
+            text5.setFont(titlefonts);
+            text5.addEffect("fadeInLeft", 1, 0.9);
+            scene2.addChild(text5);
+          }
+          if (fieldText3) {
+            const text6 = new FFText({
+              text: fieldText3,
+              fontSize: fontSize2,
+              x: 1540,
+              y: 520,
+            });
+            text6.setColor(subtitleColor);
+            text6.setFont(selectedfonts);
+            text6.addEffect("fadeInLeft", 1, 0.9);
+            scene2.addChild(text6);
+          }
+
+          if (fieldTitle4) {
+            const text7 = new FFText({
+              text: fieldTitle4,
+              fontSize: fontSize1,
+              x: 1540,
+              y: 620,
+            });
+            text7.setColor(titleColor);
+            text7.setFont(titlefonts);
+            text7.addEffect("fadeInLeft", 1, 1.1);
+            scene2.addChild(text7);
+          }
+          if (fieldText4) {
+            const text8 = new FFText({
+              text: fieldText4,
+              fontSize: fontSize2,
+              x: 1540,
+              y: 670,
+            });
+            text8.setColor(subtitleColor);
+            text8.setFont(selectedfonts);
+            text8.addEffect("fadeInLeft", 1, 1.1);
+            scene2.addChild(text8);
+          }
+
+          if (fieldTitle5) {
+            const text9 = new FFText({
+              text: fieldTitle5,
+              fontSize: fontSize1,
+              x: 1540,
+              y: 770,
+            });
+            text9.setColor(titleColor);
+            text9.setFont(titlefonts);
+            text9.addEffect("fadeInLeft", 1, 1.3);
+            scene2.addChild(text9);
+          }
+          if (fieldText5) {
+            const text10 = new FFText({
+              text: fieldText5,
+              fontSize: fontSize2,
+              x: 1540,
+              y: 820,
+            });
+            text10.setColor(subtitleColor);
+            text10.setFont(selectedfonts);
+            text10.addEffect("fadeInLeft", 1, 1.3);
+            scene2.addChild(text10);
+          }
+          if (user.userPlan == 0) {
+            const watermark = new FFImage({
+              path: assetsPath + "reveoLogo.png",
+              x: 1680,
+              y: 50,
+            });
+            watermark.setOpacity(0.7);
+            watermark.setScale(0.5);
+            scene2.addChild(watermark);
+          }
+          const fcloud = new FFImage({
+            path: assetsPath + "cropped.jpg",
+            y: 540,
+          });
+          fcloud.addAnimate({
+            from: { x: -960 },
+            to: { x: 960 },
+            time: 1,
+            delay: 5.5,
+            ease: "Cubic.InOut",
+          });
+          const fcloud2 = new FFImage({
+            path: assetsPath + "cropped.jpg",
+            y: 540,
+          });
+          fcloud2.addAnimate({
+            from: { x: 960 },
+            to: { x: 3200 },
+            time: 1,
+            delay: 0.1,
+            ease: "Cubic.InOut",
+          });
+          console.log("here");
+          scene2.addChild(fcloud2);
+          scene2.addChild(fcloud);
+          scene2.setDuration(6.5);
+          creator.addChild(scene2);
+          // scene2.setTransition("fade", 1);
+          i++;
+        }
+        else if (templateBlock[i].sceneId == 14) {
+          let data = templateBlock[i];
+          const sixVideo = await videoTemplate6(data);
+          fontfamily = data.sceneData.fontFamily;
+          fonts.map(function (font) {
+            if (font.family == fontfamily) {
+              if (data.sceneData.fontWeight == "lighter") {
+                selectedfonts = font.lighter;
+              } else if (data.sceneData.fontWeight == "normal") {
+                selectedfonts = font.file;
+              } else if (data.sceneData.fontWeight == "bold") {
+                selectedfonts = font.bold;
+              }
+            }
+          });
+
+          var titleColor = data.sceneData.textColor;
+          if (titleColor.length == "4") {
+            titleColor = titleColor.replaceAll(
+              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
+              "#$1$1$2$2$3$3"
+            );
+          }
+          const content = data.sceneData.content;
+          const contentParts = content.split("\n");
+          const scene6 = new FFScene();
+
+          const fimg1 = new FFImage({
+            path: assetsPath + "whitescenegallery.jpg",
+            y: 470,
+            x: 990,
+            width: 1368,
+            height: 768,
+          });
+          fimg1.addAnimate({
+            from: { x: 960, y: 500 },
+            to: { x: 990, y: 470 },
+            time: 0.5,
+            delay: 0.8,
+            ease: "Cubic.InOut",
+          });
+          fimg1.setOpacity(0.8);
+          scene6.addChild(fimg1);
+          const slide1 = new FFImage({ 
+            path:
+              assetsPath + "template/videos/" + userId + "/template1/img61.png",
+            y: 500,
+            x: 960,
+            width: 1368,
+            height: 768,
+          });
+
+          // slide1.addEffect("zoomingIn", 3.5, 1);
+          scene6.addChild(slide1);
+          const fimg2 = new FFImage({
+            path: assetsPath + "whitescene2.jpg",
+            y: 800
+          });
+          fimg2.addAnimate({
+            from: { x: -960 },
+            to: { x: 450 },
+            time: 1,
+            delay: 0.5,
+            ease: "Cubic.InOut",
+          });
+          fimg2.setScale(0.38);
+          // fimg1.addEffect("slideInUp", 1.5, 1);
+          // fimg1.addEffect("fadeIn", 1, 1.1);
+          scene6.addChild(fimg2);
+          if (contentParts[2] != undefined && contentParts[2] != "") {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+            const text = new FFText({
+              text: contentParts[0],
+              fontSize: fontSize1,
+              x: 450,
+              y: 730,
+            });
+            scene6.addChild(text);
+            text.setColor(titleColor);
+            text.setFont(selectedfonts);
+            text.addEffect("fadeIn", 1, 1.3);
+            text.alignCenter();
+            text.setStyle({ padding: [0, 20, 10, 20] });
+            scene6.addChild(text);
+
+            const text2 = new FFText({
+              text: contentParts[1],
+              fontSize: fontSize1,
+              x: 450,
+              y: 800,
+            });
+            text2.alignCenter();
+            text2.setStyle({ padding: [4, 20, 6, 20] });
+            text2.setColor(titleColor);
+            text2.setFont(selectedfonts);
+            text2.addEffect("fadeIn", 1.0, 1.4);
+            scene6.addChild(text2);
+
+            const text3 = new FFText({
+              text: contentParts[2],
+              fontSize: fontSize1,
+              x: 450,
+              y: 870,
+            });
+            text3.alignCenter();
+            text3.setStyle({ padding: [4, 20, 6, 20] });
+            text3.setColor(titleColor);
+            text3.setFont(selectedfonts);
+            text3.addEffect("fadeIn", 1.0, 1.4);
+            scene6.addChild(text3);
+          } else {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+            const text = new FFText({
+              text: contentParts[0],
+              fontSize: fontSize1,
+              x: 450,
+              y: 760,
+            });
+            scene6.addChild(text);
+            text.setColor(titleColor);
+            text.setFont(selectedfonts);
+            text.addEffect("fadeIn", 1, 1.3);
+            text.alignCenter();
+            text.setStyle({ padding: [0, 20, 10, 20] });
+            scene6.addChild(text);
+
+            const text2 = new FFText({
+              text: contentParts[1],
+              fontSize: fontSize1,
+              x: 450,
+              y: 830,
+            });
+            text2.alignCenter();
+            text2.setStyle({ padding: [4, 20, 6, 20] });
+            text2.setColor(titleColor);
+            text2.setFont(selectedfonts);
+            text2.addEffect("fadeIn", 1.0, 1.4);
+            scene6.addChild(text2);
+          }
+          if (user.userPlan == 0) {
+            const watermark = new FFImage({
+              path: assetsPath + "reveoLogo.png",
+              x: 1680,
+              y: 50,
+            });
+            watermark.setOpacity(0.7);
+            watermark.setScale(0.5);
+            scene6.addChild(watermark);
+          }
+          const fcloud2 = new FFImage({
+            path: assetsPath + "cropped.jpg",
+            y: 540,
+          });
+          fcloud2.addAnimate({
+            from: { x: 960 },
+            to: { x: 3200 },
+            time: 1,
+            delay: 0.1,
+            ease: "Cubic.InOut",
+          });
+          console.log("here");
+          scene6.addChild(fcloud2);
+          const fcloud3 = new FFImage({
+            path: assetsPath + "cropped.jpg",
+            y: 540,
+          });
+          fcloud3.addAnimate({
+            from: { x: 3200 },
+            to: { x: 960 },
+            time: 1,
+            delay: 4.5,
+            ease: "Cubic.InOut",
+          });
+          scene6.addChild(fcloud3);
+          scene6.setBgColor("#399891");
+          // scene5.addChild(fcloud2);
+          scene6.setDuration(5.5);
+          creator.addChild(scene6);
+          i++;
+        }
+      }
       if (lastScene) {
         console.log("lastscene");
         //  `console.log(lastScene.sceneData.textArray);
@@ -2324,6 +2828,24 @@ exports.createVideo = async (req, res, next) => {
       deleteFiles(
         "./src/Assets/template/videos/" + userId + "/template1/img61.png"
       );
+      deleteFiles(
+        "./src/Assets/template/videos/" + userId + "/template1/img71.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" + userId + "/template1/img72.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" + userId + "/template1/img73.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" + userId + "/template1/img74.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" + userId + "/template1/img131.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" + userId + "/template1/img132.png"
+      );
       res.status(200).json({
         message: "successfull",
         data: path,
@@ -2540,6 +3062,7 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
   });
 };
 
+
 global.videoTemplate10 = async function videoTemplate10(data, req, res) {
   return new Promise((resolve) => {
     Jimp.read(assetsPath + data.sceneData.media["0"].url)
@@ -2750,6 +3273,49 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
               .catch((err) => {
                 console.error(err);
               });
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
+};
+
+global.videoTemplate13 = async function videoTemplate13(data, req, res) {
+  return new Promise((resolve) => {
+    Jimp.read(assetsPath + data.sceneData.media["0"].url)
+      .then((img) => {
+        img
+          .quality(60)
+          .cover(
+            1368,
+            768,
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+          )
+          .write(
+            assetsPath + "template/videos/" + userId + "/template1/img131.png"
+          ); // save
+        Jimp.read(assetsPath + data.sceneData.media["1"].url)
+          .then((img) => {
+            img
+              .quality(60)
+              .cover(
+                1368,
+                768,
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+              )
+              .write(
+                assetsPath +
+                  "template/videos/" +
+                  userId +
+                  "/template1/img132.png"
+              ); // save
+            setTimeout(function () {
+              resolve("done");
+            }, 500);
           })
           .catch((err) => {
             console.error(err);
