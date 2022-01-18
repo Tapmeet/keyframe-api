@@ -2532,6 +2532,112 @@ exports.createVideo = async (req, res, next) => {
           creator.addChild(scene6);
           i++;
         }
+        else if (templateBlock[i].sceneId == 15) {
+          let data = templateBlock[i];
+          const firstVideo15 = await videoTemplate15(data);
+          const scene3 = new FFScene();
+          const slide1 = new FFImage({
+            path:
+              assetsPath + "template/videos/" + userId + "/template1/img151.png",
+            y: 540,
+            x: 960,
+          });
+          slide1.addEffect("zoomingIn", 3.5, 1);
+          scene3.addChild(slide1);
+          const slide2 = new FFImage({
+            path:
+              assetsPath + "template/videos/" + userId + "/template1/img152.png",
+            y: 540,
+          });
+          slide2.addAnimate({
+            from: { x: -1960 },
+            to: { x: 960 },
+            time: 1,
+            delay: 2,
+            ease: "Cubic.InOut",
+          });
+          slide2.addEffect("zoomingIn", 3.5, 3);
+          scene3.addChild(slide2);
+          const slide3 = new FFImage({
+            path:
+              assetsPath + "template/videos/" + userId + "/template1/img153.png",
+            y: 540,
+          });
+          slide3.addAnimate({
+            from: { x: -1960 },
+            to: { x: 960 },
+            time: 1,
+            delay: 4,
+            ease: "Cubic.InOut",
+          });
+          slide3.addEffect("zoomingIn", 3.5, 5);
+          scene3.addChild(slide3);
+          const slide4 = new FFImage({
+            path:
+              assetsPath + "template/videos/" + userId + "/template1/img154.png",
+            y: 540,
+          });
+          slide4.addAnimate({
+            from: { x: -1960 },
+            to: { x: 960 },
+            time: 1,
+            delay: 6,
+            ease: "Cubic.InOut",
+          });
+          slide4.addEffect("zoomingIn", 3.5, 7);
+          scene3.addChild(slide4);
+          scene3.setBgColor("#fff");
+          // const fimg1 = new FFImage({
+          //   path: assetsPath + "whitebg2.png",
+          //   y: 950,
+          // });
+          // fimg1.addAnimate({
+          //   from: { x: -480 },
+          //   to: { x: 480 },
+          //   time: 1,
+          //   delay: 0.1,
+          //   ease: "Cubic.InOut",
+          // });
+          // scene3.addChild(fimg1);
+          if (user.userPlan == 0) {
+            const watermark = new FFImage({
+              path: assetsPath + "reveoLogo.png",
+              x: 1680,
+              y: 50,
+            });
+            watermark.setOpacity(0.7);
+            watermark.setScale(0.5);
+            scene3.addChild(watermark);
+          }
+
+          const scene3img = new FFImage({
+            path: assetsPath + "cropped.jpg",
+            y: 540,
+          });
+          scene3img.addAnimate({
+            from: { x: 960 },
+            to: { x: 3000 },
+            time: 1,
+            delay: 0,
+            ease: "Cubic.InOut",
+          });
+          scene3.addChild(scene3img);
+          const fcloud2 = new FFImage({
+            path: assetsPath + "cropped.jpg",
+            x: 960,
+          });
+          fcloud2.addAnimate({
+            from: { y: 1620 },
+            to: { y: 540 },
+            time: 1,
+            delay: 7.5,
+            ease: "Cubic.InOut",
+          });
+          scene3.addChild(fcloud2);
+          scene3.setDuration(8.5);
+          creator.addChild(scene3);
+          i++;
+        }
       }
       if (lastScene) {
         console.log("lastscene");
@@ -2845,6 +2951,18 @@ exports.createVideo = async (req, res, next) => {
       );
       deleteFiles(
         "./src/Assets/template/videos/" + userId + "/template1/img132.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" + userId + "/template1/img151.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" + userId + "/template1/img152.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" + userId + "/template1/img153.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" + userId + "/template1/img154.png"
       );
       res.status(200).json({
         message: "successfull",
@@ -3316,6 +3434,87 @@ global.videoTemplate13 = async function videoTemplate13(data, req, res) {
             setTimeout(function () {
               resolve("done");
             }, 500);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
+};
+global.videoTemplate15 = async function videoTemplate15(data, req, res) {
+  return new Promise((resolve) => {
+    Jimp.read(assetsPath + data.sceneData.media["0"].url)
+      .then((img) => {
+        img
+          .quality(60)
+          .cover(
+            1920,
+            1080,
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+          )
+          .write(
+            assetsPath + "template/videos/" + userId + "/template1/img151.png"
+          ); // save
+        Jimp.read(assetsPath + data.sceneData.media["1"].url)
+          .then((img) => {
+            img
+              .quality(60)
+              .cover(
+                1920,
+                1080,
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+              )
+              .write(
+                assetsPath +
+                  "template/videos/" +
+                  userId +
+                  "/template1/img152.png"
+              ); // save
+            Jimp.read(assetsPath + data.sceneData.media["2"].url)
+              .then((img) => {
+                img
+                  .quality(60)
+                  .cover(
+                    1920,
+                    1080,
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                  )
+                  .write(
+                    assetsPath +
+                      "template/videos/" +
+                      userId +
+                      "/template1/img153.png"
+                  ); // save
+                Jimp.read(assetsPath + data.sceneData.media["3"].url)
+                  .then((img) => {
+                    img
+                      .quality(60)
+                      .cover(
+                        1920,
+                        1080,
+                        Jimp.HORIZONTAL_ALIGN_CENTER |
+                          Jimp.VERTICAL_ALIGN_CENTER
+                      )
+                      .write(
+                        assetsPath +
+                          "template/videos/" +
+                          userId +
+                          "/template1/img154.png"
+                      ); // save
+                    setTimeout(function () {
+                      resolve("done");
+                    }, 500);
+                  })
+                  .catch((err) => {
+                    console.error(err);
+                  });
+              })
+              .catch((err) => {
+                console.error(err);
+              });
           })
           .catch((err) => {
             console.error(err);

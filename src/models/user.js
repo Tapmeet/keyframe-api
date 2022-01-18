@@ -95,6 +95,9 @@ const UserSchema = new mongoose.Schema({
   billing_state: {
     type: String,
   },
+  billing_city: {
+    type: String,
+  },
   billing_zip: {
     type: String,
   },
@@ -166,6 +169,7 @@ UserSchema.methods.generateJWT = function() {
       this.billing_address_1,
     billing_address_2:
       this.billing_address_2,
+    billing_city: this.billing_city,
     billing_state:
       this. billing_state,
     billing_zip:
