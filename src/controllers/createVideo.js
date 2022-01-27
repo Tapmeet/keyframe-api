@@ -1217,7 +1217,7 @@ exports.createVideo = async (req, res, next) => {
           //   ease: "Cubic.InOut",
           // });
           const fimg1 = new FFImage({
-            path: assetsPath + "blackstrip.jpg",
+            path: assetsPath + "gerrnstrip.png",
             y: 950,
           });
           fimg1.addAnimate({
@@ -1227,7 +1227,7 @@ exports.createVideo = async (req, res, next) => {
             delay: 0.1,
             ease: "Cubic.InOut",
           });
-          fimg1.setOpacity(0.6);
+          // fimg1.setOpacity(0.6);
           scene5.addChild(fimg1);
           const fontSize1 = parseInt(data.sceneData.textSize) + 25;
           let textOne = new FFText({
@@ -1235,6 +1235,7 @@ exports.createVideo = async (req, res, next) => {
             fontSize: fontSize1,
             x: 150,
             y: 900,
+            height: 150,
           });
           textOne.setColor(titleColor);
           textOne.setFont(selectedfonts);
@@ -1247,6 +1248,7 @@ exports.createVideo = async (req, res, next) => {
               fontSize: fontSize1,
               x: 150,
               y: 950,
+              height: 150,
             });
             textNext.setStyle({ padding: 10 });
             textNext.setColor(titleColor);
@@ -1413,11 +1415,11 @@ exports.createVideo = async (req, res, next) => {
           const sevenVideo = await videoTemplate7(data);
           const scene6 = new FFScene();
           const img71White = new FFImage({
-            path: assetsPath + "secen7.jpg",
+            path: assetsPath + "cropped-white.jpg",
           });
           img71White.addAnimate({
             from: { x: 450, y: 300 },
-            to: { x: 570, y: 280 },
+            to: { x: 530, y: 280 },
             time: 2,
             delay: 0.5,
             ease: "Cubic.InOut",
@@ -1473,7 +1475,7 @@ exports.createVideo = async (req, res, next) => {
 
           scene6.addChild(img72);
           const img74White = new FFImage({
-            path: assetsPath + "secen7.jpg",
+            path: assetsPath + "cropped-white.jpg",
           });
           img74White.addAnimate({
             from: { x: 1400, y: 780 },
@@ -2396,6 +2398,7 @@ exports.createVideo = async (req, res, next) => {
             ease: "Cubic.InOut",
           });
           fimg1.setOpacity(0.8);
+          fimg1.addEffect("zoomingIn", 10, 1);
           scene6.addChild(fimg1);
           const slide1 = new FFImage({
             path:
@@ -2405,11 +2408,10 @@ exports.createVideo = async (req, res, next) => {
             width: 1368,
             height: 768,
           });
-
-          // slide1.addEffect("zoomingIn", 3.5, 1);
+          slide1.addEffect("zoomingIn", 10, 1);
           scene6.addChild(slide1);
           const fimg2 = new FFImage({
-            path: assetsPath + "whitescene2.jpg",
+            path: assetsPath + "grya-bg3.png",
             y: 800,
           });
           fimg2.addAnimate({
@@ -2419,7 +2421,7 @@ exports.createVideo = async (req, res, next) => {
             delay: 0.5,
             ease: "Cubic.InOut",
           });
-          fimg2.setScale(0.38);
+          fimg2.setScale(0.40);
           // fimg1.addEffect("slideInUp", 1.5, 1);
           // fimg1.addEffect("fadeIn", 1, 1.1);
           scene6.addChild(fimg2);
@@ -4103,7 +4105,7 @@ global.videoTemplate6 = async function videoTemplate6(data, req, res) {
       .then((img) => {
         img
           .quality(80)
-          .scaleToFit(
+          .cover(
             1368,
             768,
             Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
@@ -4127,7 +4129,7 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
       .then((img) => {
         img
           .quality(60)
-          .scaleToFit(
+          .cover(
             720,
             405,
             Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
@@ -4139,7 +4141,7 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
           .then((img) => {
             img
               .quality(60)
-              .scaleToFit(
+              .cover(
                 720,
                 405,
                 Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
@@ -4154,7 +4156,7 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
               .then((img) => {
                 img
                   .quality(60)
-                  .scaleToFit(
+                  .cover(
                     720,
                     405,
                     Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
@@ -4169,7 +4171,7 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
                   .then((img) => {
                     img
                       .quality(60)
-                      .scaleToFit(
+                      .cover(
                         720,
                         405,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
