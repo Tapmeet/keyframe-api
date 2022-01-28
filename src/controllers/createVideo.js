@@ -1267,6 +1267,19 @@ exports.createVideo = async (req, res, next) => {
             scene5.addChild(watermark);
           }
           // scene5.addChild(scene3img);
+          const fcloud3 = new FFImage({
+            path: assetsPath + "cropped.jpg",
+            y: 540,
+          });
+          fcloud3.addAnimate({
+            from: { x: 960 },
+            to: { x: 3960 },
+            time: 1,
+            delay: 0,
+            ease: "Cubic.InOut",
+          });
+          console.log("here");
+          scene5.addChild(fcloud3);
           const fcloud2 = new FFImage({
             path: assetsPath + "cropped.jpg",
             y: 540,
@@ -1327,9 +1340,9 @@ exports.createVideo = async (req, res, next) => {
           });
           fimg1.addAnimate({
             from: { x: 960, y: 500 },
-            to: { x: 990, y: 470 },
-            time: 0.5,
-            delay: 0.8,
+            to: { x: 930, y: 470 },
+            time: 4.5,
+            delay: 0.1,
             ease: "Cubic.InOut",
           });
           fimg1.setOpacity(0.8);
@@ -1338,9 +1351,15 @@ exports.createVideo = async (req, res, next) => {
             path:
               assetsPath + "template/videos/" + userId + "/template1/img61.png",
             y: 500,
-            x: 960,
             width: 1368,
             height: 768,
+          });
+          slide1.addAnimate({
+            from: { x: 960 },
+            to: { x: 900 },
+            time: 4.5,
+            delay: 0.1,
+            ease: "Cubic.InOut",
           });
 
           // slide1.addEffect("zoomingIn", 3.5, 1);
@@ -1415,11 +1434,11 @@ exports.createVideo = async (req, res, next) => {
           const sevenVideo = await videoTemplate7(data);
           const scene6 = new FFScene();
           const img71White = new FFImage({
-            path: assetsPath + "cropped-white.jpg",
+            path: assetsPath + "cropped-white2.jpg",
           });
           img71White.addAnimate({
             from: { x: 450, y: 300 },
-            to: { x: 530, y: 280 },
+            to: { x: 530, y: 270 },
             time: 2,
             delay: 0.5,
             ease: "Cubic.InOut",
@@ -1442,6 +1461,20 @@ exports.createVideo = async (req, res, next) => {
           });
           // slide1.addEffect("zoomingIn", 3.5, 1);
           scene6.addChild(img71);
+          const img72White = new FFImage({
+            path: assetsPath + "cropped-white2.jpg",
+          });
+          img72White.addAnimate({
+            from: { x: 450, y: 780 },
+            to: { x: 530, y: 810 },
+            time: 2,
+            delay: 0.8,
+            ease: "Cubic.InOut",
+          });
+          // img71White.addEffect("fadeIn", 1.5, 1.6);
+          img72White.setOpacity(0.8);
+          // slide1.addEffect("zoomingIn", 3.5, 1);
+          scene6.addChild(img72White);
           const img72 = new FFImage({
             path:
               assetsPath + "template/videos/" + userId + "/template1/img72.png",
@@ -1454,9 +1487,21 @@ exports.createVideo = async (req, res, next) => {
             delay: 0.8,
             ease: "Cubic.InOut",
           });
-
-          // slide1.addEffect("zoomingIn", 3.5, 1);
           scene6.addChild(img72);
+          const img73White = new FFImage({
+            path: assetsPath + "cropped-white2.jpg",
+          });
+          img73White.addAnimate({
+            from: { x: 1400, y: 300 },
+            to: { x: 1370, y: 270 },
+            time: 2,
+            delay: 1,
+            ease: "Cubic.InOut",
+          });
+          // img71White.addEffect("fadeIn", 1.5, 1.6);
+          img73White.setOpacity(0.8);
+          // slide1.addEffect("zoomingIn", 3.5, 1);
+          scene6.addChild(img73White);
           const img73 = new FFImage({
             path:
               assetsPath + "template/videos/" + userId + "/template1/img73.png",
@@ -1475,7 +1520,9 @@ exports.createVideo = async (req, res, next) => {
 
           scene6.addChild(img72);
           const img74White = new FFImage({
-            path: assetsPath + "cropped-white.jpg",
+            path: assetsPath + "cropped-white2.jpg",
+            height: 360,
+            width: 640,
           });
           img74White.addAnimate({
             from: { x: 1400, y: 780 },
@@ -2421,7 +2468,7 @@ exports.createVideo = async (req, res, next) => {
             delay: 0.5,
             ease: "Cubic.InOut",
           });
-          fimg2.setScale(0.40);
+          fimg2.setScale(0.4);
           // fimg1.addEffect("slideInUp", 1.5, 1);
           // fimg1.addEffect("fadeIn", 1, 1.1);
           scene6.addChild(fimg2);
@@ -2695,8 +2742,8 @@ exports.createVideo = async (req, res, next) => {
                 "/template1/img161.png",
             });
             image.addAnimate({
-              from: { x: 350, y: 410},
-              to: { x: 460, y: 500},
+              from: { x: 350, y: 410 },
+              to: { x: 460, y: 500 },
               time: 2,
               delay: 0.2,
               ease: "Cubic.InOut",
@@ -2712,8 +2759,8 @@ exports.createVideo = async (req, res, next) => {
               y: 600,
             });
             image2.addAnimate({
-              from: { x: 1620, y: 690},
-              to: { x: 1530, y: 600},
+              from: { x: 1620, y: 690 },
+              to: { x: 1530, y: 600 },
               time: 2,
               delay: 0.2,
               ease: "Cubic.InOut",
@@ -2732,7 +2779,7 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene4.addChild(fimg1);
-            console.log("heres2")
+            console.log("heres2");
             const fontSize1 = parseInt(data.sceneData.textSize) + 25;
             let textOne = new FFText({
               text: text,
@@ -2769,7 +2816,7 @@ exports.createVideo = async (req, res, next) => {
             //   ease: "Cubic.InOut",
             // });
             // fimg2.addEffect("fadeInUp", 1, 3.2);
-           // scene4.addChild(fimg2);
+            // scene4.addChild(fimg2);
             if (user.userPlan == 0) {
               const watermark = new FFImage({
                 path: assetsPath + "reveoLogo.png",
@@ -2810,8 +2857,7 @@ exports.createVideo = async (req, res, next) => {
             creator.addChild(scene4);
           }
           i++;
-        }
-        else if (templateBlock[i].sceneId == 17) {
+        } else if (templateBlock[i].sceneId == 17) {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate17(data);
           var titleColor = data.sceneData.textColor;
@@ -2852,11 +2898,11 @@ exports.createVideo = async (req, res, next) => {
                 "template/videos/" +
                 userId +
                 "/template1/img171.png",
-                y: 540
+              y: 540,
             });
             image.addAnimate({
-              from: { x: 350},
-              to: { x: 620, },
+              from: { x: 350 },
+              to: { x: 620 },
               time: 2,
               delay: 0.2,
               ease: "Cubic.InOut",
@@ -2868,11 +2914,11 @@ exports.createVideo = async (req, res, next) => {
                 "template/videos/" +
                 userId +
                 "/template1/img172.png",
-                y: 540
+              y: 540,
             });
             image2.addAnimate({
-              from: { x: 1620},
-              to: { x: 1560},
+              from: { x: 1620 },
+              to: { x: 1560 },
               time: 2,
               delay: 0.2,
               ease: "Cubic.InOut",
@@ -2891,7 +2937,7 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene4.addChild(fimg1);
-            console.log("heres2")
+            console.log("heres2");
             const fontSize1 = parseInt(data.sceneData.textSize) + 25;
             let textOne = new FFText({
               text: text,
@@ -2955,8 +3001,7 @@ exports.createVideo = async (req, res, next) => {
             creator.addChild(scene4);
           }
           i++;
-        }
-        else if (templateBlock[i].sceneId == 18) {
+        } else if (templateBlock[i].sceneId == 18) {
           let data = templateBlock[i];
           const firstVideo = await videoTemplate18(data);
           console.log(firstVideo);
@@ -3055,7 +3100,10 @@ exports.createVideo = async (req, res, next) => {
           // add bottom cloud
           const slide1 = new FFImage({
             path:
-              assetsPath + "template/videos/" + userId + "/template1/img181.png",
+              assetsPath +
+              "template/videos/" +
+              userId +
+              "/template1/img181.png",
             y: 540,
             width: 1200,
             height: 1080,
@@ -3067,12 +3115,15 @@ exports.createVideo = async (req, res, next) => {
             delay: 0,
             ease: "Cubic.InOut",
           });
-        //  slide1.addEffect("zoomingIn", 3.5, 1);
+          //  slide1.addEffect("zoomingIn", 3.5, 1);
           scene2.addChild(slide1);
 
           const slide2 = new FFImage({
             path:
-              assetsPath + "template/videos/" + userId + "/template1/img182.png",
+              assetsPath +
+              "template/videos/" +
+              userId +
+              "/template1/img182.png",
             y: 540,
             width: 1200,
             height: 1080,
@@ -3248,8 +3299,7 @@ exports.createVideo = async (req, res, next) => {
           creator.addChild(scene2);
           // scene2.setTransition("fade", 1);
           i++;
-        }
-        else if (templateBlock[i].sceneId == 19) {
+        } else if (templateBlock[i].sceneId == 19) {
           let data = templateBlock[i];
           const firstVideo = await videoTemplate18(data);
           fontfamily = data.sceneData.fontFamily;
@@ -3281,7 +3331,10 @@ exports.createVideo = async (req, res, next) => {
           // add bottom cloud
           const slide1 = new FFImage({
             path:
-              assetsPath + "template/videos/" + userId + "/template1/img181.png",
+              assetsPath +
+              "template/videos/" +
+              userId +
+              "/template1/img181.png",
             y: 540,
             width: 1200,
             height: 1080,
@@ -3293,12 +3346,15 @@ exports.createVideo = async (req, res, next) => {
             delay: 0,
             ease: "Cubic.InOut",
           });
-        //  slide1.addEffect("zoomingIn", 3.5, 1);
+          //  slide1.addEffect("zoomingIn", 3.5, 1);
           scene2.addChild(slide1);
 
           const slide2 = new FFImage({
             path:
-              assetsPath + "template/videos/" + userId + "/template1/img182.png",
+              assetsPath +
+              "template/videos/" +
+              userId +
+              "/template1/img182.png",
             y: 540,
             x: 1340,
             width: 1200,
@@ -3311,7 +3367,7 @@ exports.createVideo = async (req, res, next) => {
           //   delay: 3,
           //   ease: "Cubic.InOut",
           // });
-           slide2.addEffect("fadeIn", 1, 3);
+          slide2.addEffect("fadeIn", 1, 3);
           scene2.addChild(slide2);
           // const slidebg = new FFImage({
           //   path: assetsPath + "bgwhite.jpg",
@@ -3718,18 +3774,18 @@ exports.createVideo = async (req, res, next) => {
       deleteFiles(
         "./src/Assets/template/videos/" + userId + "/template1/img61.png"
       );
-      deleteFiles(
-        "./src/Assets/template/videos/" + userId + "/template1/img71.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" + userId + "/template1/img72.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" + userId + "/template1/img73.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" + userId + "/template1/img74.png"
-      );
+      // deleteFiles(
+      //   "./src/Assets/template/videos/" + userId + "/template1/img71.png"
+      // );
+      // deleteFiles(
+      //   "./src/Assets/template/videos/" + userId + "/template1/img72.png"
+      // );
+      // deleteFiles(
+      //   "./src/Assets/template/videos/" + userId + "/template1/img73.png"
+     // );
+      // deleteFiles(
+      //   "./src/Assets/template/videos/" + userId + "/template1/img74.png"
+      // );
       deleteFiles(
         "./src/Assets/template/videos/" + userId + "/template1/img131.png"
       );
@@ -4130,8 +4186,8 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
         img
           .quality(60)
           .cover(
-            720,
-            405,
+            640,
+            360,
             Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
           )
           .write(
@@ -4142,8 +4198,8 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
             img
               .quality(60)
               .cover(
-                720,
-                405,
+                640,
+                360,
                 Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
               )
               .write(
@@ -4157,8 +4213,8 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
                 img
                   .quality(60)
                   .cover(
-                    720,
-                    405,
+                    640,
+                    360,
                     Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
                   )
                   .write(
@@ -4172,8 +4228,8 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
                     img
                       .quality(60)
                       .cover(
-                        720,
-                        405,
+                        640,
+                        360,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
                           Jimp.VERTICAL_ALIGN_CENTER
                       )
