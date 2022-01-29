@@ -3991,6 +3991,9 @@ exports.createVideo = async (req, res, next) => {
       deleteFiles(
         "./src/Assets/template/videos/" + userId + "/template1/img192.png"
       );
+      deleteFiles(
+        "./src/Assets/template/videos/" + userId + "/template1/img201.png"
+      );
       res.status(200).json({
         message: "successfull",
         data: path,
