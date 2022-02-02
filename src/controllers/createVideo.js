@@ -3858,7 +3858,7 @@ exports.createVideo = async (req, res, next) => {
           x: 720,
           y: 480,
         });
-        fbg.addEffect("fadeInLeft", 0.6, 1.2);
+        fbg.addEffect("fadeInLeft", 0.6, 0.2);
         sceneLast.addChild(fbg);
         const fimg1 = new FFImage({
           path:
@@ -3871,7 +3871,7 @@ exports.createVideo = async (req, res, next) => {
           x: 1260,
           y: 600,
         });
-        fimg1.addEffect("fadeIn", 1.5, 1.5);
+        fimg1.addEffect("fadeIn", 1.5, 0.5);
         sceneLast.addChild(fimg1);
         const text = new FFText({
           text: fieldText1,
@@ -3881,7 +3881,7 @@ exports.createVideo = async (req, res, next) => {
         });
         text.setColor(titleColor1);
         text.setFont(selectedfonts1);
-        text.addEffect("fadeInRight", 1.1, 1.1);
+        text.addEffect("fadeInRight", 1.1, 0.8);
         sceneLast.addChild(text);
 
         const text2 = new FFText({
@@ -3892,7 +3892,7 @@ exports.createVideo = async (req, res, next) => {
         });
         text2.setColor(titleColor2);
         text.setFont(selectedfonts2);
-        text2.addEffect("fadeInRight", 1.2, 1.2);
+        text2.addEffect("fadeInRight", 1.2, 0.9);
         sceneLast.addChild(text2);
 
         const text3 = new FFText({
@@ -3903,7 +3903,7 @@ exports.createVideo = async (req, res, next) => {
         });
         text3.setColor(titleColor3);
         text.setFont(selectedfonts3);
-        text3.addEffect("fadeInRight", 1.3, 1.3);
+        text3.addEffect("fadeInRight", 1.3, 1.0);
         sceneLast.addChild(text3);
 
         const text4 = new FFText({
@@ -3914,7 +3914,7 @@ exports.createVideo = async (req, res, next) => {
         });
         text4.setColor(titleColor3);
         text.setFont(selectedfonts4);
-        text4.addEffect("fadeInRight", 1.4, 1.4);
+        text4.addEffect("fadeInRight", 1.4, 1.1);
         sceneLast.addChild(text4);
         if (user.userPlan == 0) {
           const watermark = new FFImage({
