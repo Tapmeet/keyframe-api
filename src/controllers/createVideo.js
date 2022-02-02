@@ -4078,13 +4078,13 @@ exports.createVideo = async (req, res, next) => {
       );
       // deleteFiles(
       //   "./src/Assets/template/videos/" + userId + "/template1/" +
-              mediaDate +
-              "-img153.png"
+          //    mediaDate +
+           //   "-img153.png"
       // );
       // deleteFiles(
       //   "./src/Assets/template/videos/" + userId + "/template1/" +
-              mediaDate +
-              "-img154.png"
+           //   mediaDate +
+           //   "-img154.png"
       // );
 
       deleteFiles(
@@ -4132,6 +4132,16 @@ exports.createVideo = async (req, res, next) => {
         "./src/Assets/template/videos/" + userId + "/template1/" +
               mediaDate +
               "-img201.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" + userId + "/template1/" +
+              mediaDate +
+              "-imglast1.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" + userId + "/template1/" +
+              mediaDate +
+              "-imglast2.png"
       );
       res.status(200).json({
         message: "successfull",
