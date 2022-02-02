@@ -51,6 +51,6 @@ app.use(express.static('src/Assets'));
 var server = app.listen(PORT, function() {
   console.log('Express server listening on port ' + server.address().port);
 });
-server.timeout = 100000000;
+server.timeout = 10000000000000;
 // app.listen(PORT, () => console.log('Server running on http://localhost:' + PORT + '/'));
 // app.timeout = 100000;

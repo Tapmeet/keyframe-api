@@ -5,7 +5,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
 const Template = require('../models/templateCategory');
-
+const mongoose = require('mongoose');
 /**
  * @function  addBlock used to create new Event
  * @route POST /api/template/add-block
@@ -105,10 +105,11 @@ exports.getTemplateCategory = async function(req, res) {
   // } catch (error) {
   //   res.status(500).json({message: error.message});
   // }
-  const mongoose = require('mongoose');
+  
   const {category} = req.query;
 
   const id = mongoose.Types.ObjectId(category);
+  console.log(id);
   try {
     const datas = Template.aggregate(
         [
@@ -144,10 +145,31 @@ exports.getTemplateCategory = async function(req, res) {
           },
         ],
         function(err, data) {
+          console.log(data);
           if (err) throw err;
           res.status(200).json({message: 'Template Data', templates: data});
         },
     );
+  } catch (error) {
+    res.status(500).json({message: error.message});
+  }
+};
+
+exports.getCategory = async function(req, res) {
+  const {id} = req.query;
+  console.log(id);
+  console.log('category');
+  const ids = mongoose.Types.ObjectId(id);
+  try {
+    const category = await Template.find({_id: ids});
+    console.log(category)
+    if (!category) { 
+      return res.status(200).json({message: 'category not found'});
+    } else { 
+      return res
+          .status(200)
+          .json({message: 'Category data found', template: category});
+    }
   } catch (error) {
     res.status(500).json({message: error.message});
   }
