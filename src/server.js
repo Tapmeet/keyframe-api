@@ -54,3 +54,5 @@ var server = app.listen(PORT, function() {
 server.timeout = 10000000000000;
 // app.listen(PORT, () => console.log('Server running on http://localhost:' + PORT + '/'));
 // app.timeout = 100000;
+server.keepAliveTimeout = 600 * 10000;
+server.headersTimeout = 650 * 10000;
