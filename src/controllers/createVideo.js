@@ -393,9 +393,9 @@ exports.createVideo = async (req, res, next) => {
           }
           const img4 = new FFImage({
             path:
-              assetsPath + "template/videos/" + userId + "/" +
+            assetsPath + "template/videos/" + userId + "/template1/" +
               mediaDate +
-              "-template1/img4.png",
+              "-img4.png",
             x: 1442,
             y: 815,
           });
