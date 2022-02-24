@@ -2781,6 +2781,7 @@ exports.createVideo = async (req, res, next) => {
             ease: "Cubic.InOut",
           });
           scene3.addChild(fcloud2);
+          scene3.setTransition('fade', 0.5);
           scene3.setDuration(6.5);
           creator.addChild(scene3);
           i++;
@@ -3858,18 +3859,19 @@ exports.createVideo = async (req, res, next) => {
             scene1.addChild(text2);
           }
           // add bottom cloud
-          const fcloud = new FFImage({
-            path: assetsPath + "cropped.jpg",
-            y: 540,
-          });
-          fcloud.addAnimate({
-            from: { x: -960 },
-            to: { x: 960 },
-            time: 1,
-            delay: 3.5,
-            ease: "Cubic.InOut",
-          });
-          scene1.addChild(fcloud);
+          // const fcloud = new FFImage({
+          //   path: assetsPath + "cropped.jpg",
+          //   y: 540,
+          // });
+          // fcloud.addAnimate({
+          //   from: { x: -960 },
+          //   to: { x: 960 },
+          //   time: 1,
+          //   delay: 3.5,
+          //   ease: "Cubic.InOut",
+          // });
+          // scene1.addChild(fcloud);
+          scene1.setTransition('fade', 0.5);
           scene1.setDuration(4.5);
           creator.addChild(scene1);
           console.log(i);
@@ -3877,6 +3879,7 @@ exports.createVideo = async (req, res, next) => {
           i++;
           console.log(i);
         } else if (templateBlock[i].sceneId == 22) {
+         
           let data = templateBlock[i];
           const firstVideo = await videoTemplate22(data);
           console.log(firstVideo);
@@ -3970,6 +3973,12 @@ exports.createVideo = async (req, res, next) => {
           }
 
           const scene2 = new FFScene();
+          const slidebg1 = new FFImage({
+            path: assetsPath + "gradient.png",
+            y: 540,
+            x: 960,
+          });
+          scene2.addChild(slidebg1);
           scene2.setBgColor("#3789c7");
 
           // add bottom cloud
@@ -4164,30 +4173,31 @@ exports.createVideo = async (req, res, next) => {
             watermark.setScale(0.5);
             scene2.addChild(watermark);
           }
-          const fcloud1 = new FFImage({
-            path: assetsPath + "cropped.jpg",
-            y: 540,
-          });
-          fcloud1.addAnimate({
-            from: { x: 960 },
-            to: { x: -1260 },
-            time: 1,
-            delay: 0,
-            ease: "Cubic.InOut",
-          });
-          scene2.addChild(fcloud1);
-          const fcloud = new FFImage({
-            path: assetsPath + "cropped.jpg",
-            y: 540,
-          });
-          fcloud.addAnimate({
-            from: { x: -960 },
-            to: { x: 960 },
-            time: 1,
-            delay: 5.5,
-            ease: "Cubic.InOut",
-          });
-          scene2.addChild(fcloud);
+          // const fcloud1 = new FFImage({
+          //   path: assetsPath + "cropped.jpg",
+          //   y: 540,
+          // });
+          // fcloud1.addAnimate({
+          //   from: { x: 960 },
+          //   to: { x: -1260 },
+          //   time: 1,
+          //   delay: 0,
+          //   ease: "Cubic.InOut",
+          // });
+          // scene2.addChild(fcloud1);
+          // const fcloud = new FFImage({
+          //   path: assetsPath + "cropped.jpg",
+          //   y: 540,
+          // });
+          // fcloud.addAnimate({
+          //   from: { x: -960 },
+          //   to: { x: 960 },
+          //   time: 1,
+          //   delay: 5.5,
+          //   ease: "Cubic.InOut",
+          // });
+          // scene2.addChild(fcloud);
+          scene2.setTransition('fade', 0.5);
           scene2.setDuration(6.5);
           creator.addChild(scene2);
           // scene2.setTransition("fade", 1);
@@ -4322,18 +4332,19 @@ exports.createVideo = async (req, res, next) => {
             scene1.addChild(text2);
           }
           // add bottom cloud
-          const fcloud = new FFImage({
-            path: assetsPath + "cropped.jpg",
-            y: 540,
-          });
-          fcloud.addAnimate({
-            from: { x: -960 },
-            to: { x: 960 },
-            time: 1,
-            delay: 3.5,
-            ease: "Cubic.InOut",
-          });
-          scene1.addChild(fcloud);
+          // const fcloud = new FFImage({
+          //   path: assetsPath + "cropped.jpg",
+          //   y: 540,
+          // });
+          // fcloud.addAnimate({
+          //   from: { x: -960 },
+          //   to: { x: 960 },
+          //   time: 1,
+          //   delay: 3.5,
+          //   ease: "Cubic.InOut",
+          // });
+          // scene1.addChild(fcloud);
+          scene1.setTransition('fade', 0.5);
           scene1.setDuration(4.5);
           creator.addChild(scene1);
           console.log(i);
@@ -4429,7 +4440,7 @@ exports.createVideo = async (req, res, next) => {
               from: { y: 1720 },
               to: { y: 950 },
               time: 0.6,
-              delay: 0.2,
+              delay: 1.0,
               ease: "Cubic.InOut",
             });
             scene4.addChild(fimg1);
@@ -4443,7 +4454,7 @@ exports.createVideo = async (req, res, next) => {
             });
             textOne.setColor(titleColor);
             textOne.setFont(selectedfonts);
-            textOne.addEffect("fadeIn", 1.5, 0.6);
+            textOne.addEffect("fadeIn", 1.5, 1.3);
             scene4.addChild(textOne);
             if (text2 != "") {
               const textNext = new FFText({
@@ -4454,7 +4465,7 @@ exports.createVideo = async (req, res, next) => {
               });
               textNext.setColor(titleColor);
               textNext.setFont(selectedfonts);
-              textNext.addEffect("fadeIn", 1.5, 1.0);
+              textNext.addEffect("fadeIn", 1.5, 1.5);
               scene4.addChild(textNext);
             }
   
@@ -4468,19 +4479,19 @@ exports.createVideo = async (req, res, next) => {
               watermark.setScale(0.5);
               scene4.addChild(watermark);
             }
-            const fcloud3 = new FFImage({
-              path: assetsPath + "cropped.jpg",
-              x: 960,
-            });
-            fcloud3.addAnimate({
-              from: { y: 1620 },
-              to: { y: 540 },
-              time: 1,
-              delay: 6.5,
-              ease: "Cubic.InOut",
-            });
-            scene4.addChild(fcloud3);
-
+            // const fcloud3 = new FFImage({
+            //   path: assetsPath + "cropped.jpg",
+            //   x: 960,
+            // });
+            // fcloud3.addAnimate({
+            //   from: { y: 1620 },
+            //   to: { y: 540 },
+            //   time: 1,
+            //   delay: 6.5,
+            //   ease: "Cubic.InOut",
+            // });
+            // scene4.addChild(fcloud3);
+            scene4.setTransition('fade', 0.5);
             scene4.setDuration(7.5);
             creator.addChild(scene4);
           }
@@ -4600,18 +4611,19 @@ exports.createVideo = async (req, res, next) => {
             scene6.addChild(watermark);
           }
          
-          const fcloud3 = new FFImage({
-            path: assetsPath + "cropped.jpg",
-            y: 540,
-          });
-          fcloud3.addAnimate({
-            from: { x: 3200 },
-            to: { x: 960 },
-            time: 1,
-            delay: 4.5,
-            ease: "Cubic.InOut",
-          });
-          scene6.addChild(fcloud3);
+          // const fcloud3 = new FFImage({
+          //   path: assetsPath + "cropped.jpg",
+          //   y: 540,
+          // });
+          // fcloud3.addAnimate({
+          //   from: { x: 3200 },
+          //   to: { x: 960 },
+          //   time: 1,
+          //   delay: 4.5,
+          //   ease: "Cubic.InOut",
+          // });
+          // scene6.addChild(fcloud3);
+          scene6.setTransition('fade', 0.5);
           scene6.setBgColor("#399891");
           // scene5.addChild(fcloud2);
           scene6.setDuration(5.5);
@@ -4763,7 +4775,7 @@ exports.createVideo = async (req, res, next) => {
               x: 350,
               y: 510,
             });
-            scene1.addChild(text);
+            scene2.addChild(text);
             text.setColor(titleColor);
             text.setFont(selectedfonts);
             text.addEffect("fadeIn", 1, 1.3);
@@ -4794,18 +4806,19 @@ exports.createVideo = async (req, res, next) => {
             watermark.setScale(0.5);
             scene2.addChild(watermark);
           }
-          const fcloud = new FFImage({
-            path: assetsPath + "cropped.jpg",
-            y: 540,
-          });
-          fcloud.addAnimate({
-            from: { x: -960 },
-            to: { x: 960 },
-            time: 1,
-            delay: 5.5,
-            ease: "Cubic.InOut",
-          });
-          scene2.addChild(fcloud);
+          // const fcloud = new FFImage({
+          //   path: assetsPath + "cropped.jpg",
+          //   y: 540,
+          // });
+          // fcloud.addAnimate({
+          //   from: { x: -960 },
+          //   to: { x: 960 },
+          //   time: 1,
+          //   delay: 5.5,
+          //   ease: "Cubic.InOut",
+          // });
+          // scene2.addChild(fcloud);
+          scene2.setTransition('fade', 0.5);
           scene2.setDuration(6.5);
           creator.addChild(scene2);
           // scene2.setTransition("fade", 1);
@@ -5114,31 +5127,220 @@ exports.createVideo = async (req, res, next) => {
             watermark.setScale(0.5);
             scene2.addChild(watermark);
           }
-          const fcloud = new FFImage({
-            path: assetsPath + "cropped.jpg",
-            y: 540,
+          // const fcloud = new FFImage({
+          //   path: assetsPath + "cropped.jpg",
+          //   y: 540,
+          // });
+          // fcloud.addAnimate({
+          //   from: { x: -960 },
+          //   to: { x: 960 },
+          //   time: 1,
+          //   delay: 5.5,
+          //   ease: "Cubic.InOut",
+          // });
+          // const fcloud2 = new FFImage({
+          //   path: assetsPath + "cropped.jpg",
+          //   y: 540,
+          // });
+          // fcloud2.addAnimate({
+          //   from: { x: 960 },
+          //   to: { x: 3200 },
+          //   time: 1,
+          //   delay: 0.1,
+          //   ease: "Cubic.InOut",
+          // });
+          // console.log("here");
+          // scene2.addChild(fcloud2);
+         // scene2.addChild(fcloud);
+          scene2.setTransition('fade', 0.5);
+          scene2.setDuration(6.5);
+          creator.addChild(scene2);
+          // scene2.setTransition("fade", 1);
+          i++;
+        }
+        else if (templateBlock[i].sceneId == 28) {
+          let data = templateBlock[i];
+          const firstVideo = await videoTemplate28(data);
+          fontfamily = data.sceneData.fontFamily;
+          fonts.map(function (font) {
+            if (font.family == fontfamily) {
+              if (data.sceneData.fontWeight == "lighter") {
+                selectedfonts = font.lighter;
+              } else if (data.sceneData.fontWeight == "normal") {
+                selectedfonts = font.file;
+              } else if (data.sceneData.fontWeight == "bold") {
+                selectedfonts = font.bold;
+              }
+            }
           });
-          fcloud.addAnimate({
-            from: { x: -960 },
-            to: { x: 960 },
-            time: 1,
-            delay: 5.5,
+
+          var titleColor = data.sceneData.textColor;
+          if (titleColor.length == "4") {
+            titleColor = titleColor.replaceAll(
+              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
+              "#$1$1$2$2$3$3"
+            );
+          }
+          // const  content= data.sceneData.content;
+          var content = data.sceneData.content.split(" ");
+          var textcontent1 = "";
+          var textcontent2 = "";
+          var textcontent3 = "";
+          for (var l = 0; l < content.length; l++) {
+            if (l > 3 && l <= 7) {
+              textcontent2 =textcontent2 + content[l] + " ";
+            } else if (l > 7) {
+              textcontent3 = textcontent3 + content[l] + " ";
+            } else {
+              textcontent1 = textcontent1 + content[l] + " ";
+            }
+          }
+          const scene2 = new FFScene();
+          scene2.setBgColor("#ed7f5a");
+          // add bottom cloud
+          const slide1 = new FFImage({
+            path:
+              assetsPath +
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img281.png",
+            x: 620,
+          });
+          slide1.addAnimate({
+            from: { y: -1960 },
+            to: { y: -150 },
+            time: 3,
+            delay: 0,
             ease: "Cubic.InOut",
           });
-          const fcloud2 = new FFImage({
-            path: assetsPath + "cropped.jpg",
-            y: 540,
+          scene2.addChild(slide1);
+          const slide2 = new FFImage({
+            path:
+              assetsPath +
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img282.png",
+            x: 620,
           });
-          fcloud2.addAnimate({
-            from: { x: 960 },
-            to: { x: 3200 },
-            time: 1,
-            delay: 0.1,
+          slide2.addAnimate({
+            from: { y: -1960 },
+            to: { y: 540 },
+            time: 3,
+            delay: 0,
             ease: "Cubic.InOut",
           });
-          console.log("here");
-          scene2.addChild(fcloud2);
-          scene2.addChild(fcloud);
+          scene2.addChild(slide2);
+          const slide3 = new FFImage({
+            path:
+              assetsPath +
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img283.png",
+            x: 620,
+          });
+          slide3.addAnimate({
+            from: { y: -1960 },
+            to: { y: 1200 },
+            time: 3,
+            delay: 0,
+            ease: "Cubic.InOut",
+          });
+          scene2.addChild(slide3);
+          const slidebg = new FFImage({
+            path: assetsPath + "orangebg.png",
+            y: 540,
+            x: 1400,
+          });
+          scene2.addChild(slidebg);
+          if (textcontent3 != undefined && textcontent3 != "") {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 35;
+            const text = new FFText({
+              text: textcontent1,
+              fontSize: fontSize1,
+              x: 1460,
+              y: 465,
+            });
+            scene2.addChild(text);
+            text.setColor(titleColor);
+            text.setFont(selectedfonts);
+            text.addEffect("fadeIn", 1, 0.6);
+            text.alignCenter();
+            text.setStyle({ padding: [0, 20, 10, 20] });
+            scene2.addChild(text);
+
+            const text2 = new FFText({
+              text: textcontent2,
+              fontSize: fontSize1,
+              x: 1460,
+              y: 540,
+            });
+            text2.alignCenter();
+            text2.setStyle({ padding: [4, 20, 6, 20] });
+            text2.setColor(titleColor);
+            text2.setFont(selectedfonts);
+            text2.addEffect("fadeIn", 1.0, 1);
+            scene2.addChild(text2);
+
+            const text3 = new FFText({
+              text: textcontent3,
+              fontSize: fontSize1,
+              x: 1460,
+              y: 625,
+            });
+            text3.alignCenter();
+            text3.setStyle({ padding: [4, 20, 6, 20] });
+            text3.setColor(titleColor);
+            text3.setFont(selectedfonts);
+            text3.addEffect("fadeIn", 1.0, 1.4);
+            scene2.addChild(text3);
+          } else {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 35;
+            const text = new FFText({
+              text: textcontent1,
+              fontSize: fontSize1,
+              x: 1460,
+              y: 515,
+            });
+            scene2.addChild(text);
+            text.setColor(titleColor);
+            text.setFont(selectedfonts);
+            text.addEffect("fadeIn", 1, 0.6);
+            text.alignCenter();
+            text.setStyle({ padding: [0, 20, 10, 20] });
+            scene2.addChild(text);
+
+            const text2 = new FFText({
+              text: textcontent2,
+              fontSize: fontSize1,
+              x: 1460,
+              y: 575,
+            });
+            text2.alignCenter();
+            text2.setStyle({ padding: [4, 20, 6, 20] });
+            text2.setColor(titleColor);
+            text2.setFont(selectedfonts);
+            text2.addEffect("fadeIn", 1.0, 1);
+            scene2.addChild(text2);
+          }
+          // const fcloud = new FFImage({
+          //   path: assetsPath + "cropped.jpg",
+          //   y: 540,
+          // });
+          // fcloud.addAnimate({
+          //   from: { x: -960 },
+          //   to: { x: 960 },
+          //   time: 1,
+          //   delay: 5.5,
+          //   ease: "Cubic.InOut",
+          // });
+          // scene2.addChild(fcloud);
+          scene2.setTransition('fade', 0.5);
           scene2.setDuration(6.5);
           creator.addChild(scene2);
           // scene2.setTransition("fade", 1);
@@ -5295,31 +5497,32 @@ exports.createVideo = async (req, res, next) => {
             watermark.setScale(0.5);
             scene6.addChild(watermark);
           }
-          const fcloud2 = new FFImage({
-            path: assetsPath + "cropped.jpg",
-            y: 540,
-          });
-          fcloud2.addAnimate({
-            from: { x: 960 },
-            to: { x: 3200 },
-            time: 1,
-            delay: 0.1,
-            ease: "Cubic.InOut",
-          });
-          console.log("here");
-          scene6.addChild(fcloud2);
-          const fcloud3 = new FFImage({
-            path: assetsPath + "cropped.jpg",
-            y: 540,
-          });
-          fcloud3.addAnimate({
-            from: { x: 3200 },
-            to: { x: 960 },
-            time: 1,
-            delay: 4.5,
-            ease: "Cubic.InOut",
-          });
-          scene6.addChild(fcloud3);
+          // const fcloud2 = new FFImage({
+          //   path: assetsPath + "cropped.jpg",
+          //   y: 540,
+          // });
+          // fcloud2.addAnimate({
+          //   from: { x: 960 },
+          //   to: { x: 3200 },
+          //   time: 1,
+          //   delay: 0.1,
+          //   ease: "Cubic.InOut",
+          // });
+          // console.log("here");
+          // scene6.addChild(fcloud2);
+          // const fcloud3 = new FFImage({
+          //   path: assetsPath + "cropped.jpg",
+          //   y: 540,
+          // });
+          // fcloud3.addAnimate({
+          //   from: { x: 3200 },
+          //   to: { x: 960 },
+          //   time: 1,
+          //   delay: 4.5,
+          //   ease: "Cubic.InOut",
+          // });
+          // scene6.addChild(fcloud3);
+          scene6.setTransition('fade', 0.5);
           scene6.setBgColor("#ed7f5a");
           // scene5.addChild(fcloud2);
           scene6.setDuration(5.5);
@@ -5457,32 +5660,33 @@ exports.createVideo = async (req, res, next) => {
             watermark.setScale(0.5);
             scene6.addChild(watermark);
           }
-          const fcloud2 = new FFImage({
-            path: assetsPath + "cropped.jpg",
-            y: 540,
-          });
-          fcloud2.addAnimate({
-            from: { x: 960 },
-            to: { x: 3200 },
-            time: 1,
-            delay: 0.1,
-            ease: "Cubic.InOut",
-          });
-          console.log("here");
-          scene6.addChild(fcloud2);
-          const fcloud3 = new FFImage({
-            path: assetsPath + "cropped.jpg",
-            y: 540,
-          });
-          fcloud3.addAnimate({
-            from: { x: 3200 },
-            to: { x: 960 },
-            time: 1,
-            delay: 4.5,
-            ease: "Cubic.InOut",
-          });
-          scene6.addChild(fcloud3);
+          // const fcloud2 = new FFImage({
+          //   path: assetsPath + "cropped.jpg",
+          //   y: 540,
+          // });
+          // fcloud2.addAnimate({
+          //   from: { x: 960 },
+          //   to: { x: 3200 },
+          //   time: 1,
+          //   delay: 0.1,
+          //   ease: "Cubic.InOut",
+          // });
+          // console.log("here");
+          // scene6.addChild(fcloud2);
+          // const fcloud3 = new FFImage({
+          //   path: assetsPath + "cropped.jpg",
+          //   y: 540,
+          // });
+          // fcloud3.addAnimate({
+          //   from: { x: 3200 },
+          //   to: { x: 960 },
+          //   time: 1,
+          //   delay: 4.5,
+          //   ease: "Cubic.InOut",
+          // });
+          // scene6.addChild(fcloud3);
           scene6.setBgColor("#ed7f5a");
+          scene6.setTransition('fade', 0.5);
           // scene5.addChild(fcloud2);
           scene6.setDuration(5.5);
           creator.addChild(scene6);
@@ -5620,32 +5824,32 @@ exports.createVideo = async (req, res, next) => {
               watermark.setScale(0.5);
               scene4.addChild(watermark);
             }
-            const fcloud2 = new FFImage({
-              path: assetsPath + "cropped.jpg",
-              x: 960,
-            });
-            fcloud2.addAnimate({
-              from: { y: 540 },
-              to: { y: -600 },
-              time: 1,
-              delay: 0,
-              ease: "Cubic.InOut",
-            });
-            scene4.addChild(fcloud2);
+            // const fcloud2 = new FFImage({
+            //   path: assetsPath + "cropped.jpg",
+            //   x: 960,
+            // });
+            // fcloud2.addAnimate({
+            //   from: { y: 540 },
+            //   to: { y: -600 },
+            //   time: 1,
+            //   delay: 0,
+            //   ease: "Cubic.InOut",
+            // });
+            // scene4.addChild(fcloud2);
 
-            const fcloud3 = new FFImage({
-              path: assetsPath + "cropped.jpg",
-              x: 960,
-            });
-            fcloud3.addAnimate({
-              from: { y: 1620 },
-              to: { y: 540 },
-              time: 1,
-              delay: 6.5,
-              ease: "Cubic.InOut",
-            });
-            scene4.addChild(fcloud3);
-
+            // const fcloud3 = new FFImage({
+            //   path: assetsPath + "cropped.jpg",
+            //   x: 960,
+            // });
+            // fcloud3.addAnimate({
+            //   from: { y: 1620 },
+            //   to: { y: 540 },
+            //   time: 1,
+            //   delay: 6.5,
+            //   ease: "Cubic.InOut",
+            // });
+            // scene4.addChild(fcloud3);
+            scene4.setTransition('fade', 0.5);
             scene4.setDuration(7.5);
             creator.addChild(scene4);
           }
@@ -6130,6 +6334,154 @@ exports.createVideo = async (req, res, next) => {
           mediaDate +
           "-img201.png"
       );
+
+
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img301.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img302.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img303.png"
+      );
+
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img291.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img292.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img293.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img294.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img281.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img282.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img283.png"
+      );
+
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img271.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img272.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img261.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img262.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img263.png"
+      );
+
+
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img251.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img241.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img242.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img221.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img222.png"
+      );
+     
+
       deleteFiles(
         "./src/Assets/template/videos/" +
           userId +
@@ -7208,6 +7560,78 @@ global.videoTemplate27 = async function videoTemplate27(data, req, res) {
             setTimeout(function () {
               resolve("done");
             }, 500);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
+};
+global.videoTemplate28 = async function videoTemplate28(data, req, res) {
+  return new Promise((resolve) => {
+    Jimp.read(assetsPath + data.sceneData.media["0"].url)
+      .then((img) => {
+        img
+          .quality(60)
+          .grayscale()
+          .cover(
+            900,
+            506,
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+          )
+          .write(
+            assetsPath +
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img281.png"
+          ); // save
+        Jimp.read(assetsPath + data.sceneData.media["0"].url)
+          .then((img) => {
+            img
+              .quality(60)
+              .cover(
+                900,
+                506,
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+              )
+              .write(
+                assetsPath +
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img282.png"
+              ); // save
+              Jimp.read(assetsPath + data.sceneData.media["0"].url)
+              .then((img) => {
+                img
+                  .quality(60)
+                  .grayscale()
+                  .cover(
+                    900,
+                    506,
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                  )
+                  .write(
+                    assetsPath +
+                      "template/videos/" +
+                      userId +
+                      "/template1/" +
+                      mediaDate +
+                      "-img283.png"
+                  ); // save
+                setTimeout(function () {
+                  resolve("done");
+                }, 500);
+              })
+              .catch((err) => {
+                console.error(err);
+              });
           })
           .catch((err) => {
             console.error(err);
