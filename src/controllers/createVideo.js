@@ -2676,7 +2676,7 @@ exports.createVideo = async (req, res, next) => {
             y: 540,
             x: 960,
           });
-          slide1.addEffect("zoomingIn", 3.5, 1);
+          slide1.addEffect("zoomingIn", 3.5, 0.5);
           scene3.addChild(slide1);
           const slide2 = new FFImage({
             path:
@@ -3992,15 +3992,16 @@ exports.createVideo = async (req, res, next) => {
             y: 540,
             width: 1200,
             height: 1080,
+            x: 1340,
           });
-          slide1.addAnimate({
-            from: { x: 2960 },
-            to: { x: 1340 },
-            time: 1,
-            delay: 0,
-            ease: "Cubic.InOut",
-          });
-          slide1.addEffect("zoomingIn", 3.5, 1);
+          // slide1.addAnimate({
+          //   from: { x: 2060 },
+          //   to: { x: 1340 },
+          //   time: 1,
+          //   delay: 0,
+          //   ease: "Cubic.InOut",
+          // });
+          slide1.addEffect("zoomingIn", 3.5, 0.1);
           scene2.addChild(slide1);
 
           const slide2 = new FFImage({
@@ -4044,72 +4045,72 @@ exports.createVideo = async (req, res, next) => {
             const text1 = new FFText({
               text: fieldTitle1,
               fontSize: fontSize1,
-              x: 150,
+              x: 180,
               y: 170,
             });
             text1.setColor(titleColor);
             text1.setFont(titlefonts);
-            text1.addEffect("fadeInLeft", 1, 0.5);
+            text1.addEffect("fadeInDown", 1, 0.5);
             scene2.addChild(text1);
           }
           if (fieldText1 != "") {
             const textField = new FFText({
               text: fieldText1,
               fontSize: fontSize1,
-              x: 150,
+              x: 180,
               y: 220,
             });
             textField.setColor(subtitleColor);
             textField.setFont(selectedfonts);
-            textField.addEffect("fadeInLeft", 1, 0.5);
+            textField.addEffect("fadeInDown", 1, 0.5);
             scene2.addChild(textField);
           }
           if (fieldTitle2 != "") {
             const textTitle2 = new FFText({
               text: fieldTitle2,
               fontSize: fontSize1,
-              x: 150,
+              x: 180,
               y: 320,
             });
             textTitle2.setColor(titleColor);
             textTitle2.setFont(titlefonts);
-            textTitle2.addEffect("fadeInLeft", 1, 0.7);
+            textTitle2.addEffect("fadeInDown", 1, 0.7);
             scene2.addChild(textTitle2);
           }
           if (fieldText2 != "") {
             const textField2 = new FFText({
               text: fieldText2,
               fontSize: fontSize2,
-              x: 150,
+              x: 180,
               y: 370,
             });
             textField2.setColor(subtitleColor);
             textField2.setFont(selectedfonts);
-            textField2.addEffect("fadeInLeft", 1, 0.7);
+            textField2.addEffect("fadeInDown", 1, 0.7);
             scene2.addChild(textField2);
           }
           if (fieldTitle3 != "") {
             const text5 = new FFText({
               text: fieldTitle3,
               fontSize: fontSize1,
-              x: 150,
+              x: 180,
               y: 470,
             });
             text5.setColor(titleColor);
             text5.setFont(titlefonts);
-            text5.addEffect("fadeInLeft", 1, 0.9);
+            text5.addEffect("fadeInDown", 1, 0.9);
             scene2.addChild(text5);
           }
           if (fieldText3) {
             const text6 = new FFText({
               text: fieldText3,
               fontSize: fontSize2,
-              x: 150,
+              x: 180,
               y: 520,
             });
             text6.setColor(subtitleColor);
             text6.setFont(selectedfonts);
-            text6.addEffect("fadeInLeft", 1, 0.9);
+            text6.addEffect("fadeInDown", 1, 0.9);
             scene2.addChild(text6);
           }
 
@@ -4117,24 +4118,24 @@ exports.createVideo = async (req, res, next) => {
             const text7 = new FFText({
               text: fieldTitle4,
               fontSize: fontSize1,
-              x: 150,
+              x: 180,
               y: 620,
             });
             text7.setColor(titleColor);
             text7.setFont(titlefonts);
-            text7.addEffect("fadeInLeft", 1, 1.1);
+            text7.addEffect("fadeInDown", 1, 1.1);
             scene2.addChild(text7);
           }
           if (fieldText4) {
             const text8 = new FFText({
               text: fieldText4,
               fontSize: fontSize2,
-              x: 150,
+              x: 180,
               y: 670,
             });
             text8.setColor(subtitleColor);
             text8.setFont(selectedfonts);
-            text8.addEffect("fadeInLeft", 1, 1.1);
+            text8.addEffect("fadeInDown", 1, 1.1);
             scene2.addChild(text8);
           }
 
@@ -4142,24 +4143,24 @@ exports.createVideo = async (req, res, next) => {
             const text9 = new FFText({
               text: fieldTitle5,
               fontSize: fontSize1,
-              x: 150,
+              x: 180,
               y: 770,
             });
             text9.setColor(titleColor);
             text9.setFont(titlefonts);
-            text9.addEffect("fadeInLeft", 1, 1.3);
+            text9.addEffect("fadeInDown", 1, 1.3);
             scene2.addChild(text9);
           }
           if (fieldText5) {
             const text10 = new FFText({
               text: fieldText5,
               fontSize: fontSize2,
-              x: 150,
+              x: 180,
               y: 820,
             });
             text10.setColor(subtitleColor);
             text10.setFont(selectedfonts);
-            text10.addEffect("fadeInLeft", 1, 1.3);
+            text10.addEffect("fadeInDown", 1, 1.3);
             scene2.addChild(text10);
           }
           if (user.userPlan == 0) {
@@ -4533,22 +4534,22 @@ exports.createVideo = async (req, res, next) => {
             x: 960,
           });
           scene6.addChild(fcloud2);
-          const fimg1 = new FFImage({
-            path: assetsPath + "whitescenegallery.jpg",
-            y: 470,
-            x: 990,
-            width: 1368,
-            height: 768,
-          });
-          fimg1.addAnimate({
-            from: { x: 960, y: 500 },
-            to: { x: 930, y: 470 },
-            time: 4.5,
-            delay: 0.1,
-            ease: "Cubic.InOut",
-          });
-          fimg1.setOpacity(0.8);
-          scene6.addChild(fimg1);
+          // const fimg1 = new FFImage({
+          //   path: assetsPath + "whitescenegallery.jpg",
+          //   y: 470,
+          //   x: 990,
+          //   width: 1368,
+          //   height: 768,
+          // });
+          // fimg1.addAnimate({
+          //   from: { x: 960, y: 500 },
+          //   to: { x: 930, y: 470 },
+          //   time: 4.5,
+          //   delay: 0.1,
+          //   ease: "Cubic.InOut",
+          // });
+          // fimg1.setOpacity(0.8);
+          // scene6.addChild(fimg1);
           const slide1 = new FFImage({
             path:
               assetsPath +
@@ -4557,13 +4558,11 @@ exports.createVideo = async (req, res, next) => {
               "/template1/" +
               mediaDate +
               "-img251.png",
-            y: 500,
-            width: 1368,
-            height: 768,
+            y: 480,
           });
           slide1.addAnimate({
-            from: { x: 960 },
-            to: { x: 900 },
+            from: { x: 1200 },
+            to: { x: 960 },
             time: 4.5,
             delay: 0.1,
             ease: "Cubic.InOut",
@@ -4652,7 +4651,7 @@ exports.createVideo = async (req, res, next) => {
           const contentParts = content.split("\n");
 
           const scene2 = new FFScene();
-          scene2.setBgColor("#ed7f5a");
+          scene2.setBgColor("#e04e1c");
 
           // add bottom cloud
           const slide1 = new FFImage({
@@ -4732,7 +4731,7 @@ exports.createVideo = async (req, res, next) => {
             scene2.addChild(text);
             text.setColor(titleColor);
             text.setFont(selectedfonts);
-            text.addEffect("fadeIn", 1, 1.3);
+            text.addEffect("backInLeft", 1, 1.3);
             text.alignCenter();
             text.setStyle({ padding: [0, 20, 10, 20] });
             scene2.addChild(text);
@@ -4747,7 +4746,7 @@ exports.createVideo = async (req, res, next) => {
             text2.setStyle({ padding: [4, 20, 6, 20] });
             text2.setColor(titleColor);
             text2.setFont(selectedfonts);
-            text2.addEffect("fadeIn", 1.0, 1.4);
+            text2.addEffect("backInLeft", 1.0, 1.4);
             scene2.addChild(text2);
 
             const text3 = new FFText({
@@ -4760,7 +4759,7 @@ exports.createVideo = async (req, res, next) => {
             text3.setStyle({ padding: [4, 20, 6, 20] });
             text3.setColor(titleColor);
             text3.setFont(selectedfonts);
-            text3.addEffect("fadeIn", 1.0, 1.4);
+            text3.addEffect("backInLeft", 1.0, 1.4);
             scene2.addChild(text3);
           } else {
             const fontSize1 = parseInt(data.sceneData.textSize) + 25;
@@ -4773,7 +4772,7 @@ exports.createVideo = async (req, res, next) => {
             scene2.addChild(text);
             text.setColor(titleColor);
             text.setFont(selectedfonts);
-            text.addEffect("fadeIn", 1, 1.3);
+            text.addEffect("backInLeft", 1, 1.3);
             text.alignCenter();
             text.setStyle({ padding: [0, 20, 10, 20] });
             scene2.addChild(text);
@@ -4788,7 +4787,7 @@ exports.createVideo = async (req, res, next) => {
             text2.setStyle({ padding: [4, 20, 6, 20] });
             text2.setColor(titleColor);
             text2.setFont(selectedfonts);
-            text2.addEffect("fadeIn", 1.0, 1.4);
+            text2.addEffect("backInLeft", 1.0, 1.4);
             scene2.addChild(text2);
           }
           if (user.userPlan == 0) {
@@ -4911,7 +4910,7 @@ exports.createVideo = async (req, res, next) => {
           }
 
           const scene2 = new FFScene();
-          scene2.setBgColor("#ed7f5a");
+          scene2.setBgColor("#e04e1c");
           // scene2.setBgColor("#fff");
           // add bottom cloud
           const slide1 = new FFImage({
@@ -4960,14 +4959,14 @@ exports.createVideo = async (req, res, next) => {
           });
           scene2.addChild(slide2);
           const slidebg3 = new FFImage({
-            path: assetsPath + "orangebg2.png",
-            y: -50,
+            path: assetsPath + "orangebg3.png",
+            y: -40,
             x: 960,
           });
           slidebg3.setScale(2);
           scene2.addChild(slidebg3);
           const slidebg4 = new FFImage({
-            path: assetsPath + "orangebg2.png",
+            path: assetsPath + "orangebg3.png",
             y: 1130,
             x: 960,
           });
@@ -4998,7 +4997,7 @@ exports.createVideo = async (req, res, next) => {
             });
             text1.setColor(titleColor);
             text1.setFont(titlefonts);
-            text1.addEffect("fadeInLeft", 1, 0.5);
+            text1.addEffect("backInRight", 1, 0.5);
             scene2.addChild(text1);
           }
           if (fieldText1 != "") {
@@ -5010,7 +5009,7 @@ exports.createVideo = async (req, res, next) => {
             });
             textField.setColor(subtitleColor);
             textField.setFont(selectedfonts);
-            textField.addEffect("fadeInLeft", 1, 0.5);
+            textField.addEffect("backInRight", 1, 0.5);
             scene2.addChild(textField);
           }
           if (fieldTitle2 != "") {
@@ -5022,7 +5021,7 @@ exports.createVideo = async (req, res, next) => {
             });
             textTitle2.setColor(titleColor);
             textTitle2.setFont(titlefonts);
-            textTitle2.addEffect("fadeInLeft", 1, 0.7);
+            textTitle2.addEffect("backInRight", 1, 0.7);
             scene2.addChild(textTitle2);
           }
           if (fieldText2 != "") {
@@ -5034,7 +5033,7 @@ exports.createVideo = async (req, res, next) => {
             });
             textField2.setColor(subtitleColor);
             textField2.setFont(selectedfonts);
-            textField2.addEffect("fadeInLeft", 1, 0.7);
+            textField2.addEffect("backInRight", 1, 0.7);
             scene2.addChild(textField2);
           }
           if (fieldTitle3 != "") {
@@ -5046,7 +5045,7 @@ exports.createVideo = async (req, res, next) => {
             });
             text5.setColor(titleColor);
             text5.setFont(titlefonts);
-            text5.addEffect("fadeInLeft", 1, 0.9);
+            text5.addEffect("backInRight", 1, 0.9);
             scene2.addChild(text5);
           }
           if (fieldText3) {
@@ -5058,7 +5057,7 @@ exports.createVideo = async (req, res, next) => {
             });
             text6.setColor(subtitleColor);
             text6.setFont(selectedfonts);
-            text6.addEffect("fadeInLeft", 1, 0.9);
+            text6.addEffect("backInRight", 1, 0.9);
             scene2.addChild(text6);
           }
 
@@ -5071,7 +5070,7 @@ exports.createVideo = async (req, res, next) => {
             });
             text7.setColor(titleColor);
             text7.setFont(titlefonts);
-            text7.addEffect("fadeInLeft", 1, 1.1);
+            text7.addEffect("backInRight", 1, 1.1);
             scene2.addChild(text7);
           }
           if (fieldText4) {
@@ -5083,7 +5082,7 @@ exports.createVideo = async (req, res, next) => {
             });
             text8.setColor(subtitleColor);
             text8.setFont(selectedfonts);
-            text8.addEffect("fadeInLeft", 1, 1.1);
+            text8.addEffect("backInRight", 1, 1.1);
             scene2.addChild(text8);
           }
 
@@ -5096,7 +5095,7 @@ exports.createVideo = async (req, res, next) => {
             });
             text9.setColor(titleColor);
             text9.setFont(titlefonts);
-            text9.addEffect("fadeInLeft", 1, 1.3);
+            text9.addEffect("backInRight", 1, 1.3);
             scene2.addChild(text9);
           }
           if (fieldText5) {
@@ -5108,7 +5107,7 @@ exports.createVideo = async (req, res, next) => {
             });
             text10.setColor(subtitleColor);
             text10.setFont(selectedfonts);
-            text10.addEffect("fadeInLeft", 1, 1.3);
+            text10.addEffect("backInRight", 1, 1.3);
             scene2.addChild(text10);
           }
           if (user.userPlan == 0) {
@@ -5189,7 +5188,7 @@ exports.createVideo = async (req, res, next) => {
             }
           }
           const scene2 = new FFScene();
-          scene2.setBgColor("#ed7f5a");
+          scene2.setBgColor("#e04e1c");
           // add bottom cloud
           const slide1 = new FFImage({
             path:
@@ -5256,69 +5255,67 @@ exports.createVideo = async (req, res, next) => {
             const text = new FFText({
               text: textcontent1,
               fontSize: fontSize1,
-              x: 1460,
+              x: 1160,
               y: 465,
             });
             scene2.addChild(text);
             text.setColor(titleColor);
             text.setFont(selectedfonts);
-            text.addEffect("fadeIn", 1, 0.6);
-            text.alignCenter();
-            text.setStyle({ padding: [0, 20, 10, 20] });
+            text.addEffect("backInRight", 1, 0.6);
             scene2.addChild(text);
 
             const text2 = new FFText({
               text: textcontent2,
               fontSize: fontSize1,
-              x: 1460,
+              x: 1160,
               y: 540,
             });
-            text2.alignCenter();
-            text2.setStyle({ padding: [4, 20, 6, 20] });
+            // text2.alignCenter();
+            // text2.setStyle({ padding: [4, 20, 6, 20] });
             text2.setColor(titleColor);
             text2.setFont(selectedfonts);
-            text2.addEffect("fadeIn", 1.0, 1);
+            text2.addEffect("backInRight", 1.0, 1);
             scene2.addChild(text2);
 
             const text3 = new FFText({
               text: textcontent3,
               fontSize: fontSize1,
-              x: 1460,
+              x: 1160,
               y: 625,
             });
-            text3.alignCenter();
-            text3.setStyle({ padding: [4, 20, 6, 20] });
+            // text3.alignCenter();
+            // text3.setStyle({ padding: [4, 20, 6, 20] });
             text3.setColor(titleColor);
             text3.setFont(selectedfonts);
-            text3.addEffect("fadeIn", 1.0, 1.4);
+            text3.addEffect("backInRight", 1.0, 1.4);
             scene2.addChild(text3);
           } else {
             const fontSize1 = parseInt(data.sceneData.textSize) + 35;
             const text = new FFText({
               text: textcontent1,
               fontSize: fontSize1,
-              x: 1460,
+              x: 1160,
               y: 515,
             });
             scene2.addChild(text);
             text.setColor(titleColor);
             text.setFont(selectedfonts);
-            text.addEffect("fadeIn", 1, 0.6);
-            text.alignCenter();
-            text.setStyle({ padding: [0, 20, 10, 20] });
+            text.addEffect("backInRight", 1, 0.6);
+            // text.alignCenter();
+            // text.setStyle({ padding: [0, 20, 10, 20] });
             scene2.addChild(text);
 
             const text2 = new FFText({
               text: textcontent2,
               fontSize: fontSize1,
-              x: 1460,
+              x: 1160,
               y: 575,
             });
-            text2.alignCenter();
-            text2.setStyle({ padding: [4, 20, 6, 20] });
+            // text2.alignCenter();
+            // text2.setStyle({ padding: [4, 20, 6, 20] });
             text2.setColor(titleColor);
             text2.setFont(selectedfonts);
-            text2.addEffect("fadeIn", 1.0, 1);
+            text2.addEffect("backInRight", 1.0, 1);
             scene2.addChild(text2);
           }
           // const fcloud = new FFImage({
@@ -5342,20 +5339,6 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const sevenVideo = await videoTemplate29(data);
           const scene6 = new FFScene();
-          const img71White = new FFImage({
-            path: assetsPath + "cropped-white2.jpg",
-          });
-          img71White.addAnimate({
-            from: { x: 450, y: 300 },
-            to: { x: 530, y: 270 },
-            time: 2,
-            delay: 0.5,
-            ease: "Cubic.InOut",
-          });
-          // img71White.addEffect("fadeIn", 1.5, 1.6);
-          img71White.setOpacity(0.8);
-          // slide1.addEffect("zoomingIn", 3.5, 1);
-          scene6.addChild(img71White);
           const img71 = new FFImage({
             path:
               assetsPath +
@@ -5364,31 +5347,17 @@ exports.createVideo = async (req, res, next) => {
               "/template1/" +
               mediaDate +
               "-img291.png",
-            y: 300,
+            y: 280,
           });
           img71.addAnimate({
-            from: { x: 450 },
-            to: { x: 550 },
+            from: { x: -1050 },
+            to: { x: 500 },
             time: 2,
-            delay: 0.5,
+            delay: 0.2,
             ease: "Cubic.InOut",
           });
           // slide1.addEffect("zoomingIn", 3.5, 1);
           scene6.addChild(img71);
-          const img72White = new FFImage({
-            path: assetsPath + "cropped-white2.jpg",
-          });
-          img72White.addAnimate({
-            from: { x: 450, y: 780 },
-            to: { x: 530, y: 810 },
-            time: 2,
-            delay: 0.8,
-            ease: "Cubic.InOut",
-          });
-          // img71White.addEffect("fadeIn", 1.5, 1.6);
-          img72White.setOpacity(0.8);
-          // slide1.addEffect("zoomingIn", 3.5, 1);
-          scene6.addChild(img72White);
           const img72 = new FFImage({
             path:
               assetsPath +
@@ -5397,30 +5366,16 @@ exports.createVideo = async (req, res, next) => {
               "/template1/" +
               mediaDate +
               "-img292.png",
-            y: 780,
+            x: 500,
           });
           img72.addAnimate({
-            from: { x: 450 },
-            to: { x: 550 },
+            from: { y: 1680 },
+            to: { y: 800 },
             time: 2,
             delay: 0.8,
             ease: "Cubic.InOut",
           });
           scene6.addChild(img72);
-          const img73White = new FFImage({
-            path: assetsPath + "cropped-white2.jpg",
-          });
-          img73White.addAnimate({
-            from: { x: 1400, y: 300 },
-            to: { x: 1370, y: 270 },
-            time: 2,
-            delay: 1,
-            ease: "Cubic.InOut",
-          });
-          // img71White.addEffect("fadeIn", 1.5, 1.6);
-          img73White.setOpacity(0.8);
-          // slide1.addEffect("zoomingIn", 3.5, 1);
-          scene6.addChild(img73White);
           const img73 = new FFImage({
             path:
               assetsPath +
@@ -5429,11 +5384,11 @@ exports.createVideo = async (req, res, next) => {
               "/template1/" +
               mediaDate +
               "-img293.png",
-            y: 300,
+            x: 1420,
           });
           img73.addAnimate({
-            from: { x: 1400 },
-            to: { x: 1350 },
+            from: { y: -1400 },
+            to: { y: 280 },
             time: 2,
             delay: 1,
             ease: "Cubic.InOut",
@@ -5443,21 +5398,6 @@ exports.createVideo = async (req, res, next) => {
           scene6.addChild(img73);
 
           scene6.addChild(img72);
-          const img74White = new FFImage({
-            path: assetsPath + "cropped-white2.jpg",
-            height: 360,
-            width: 640,
-          });
-          img74White.addAnimate({
-            from: { x: 1400, y: 780 },
-            to: { x: 1370, y: 800 },
-            time: 2,
-            delay: 1.2,
-            ease: "Cubic.InOut",
-          });
-          // img71White.addEffect("fadeIn", 1.5, 1.6);
-          img74White.setOpacity(0.8);
-          scene6.addChild(img74White);
           const img74 = new FFImage({
             path:
               assetsPath +
@@ -5466,11 +5406,11 @@ exports.createVideo = async (req, res, next) => {
               "/template1/" +
               mediaDate +
               "-img294.png",
-            y: 780,
+            y: 800,
           });
           img74.addAnimate({
-            from: { x: 1400 },
-            to: { x: 1350 },
+            from: { x: 2400 },
+            to: { x: 1420 },
             time: 2,
             delay: 1.2,
             ease: "Cubic.InOut",
@@ -5515,7 +5455,7 @@ exports.createVideo = async (req, res, next) => {
           // });
           // scene6.addChild(fcloud3);
           scene6.setTransition("fade", 0.5);
-          scene6.setBgColor("#ed7f5a");
+          scene6.setBgColor("#e04e1c");
           // scene5.addChild(fcloud2);
           scene6.setDuration(5.5);
           creator.addChild(scene6);
@@ -5676,7 +5616,7 @@ exports.createVideo = async (req, res, next) => {
           //   ease: "Cubic.InOut",
           // });
           // scene6.addChild(fcloud3);
-          scene6.setBgColor("#ed7f5a");
+          scene6.setBgColor("#e04e1c");
           scene6.setTransition("fade", 0.5);
           // scene5.addChild(fcloud2);
           scene6.setDuration(5.5);
@@ -5790,7 +5730,7 @@ exports.createVideo = async (req, res, next) => {
               textNext.addEffect("fadeIn", 1.5, 1.0);
               scene4.addChild(textNext);
             }
-            scene4.setBgColor("#ed7f5a");
+            scene4.setBgColor("#e04e1c");
             // const fimg2 = new FFImage({
             //   path: assetsPath + "whitebg2.png",
             //   x: 1445,
@@ -6191,7 +6131,7 @@ exports.createVideo = async (req, res, next) => {
             });
             text1.setColor(titleColor);
             text1.setFont(titlefonts);
-            text1.addEffect("fadeInLeft", 1, 0.5);
+            text1.addEffect("zoomIn", 1, 0.5);
             scene2.addChild(text1);
           }
           if (fieldText1 != "") {
@@ -6203,7 +6143,7 @@ exports.createVideo = async (req, res, next) => {
             });
             textField.setColor(subtitleColor);
             textField.setFont(selectedfonts);
-            textField.addEffect("fadeInLeft", 1, 0.5);
+            textField.addEffect("zoomIn", 1, 0.5);
             scene2.addChild(textField);
           }
           if (fieldTitle2 != "") {
@@ -6215,7 +6155,7 @@ exports.createVideo = async (req, res, next) => {
             });
             textTitle2.setColor(titleColor);
             textTitle2.setFont(titlefonts);
-            textTitle2.addEffect("fadeInLeft", 1, 0.7);
+            textTitle2.addEffect("zoomIn", 1, 0.7);
             scene2.addChild(textTitle2);
           }
           if (fieldText2 != "") {
@@ -6227,7 +6167,7 @@ exports.createVideo = async (req, res, next) => {
             });
             textField2.setColor(subtitleColor);
             textField2.setFont(selectedfonts);
-            textField2.addEffect("fadeInLeft", 1, 0.7);
+            textField2.addEffect("zoomIn", 1, 0.7);
             scene2.addChild(textField2);
           }
           if (fieldTitle3 != "") {
@@ -6239,7 +6179,7 @@ exports.createVideo = async (req, res, next) => {
             });
             text5.setColor(titleColor);
             text5.setFont(titlefonts);
-            text5.addEffect("fadeInLeft", 1, 0.9);
+            text5.addEffect("zoomIn", 1, 0.9);
             scene2.addChild(text5);
           }
           if (fieldText3) {
@@ -6251,7 +6191,7 @@ exports.createVideo = async (req, res, next) => {
             });
             text6.setColor(subtitleColor);
             text6.setFont(selectedfonts);
-            text6.addEffect("fadeInLeft", 1, 0.9);
+            text6.addEffect("zoomIn", 1, 0.9);
             scene2.addChild(text6);
           }
 
@@ -6264,7 +6204,7 @@ exports.createVideo = async (req, res, next) => {
             });
             text7.setColor(titleColor);
             text7.setFont(titlefonts);
-            text7.addEffect("fadeInLeft", 1, 1.1);
+            text7.addEffect("zoomIn", 1, 1.1);
             scene2.addChild(text7);
           }
           if (fieldText4) {
@@ -6276,7 +6216,7 @@ exports.createVideo = async (req, res, next) => {
             });
             text8.setColor(subtitleColor);
             text8.setFont(selectedfonts);
-            text8.addEffect("fadeInLeft", 1, 1.1);
+            text8.addEffect("zoomIn", 1, 1.1);
             scene2.addChild(text8);
           }
 
@@ -6289,7 +6229,7 @@ exports.createVideo = async (req, res, next) => {
             });
             text9.setColor(titleColor);
             text9.setFont(titlefonts);
-            text9.addEffect("fadeInLeft", 1, 1.3);
+            text9.addEffect("zoomIn", 1, 1.3);
             scene2.addChild(text9);
           }
           if (fieldText5) {
@@ -6301,7 +6241,7 @@ exports.createVideo = async (req, res, next) => {
             });
             text10.setColor(subtitleColor);
             text10.setFont(selectedfonts);
-            text10.addEffect("fadeInLeft", 1, 1.3);
+            text10.addEffect("zoomIn", 1, 1.3);
             scene2.addChild(text10);
           }
           if (user.userPlan == 0) {
@@ -6342,8 +6282,7 @@ exports.createVideo = async (req, res, next) => {
           creator.addChild(scene2);
           // scene2.setTransition("fade", 1);
           i++;
-        }
-        else if (templateBlock[i].sceneId == 34) {
+        } else if (templateBlock[i].sceneId == 34) {
           let data = templateBlock[i];
 
           var titleColor = data.sceneData.textColor;
@@ -6354,7 +6293,7 @@ exports.createVideo = async (req, res, next) => {
             );
           }
           var result = data.sceneData.content.split(" ");
-         // console.log(result);
+          // console.log(result);
           var text = "";
           var text2 = "";
           for (var m = 0; m < result.length; m++) {
@@ -6399,7 +6338,7 @@ exports.createVideo = async (req, res, next) => {
           });
           fimg2.addAnimate({
             from: { x: 2660 },
-            to: { x: 960},
+            to: { x: 960 },
             time: 1,
             delay: 0.5,
             ease: "Cubic.InOut",
@@ -6411,7 +6350,14 @@ exports.createVideo = async (req, res, next) => {
             y: 750,
             x: 1440,
           });
-          fimg3.addEffect("fadeIn", 1.5, 1.5);
+          fimg3.addAnimate({
+            from: { y: 1620 },
+            to: { y: 750 },
+            time: 2,
+            delay: 0.5,
+            ease: "Cubic.InOut",
+          });
+         // fimg3.addEffect("fadeIn", 1.5, 1.5);
           scene3.addChild(fimg3);
           const slide2 = new FFImage({
             path:
@@ -6426,7 +6372,7 @@ exports.createVideo = async (req, res, next) => {
           slide2.addAnimate({
             from: { y: 1620 },
             to: { y: 750 },
-            time: 1,
+            time: 2,
             delay: 0.5,
             ease: "Cubic.InOut",
           });
@@ -6494,8 +6440,7 @@ exports.createVideo = async (req, res, next) => {
           scene3.setDuration(6.5);
           creator.addChild(scene3);
           i++;
-        }
-        else if (templateBlock[i].sceneId == 35) {
+        } else if (templateBlock[i].sceneId == 35) {
           let data = templateBlock[i];
 
           var titleColor = data.sceneData.textColor;
@@ -6506,7 +6451,7 @@ exports.createVideo = async (req, res, next) => {
             );
           }
           var result = data.sceneData.content.split(" ");
-         // console.log(result);
+          // console.log(result);
           var text = "";
           var text2 = "";
           for (var m = 0; m < result.length; m++) {
@@ -6551,7 +6496,7 @@ exports.createVideo = async (req, res, next) => {
           });
           fimg2.addAnimate({
             from: { x: 2660 },
-            to: { x: 960},
+            to: { x: 960 },
             time: 1,
             delay: 0.5,
             ease: "Cubic.InOut",
@@ -6563,7 +6508,14 @@ exports.createVideo = async (req, res, next) => {
             y: 750,
             x: 540,
           });
-          fimg3.addEffect("fadeIn", 1.5, 1.5);
+          fimg3.addAnimate({
+            from: { y: 1620 },
+            to: { y: 750 },
+            time: 2,
+            delay: 0.5,
+            ease: "Cubic.InOut",
+          });
+         // fimg3.addEffect("fadeIn", 1.5, 1.5);
           scene3.addChild(fimg3);
           const slide2 = new FFImage({
             path:
@@ -6578,7 +6530,7 @@ exports.createVideo = async (req, res, next) => {
           slide2.addAnimate({
             from: { y: 1620 },
             to: { y: 750 },
-            time: 1,
+            time: 2,
             delay: 0.5,
             ease: "Cubic.InOut",
           });
@@ -6634,7 +6586,7 @@ exports.createVideo = async (req, res, next) => {
             path: assetsPath + "cropped.jpg",
             x: 960,
           });
-          fcloud2.addAnimate({ 
+          fcloud2.addAnimate({
             from: { y: 1620 },
             to: { y: 540 },
             time: 1,
@@ -6646,8 +6598,7 @@ exports.createVideo = async (req, res, next) => {
           scene3.setDuration(6.5);
           creator.addChild(scene3);
           i++;
-        }     
-        else if (templateBlock[i].sceneId == 36) {
+        } else if (templateBlock[i].sceneId == 36) {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate36(data);
           var titleColor = data.sceneData.textColor;
@@ -7417,6 +7368,77 @@ exports.createVideo = async (req, res, next) => {
           "/template1/" +
           mediaDate +
           "-img222.png"
+      );
+
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img222.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img331.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img332.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-361.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img322.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img321.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img341.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img342.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img351.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img352.png"
       );
 
       deleteFiles(
@@ -8316,8 +8338,8 @@ global.videoTemplate25 = async function videoTemplate25(data, req, res) {
         img
           .quality(80)
           .cover(
-            1368,
-            768,
+            1550,
+            850,
             Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
           )
           .write(
@@ -8586,8 +8608,8 @@ global.videoTemplate29 = async function videoTemplate29(data, req, res) {
         img
           .quality(60)
           .cover(
-            640,
-            360,
+            840,
+            470,
             Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
           )
           .write(
@@ -8603,8 +8625,8 @@ global.videoTemplate29 = async function videoTemplate29(data, req, res) {
             img
               .quality(60)
               .cover(
-                640,
-                360,
+                840,
+                470,
                 Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
               )
               .write(
@@ -8620,8 +8642,8 @@ global.videoTemplate29 = async function videoTemplate29(data, req, res) {
                 img
                   .quality(60)
                   .cover(
-                    640,
-                    360,
+                    840,
+                    470,
                     Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
                   )
                   .write(
@@ -8637,8 +8659,8 @@ global.videoTemplate29 = async function videoTemplate29(data, req, res) {
                     img
                       .quality(60)
                       .cover(
-                        640,
-                        360,
+                        840,
+            470,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
                           Jimp.VERTICAL_ALIGN_CENTER
                       )
