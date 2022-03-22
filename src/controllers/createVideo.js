@@ -90,6 +90,12 @@ var fonts = [
     lighter: "./src/Assets/fonts/Raleway-Light.ttf",
     bold: "./src/Assets/fonts/Raleway-SemiBold.ttf",
   },
+  {
+    family: "Saira Condensed",
+    file: "./src/Assets/fonts/SairaCondensed-Regular.ttf",
+    lighter: "./src/Assets/fonts/SairaCondensed-Thin.ttf",
+    bold: "./src/Assets/fonts/SairaCondensed-Bold.ttf",
+  },
 ];
 
 function deleteFiles(file) {
