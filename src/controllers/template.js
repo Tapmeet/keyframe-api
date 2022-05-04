@@ -23,6 +23,7 @@ var userId;
 const concat = require("ffmpeg-concat");
 const glob = require("glob");
 const userVideos = require("../models/userVideos");
+const user = require("../models/user");
 
 var assetsPath = "./src/Assets/";
 var fonts = [
@@ -47,7 +48,7 @@ var fonts = [
     light: "./src/Assets/fonts/Roboto-Light.ttf",
   },
   {
-    family: "'Noto Serif', serif", 
+    family: "'Noto Serif', serif",
     file: "./src/Assets/fonts/NotoSerif-Regular.ttf",
     light: "./src/Assets/fonts/NotoSerif-Regular.ttf",
   },
@@ -153,13 +154,13 @@ exports.editVideo = async (req, res, next) => {
       parseFloat(req.body.sceneData.end) - req.body.sceneData.start;
     const cut = await cutVideo(sourcePath, outputPath, startTime, duration);
     if (cut == undefined) {
-      console.log("jhere")
-      console.log(outputPath)
+      console.log("jhere");
+      console.log(outputPath);
       const newUpload = new Musicupload({
         originalname: filename,
         mimetype: "video/mpeg",
         filename: filename,
-        path:"./src/Assets/template/" + filename,
+        path: "./src/Assets/template/" + filename,
         size: "296000077",
         userId: req.body.userId,
         templateId: req.body.templateId,
@@ -709,7 +710,7 @@ exports.getVideo = async (req, res, next) => {
   //console.log(videoId)
   try {
     const uploads = await UserVideos.findOne({ _id: videoId });
-   // console.log(uploads)
+    // console.log(uploads)
     if (uploads) {
       res.status(200).json({ message: "Uploads List", data: uploads });
     } else {
@@ -717,7 +718,7 @@ exports.getVideo = async (req, res, next) => {
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
-  } 
+  }
 };
 
 exports.getMusicUploads = async (req, res, next) => {
@@ -2635,5 +2636,93 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             "/template1/mergedBlock4.mp4"
         );
     }
+  }
+};
+exports.getTemplateStats = async (req, res, next) => {
+  const { templateId } = req.query;
+  try {
+    var templateData = [];
+    const template = await UserVideos.find({
+      templateId: templateId,
+    });
+    //console.log(template);
+    if (template) {
+      await template.map(async (data, index) => {
+        const userData = await user.find({
+          _id: data.userId,
+        });
+        let templateDatas = {
+          userName: userData[0].firstName,
+          videoTitle: data.videoTitle,
+          path: data.path,
+          createdAt: data.createdAt,
+        };
+        templateData.push(templateDatas);
+        if (index == template.length - 1) {
+          console.log(templateData);
+          console.log("templateData");
+          res.status(200).json({ message: "data", data: templateData });
+        }
+      });
+    } else {
+      res.status(500).json({ message: "Data Not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+exports.getAllVideos = async (req, res, next) => {
+  const users = await UserVideos.find({});
+  res.status(200).json({ users });
+};
+
+/** @route GET admin/user
+ *   @desc Returns all users
+ *   @access Public
+ */
+exports.getAllTemplates = async function (req, res) {
+  try {
+    const datas = Template.aggregate(
+      [
+        {
+          $match: { adminTemplate: false },
+        },
+        {
+          $project: {
+            _id: {
+              $toString: "$_id",
+            },
+            userId: "$userId",
+            title: "$title",
+            templateImage: "$templateImage",
+            templatePreview: "$templatePreview",
+            sceneOrder: "$sceneOrder",
+            templateCategory: "$templateCategory",
+            musicFile: "$musicFile",
+            templateScenes: "$templateScenes",
+            templateId: "$templateId",
+            fontWeight: "$fontWeight",
+            fontSize: "$fontSize",
+            fontFamily: "$fontFamily",
+            fontColor: "$fontColor",
+          },
+        },
+        {
+          $lookup: {
+            from: `templateblocks`,
+            localField: "_id",
+            foreignField: "templateId",
+            as: "blocks",
+          },
+        },
+      ],
+      function (err, data) {
+        if (err) throw err;
+        res.status(200).json({ message: "Template Data", template: data });
+      }
+    );
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };

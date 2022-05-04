@@ -30,6 +30,7 @@ router.get('/get-template', template.getTemplate);
 router.get('/get-uploads', template.getUploads);
 router.get('/get-music', template.getMusicUploads);
 router.delete('/delete-block/', template.deleteBlock);
+router.get('/get-stats', template.getTemplateStats);
 router.put('/update-scene/:id', template.update);
 router.put('/update-template/:id', template.updateTemplate);
 // Admin Url
@@ -40,9 +41,10 @@ router.delete('/delete-template/', template.deleteTemplate);
 router.delete('/delete-media/', template.deleteMedia);
 
 // User Template Videos
-
+router.get('/all-templates-users', template.getAllTemplates);
 router.get('/get-user-videos', template.getVideos);
 router.get('/get-user-video', template.getVideo);
+router.get('/get-all-videos', template.getAllVideos);
 router.delete('/delete-user-videos/', template.deleteVideo);
 
 router.post('/edit-video', template.editVideo);

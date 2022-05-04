@@ -108,6 +108,30 @@ var fonts = [
     lighter: "./src/Assets/fonts/Cairo-Light.ttf",
     bold: "./src/Assets/fonts/Cairo-Bold.ttf",
   },
+  {
+    family: "Asap",
+    file: "./src/Assets/fonts/Asap-Regular.ttf",
+    lighter: "./src/Assets/fonts/Asap-Regular.ttf",
+    bold: "./src/Assets/fonts/Asap-Bold.ttf",
+  },
+   {
+    family: "Hurricane",
+    file: "./src/Assets/fonts/Hurricane-Regular.ttf",
+    lighter: "./src/Assets/fonts/Hurricane-Regular.ttf",
+    bold: "./src/Assets/fonts/Hurricane-Regular.ttf",
+  },
+  {
+    family: "Inspiration",
+    file: "./src/Assets/fonts/Inspiration-Regular.ttf",
+    lighter: "./src/Assets/fonts/Inspiration-Regular.ttf",
+    bold: "./src/Assets/fonts/Inspiration-Regular.ttf",
+  },
+  {
+    family: "Saira",
+    file: "./src/Assets/fonts/Saira-Regular.ttf",
+    lighter: "./src/Assets/fonts/Saira-Light.ttf",
+    bold: "./src/Assets/fonts/Saira-Bold.ttf",
+  },
 ];
 
 function deleteFiles(file) {
@@ -280,12 +304,15 @@ exports.mergeVideo = async (req, res, next) => {
  */
 exports.createVideo = async (req, res, next) => {
   const { templateId } = req.body;
+  console.log(templateId);
+  var templatemainId;
   try {
     const templateBlock = await Block.find({ templateId: templateId }).sort({
       order: 1,
     });
     const template = await Template.findOne({ _id: templateId });
-    // console.log(template);
+    console.log(template.templateId);
+     templatemainId = template.templateId;
     const lastScene = await Scene.findOne({ templateId: templateId });
     const data = {
       templateBlock: templateBlock,
@@ -6948,7 +6975,7 @@ exports.createVideo = async (req, res, next) => {
             scene1.addChild(text2);
           }
           // add bottom cloud
-          scene1.setTransition("squareswire", 1.5);
+          scene1.setTransition("fade", 1.5);
           scene1.setDuration(5);
           creator.addChild(scene1);
           i++;
@@ -7106,7 +7133,7 @@ exports.createVideo = async (req, res, next) => {
           //   ease: "Cubic.InOut",
           // });
           // scene1.addChild(fcloud);
-          scene1.setTransition("DoomScreenTransition", 0.5);
+          scene1.setTransition("fade", 0.5);
           scene1.setDuration(4.5);
           creator.addChild(scene1);
           console.log(i);
@@ -7426,7 +7453,7 @@ exports.createVideo = async (req, res, next) => {
           // scene2.addChild(fcloud);
           scene2.setDuration(6.5);
           creator.addChild(scene2);
-          scene2.setTransition("DoomScreenTransition", 1.5);
+          scene2.setTransition("fade", 1.5);
           // scene2.setTransition("fade", 1);
           i++;
         } else if (templateBlock[i].sceneId == 40) {
@@ -7578,7 +7605,7 @@ exports.createVideo = async (req, res, next) => {
           }
           scene2.setDuration(6.5);
           creator.addChild(scene2);
-          scene2.setTransition("wind", 1);
+          scene2.setTransition("fade", 1);
           i++;
         } else if (templateBlock[i].sceneId == 40) {
           let data = templateBlock[i];
@@ -7878,7 +7905,7 @@ exports.createVideo = async (req, res, next) => {
           }
           scene2.setDuration(5.5);
           creator.addChild(scene2);
-          scene2.setTransition("Fat", 1);
+          scene2.setTransition("Fade", 1);
           i++;
         } else if (templateBlock[i].sceneId == 42) {
           let data = templateBlock[i];
@@ -8051,7 +8078,7 @@ exports.createVideo = async (req, res, next) => {
             ease: "Cubic.InOut",
           });
           scene3.addChild(scene3img);
-          scene3.setTransition("DoomScreenTransition", 0.5);
+          scene3.setTransition("PolkaDotsCurtain", 0.5);
           scene3.setDuration(6.5);
           creator.addChild(scene3);
           i++;
@@ -8507,6 +8534,7 @@ exports.createVideo = async (req, res, next) => {
           scene6.setTransition("zoomInDown", 0.5);
           // scene5.addChild(fcloud2);
           scene6.setDuration(5.5);
+          scene6.setTransition("PolkaDotsCurtain", 0.5);
           creator.addChild(scene6);
           i++;
         } else if (templateBlock[i].sceneId == 45) {
@@ -8647,7 +8675,7 @@ exports.createVideo = async (req, res, next) => {
             //   ease: "Cubic.InOut",
             // });
             // scene4.addChild(fcloud3);
-            scene4.setTransition("crosshatch", 0.5);
+            scene4.setTransition("PolkaDotsCurtain", 0.5);
             scene4.setDuration(7.5);
             creator.addChild(scene4);
           }
@@ -8666,7 +8694,7 @@ exports.createVideo = async (req, res, next) => {
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
-            if (j >= 20) {
+            if (j >= 18) {
               text2 = text2 + result[j] + " ";
             } else {
               text = text + result[j] + " ";
@@ -9259,7 +9287,7 @@ exports.createVideo = async (req, res, next) => {
           }
           scene2.setDuration(6.5);
           creator.addChild(scene2);
-          scene2.setTransition("squareswire", 0.5);
+          scene2.setTransition("PolkaDotsCurtain", 0.5);
           i++;
         }
         else if (templateBlock[i].sceneId == 49) {
@@ -9382,7 +9410,7 @@ exports.createVideo = async (req, res, next) => {
             scene6.addChild(watermark);
           }
           scene6.setBgColor("#697784");
-          scene6.setTransition("squareswire", 0.5);
+          scene6.setTransition("PolkaDotsCurtain", 0.5);
           scene6.setDuration(5.5);
           creator.addChild(scene6);
           i++;
@@ -9767,11 +9795,13 @@ exports.createVideo = async (req, res, next) => {
   }
   async function saveVideoDb(videoTitle, path, templateImage) {
     try {
+      console.log(templatemainId);
       const newUpload = new UserVideos({
-        userId: userId,
+        userId: userId, 
         videoTitle: videoTitle,
         templateImage: templateImage,
         path: path,
+        templateId: templatemainId,
       });
       const uploadData = await newUpload.save();
       deleteFiles(
