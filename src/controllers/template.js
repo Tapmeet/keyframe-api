@@ -247,11 +247,11 @@ exports.addAdminTemplates = async function (req, res) {
       tempId = req.body.templateId;
     }
     const user = await User.findById(req.body.userId);
-    console.log(user);
+    //console.log(user);
     const newTemplate = new Template({
       userId: req.body.userId,
       templateId: tempId,
-      title: req.body.title,
+      title: 'Untitled Video',
       templateImage: req.body.templateImage,
       templatePreview: req.body.templatePreview,
       adminTemplate: req.body.adminTemplate,

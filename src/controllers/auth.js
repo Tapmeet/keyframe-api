@@ -117,9 +117,7 @@ exports.checkPlan = async (req, res) => {
   } catch (error) {
     res.status(500).json({message: error.message});
   }
-};
-
-
+}; 
 // ===EMAIL VERIFICATION
 
 /** @route GET api/verify/:token
@@ -154,7 +152,7 @@ exports.verify = async (req, res) => {
           dynamic_template_data: {
             sender_name: user.firstName,
             login_url: link,
-          },
+          }, 
         };
 
         sgMail.send(mailOptions, (error, result) => {
