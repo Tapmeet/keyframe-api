@@ -293,8 +293,8 @@ exports.addAdminTemplates = async function (req, res) {
           let newblockData = await newBlock.save();
 
           blockData.push(newblockData);
-        }
-      });
+        }   
+      }); 
     const sceneData = await Scene.findOne({ templateId: "1" });
     const newScene = new Scene({
       sceneId: sceneData.sceneId,
@@ -307,7 +307,7 @@ exports.addAdminTemplates = async function (req, res) {
     res.status(200).json({ message: "Template created", blockData: blockData });
   } catch (error) {
     res.status(500).json({ message: error.message });
-  }
+  } 
 };
 
 exports.updateTemplate = async function (req, res) {

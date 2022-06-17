@@ -7485,9 +7485,9 @@ exports.createVideo = async (req, res, next) => {
           var textcontent2 = "";
           var textcontent3 = "";
           for (var l = 0; l < content.length; l++) {
-            if (l >= 4 && l <= 7) {
+            if (l >= 5 && l <= 9) {
               textcontent2 = textcontent2 + content[l] + " ";
-            } else if (l > 7) {
+            } else if (l > 9) {
               textcontent3 = textcontent3 + content[l] + " ";
             } else {
               textcontent1 = textcontent1 + content[l] + " ";
@@ -7608,6 +7608,8 @@ exports.createVideo = async (req, res, next) => {
           scene2.setTransition("fade", 1);
           i++;
         } else if (templateBlock[i].sceneId == 40) {
+          console.log('textcontent1');
+
           let data = templateBlock[i];
           const firstVideo = await videoTemplate40(data);
           fontfamily = data.sceneData.fontFamily;
@@ -7636,14 +7638,17 @@ exports.createVideo = async (req, res, next) => {
           var textcontent2 = "";
           var textcontent3 = "";
           for (var l = 0; l < content.length; l++) {
-            if (l >= 4 && l <= 7) {
+            if (l >= 5 && l <= 8) {
               textcontent2 = textcontent2 + content[l] + " ";
-            } else if (l > 7) {
+            } else if (l > 8) {
               textcontent3 = textcontent3 + content[l] + " ";
             } else {
               textcontent1 = textcontent1 + content[l] + " ";
             }
           }
+          console.log(textcontent1);
+          console.log(textcontent2);
+          console.log(textcontent3);
           const scene2 = new FFScene();
           scene2.setBgColor("#7a9993");
 
@@ -7787,14 +7792,18 @@ exports.createVideo = async (req, res, next) => {
           var textcontent2 = "";
           var textcontent3 = "";
           for (var l = 0; l < content.length; l++) {
-            if (l >= 4 && l <= 7) {
+            if (l >= 5 && l <= 8) {
               textcontent2 = textcontent2 + content[l] + " ";
-            } else if (l > 7) {
+            } else if (l > 8) {
               textcontent3 = textcontent3 + content[l] + " ";
             } else {
               textcontent1 = textcontent1 + content[l] + " ";
             }
           }
+          console.log(textcontent1);
+          console.log(textcontent2);
+          console.log(textcontent3);
+
           const scene2 = new FFScene();
           scene2.setBgColor("#7a9993");
 
