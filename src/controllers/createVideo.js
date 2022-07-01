@@ -6662,16 +6662,16 @@ exports.createVideo = async (req, res, next) => {
               "#$1$1$2$2$3$3"
             );
           }
-          var result = data.sceneData.content.split(" ");
+          var result = data.sceneData.content.split(" "); 
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
             if (j >= 10) {
               text2 = text2 + result[j] + " ";
             } else {
-              text = text + result[j] + " ";
+              text = text + result[j] + " "; 
             }
-          }
+          }  
           let fontfamily = data.sceneData.fontFamily;
           let selectedfonts;
           fonts.map(function (font) {
