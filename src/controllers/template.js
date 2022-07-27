@@ -10,6 +10,7 @@ var gl = require("gl")(10, 10);
 const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 const ffmpeg = require("fluent-ffmpeg");
 var ffprobe = require("ffprobe-static");
+const sharp = require("sharp");
 ffmpeg.setFfprobePath(ffprobe.path);
 ffmpeg.setFfmpegPath(ffmpegPath);
 
@@ -55,20 +56,54 @@ var fonts = [
 ];
 //Upload
 exports.upload = async (req, res, next) => {
+  console.log("imgssss");
   try {
     const file = req.file;
     if (file) {
       const filePath = file.path;
       //Save Event Image
       if (filePath) {
+        console.log("img");
+        console.log(req.file);
         try {
+          console.log("imgs");
           if (!req.body.noUpload) {
-            const newUpload = new Userupload({
-              ...file,
-              userId: req.body.userId,
-              templateId: req.body.templateId,
-            });
-            const uploadData = await newUpload.save();
+            console.log("imgsss");
+            if (req.file.mimetype !== "video/mp4") {
+              const filename =
+              req.file.destination +
+              "/file--" +
+              Date.now() +
+              "--" +
+              req.file.filename;
+              const img = await sharp(req.file.path)
+                // .resize(200, 200)
+                .jpeg({ quality: 50 })
+                .toFile(filename
+                );
+              const newUpload = new Userupload({
+                fieldname: "file",
+                originalname: req.file.originalname,
+                mimetype: req.file.mimetype,
+                destination: req.file.destination,
+                filename: req.file.filename,
+                path:filename,
+                size: req.file.size,
+                userId: req.body.userId,
+                templateId: req.body.templateId,
+              });
+              fs.unlink(req.file.path, function (err) {
+                // if (err) throw err;
+              });
+              const uploadData = await newUpload.save();
+            } else {
+              const newUpload = new Userupload({
+                ...file,
+                userId: req.body.userId,
+                templateId: req.body.templateId,
+              });
+              const uploadData = await newUpload.save();
+            }
           }
           res.status(200).json({ message: filePath });
         } catch (error) {
@@ -84,7 +119,7 @@ exports.upload = async (req, res, next) => {
 };
 //Upload
 exports.uploadMedia = async (req, res, next) => {
-  console.log("here");
+  console.log("heressss");
   try {
     const file = req.file;
     if (file) {
@@ -251,7 +286,7 @@ exports.addAdminTemplates = async function (req, res) {
     const newTemplate = new Template({
       userId: req.body.userId,
       templateId: tempId,
-      title: 'Untitled Video',
+      title: "Untitled Video",
       templateImage: req.body.templateImage,
       templatePreview: req.body.templatePreview,
       adminTemplate: req.body.adminTemplate,
@@ -293,8 +328,8 @@ exports.addAdminTemplates = async function (req, res) {
           let newblockData = await newBlock.save();
 
           blockData.push(newblockData);
-        }   
-      }); 
+        }
+      });
     const sceneData = await Scene.findOne({ templateId: "1" });
     const newScene = new Scene({
       sceneId: sceneData.sceneId,
@@ -307,7 +342,7 @@ exports.addAdminTemplates = async function (req, res) {
     res.status(200).json({ message: "Template created", blockData: blockData });
   } catch (error) {
     res.status(500).json({ message: error.message });
-  } 
+  }
 };
 
 exports.updateTemplate = async function (req, res) {
