@@ -10,7 +10,7 @@ var gl = require("gl")(10, 10);
 const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 const ffmpeg = require("fluent-ffmpeg");
 var ffprobe = require("ffprobe-static");
-const sharp = require("sharp");
+
 ffmpeg.setFfprobePath(ffprobe.path);
 ffmpeg.setFfmpegPath(ffmpegPath);
 
@@ -56,46 +56,50 @@ var fonts = [
 ];
 //Upload
 exports.upload = async (req, res, next) => {
-  console.log("imgssss");
+//const sharp = require("sharp");
   try {
     const file = req.file;
     if (file) {
       const filePath = file.path;
       //Save Event Image
       if (filePath) {
-        console.log("img");
-        console.log(req.file);
         try {
-          console.log("imgs");
           if (!req.body.noUpload) {
-            console.log("imgsss");
             if (req.file.mimetype !== "video/mp4") {
-              const filename =
-              req.file.destination +
-              "/file--" +
-              Date.now() +
-              "--" +
-              req.file.filename;
-              const img = await sharp(req.file.path)
-                // .resize(200, 200)
-                .jpeg({ quality: 50 })
-                .toFile(filename
-                );
+              // const filename =
+              // req.file.destination +
+              // "/file--" +
+              // Date.now() +
+              // "--" +
+              // req.file.filename;
+              // const img = await sharp(req.file.path)
+              //   // .resize(200, 200)
+              //   .jpeg({ quality: 50 })
+              //   .toFile(filename
+              //   );
+              // const newUpload = new Userupload({
+              //   fieldname: "file",
+              //   originalname: req.file.originalname,
+              //   mimetype: req.file.mimetype,
+              //   destination: req.file.destination,
+              //   filename: req.file.filename,
+              //   path:filename,
+              //   size: req.file.size,
+              //   userId: req.body.userId,
+              //   templateId: req.body.templateId,
+              // });
+              // fs.unlink(req.file.path, function (err) {
+              //   // if (err) throw err;
+              // });
+              // const uploadData = await newUpload.save();
+              // res.status(200).json({ message: filename });
               const newUpload = new Userupload({
-                fieldname: "file",
-                originalname: req.file.originalname,
-                mimetype: req.file.mimetype,
-                destination: req.file.destination,
-                filename: req.file.filename,
-                path:filename,
-                size: req.file.size,
+                ...file,
                 userId: req.body.userId,
                 templateId: req.body.templateId,
               });
-              fs.unlink(req.file.path, function (err) {
-                // if (err) throw err;
-              });
               const uploadData = await newUpload.save();
+              res.status(200).json({ message: filePath });
             } else {
               const newUpload = new Userupload({
                 ...file,
@@ -103,11 +107,13 @@ exports.upload = async (req, res, next) => {
                 templateId: req.body.templateId,
               });
               const uploadData = await newUpload.save();
+              res.status(200).json({ message: filePath });
             }
+           
           }
-          res.status(200).json({ message: filePath });
+          
         } catch (error) {
-          res.status(500).json({ message: error.message });
+          res.status(500).json({ message: error.message }); 
         }
       }
     } else {
