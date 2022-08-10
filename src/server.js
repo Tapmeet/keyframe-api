@@ -9,7 +9,7 @@ const passport = require('passport');
 const CREDENTIALS = require('./../credentials.json');
 const Youtube = require('youtube-api');
 const open = require('open');
-const fs = require("fs");
+const fs = require('fs');
 // const path = require("path");
 const bodyParser = require('body-parser');
 const route = require('./routes/index');
@@ -69,7 +69,18 @@ app.use(express.static('src/Assets'));
 
 app.post('/youtube-upload', (req, res) => {
   const {filePath, title, description} = req.body;
-  console.log("sherers");
+  console.log('sherers');
+  console.log(
+      oauth.generateAuthUrl({
+        access_type: 'offline',
+        scope: ['https://www.googleapis.com/auth/youtube.upload'],
+        state: JSON.stringify({
+          filePath,
+          title,
+          description,
+        }),
+      }),
+  );
   open(
       oauth.generateAuthUrl({
         access_type: 'offline',
@@ -83,7 +94,7 @@ app.post('/youtube-upload', (req, res) => {
   );
 });
 app.get('/oath2callback', function(req, res) {
-  console.log("herers");
+  console.log('herers');
   const code = req.query.code;
   const {filePath, title, description} = JSON.parse(req.query.state);
   console.log('code');
