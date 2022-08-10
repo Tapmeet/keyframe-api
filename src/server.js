@@ -23,7 +23,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // === 2 - SET UP DATABASE
@@ -40,11 +40,11 @@ if (connUri) {
 }
 const connection = mongoose.connection;
 connection.once('open', () =>
-  console.log('MongoDB --  database connection established successfully!')
+  console.log('MongoDB --  database connection established successfully!'),
 );
 connection.on('error', (err) => {
   console.log(
-    'MongoDB connection error. Please make sure MongoDB is running. ' + err
+      'MongoDB connection error. Please make sure MongoDB is running. ' + err,
   );
   process.exit();
 });
@@ -68,30 +68,41 @@ route(app);
 app.use(express.static('src/Assets'));
 
 app.post('/youtube-upload', async (req, res) => {
-  const { filePath, title, description } = req.body;
+  const {filePath, title, description} = req.body;
   console.log('sherers');
 
-  await open(
-    oauth.generateAuthUrl({
-      access_type: 'offline',
-      scope: ['https://www.googleapis.com/auth/youtube.upload'],
-      state: JSON.stringify({
-        filePath,
-        title,
-        description,
+  // await open(
+  //     oauth.generateAuthUrl({
+  //       access_type: 'offline',
+  //       scope: ['https://www.googleapis.com/auth/youtube.upload'],
+  //       state: JSON.stringify({
+  //         filePath,
+  //         title,
+  //         description,
+  //       }),
+  //     }),
+  // );
+  res.redirect(
+      oauth.generateAuthUrl({
+        access_type: 'offline',
+        scope: ['https://www.googleapis.com/auth/youtube.upload'],
+        state: JSON.stringify({
+          filePath,
+          title,
+          description,
+        }),
       }),
-    })
   );
 });
-app.get('/oath2callback', function (req, res) {
+app.get('/oath2callback', function(req, res) {
   console.log('herers');
   const code = req.query.code;
-  const { filePath, title, description } = JSON.parse(req.query.state);
+  const {filePath, title, description} = JSON.parse(req.query.state);
   console.log('code');
   console.log(filePath);
   if (code) {
     // Get an access token based on our OAuth code
-    oauth.getToken(code, function (err, tokens) {
+    oauth.getToken(code, function(err, tokens) {
       if (err) {
         console.log('Error authenticating');
         console.log(err);
@@ -103,31 +114,31 @@ app.get('/oath2callback', function (req, res) {
         console.log('Successfully authenticated');
         // console.log(filePath);
         Youtube.videos.insert(
-          {
-            resource: {
+            {
+              resource: {
               // Video title and description
-              snippet: {
-                title: title,
-                description: description,
+                snippet: {
+                  title: title,
+                  description: description,
+                },
+                // I don't want to spam my subscribers
+                status: {
+                  privacyStatus: 'private',
+                },
               },
-              // I don't want to spam my subscribers
-              status: {
-                privacyStatus: 'private',
-              },
-            },
-            // This is for the callback function
-            part: 'snippet,status',
+              // This is for the callback function
+              part: 'snippet,status',
 
-            // Create the readable stream to upload the video
-            media: {
-              body: fs.createReadStream(assetsPath + filePath),
+              // Create the readable stream to upload the video
+              media: {
+                body: fs.createReadStream(assetsPath + filePath),
+              },
             },
-          },
-          (err, data) => {
-            if (err) throw err;
-            console.log(data);
-            console.log('Done.');
-          }
+            (err, data) => {
+              if (err) throw err;
+              console.log(data);
+              console.log('Done.');
+            },
         );
         res.redirect('https://app.reveo.io/success');
       }
@@ -135,7 +146,7 @@ app.get('/oath2callback', function (req, res) {
   }
 });
 // === 5 - START SERVER
-var server = app.listen(PORT, function () {
+var server = app.listen(PORT, function() {
   console.log('Express server listening on port ' + server.address().port);
 });
 server.timeout = 1000000000;
