@@ -72,7 +72,7 @@ app.post('/youtube-upload', (req, res) => {
   console.log("sherers");
   open(
       oauth.generateAuthUrl({
-        access_type: 'offline',
+        access_type: 'online',
         scope: ['https://www.googleapis.com/auth/youtube.upload'],
         state: JSON.stringify({
           filePath,
