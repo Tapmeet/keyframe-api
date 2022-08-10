@@ -69,6 +69,7 @@ app.use(express.static('src/Assets'));
 
 app.post('/youtube-upload', (req, res) => {
   const {filePath, title, description} = req.body;
+  console.log("sherers");
   open(
       oauth.generateAuthUrl({
         access_type: 'offline',
