@@ -67,8 +67,9 @@ route(app);
 
 app.use(express.static('src/Assets'));
 
-app.post('/youtube-upload', (req, res) => {
+app.post('/youtube-upload', async (req, res) => {
   const {filePath, title, description} = req.body;
+  await open('https://sindresorhus.com');
   console.log('sherers');
   console.log(
       oauth.generateAuthUrl({
