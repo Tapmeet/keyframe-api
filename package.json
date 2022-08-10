@@ -36,12 +36,14 @@
     "mongoose": "^5.8.9",
     "multer": "^1.4.2",
     "node-ffprobe": "^3.0.0",
+    "open": "^8.4.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "paykickstart-ipn-validator": "^1.0.3",
     "react-data-table-component": "^7.0.0-alpha-5",
     "sharp": "^0.30.7",
-    "videoshow": "^0.1.12"
+    "videoshow": "^0.1.12",
+    "youtube-api": "^3.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
