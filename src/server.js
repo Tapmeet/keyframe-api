@@ -70,7 +70,15 @@ app.use(express.static('src/Assets'));
 app.post('/youtube-upload', async (req, res) => {
   const {filePath, title, description} = req.body;
   console.log('sherers');
-
+  const scopeurl= oauth.generateAuthUrl({
+    access_type: 'offline',
+    scope: ['https://www.googleapis.com/auth/youtube.upload'],
+    state: JSON.stringify({
+      filePath,
+      title,
+      description,
+    }),
+  });
   // await open(
   //     oauth.generateAuthUrl({
   //       access_type: 'offline',
@@ -82,17 +90,7 @@ app.post('/youtube-upload', async (req, res) => {
   //       }),
   //     }),
   // );
-  res.redirect(
-      oauth.generateAuthUrl({
-        access_type: 'offline',
-        scope: ['https://www.googleapis.com/auth/youtube.upload'],
-        state: JSON.stringify({
-          filePath,
-          title,
-          description,
-        }),
-      }),
-  );
+  res.status(200).json({scopeurl: scopeurl});
 });
 app.get('/oath2callback', function(req, res) {
   console.log('herers');
