@@ -82,6 +82,7 @@ app.post('/youtube-upload', (req, res) => {
   );
 });
 app.get('/oath2callback', function(req, res) {
+  console.log("herers");
   const code = req.query.code;
   const {filePath, title, description} = JSON.parse(req.query.state);
   console.log('code');
