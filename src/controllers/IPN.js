@@ -87,57 +87,49 @@ exports.getIpns = async (req, res, next) => {
 };
 
 function sendEmail(user, req, res) {
-  const token = user.generateVerificationToken();
   // Save the verification token
-  token.save(function(err) {
-    if (err) {
-      return res.status(500).json({message: err.message});
-    } else {
-      // send email
-      const today = new Date();
-      const yyyy = today.getFullYear();
-      let mm = today.getMonth() + 1; // Months start at 0!
-      let dd = today.getDate();
 
-      if (dd < 10) dd = '0' + dd;
-      if (mm < 10) mm = '0' + mm;
+  // send email
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  let mm = today.getMonth() + 1; // Months start at 0!
+  let dd = today.getDate();
 
-      const formattedToday = dd + '/' + mm + '/' + yyyy;
-      const link = `${process.env.WEBSITEURL}email-verification/?useremail=${user.buyer_email}&token=${token.token}`;
-      const msg = {
-        to: user.buyer_email,
-        from: 'Reveo <' + process.env.FROM_EMAIL + '>',
-        templateId: 'd-1136581b9a8c46acafccb2ce436bca69',
-        dynamic_template_data: {
-          sender_name: user.buyer_first_name + ' ' + user.buyer_last_name,
-          planeName: user.product_name,
-          price: user.amount,
-          date: formattedToday,
-          email: user.buyer_email
-        },
-        //     subject: 'Password change request',
-        //     html: `Hi ${user.email} \n
-        //   <br/>Please click on the following link ${link} to reset your password. \n\n
-        //   <br/>If you did not request this, please ignore this email and your password will remain unchanged.\n`,
-      };
-      //  sgMail.send(msg);
-      sgMail
-          .send(msg)
-          .then(() => {
-            console.log('Email sent');
-          })
-          .catch((error) => {
-            console.error(error.response.body);
-          });
+  if (dd < 10) dd = '0' + dd;
+  if (mm < 10) mm = '0' + mm;
 
-      res
-          .status(200)
-          .json({
-            message:
-            'A  email has been sent to ' +
-            user.email +
-            '. Please confirm email before proceed',
-          });
-    }
+  const formattedToday = dd + '/' + mm + '/' + yyyy;
+  const link = `${process.env.WEBSITEURL}email-verification/?useremail=${user.buyer_email}&token=${token.token}`;
+  const msg = {
+    to: user.buyer_email,
+    from: 'Reveo <' + process.env.FROM_EMAIL + '>',
+    templateId: 'd-1136581b9a8c46acafccb2ce436bca69',
+    dynamic_template_data: {
+      sender_name: user.buyer_first_name + ' ' + user.buyer_last_name,
+      planeName: user.product_name,
+      price: user.amount,
+      date: formattedToday,
+      email: user.buyer_email,
+    },
+    //     subject: 'Password change request',
+    //     html: `Hi ${user.email} \n
+    //   <br/>Please click on the following link ${link} to reset your password. \n\n
+    //   <br/>If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+  };
+  //  sgMail.send(msg);
+  sgMail
+      .send(msg)
+      .then(() => {
+        console.log('Email sent');
+      })
+      .catch((error) => {
+        console.error(error.response.body);
+      });
+
+  res.status(200).json({
+    message:
+      'A  email has been sent to ' +
+      user.email +
+      '. Please confirm email before proceed',
   });
 }
