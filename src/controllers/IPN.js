@@ -15,7 +15,7 @@ const paykickstartIPNValidator = require('paykickstart-ipn-validator');
  */
 exports.index = async (req, res, next) => {
   const {buyer_email} = req.body;
-  console.log(req.body);
+
   const plansArray = [
     {
       planId: '30167',
@@ -33,8 +33,6 @@ exports.index = async (req, res, next) => {
   ];
 
   try {
-    console.log('member2');
-
     const isValidated = await paykickstartIPNValidator(
         req.body,
         process.env.SECRETIPN,
@@ -54,8 +52,8 @@ exports.index = async (req, res, next) => {
     const userid = user[0]._id;
     const newTeam = new Ipn({...req.body, userId: userid});
     const member = await newTeam.save();
-     console.log('member');
-     console.log(member);
+    //  console.log('member');
+    //  console.log(member);
     const today = new Date();
     const templateUpdate = await User.findOneAndUpdate(
         {_id: userid},
@@ -64,7 +62,7 @@ exports.index = async (req, res, next) => {
     );
     // console.log('templateUpdate');
     // console.log(templateUpdate);
-    sendEmail(user_, req, res);
+    sendEmail(member, req, res);
     // res.status(200).send('OK');
     // res.end();
   } catch (error) {
@@ -96,14 +94,26 @@ function sendEmail(user, req, res) {
       return res.status(500).json({message: err.message});
     } else {
       // send email
-      const link = `${process.env.WEBSITEURL}email-verification/?useremail=${user.email}&token=${token.token}`;
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      let mm = today.getMonth() + 1; // Months start at 0!
+      let dd = today.getDate();
+
+      if (dd < 10) dd = '0' + dd;
+      if (mm < 10) mm = '0' + mm;
+
+      const formattedToday = dd + '/' + mm + '/' + yyyy;
+      const link = `${process.env.WEBSITEURL}email-verification/?useremail=${user.buyer_email}&token=${token.token}`;
       const msg = {
-        to: user.email,
+        to: user.buyer_email,
         from: 'Reveo <' + process.env.FROM_EMAIL + '>',
-        templateId: 'd-f4bf6685164041c89b53f5b524193c0d',
+        templateId: 'd-1136581b9a8c46acafccb2ce436bca69',
         dynamic_template_data: {
-          sender_name: user.firstName,
-          reset_url: link,
+          sender_name: user.buyer_first_name + ' ' + user.buyer_last_name,
+          planeName: user.product_name,
+          price: user.amount,
+          date: formattedToday,
+          email: user.buyer_email
         },
         //     subject: 'Password change request',
         //     html: `Hi ${user.email} \n
@@ -120,7 +130,14 @@ function sendEmail(user, req, res) {
             console.error(error.response.body);
           });
 
-      res.status(200).json({message: 'A  email has been sent to ' + user.email + '. Please confirm email before proceed'});
+      res
+          .status(200)
+          .json({
+            message:
+            'A  email has been sent to ' +
+            user.email +
+            '. Please confirm email before proceed',
+          });
     }
   });
 }
