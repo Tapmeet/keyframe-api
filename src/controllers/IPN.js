@@ -90,7 +90,7 @@ exports.getIpns = async (req, res, next) => {
 
 function sendEmail(user, req, res) {
   // Save the verification token
-   console.log('templateUpdate here');
+  
    console.log(user);
     // console.log(templateUpdate);
   // send email
@@ -121,6 +121,7 @@ function sendEmail(user, req, res) {
     //   <br/>If you did not request this, please ignore this email and your password will remain unchanged.\n`,
   };
   //  sgMail.send(msg);
+  console.log('templateUpdate here');
   sgMail
       .send(msg)
       .then(() => {
