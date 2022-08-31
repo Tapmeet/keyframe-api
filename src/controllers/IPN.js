@@ -6,6 +6,8 @@
 /* eslint-disable no-trailing-spaces */
 const Ipn = require('../models/ipn');
 const User = require('../models/user');
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const paykickstartIPNValidator = require('paykickstart-ipn-validator');
 /**
  * @function  addBlock used to create new Event
