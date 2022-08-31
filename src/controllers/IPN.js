@@ -60,7 +60,7 @@ exports.index = async (req, res, next) => {
         {$set: {userPlan: selectedplan, userPlanBuyDate: today}},
         {new: true, useFindAndModify: false},
     );
-    // console.log('templateUpdate');
+      console.log('templateUpdate');
     // console.log(templateUpdate);
     sendEmail(member, req, res);
     // res.status(200).send('OK');
@@ -88,7 +88,9 @@ exports.getIpns = async (req, res, next) => {
 
 function sendEmail(user, req, res) {
   // Save the verification token
-
+   console.log('templateUpdate here');
+   console.log(user);
+    // console.log(templateUpdate);
   // send email
   const today = new Date();
   const yyyy = today.getFullYear();
