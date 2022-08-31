@@ -131,10 +131,6 @@ function sendEmail(user, req, res) {
         console.error(error.response.body);
       });
 
-  res.status(200).json({
-    message:
-      'A  email has been sent to ' +
-      user.email +
-      '. Please confirm email before proceed',
-  });
+   res.status(200).send('OK');
+     res.end();
 }
