@@ -69,7 +69,6 @@ app.use(express.static('src/Assets'));
 
 app.post('/youtube-upload', async (req, res) => {
   const {filePath, title, description} = req.body;
-  console.log('sherers');
   const scopeurl= oauth.generateAuthUrl({
     access_type: 'offline',
     scope: ['https://www.googleapis.com/auth/youtube.upload'],

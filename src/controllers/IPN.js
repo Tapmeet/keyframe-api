@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 /* eslint-disable camelcase */
 /* eslint-disable max-len */
 /* eslint-disable valid-jsdoc */
@@ -53,8 +54,8 @@ exports.index = async (req, res, next) => {
     const userid = user[0]._id;
     const newTeam = new Ipn({...req.body, userId: userid});
     const member = await newTeam.save();
-    // console.log('member');
-    // console.log(member);
+     console.log('member');
+     console.log(member);
     const today = new Date();
     const templateUpdate = await User.findOneAndUpdate(
         {_id: userid},
@@ -63,8 +64,9 @@ exports.index = async (req, res, next) => {
     );
     // console.log('templateUpdate');
     // console.log(templateUpdate);
-    res.status(200).send('OK');
-    res.end();
+    sendEmail(user_, req, res);
+    // res.status(200).send('OK');
+    // res.end();
   } catch (error) {
     res.status(500).json({message: error.message});
   }
@@ -85,3 +87,40 @@ exports.getIpns = async (req, res, next) => {
     res.status(500).json({message: error.message});
   }
 };
+
+function sendEmail(user, req, res) {
+  const token = user.generateVerificationToken();
+  // Save the verification token
+  token.save(function(err) {
+    if (err) {
+      return res.status(500).json({message: err.message});
+    } else {
+      // send email
+      const link = `${process.env.WEBSITEURL}email-verification/?useremail=${user.email}&token=${token.token}`;
+      const msg = {
+        to: user.email,
+        from: 'Reveo <' + process.env.FROM_EMAIL + '>',
+        templateId: 'd-f4bf6685164041c89b53f5b524193c0d',
+        dynamic_template_data: {
+          sender_name: user.firstName,
+          reset_url: link,
+        },
+        //     subject: 'Password change request',
+        //     html: `Hi ${user.email} \n
+        //   <br/>Please click on the following link ${link} to reset your password. \n\n
+        //   <br/>If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+      };
+      //  sgMail.send(msg);
+      sgMail
+          .send(msg)
+          .then(() => {
+            console.log('Email sent');
+          })
+          .catch((error) => {
+            console.error(error.response.body);
+          });
+
+      res.status(200).json({message: 'A  email has been sent to ' + user.email + '. Please confirm email before proceed'});
+    }
+  });
+}

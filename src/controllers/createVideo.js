@@ -1005,7 +1005,7 @@ exports.createVideo = async (req, res, next) => {
           var text1 = "";
           var text2 = "";
           for (var l = 0; l < result.length; l++) {
-            if (l >= 9) {
+            if (l >= 10) {
               //  text1= text1 + result[i] + " \n ";
               text2 = text2 + result[l] + " ";
             } else {
@@ -1037,7 +1037,7 @@ exports.createVideo = async (req, res, next) => {
           let text3 = "";
           let text4 = "";
           for (var k = 0; k < result2.length; k++) {
-            if (k >= 9) {
+            if (k >= 10) {
               text4 = text4 + result2[k] + " ";
             } else {
               text3 = text3 + result2[k] + " ";
@@ -1956,6 +1956,8 @@ exports.createVideo = async (req, res, next) => {
               fontSize: fontSize1,
               x: 80,
               y: 480,
+              height: 300,
+              width: 540
             });
             text.setColor(titleColor);
             text.setFont(selectedfonts);
@@ -7018,9 +7020,9 @@ exports.createVideo = async (req, res, next) => {
           var textcontent2 = "";
           var textcontent3 = "";
           for (var l = 0; l < content.length; l++) {
-            if (l >= 9 && l <= 16) {
+            if (l >= 12 && l <= 25) {
               textcontent2 = textcontent2 + content[l] + " ";
-            } else if (l > 16) {
+            } else if (l > 25) {
               textcontent3 = textcontent3 + content[l] + " ";
             } else {
               textcontent1 = textcontent1 + content[l] + " ";
@@ -7069,12 +7071,12 @@ exports.createVideo = async (req, res, next) => {
             scene1.addChild(watermark);
           }
           if (textcontent3 != undefined && textcontent3 != "") {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 55;
+            const fontSize1 = parseInt(data.sceneData.textSize) + 25;
             const text = new FFText({
               text: textcontent1,
               fontSize: fontSize1,
               x: 100,
-              y: 400,
+              y: 350,
             });
             scene1.addChild(text);
             text.setColor(titleColor);
@@ -7086,7 +7088,7 @@ exports.createVideo = async (req, res, next) => {
               text: textcontent2,
               fontSize: fontSize1,
               x: 100,
-              y: 520,
+              y: 450,
             });
 
             text2.setColor(titleColor);
@@ -7098,19 +7100,19 @@ exports.createVideo = async (req, res, next) => {
               text: textcontent3,
               fontSize: fontSize1,
               x: 100,
-              y: 640,
+              y: 550,
             });
             text3.setColor(titleColor);
             text3.setFont(selectedfonts);
             text3.addEffect("backInUp", 1.0, 1.1);
             scene1.addChild(text3);
           } else {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 45;
+            const fontSize1 = parseInt(data.sceneData.textSize) + 25;
             const text = new FFText({
               text: textcontent1,
               fontSize: fontSize1,
               x: 100,
-              y: 515,
+              y: 415,
             });
             scene1.addChild(text);
             text.setColor(titleColor);
@@ -7123,7 +7125,7 @@ exports.createVideo = async (req, res, next) => {
               text: textcontent2,
               fontSize: fontSize1,
               x: 100,
-              y: 625,
+              y: 515,
             });
             text2.setColor(titleColor);
             text2.setFont(selectedfonts);
@@ -9310,7 +9312,7 @@ exports.createVideo = async (req, res, next) => {
           scene2.setTransition("PolkaDotsCurtain", 0.5);
           i++;
         } else if (templateBlock[i].sceneId == 49) {
-          console.log('text');
+          
           let data = templateBlock[i];
           const sixVideo = await videoTemplate49(data);
           var titleColor = data.sceneData.textColor;
@@ -9324,7 +9326,7 @@ exports.createVideo = async (req, res, next) => {
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
-            if (j >= 8) {
+            if (j >= 12) {
               text2 = text2 + result[j] + " ";
             } else {
               text = text + result[j] + " ";
@@ -9394,7 +9396,7 @@ exports.createVideo = async (req, res, next) => {
           // slide1.addEffect("zoomingIn", 3.5, 1);
           scene6.addChild(slide1);
           scene6.addChild(fcloudgray);
-          const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+          const fontSize1 = parseInt(data.sceneData.textSize) + 15;
           if (text2 != "") {
             let textOne = new FFText({
               text: text,
@@ -9577,7 +9579,7 @@ exports.createVideo = async (req, res, next) => {
 
         let data = lastScene;
         const lastVideo = await videoTemplateLast(data);
-        console.log(lastVideo);
+      
         if (data.sceneData.textArray[0] != undefined) {
           var titleColor1 = data.sceneData.textArray[0].fontColor;
           let fontfamily = data.sceneData.textArray[0].fontFamily;
@@ -9757,7 +9759,7 @@ exports.createVideo = async (req, res, next) => {
           text: fieldText3,
           fontSize: fontSize3,
           x: 1060,
-          y: 420,
+          y: 430,
         });
         text3.setColor(titleColor3);
         text.setFont(selectedfonts3);
@@ -9768,7 +9770,7 @@ exports.createVideo = async (req, res, next) => {
           text: fieldText4,
           fontSize: fontSize4,
           x: 1060,
-          y: 470,
+          y: 490,
         });
         text4.setColor(titleColor3);
         text.setFont(selectedfonts4);
