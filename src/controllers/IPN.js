@@ -62,7 +62,7 @@ exports.index = async (req, res, next) => {
         {$set: {userPlan: selectedplan, userPlanBuyDate: today}},
         {new: true, useFindAndModify: false},
     );
-      console.log('templateUpdate');
+    console.log('templateUpdate');
     // console.log(templateUpdate);
     sendEmail(member, req, res);
     // res.status(200).send('OK');
@@ -91,8 +91,8 @@ exports.getIpns = async (req, res, next) => {
 function sendEmail(user, req, res) {
   // Save the verification token
   
-   console.log(user);
-    // console.log(templateUpdate);
+  console.log(user);
+  // console.log(templateUpdate);
   // send email
   const today = new Date();
   const yyyy = today.getFullYear();
@@ -103,7 +103,7 @@ function sendEmail(user, req, res) {
   if (mm < 10) mm = '0' + mm;
 
   const formattedToday = dd + '/' + mm + '/' + yyyy;
-  const link = `${process.env.WEBSITEURL}email-verification/?useremail=${user.buyer_email}&token=${token.token}`;
+  console.log(formattedToday);
   const msg = {
     to: user.buyer_email,
     from: 'Reveo <' + process.env.FROM_EMAIL + '>',
