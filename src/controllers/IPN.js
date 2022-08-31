@@ -91,7 +91,7 @@ exports.getIpns = async (req, res, next) => {
 function sendEmail(user, req, res) {
   // Save the verification token
   
-  console.log(user);
+ 
   // console.log(templateUpdate);
   // send email
   const today = new Date();
@@ -103,7 +103,7 @@ function sendEmail(user, req, res) {
   if (mm < 10) mm = '0' + mm;
 
   const formattedToday = dd + '/' + mm + '/' + yyyy;
-  console.log(formattedToday);
+
   const msg = {
     to: user.buyer_email,
     from: 'Reveo <' + process.env.FROM_EMAIL + '>',
@@ -121,7 +121,7 @@ function sendEmail(user, req, res) {
     //   <br/>If you did not request this, please ignore this email and your password will remain unchanged.\n`,
   };
   //  sgMail.send(msg);
-  console.log('templateUpdate here');
+
   sgMail
       .send(msg)
       .then(() => {
