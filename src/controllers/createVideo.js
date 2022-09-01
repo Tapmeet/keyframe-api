@@ -11,6 +11,8 @@
 /* eslint-disable quotes */
 /* eslint-disable no-unused-vars */
 /* eslint-disable valid-jsdoc */
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const path = require("path");
 const Jimp = require("jimp");
 const Template = require("../models/templates");
@@ -304,17 +306,17 @@ exports.mergeVideo = async (req, res, next) => {
  */
 exports.createVideo = async (req, res, next) => {
   const { templateId } = req.body;
- 
+
   var templatemainId;
   try {
     const templateBlock = await Block.find({ templateId: templateId }).sort({
       order: 1,
     });
     const template = await Template.findOne({ _id: templateId });
-   
+
     templatemainId = template.templateId;
     const lastScene = await Scene.findOne({ templateId: templateId });
-  
+
     const data = {
       templateBlock: templateBlock,
       template: template,
@@ -1957,7 +1959,7 @@ exports.createVideo = async (req, res, next) => {
               x: 80,
               y: 480,
               height: 300,
-              width: 540
+              width: 540,
             });
             text.setColor(titleColor);
             text.setFont(selectedfonts);
@@ -2751,37 +2753,37 @@ exports.createVideo = async (req, res, next) => {
           //     "template/videos/" +
           //     userId +
           //     "/template1/" +
-        //  mediaDate + "-img153.png",
-            //   y: 540,
-            // });
-            // slide3.addAnimate({
-            //   from: { x: -1960 },
-            //   to: { x: 960 },
-            //   time: 1,
-            //   delay: 4,
-            //   ease: "Cubic.InOut",
-            // });
-            // slide3.addEffect("zoomingIn", 3.5, 5);
-            // scene3.addChild(slide3);
-            // const slide4 = new FFImage({
-            //   path:
-            //     assetsPath +
-            //     "template/videos/" +
-            //     userId +
-            //     "/template1/" +
-       //     mediaDate + "-img154.png",
-            //   y: 540,
-            // });
-            // slide4.addAnimate({
-            //   from: { x: -1960 },
-            //   to: { x: 960 },
-            //   time: 1,
-            //   delay: 6,
-            //   ease: "Cubic.InOut",
-            // });
-            // slide4.addEffect("zoomingIn", 3.5, 7);
-            // scene3.addChild(slide4);
-            scene3.setBgColor("#fff");
+          //  mediaDate + "-img153.png",
+          //   y: 540,
+          // });
+          // slide3.addAnimate({
+          //   from: { x: -1960 },
+          //   to: { x: 960 },
+          //   time: 1,
+          //   delay: 4,
+          //   ease: "Cubic.InOut",
+          // });
+          // slide3.addEffect("zoomingIn", 3.5, 5);
+          // scene3.addChild(slide3);
+          // const slide4 = new FFImage({
+          //   path:
+          //     assetsPath +
+          //     "template/videos/" +
+          //     userId +
+          //     "/template1/" +
+          //     mediaDate + "-img154.png",
+          //   y: 540,
+          // });
+          // slide4.addAnimate({
+          //   from: { x: -1960 },
+          //   to: { x: 960 },
+          //   time: 1,
+          //   delay: 6,
+          //   ease: "Cubic.InOut",
+          // });
+          // slide4.addEffect("zoomingIn", 3.5, 7);
+          // scene3.addChild(slide4);
+          scene3.setBgColor("#fff");
           // const fimg1 = new FFImage({
           //   path: assetsPath + "whitebg2.png",
           //   y: 950,
@@ -2834,7 +2836,6 @@ exports.createVideo = async (req, res, next) => {
           creator.addChild(scene3);
           i++;
         } else if (templateBlock[i].sceneId == 16) {
-         
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate16(data);
           var titleColor = data.sceneData.textColor;
@@ -2997,7 +2998,6 @@ exports.createVideo = async (req, res, next) => {
           }
           i++;
         } else if (templateBlock[i].sceneId == 17) {
-         
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate17(data);
           var titleColor = data.sceneData.textColor;
@@ -3148,7 +3148,7 @@ exports.createVideo = async (req, res, next) => {
         } else if (templateBlock[i].sceneId == 18) {
           let data = templateBlock[i];
           const firstVideo = await videoTemplate18(data);
-       
+
           let titleColor;
           if (data.sceneData.titleColor) {
             titleColor = data.sceneData.titleColor;
@@ -3462,10 +3462,9 @@ exports.createVideo = async (req, res, next) => {
           // scene2.setTransition("fade", 1);
           i++;
         } else if (templateBlock[i].sceneId == 19) {
-          
           let data = templateBlock[i];
           const firstVideo = await videoTemplate19(data);
-          
+
           fontfamily = data.sceneData.fontFamily;
           fonts.map(function (font) {
             if (font.family == fontfamily) {
@@ -3478,7 +3477,7 @@ exports.createVideo = async (req, res, next) => {
               }
             }
           });
-        
+
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.replaceAll(
@@ -3491,7 +3490,7 @@ exports.createVideo = async (req, res, next) => {
 
           const scene2 = new FFScene();
           scene2.setBgColor("#444");
-         
+
           // add bottom cloud
           const slide1 = new FFImage({
             path:
@@ -3551,7 +3550,7 @@ exports.createVideo = async (req, res, next) => {
           //   ease: "Cubic.InOut",
           // });
           scene2.addChild(slidebg);
-         
+
           if (contentParts[2] != undefined && contentParts[2] != "") {
             const fontSize1 = parseInt(data.sceneData.textSize) + 25;
             const text = new FFText({
@@ -3622,7 +3621,7 @@ exports.createVideo = async (req, res, next) => {
             text2.addEffect("fadeIn", 1.0, 1.4);
             scene2.addChild(text2);
           }
-          
+
           if (user.userPlan == 0) {
             const watermark = new FFImage({
               path: assetsPath + "reveoLogo.png",
@@ -3647,7 +3646,7 @@ exports.createVideo = async (req, res, next) => {
           scene2.addChild(fcloud);
           scene2.setDuration(6.5);
           creator.addChild(scene2);
-          console.log("here19 end")
+          console.log("here19 end");
           // scene2.setTransition("fade", 1);
           i++;
         } else if (templateBlock[i].sceneId == 20) {
@@ -6664,16 +6663,16 @@ exports.createVideo = async (req, res, next) => {
               "#$1$1$2$2$3$3"
             );
           }
-          var result = data.sceneData.content.split(" "); 
+          var result = data.sceneData.content.split(" ");
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
             if (j >= 10) {
               text2 = text2 + result[j] + " ";
             } else {
-              text = text + result[j] + " "; 
+              text = text + result[j] + " ";
             }
-          }  
+          }
           let fontfamily = data.sceneData.fontFamily;
           let selectedfonts;
           fonts.map(function (font) {
@@ -6725,7 +6724,7 @@ exports.createVideo = async (req, res, next) => {
             // });
             // scene4.addChild(image2);
             scene4.setBgColor("#522406");
-           const fimg1 = new FFImage({
+            const fimg1 = new FFImage({
               path: assetsPath + "whitestrip.jpg",
               x: 960,
             });
@@ -8844,7 +8843,7 @@ exports.createVideo = async (req, res, next) => {
           const scene4 = new FFScene();
           const content = data.sceneData.textArray[0].text;
           const contentParts = content.split("\n");
-         // console.log(contentParts);
+          // console.log(contentParts);
           const image2 = new FFImage({
             path:
               assetsPath +
@@ -9312,7 +9311,6 @@ exports.createVideo = async (req, res, next) => {
           scene2.setTransition("PolkaDotsCurtain", 0.5);
           i++;
         } else if (templateBlock[i].sceneId == 49) {
-          
           let data = templateBlock[i];
           const sixVideo = await videoTemplate49(data);
           var titleColor = data.sceneData.textColor;
@@ -9574,12 +9572,11 @@ exports.createVideo = async (req, res, next) => {
         }
       }
       if (lastScene) {
-        
         //  `console.log(lastScene.sceneData.textArray);
 
         let data = lastScene;
         const lastVideo = await videoTemplateLast(data);
-      
+
         if (data.sceneData.textArray[0] != undefined) {
           var titleColor1 = data.sceneData.textArray[0].fontColor;
           let fontfamily = data.sceneData.textArray[0].fontFamily;
@@ -9810,7 +9807,7 @@ exports.createVideo = async (req, res, next) => {
           () => {
             var finalvideo1 =
               "template/videos/" + userId + "/template1/" + videoName + ".mp4";
-              console.log("lastscene here");
+            console.log("lastscene here");
             // const result = [finalvideo1];
             saveVideoDb(template.title, finalvideo1, template.templateImage);
             // res.status(200).json({
@@ -9829,6 +9826,8 @@ exports.createVideo = async (req, res, next) => {
   async function saveVideoDb(videoTitle, path, templateImage) {
     try {
       console.log(templatemainId);
+      const user = await User.findOne({ _id: userId });
+      console.log(user.email);
       const newUpload = new UserVideos({
         userId: userId,
         videoTitle: videoTitle,
@@ -10436,6 +10435,22 @@ exports.createVideo = async (req, res, next) => {
           mediaDate +
           "-482.png"
       );
+      const msg = {
+        to: user.email,
+        from: "Reveo <" + process.env.FROM_EMAIL + ">",
+        templateId: "d-d430cab6ce0543de8d8e3537679bdae1",
+        dynamic_template_data: {
+          sender_name: user.firstName,
+        },
+      };
+      sgMail
+        .send(msg)
+        .then(() => {
+          console.log("Email sent");
+        })
+        .catch((error) => {
+          console.error(error.response.body);
+        });
       res.status(200).json({
         message: "successfull",
         data: path,
