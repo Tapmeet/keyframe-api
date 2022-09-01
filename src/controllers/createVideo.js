@@ -10435,6 +10435,7 @@ exports.createVideo = async (req, res, next) => {
           mediaDate +
           "-482.png"
       );
+      console.log("herer");
       const msg = {
         to: user.email,
         from: "Reveo <" + process.env.FROM_EMAIL + ">",
