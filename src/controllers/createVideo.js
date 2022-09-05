@@ -6805,7 +6805,7 @@ exports.createVideo = async (req, res, next) => {
           // Resize Images for scene
           let data = templateBlock[i];
           const firstVideo = await videoTemplate37(data);
-          console.log(firstVideo);
+          console.log('contentParts');
           fontfamily = data.sceneData.fontFamily;
           fonts.map(function (font) {
             if (font.family == fontfamily) {
@@ -6828,7 +6828,7 @@ exports.createVideo = async (req, res, next) => {
           }
           const content = data.sceneData.content;
           const contentParts = content.split("\n");
-          console.log(contentParts);
+          console.log('contentParts');
           const scene1 = new FFScene();
           scene1.setBgColor("#fff");
 
@@ -7778,6 +7778,7 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const firstVideo = await videoTemplate41(data);
           fontfamily = data.sceneData.fontFamily;
+
           fonts.map(function (font) {
             if (font.family == fontfamily) {
               if (data.sceneData.fontWeight == "lighter") {
@@ -7799,6 +7800,7 @@ exports.createVideo = async (req, res, next) => {
           }
           // const  content= data.sceneData.content;
           var content = data.sceneData.content.split(" ");
+          console.log('contentParts2');
           var textcontent1 = "";
           var textcontent2 = "";
           var textcontent3 = "";
