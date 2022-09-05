@@ -9577,7 +9577,7 @@ exports.createVideo = async (req, res, next) => {
         }
       }
       if (lastScene) {
-        //  `console.log(lastScene.sceneData.textArray);
+          console.log('last scenee');
 
         let data = lastScene;
         const lastVideo = await videoTemplateLast(data);
@@ -9787,6 +9787,7 @@ exports.createVideo = async (req, res, next) => {
           watermark.setOpacity(0.7);
           watermark.setScale(0.5);
           sceneLast.addChild(watermark);
+          console.log('last scenee end');
         }
         sceneLast.setDuration(3);
         creator.addChild(sceneLast);
