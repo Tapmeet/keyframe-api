@@ -7154,6 +7154,7 @@ exports.createVideo = async (req, res, next) => {
         } else if (templateBlock[i].sceneId == 39) {
           let data = templateBlock[i];
           const firstVideo = await videoTemplate39(data);
+          console.log('contentParts39');
           let titleColor;
           if (data.sceneData.titleColor) {
             titleColor = data.sceneData.titleColor;
@@ -7465,6 +7466,7 @@ exports.createVideo = async (req, res, next) => {
           scene2.setDuration(6.5);
           creator.addChild(scene2);
           scene2.setTransition("fade", 1.5);
+          console.log('contentParts39end');
           // scene2.setTransition("fade", 1);
           i++;
         } else if (templateBlock[i].sceneId == 40) {
@@ -7929,6 +7931,7 @@ exports.createVideo = async (req, res, next) => {
           creator.addChild(scene2);
           scene2.setTransition("Fade", 1);
           i++;
+          console.log('contentParts41end');
         } else if (templateBlock[i].sceneId == 42) {
           let data = templateBlock[i];
           fontfamily = data.sceneData.fontFamily;
