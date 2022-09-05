@@ -6805,7 +6805,7 @@ exports.createVideo = async (req, res, next) => {
           // Resize Images for scene
           let data = templateBlock[i];
           const firstVideo = await videoTemplate37(data);
-          console.log('contentParts');
+          console.log(firstVideo);
           fontfamily = data.sceneData.fontFamily;
           fonts.map(function (font) {
             if (font.family == fontfamily) {
@@ -6828,7 +6828,7 @@ exports.createVideo = async (req, res, next) => {
           }
           const content = data.sceneData.content;
           const contentParts = content.split("\n");
-          console.log('contentParts');
+          console.log(contentParts);
           const scene1 = new FFScene();
           scene1.setBgColor("#fff");
 
@@ -7154,7 +7154,6 @@ exports.createVideo = async (req, res, next) => {
         } else if (templateBlock[i].sceneId == 39) {
           let data = templateBlock[i];
           const firstVideo = await videoTemplate39(data);
-          console.log('contentParts39');
           let titleColor;
           if (data.sceneData.titleColor) {
             titleColor = data.sceneData.titleColor;
@@ -7466,7 +7465,6 @@ exports.createVideo = async (req, res, next) => {
           scene2.setDuration(6.5);
           creator.addChild(scene2);
           scene2.setTransition("fade", 1.5);
-          console.log('contentParts39end');
           // scene2.setTransition("fade", 1);
           i++;
         } else if (templateBlock[i].sceneId == 40) {
@@ -7780,7 +7778,6 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const firstVideo = await videoTemplate41(data);
           fontfamily = data.sceneData.fontFamily;
-
           fonts.map(function (font) {
             if (font.family == fontfamily) {
               if (data.sceneData.fontWeight == "lighter") {
@@ -7802,7 +7799,6 @@ exports.createVideo = async (req, res, next) => {
           }
           // const  content= data.sceneData.content;
           var content = data.sceneData.content.split(" ");
-          console.log('contentParts2');
           var textcontent1 = "";
           var textcontent2 = "";
           var textcontent3 = "";
@@ -7931,7 +7927,6 @@ exports.createVideo = async (req, res, next) => {
           creator.addChild(scene2);
           scene2.setTransition("Fade", 1);
           i++;
-          console.log('contentParts41end');
         } else if (templateBlock[i].sceneId == 42) {
           let data = templateBlock[i];
           fontfamily = data.sceneData.fontFamily;
@@ -9577,7 +9572,7 @@ exports.createVideo = async (req, res, next) => {
         }
       }
       if (lastScene) {
-          console.log('last scenee');
+        //  `console.log(lastScene.sceneData.textArray);
 
         let data = lastScene;
         const lastVideo = await videoTemplateLast(data);
@@ -9787,7 +9782,6 @@ exports.createVideo = async (req, res, next) => {
           watermark.setOpacity(0.7);
           watermark.setScale(0.5);
           sceneLast.addChild(watermark);
-          console.log('last scenee end');
         }
         sceneLast.setDuration(3);
         creator.addChild(sceneLast);
