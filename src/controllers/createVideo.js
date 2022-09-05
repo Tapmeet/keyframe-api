@@ -7961,7 +7961,7 @@ exports.createVideo = async (req, res, next) => {
               "/template1/" +
               mediaDate +
               "-img421.png",
-            y: 540,45
+            y: 540,
             x: 960,
           });
           slide1.addEffect("zoomingIn", 3.5, 1);
