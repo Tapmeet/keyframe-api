@@ -7544,7 +7544,7 @@ exports.createVideo = async (req, res, next) => {
           // });
           scene2.addChild(slidebg);
           if (textcontent3 != undefined && textcontent3 != "") {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 45;
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
             const text = new FFText({
               text: textcontent1,
               fontSize: fontSize1,
@@ -7580,7 +7580,7 @@ exports.createVideo = async (req, res, next) => {
             text3.addEffect("backInUp", 1.0, 1.1);
             scene2.addChild(text3);
           } else {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 45;
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
             const text = new FFText({
               text: textcontent1,
               fontSize: fontSize1,
@@ -7700,7 +7700,7 @@ exports.createVideo = async (req, res, next) => {
           // });
           scene2.addChild(slidebg);
           if (textcontent3 != undefined && textcontent3 != "") {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 45;
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
             const text = new FFText({
               text: textcontent1,
               fontSize: fontSize1,
@@ -7736,7 +7736,7 @@ exports.createVideo = async (req, res, next) => {
             text3.addEffect("backInUp", 1.0, 1.1);
             scene2.addChild(text3);
           } else {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 45;
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
             const text = new FFText({
               text: textcontent1,
               fontSize: fontSize1,
@@ -7853,7 +7853,7 @@ exports.createVideo = async (req, res, next) => {
           // });
           scene2.addChild(slidebg);
           if (textcontent3 != undefined && textcontent3 != "") {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 45;
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
             const text = new FFText({
               text: textcontent1,
               fontSize: fontSize1,
@@ -7889,7 +7889,7 @@ exports.createVideo = async (req, res, next) => {
             text3.addEffect("backInUp", 1.0, 1.1);
             scene2.addChild(text3);
           } else {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 45;
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
             const text = new FFText({
               text: textcontent1,
               fontSize: fontSize1,
@@ -7961,7 +7961,7 @@ exports.createVideo = async (req, res, next) => {
               "/template1/" +
               mediaDate +
               "-img421.png",
-            y: 540,
+            y: 540,45
             x: 960,
           });
           slide1.addEffect("zoomingIn", 3.5, 1);
