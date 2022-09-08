@@ -6976,7 +6976,7 @@ exports.createVideo = async (req, res, next) => {
               text: contentParts[1],
               fontSize: fontSize1,
               x: 1442,
-              y: 830,
+              y: 840,
             });
             text2.alignCenter();
             text2.setStyle({ padding: [4, 20, 6, 20] });
@@ -9726,7 +9726,7 @@ exports.createVideo = async (req, res, next) => {
             mediaDate +
             "-imglast2.png",
           x: 1260,
-          y: 600,
+          y: 620,
         });
         fimg1.addEffect("fadeIn", 1.5, 0.5);
         sceneLast.addChild(fimg1);
