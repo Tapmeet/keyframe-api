@@ -8572,7 +8572,7 @@ exports.createVideo = async (req, res, next) => {
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
-            if (j >= 13) {
+            if (j >= 14) {
               text2 = text2 + result[j] + " ";
             } else {
               text = text + result[j] + " ";
@@ -8718,7 +8718,7 @@ exports.createVideo = async (req, res, next) => {
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
-            if (j >= 13) {
+            if (j >= 14) {
               text2 = text2 + result[j] + " ";
             } else {
               text = text + result[j] + " ";
