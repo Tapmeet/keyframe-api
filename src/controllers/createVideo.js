@@ -8420,7 +8420,7 @@ exports.createVideo = async (req, res, next) => {
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
-            if (j >= 12) {
+            if (j >= 10) {
               text2 = text2 + result[j] + " ";
             } else {
               text = text + result[j] + " ";
