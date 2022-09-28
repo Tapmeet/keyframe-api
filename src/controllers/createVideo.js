@@ -241,10 +241,10 @@ exports.mergeVideo = async (req, res, next) => {
     var command = new ffmpeg();
     command.input(
       "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        videoName +
-        ".mp4"
+      userId +
+      "/template1/" +
+      videoName +
+      ".mp4"
     );
     command.input(assetsPath + template.musicFile);
     command
@@ -254,10 +254,10 @@ exports.mergeVideo = async (req, res, next) => {
       .addOption("-shortest")
       .save(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          videoName +
-          "-audio.mp4"
+        userId +
+        "/template1/" +
+        videoName +
+        "-audio.mp4"
       )
       .on("start", function (commandLine) {
         console.log(commandLine);
@@ -269,10 +269,10 @@ exports.mergeVideo = async (req, res, next) => {
       .on("end", function () {
         deleteFiles(
           "./src/Assets/template/videos/" +
-            userId +
-            "/template1/" +
-            videoName +
-            ".mp4"
+          userId +
+          "/template1/" +
+          videoName +
+          ".mp4"
         );
         saveVideoDb(
           template.title,
@@ -353,8 +353,8 @@ exports.createVideo = async (req, res, next) => {
         FFCreator,
       } = require("ffcreator");
       const outputDir = path.join(
-        __dirname,
-        "./src/Assets/template/videos/" + userId + "/template1"
+        __dirname, 
+        "./src/Assets/template/videos/" + userId + "/template1" 
       );
       const creator = new FFCreator({
         //  cacheDir,
@@ -8518,7 +8518,7 @@ exports.createVideo = async (req, res, next) => {
             text: text,
             fontSize: fontSize1,
             x: 960,
-            y: 980,
+            y: 940,
           });
           textOne.setColor(titleColor);
           textOne.setFont(selectedfonts);
@@ -8531,7 +8531,7 @@ exports.createVideo = async (req, res, next) => {
               text: text2,
               fontSize: fontSize1,
               x: 960,
-              y: 1060,
+              y: 1020,
             });
             textNext.alignCenter();
             textNext.setStyle({ padding: [0, 20, 10, 20] });
@@ -8653,9 +8653,11 @@ exports.createVideo = async (req, res, next) => {
             let textOne = new FFText({
               text: text,
               fontSize: fontSize1,
-              x: 100,
-              y: 950,
+              x: 960,
+              y: 940,
             });
+            textOne.alignCenter();
+            textOne.setStyle({ padding: [0, 20, 10, 20] });
             textOne.setColor(titleColor);
             textOne.setFont(selectedfonts);
             textOne.addEffect("zoomInDown", 1.5, 1.3);
@@ -8664,9 +8666,11 @@ exports.createVideo = async (req, res, next) => {
               const textNext = new FFText({
                 text: text2,
                 fontSize: fontSize1,
-                x: 100,
+                x: 960,
                 y: 1020,
               });
+              textNext.alignCenter();
+              textNext.setStyle({ padding: [0, 20, 10, 20] });
               textNext.setColor(titleColor);
               textNext.setFont(selectedfonts);
               textNext.addEffect("zoomInDown", 1.5, 1.5);
@@ -8714,7 +8718,7 @@ exports.createVideo = async (req, res, next) => {
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
-            if (j >= 18) {
+            if (j >= 15) {
               text2 = text2 + result[j] + " ";
             } else {
               text = text + result[j] + " ";
@@ -8770,20 +8774,24 @@ exports.createVideo = async (req, res, next) => {
             let textOne = new FFText({
               text: text,
               fontSize: fontSize1,
-              x: 100,
-              y: 950,
+              x: 960,
+              y: 940,
             });
             textOne.setColor(titleColor);
             textOne.setFont(selectedfonts);
+            textOne.alignCenter();
+            textOne.setStyle({ padding: [0, 20, 10, 20] });
             textOne.addEffect("zoomInDown", 1.5, 1.6);
             scene4.addChild(textOne);
             if (text2 != "") {
               const textNext = new FFText({
                 text: text2,
                 fontSize: fontSize1,
-                x: 100,
+                x: 960,
                 y: 1020,
               });
+              textNext.alignCenter();
+              textNext.setStyle({ padding: [0, 20, 10, 20] });
               textNext.setColor(titleColor);
               textNext.setFont(selectedfonts);
               textNext.addEffect("zoomInDown", 1.5, 1.8);
@@ -9800,10 +9808,10 @@ exports.createVideo = async (req, res, next) => {
         fs.rename(
           e.output,
           "./src/Assets/template/videos/" +
-            userId +
-            "/template1/" +
-            videoName +
-            ".mp4",
+          userId +
+          "/template1/" +
+          videoName +
+          ".mp4",
           () => {
             var finalvideo1 =
               "template/videos/" + userId + "/template1/" + videoName + ".mp4";
@@ -9838,143 +9846,143 @@ exports.createVideo = async (req, res, next) => {
       const uploadData = await newUpload.save();
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img1.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img1.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img2.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img2.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img3.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img3.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img4.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img4.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img41.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img41.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img42.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img42.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img43.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img43.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img44.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img44.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img101.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img101.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img102.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img102.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img103.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img103.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img61.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img61.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img71.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img71.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img72.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img72.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img73.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img73.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img74.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img74.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img131.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img131.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img132.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img132.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img151.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img151.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img152.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img152.png"
       );
       // deleteFiles(
       //   "./src/Assets/template/videos/" + userId + "/template1/" +
@@ -9989,451 +9997,451 @@ exports.createVideo = async (req, res, next) => {
 
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img161.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img161.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img162.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img162.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img171.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img171.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img172.png"
-      );
-
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img181.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img182.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img191.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img192.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img201.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img172.png"
       );
 
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img301.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img181.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img302.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img182.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img303.png"
-      );
-
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img291.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img191.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img292.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img192.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img293.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img294.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img281.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img282.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img283.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img201.png"
       );
 
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img271.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img301.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img272.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img302.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img261.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img262.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img263.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img303.png"
       );
 
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img251.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img291.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img241.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img292.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img242.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img293.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img221.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img294.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img222.png"
-      );
-
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img222.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img281.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img331.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img282.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img332.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-361.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img322.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img321.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img341.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img342.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img351.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img352.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img283.png"
       );
 
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-imglast1.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img271.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-imglast2.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img272.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img371.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img261.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img372.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img262.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img373.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img263.png"
+      );
+
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img251.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img391.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img241.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-img392.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img242.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-401.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img221.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-411.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img222.png"
+      );
+
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img222.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-421.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img331.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-431.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img332.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-432.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-361.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-441.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img322.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-442.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img321.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-443.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img341.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-451.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img342.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-452.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img351.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-461.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img352.png"
+      );
+
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-imglast1.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-471.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-imglast2.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-472.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img371.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-473.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img372.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-491.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img373.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-481.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img391.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          mediaDate +
-          "-482.png"
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img392.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-401.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-411.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-421.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-431.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-432.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-441.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-442.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-443.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-451.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-452.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-461.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-471.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-472.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-473.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-491.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-481.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-482.png"
       );
       console.log("herer");
       const msg = {
@@ -10476,11 +10484,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img1.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img1.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -10493,11 +10501,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img2.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img2.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["2"].url)
               .then((img) => {
@@ -10510,11 +10518,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                      "template/videos/" +
-                      userId +
-                      "/template1/" +
-                      mediaDate +
-                      "-img3.png"
+                    "template/videos/" +
+                    userId +
+                    "/template1/" +
+                    mediaDate +
+                    "-img3.png"
                   ); // save
                 Jimp.read(assetsPath + data.sceneData.media["3"].url)
                   .then((img) => {
@@ -10524,15 +10532,15 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         950,
                         530,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
-                          Jimp.VERTICAL_ALIGN_CENTER
+                        Jimp.VERTICAL_ALIGN_CENTER
                       )
                       .write(
                         assetsPath +
-                          "template/videos/" +
-                          userId +
-                          "/template1/" +
-                          mediaDate +
-                          "-img4.png"
+                        "template/videos/" +
+                        userId +
+                        "/template1/" +
+                        mediaDate +
+                        "-img4.png"
                       ); // save
                     setTimeout(function () {
                       resolve("done");
@@ -10570,11 +10578,11 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img41.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img41.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -10587,11 +10595,11 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img42.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img42.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["2"].url)
               .then((img) => {
@@ -10604,11 +10612,11 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                      "template/videos/" +
-                      userId +
-                      "/template1/" +
-                      mediaDate +
-                      "-img43.png"
+                    "template/videos/" +
+                    userId +
+                    "/template1/" +
+                    mediaDate +
+                    "-img43.png"
                   ); // save
                 Jimp.read(assetsPath + data.sceneData.media["3"].url)
                   .then((img) => {
@@ -10618,15 +10626,15 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
                         960,
                         1080,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
-                          Jimp.VERTICAL_ALIGN_CENTER
+                        Jimp.VERTICAL_ALIGN_CENTER
                       )
                       .write(
                         assetsPath +
-                          "template/videos/" +
-                          userId +
-                          "/template1/" +
-                          mediaDate +
-                          "-img44.png"
+                        "template/videos/" +
+                        userId +
+                        "/template1/" +
+                        mediaDate +
+                        "-img44.png"
                       ); // save
                     setTimeout(function () {
                       resolve("done");
@@ -10663,11 +10671,11 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img21.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img21.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -10680,11 +10688,11 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img22.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img22.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -10713,11 +10721,11 @@ global.videoTemplate10 = async function videoTemplate10(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img101.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img101.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -10730,11 +10738,11 @@ global.videoTemplate10 = async function videoTemplate10(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img102.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img102.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["2"].url)
               .then((img) => {
@@ -10747,11 +10755,11 @@ global.videoTemplate10 = async function videoTemplate10(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                      "template/videos/" +
-                      userId +
-                      "/template1/" +
-                      mediaDate +
-                      "-img103.png"
+                    "template/videos/" +
+                    userId +
+                    "/template1/" +
+                    mediaDate +
+                    "-img103.png"
                   ); // save
                 setTimeout(function () {
                   resolve("done");
@@ -10784,11 +10792,11 @@ global.videoTemplateLast = async function videoTemplateLast(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-imglast1.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-imglast1.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -10801,11 +10809,11 @@ global.videoTemplateLast = async function videoTemplateLast(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-imglast2.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-imglast2.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -10844,11 +10852,11 @@ global.videoTemplate6 = async function videoTemplate6(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img61.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img61.png"
           ); // save
         setTimeout(function () {
           resolve("done");
@@ -10873,11 +10881,11 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img71.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img71.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -10890,11 +10898,11 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img72.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img72.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["2"].url)
               .then((img) => {
@@ -10907,11 +10915,11 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                      "template/videos/" +
-                      userId +
-                      "/template1/" +
-                      mediaDate +
-                      "-img73.png"
+                    "template/videos/" +
+                    userId +
+                    "/template1/" +
+                    mediaDate +
+                    "-img73.png"
                   ); // save
                 Jimp.read(assetsPath + data.sceneData.media["3"].url)
                   .then((img) => {
@@ -10921,15 +10929,15 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
                         640,
                         360,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
-                          Jimp.VERTICAL_ALIGN_CENTER
+                        Jimp.VERTICAL_ALIGN_CENTER
                       )
                       .write(
                         assetsPath +
-                          "template/videos/" +
-                          userId +
-                          "/template1/" +
-                          mediaDate +
-                          "-img74.png"
+                        "template/videos/" +
+                        userId +
+                        "/template1/" +
+                        mediaDate +
+                        "-img74.png"
                       ); // save
                     setTimeout(function () {
                       resolve("done");
@@ -10966,11 +10974,11 @@ global.videoTemplate13 = async function videoTemplate13(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img131.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img131.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -10983,11 +10991,11 @@ global.videoTemplate13 = async function videoTemplate13(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img132.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img132.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11015,11 +11023,11 @@ global.videoTemplate15 = async function videoTemplate15(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img151.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img151.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11032,11 +11040,11 @@ global.videoTemplate15 = async function videoTemplate15(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img152.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img152.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11064,11 +11072,11 @@ global.videoTemplate16 = async function videoTemplate16(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img161.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img161.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11081,11 +11089,11 @@ global.videoTemplate16 = async function videoTemplate16(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img162.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img162.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11114,11 +11122,11 @@ global.videoTemplate17 = async function videoTemplate17(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img171.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img171.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11131,11 +11139,11 @@ global.videoTemplate17 = async function videoTemplate17(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img172.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img172.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11163,11 +11171,11 @@ global.videoTemplate18 = async function videoTemplate18(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img181.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img181.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11180,11 +11188,11 @@ global.videoTemplate18 = async function videoTemplate18(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img182.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img182.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11213,11 +11221,11 @@ global.videoTemplate19 = async function videoTemplate19(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img191.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img191.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11230,11 +11238,11 @@ global.videoTemplate19 = async function videoTemplate19(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img192.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img192.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11263,11 +11271,11 @@ global.videoTemplate20 = async function videoTemplate20(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img201.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img201.png"
           ); // save
         setTimeout(function () {
           resolve("done");
@@ -11292,11 +11300,11 @@ global.videoTemplate22 = async function videoTemplate22(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img221.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img221.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11309,11 +11317,11 @@ global.videoTemplate22 = async function videoTemplate22(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img222.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img222.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11341,11 +11349,11 @@ global.videoTemplate25 = async function videoTemplate25(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img251.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img251.png"
           ); // save
         setTimeout(function () {
           resolve("done");
@@ -11369,11 +11377,11 @@ global.videoTemplate24 = async function videoTemplate24(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img241.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img241.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11386,11 +11394,11 @@ global.videoTemplate24 = async function videoTemplate24(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img242.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img242.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11419,11 +11427,11 @@ global.videoTemplate26 = async function videoTemplate26(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img261.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img261.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["0"].url)
           .then((img) => {
@@ -11436,11 +11444,11 @@ global.videoTemplate26 = async function videoTemplate26(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img262.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img262.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["0"].url)
               .then((img) => {
@@ -11454,11 +11462,11 @@ global.videoTemplate26 = async function videoTemplate26(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                      "template/videos/" +
-                      userId +
-                      "/template1/" +
-                      mediaDate +
-                      "-img263.png"
+                    "template/videos/" +
+                    userId +
+                    "/template1/" +
+                    mediaDate +
+                    "-img263.png"
                   ); // save
                 setTimeout(function () {
                   resolve("done");
@@ -11490,11 +11498,11 @@ global.videoTemplate27 = async function videoTemplate27(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img271.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img271.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11507,11 +11515,11 @@ global.videoTemplate27 = async function videoTemplate27(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img272.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img272.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11540,11 +11548,11 @@ global.videoTemplate28 = async function videoTemplate28(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img281.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img281.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["0"].url)
           .then((img) => {
@@ -11557,11 +11565,11 @@ global.videoTemplate28 = async function videoTemplate28(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img282.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img282.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["0"].url)
               .then((img) => {
@@ -11575,11 +11583,11 @@ global.videoTemplate28 = async function videoTemplate28(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                      "template/videos/" +
-                      userId +
-                      "/template1/" +
-                      mediaDate +
-                      "-img283.png"
+                    "template/videos/" +
+                    userId +
+                    "/template1/" +
+                    mediaDate +
+                    "-img283.png"
                   ); // save
                 setTimeout(function () {
                   resolve("done");
@@ -11611,11 +11619,11 @@ global.videoTemplate29 = async function videoTemplate29(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img291.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img291.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11628,11 +11636,11 @@ global.videoTemplate29 = async function videoTemplate29(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img292.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img292.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["2"].url)
               .then((img) => {
@@ -11645,11 +11653,11 @@ global.videoTemplate29 = async function videoTemplate29(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                      "template/videos/" +
-                      userId +
-                      "/template1/" +
-                      mediaDate +
-                      "-img293.png"
+                    "template/videos/" +
+                    userId +
+                    "/template1/" +
+                    mediaDate +
+                    "-img293.png"
                   ); // save
                 Jimp.read(assetsPath + data.sceneData.media["3"].url)
                   .then((img) => {
@@ -11659,15 +11667,15 @@ global.videoTemplate29 = async function videoTemplate29(data, req, res) {
                         840,
                         470,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
-                          Jimp.VERTICAL_ALIGN_CENTER
+                        Jimp.VERTICAL_ALIGN_CENTER
                       )
                       .write(
                         assetsPath +
-                          "template/videos/" +
-                          userId +
-                          "/template1/" +
-                          mediaDate +
-                          "-img294.png"
+                        "template/videos/" +
+                        userId +
+                        "/template1/" +
+                        mediaDate +
+                        "-img294.png"
                       ); // save
                     setTimeout(function () {
                       resolve("done");
@@ -11704,11 +11712,11 @@ global.videoTemplate30 = async function videoTemplate30(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img301.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img301.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["0"].url)
           .then((img) => {
@@ -11721,11 +11729,11 @@ global.videoTemplate30 = async function videoTemplate30(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img302.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img302.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["0"].url)
               .then((img) => {
@@ -11739,11 +11747,11 @@ global.videoTemplate30 = async function videoTemplate30(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                      "template/videos/" +
-                      userId +
-                      "/template1/" +
-                      mediaDate +
-                      "-img303.png"
+                    "template/videos/" +
+                    userId +
+                    "/template1/" +
+                    mediaDate +
+                    "-img303.png"
                   ); // save
                 setTimeout(function () {
                   resolve("done");
@@ -11775,11 +11783,11 @@ global.videoTemplate33 = async function videoTemplate33(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img331.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img331.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11792,11 +11800,11 @@ global.videoTemplate33 = async function videoTemplate33(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img332.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img332.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11825,11 +11833,11 @@ global.videoTemplate36 = async function videoTemplate36(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img361.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img361.png"
           ); // save
         setTimeout(function () {
           resolve("done");
@@ -11853,11 +11861,11 @@ global.videoTemplate32 = async function videoTemplate32(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img321.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img321.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11870,11 +11878,11 @@ global.videoTemplate32 = async function videoTemplate32(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img322.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img322.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11902,11 +11910,11 @@ global.videoTemplate34 = async function videoTemplate34(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img341.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img341.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11919,11 +11927,11 @@ global.videoTemplate34 = async function videoTemplate34(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img342.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img342.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11951,11 +11959,11 @@ global.videoTemplate35 = async function videoTemplate35(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img351.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img351.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11968,11 +11976,11 @@ global.videoTemplate35 = async function videoTemplate35(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img352.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img352.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -12000,11 +12008,11 @@ global.videoTemplate37 = async function videoTemplate37(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img371.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img371.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -12017,11 +12025,11 @@ global.videoTemplate37 = async function videoTemplate37(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img372.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img372.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["2"].url)
               .then((img) => {
@@ -12034,11 +12042,11 @@ global.videoTemplate37 = async function videoTemplate37(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                      "template/videos/" +
-                      userId +
-                      "/template1/" +
-                      mediaDate +
-                      "-img373.png"
+                    "template/videos/" +
+                    userId +
+                    "/template1/" +
+                    mediaDate +
+                    "-img373.png"
                   ); // save
                 setTimeout(function () {
                   resolve("done");
@@ -12070,11 +12078,11 @@ global.videoTemplate39 = async function videoTemplate39(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img391.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img391.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -12087,11 +12095,11 @@ global.videoTemplate39 = async function videoTemplate39(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img392.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img392.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -12119,11 +12127,11 @@ global.videoTemplate40 = async function videoTemplate40(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img401.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img401.png"
           ); // save
         setTimeout(function () {
           resolve("done");
@@ -12147,11 +12155,11 @@ global.videoTemplate41 = async function videoTemplate41(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img411.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img411.png"
           ); // save
         setTimeout(function () {
           resolve("done");
@@ -12176,11 +12184,11 @@ global.videoTemplate42 = async function videoTemplate42(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img421.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img421.png"
           ); // save
         setTimeout(function () {
           resolve("done");
@@ -12205,11 +12213,11 @@ global.videoTemplate43 = async function videoTemplate43(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img431.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img431.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -12222,11 +12230,11 @@ global.videoTemplate43 = async function videoTemplate43(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img432.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img432.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -12255,11 +12263,11 @@ global.videoTemplate44 = async function videoTemplate44(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img441.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img441.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["0"].url)
           .then((img) => {
@@ -12272,11 +12280,11 @@ global.videoTemplate44 = async function videoTemplate44(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img442.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img442.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["0"].url)
               .then((img) => {
@@ -12290,11 +12298,11 @@ global.videoTemplate44 = async function videoTemplate44(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                      "template/videos/" +
-                      userId +
-                      "/template1/" +
-                      mediaDate +
-                      "-img443.png"
+                    "template/videos/" +
+                    userId +
+                    "/template1/" +
+                    mediaDate +
+                    "-img443.png"
                   ); // save
                 setTimeout(function () {
                   resolve("done");
@@ -12326,11 +12334,11 @@ global.videoTemplate45 = async function videoTemplate45(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img451.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img451.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -12343,11 +12351,11 @@ global.videoTemplate45 = async function videoTemplate45(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img452.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img452.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -12375,11 +12383,11 @@ global.videoTemplate46 = async function videoTemplate46(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img461.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img461.png"
           ); // save
         setTimeout(function () {
           resolve("done");
@@ -12403,11 +12411,11 @@ global.videoTemplate47 = async function videoTemplate47(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img471.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img471.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -12420,11 +12428,11 @@ global.videoTemplate47 = async function videoTemplate47(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img472.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img472.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["2"].url)
               .then((img) => {
@@ -12437,11 +12445,11 @@ global.videoTemplate47 = async function videoTemplate47(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                      "template/videos/" +
-                      userId +
-                      "/template1/" +
-                      mediaDate +
-                      "-img473.png"
+                    "template/videos/" +
+                    userId +
+                    "/template1/" +
+                    mediaDate +
+                    "-img473.png"
                   ); // save
                 setTimeout(function () {
                   resolve("done");
@@ -12473,11 +12481,11 @@ global.videoTemplate48 = async function videoTemplate48(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img481.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img481.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -12490,11 +12498,11 @@ global.videoTemplate48 = async function videoTemplate48(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img482.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img482.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -12522,11 +12530,11 @@ global.videoTemplate49 = async function videoTemplate49(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img491.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img491.png"
           ); // save
         setTimeout(function () {
           resolve("done");
@@ -12550,11 +12558,11 @@ global.videoTemplate50 = async function videoTemplate50(data, req, res) {
           )
           .write(
             assetsPath +
-              "template/videos/" +
-              userId +
-              "/template1/" +
-              mediaDate +
-              "-img501.png"
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img501.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -12567,11 +12575,11 @@ global.videoTemplate50 = async function videoTemplate50(data, req, res) {
               )
               .write(
                 assetsPath +
-                  "template/videos/" +
-                  userId +
-                  "/template1/" +
-                  mediaDate +
-                  "-img502.png"
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img502.png"
               ); // save
             setTimeout(function () {
               resolve("done");

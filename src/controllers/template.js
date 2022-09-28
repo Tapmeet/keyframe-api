@@ -57,6 +57,8 @@ var fonts = [
 //Upload
 exports.upload = async (req, res, next) => {
   //const sharp = require("sharp");
+  console.log("heressss");
+  console.log(req.file);
   try {
     const file = req.file;
     if (file) {
@@ -66,6 +68,7 @@ exports.upload = async (req, res, next) => {
         try {
           if (!req.body.noUpload) {
             if (req.file.mimetype !== "video/mp4") {
+              console.log("there")
               const filename =
                 req.file.destination +
                 "/file--" +
@@ -93,7 +96,7 @@ exports.upload = async (req, res, next) => {
               // });
               // const uploadData = await newUpload.save();
               // res.status(200).json({ message: filename });
-
+              console.log('hetresssss')
               Jimp.read(req.file.path)
                 .then((img) => {
                   img
@@ -111,16 +114,18 @@ exports.upload = async (req, res, next) => {
                       userId: req.body.userId,
                       templateId: req.body.templateId,
                     });
-                    setTimeout( function () {
+                    setTimeout(function () {
                       fs.unlink(req.file.path, function (err) {
                         // if (err) throw err;
                       });
                     }, 500);
                     const uploadData = await newUpload.save();
+                    console.log('hetre')
                     res.status(200).json({ message: filename });
                   }, 100);
                 })
                 .catch(async (err) => {
+
                   const newUpload = new Userupload({
                     ...file,
                     userId: req.body.userId,
@@ -129,7 +134,9 @@ exports.upload = async (req, res, next) => {
                   const uploadData = await newUpload.save();
                   res.status(200).json({ message: filePath });
                 });
+
             } else {
+
               const newUpload = new Userupload({
                 ...file,
                 userId: req.body.userId,
@@ -138,6 +145,10 @@ exports.upload = async (req, res, next) => {
               const uploadData = await newUpload.save();
               res.status(200).json({ message: filePath });
             }
+          } else {
+
+            const filename = req.file.destination + '/' + req.file.filename;
+            res.status(200).json({ message: filename });
           }
         } catch (error) {
           res.status(500).json({ message: error.message });
@@ -1062,8 +1073,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         .addOption("-c:v", "libx264")
         .save(
           "./src/Assets/template/videos/" +
-            userId +
-            "/template1/block-1-video-1.mp4"
+          userId +
+          "/template1/block-1-video-1.mp4"
         )
         .on("start", function (commandLine) {
           console.log("step1");
@@ -1101,8 +1112,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         .addOption("-c:v", "libx264")
         .save(
           "./src/Assets/template/videos/" +
-            userId +
-            "/template1/block-1-video-1.mp4"
+          userId +
+          "/template1/block-1-video-1.mp4"
         )
         .on("start", function (commandLine) {
           console.log("step1");
@@ -1237,8 +1248,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         .addOption("-c:v", "libx264")
         .save(
           "./src/Assets/template/videos/" +
-            userId +
-            "/template1/block-1-text-video.mp4"
+          userId +
+          "/template1/block-1-text-video.mp4"
         )
         .on("start", function (commandLine) {
           console.log("step2");
@@ -1300,10 +1311,10 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           .addOption("-c:v", "libx264")
           .save(
             "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block-2-" +
-              k +
-              ".mp4"
+            userId +
+            "/template1/block-2-" +
+            k +
+            ".mp4"
           )
           .on("start", function (commandLine) {
             console.log("step3");
@@ -1356,10 +1367,10 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           .addOption("-c:v", "libx264")
           .save(
             "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block-2-" +
-              k +
-              ".mp4"
+            userId +
+            "/template1/block-2-" +
+            k +
+            ".mp4"
           )
           .on("start", function (commandLine) {
             console.log("step4");
@@ -1479,8 +1490,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         commands
           .input(
             "./src/Assets/template/videos/" +
-              userId +
-              "/template1/blockmerged.mp4"
+            userId +
+            "/template1/blockmerged.mp4"
           )
           .complexFilter(
             [
@@ -1694,8 +1705,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           .addOption("-c:v", "libx264")
           .save(
             "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block2text.mp4"
+            userId +
+            "/template1/block2text.mp4"
           )
           .on("start", function (commandLine) {
             console.log("step6");
@@ -1710,11 +1721,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
             setTimeout(function () {
               let data = [
                 "./src/Assets/template/videos/" +
-                  userId +
-                  "/template1/block-1-text-video.mp4",
+                userId +
+                "/template1/block-1-text-video.mp4",
                 "./src/Assets/template/videos/" +
-                  userId +
-                  "/template1/block2text.mp4",
+                userId +
+                "/template1/block2text.mp4",
               ];
               mergeVideos(data, req, res);
             }, 800);
@@ -1787,10 +1798,10 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           .addOption("-c:v", "libx264")
           .save(
             "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block-3-" +
-              k +
-              ".mp4"
+            userId +
+            "/template1/block-3-" +
+            k +
+            ".mp4"
           )
           .on("start", function (commandLine) {
             console.log("step3");
@@ -1843,10 +1854,10 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           .addOption("-c:v", "libx264")
           .save(
             "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block-3-" +
-              k +
-              ".mp4"
+            userId +
+            "/template1/block-3-" +
+            k +
+            ".mp4"
           )
           .on("start", function (commandLine) {
             console.log("step4");
@@ -1970,8 +1981,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         commands
           .input(
             "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block3merged.mp4"
+            userId +
+            "/template1/block3merged.mp4"
           )
           .complexFilter(
             [
@@ -2001,8 +2012,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           .addOption("-c:v", "libx264")
           .save(
             "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block3FinalVideo.mp4"
+            userId +
+            "/template1/block3FinalVideo.mp4"
           )
           .on("start", function (commandLine) {
             console.log("step6");
@@ -2093,8 +2104,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         })
         .mergeToFile(
           "./src/Assets/template/videos/" +
-            userId +
-            "/template1/block3video.mp4"
+          userId +
+          "/template1/block3video.mp4"
         );
     }
   }
@@ -2172,8 +2183,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         .addOption("-c:v", "libx264")
         .save(
           "./src/Assets/template/videos/" +
-            userId +
-            "/template1/block4video1.mp4"
+          userId +
+          "/template1/block4video1.mp4"
         )
         .on("start", function (commandLine) {
           console.log("step62");
@@ -2233,8 +2244,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         .addOption("-c:v", "libx264")
         .save(
           "./src/Assets/template/videos/" +
-            userId +
-            "/template1/block4video1.mp4"
+          userId +
+          "/template1/block4video1.mp4"
         )
         .on("start", function (commandLine) {
           console.log("step6 here");
@@ -2264,8 +2275,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           .addOption("-c:v", "libx264")
           .save(
             "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block4video2.mp4"
+            userId +
+            "/template1/block4video2.mp4"
           )
           .on("start", function (commandLine) {
             console.log("step7");
@@ -2299,8 +2310,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           .addOption("-c:v", "libx264")
           .save(
             "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block4video2.mp4"
+            userId +
+            "/template1/block4video2.mp4"
           )
           .on("start", function (commandLine) {
             console.log("step7");
@@ -2364,8 +2375,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           .addOption("-c:v", "libx264")
           .save(
             "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block4video3.mp4"
+            userId +
+            "/template1/block4video3.mp4"
           )
           .on("start", function (commandLine) {
             console.log("step7");
@@ -2389,8 +2400,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           .addOption("-c:v", "libx264")
           .save(
             "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block4video3.mp4"
+            userId +
+            "/template1/block4video3.mp4"
           )
           .on("start", function (commandLine) {
             console.log("step7");
@@ -2480,8 +2491,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           .addOption("-c:v", "libx264")
           .save(
             "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block4video4.mp4"
+            userId +
+            "/template1/block4video4.mp4"
           )
           .on("start", function (commandLine) {
             console.log("step62");
@@ -2552,8 +2563,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           .addOption("-c:v", "libx264")
           .save(
             "./src/Assets/template/videos/" +
-              userId +
-              "/template1/block4video4.mp4"
+            userId +
+            "/template1/block4video4.mp4"
           )
           .on("start", function (commandLine) {
             console.log("step6 here");
@@ -2607,13 +2618,13 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
       var command = new ffmpeg();
       command.input(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/block4merged1.mp4"
+        userId +
+        "/template1/block4merged1.mp4"
       );
       command.input(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/block4merged2.mp4"
+        userId +
+        "/template1/block4merged2.mp4"
       );
       command
         .complexFilter(
@@ -2623,8 +2634,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         .addOption("-c:v", "libx264")
         .save(
           "./src/Assets/template/videos/" +
-            userId +
-            "/template1/block4Finalvideo.mp4"
+          userId +
+          "/template1/block4Finalvideo.mp4"
         )
         .on("start", function (commandLine) {
           console.log(commandLine);
@@ -2670,8 +2681,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
       );
       command.input(
         "./src/Assets/template/videos/" +
-          userId +
-          "/template1/block4Finalvideo.mp4"
+        userId +
+        "/template1/block4Finalvideo.mp4"
       );
       command
         .on("start", function (commandLine) {
@@ -2700,8 +2711,8 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
         })
         .mergeToFile(
           "./src/Assets/template/videos/" +
-            userId +
-            "/template1/mergedBlock4.mp4"
+          userId +
+          "/template1/mergedBlock4.mp4"
         );
     }
   }
