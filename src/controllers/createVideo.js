@@ -8420,7 +8420,7 @@ exports.createVideo = async (req, res, next) => {
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
-            if (j >= 15) {
+            if (j >= 12) {
               text2 = text2 + result[j] + " ";
             } else {
               text = text + result[j] + " ";
@@ -8551,7 +8551,7 @@ exports.createVideo = async (req, res, next) => {
             scene6.addChild(watermark);
           }
           scene6.setBgColor("#7fb9dc");
-          scene6.setTransition("zoomInDown", 0.5);
+          // scene6.setTransition("zoomInDown", 0.5);
           // scene5.addChild(fcloud2);
           scene6.setDuration(5.5);
           scene6.setTransition("PolkaDotsCurtain", 0.5);
@@ -8572,7 +8572,7 @@ exports.createVideo = async (req, res, next) => {
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
-            if (j >= 15) {
+            if (j >= 13) {
               text2 = text2 + result[j] + " ";
             } else {
               text = text + result[j] + " ";
@@ -8718,7 +8718,7 @@ exports.createVideo = async (req, res, next) => {
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
-            if (j >= 15) {
+            if (j >= 13) {
               text2 = text2 + result[j] + " ";
             } else {
               text = text + result[j] + " ";
