@@ -1418,7 +1418,7 @@ exports.createVideo = async (req, res, next) => {
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
-            if (j >= 15) {
+            if (j >= 13) {
               text2 = text2 + result[j] + " ";
             } else {
               text = text + result[j] + " ";
@@ -1477,12 +1477,12 @@ exports.createVideo = async (req, res, next) => {
 
           // slide1.addEffect("zoomingIn", 3.5, 1);
           scene6.addChild(slide1);
-          const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+          const fontSize1 = parseInt(data.sceneData.textSize) + 15;
           let textOne = new FFText({
             text: text,
             fontSize: fontSize1,
             x: 150,
-            y: 920,
+            y: 900,
           });
           textOne.setColor(titleColor);
           textOne.setFont(selectedfonts);
@@ -9562,7 +9562,7 @@ exports.createVideo = async (req, res, next) => {
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
-            if (j >= 6) {
+            if (j >= 7) {
               text2 = text2 + result[j] + " ";
             } else {
               text = text + result[j] + " ";
@@ -9633,7 +9633,7 @@ exports.createVideo = async (req, res, next) => {
             });
             scene4.addChild(fimg1);
 
-            const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+            const fontSize1 = parseInt(data.sceneData.textSize) + 15;
             let textOne = new FFText({
               text: text,
               fontSize: fontSize1,
