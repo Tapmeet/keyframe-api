@@ -9828,7 +9828,7 @@ exports.createVideo = async (req, res, next) => {
             mediaDate +
             "-imglast2.png",
           x: 1260,
-          y: 620,
+          y: 600,
         });
         fimg1.addEffect("fadeIn", 1.5, 0.5);
         sceneLast.addChild(fimg1);
