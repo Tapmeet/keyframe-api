@@ -10093,7 +10093,7 @@ exports.createVideo = async (req, res, next) => {
             "/template1/" +
             mediaDate +
             "-imglast2.png",
-          x: 1220,
+          x: 1260,
           y: 620,
         });
         fimg1.addEffect("fadeIn", 1.5, 0.5);
