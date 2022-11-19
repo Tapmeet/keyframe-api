@@ -939,32 +939,58 @@ exports.createVideo = async (req, res, next) => {
             ease: "Cubic.InOut",
           });
           scene3.addChild(fimg1);
-          const fontSize1 = parseInt(data.sceneData.textSize) + 25;
-          let textOne = new FFText({
-            text: text,
-            fontSize: fontSize1,
-            x: 480,
-            y: 920,
-          });
-          textOne.alignCenter();
-          textOne.setStyle({ padding: [0, 20, 10, 20] });
-          textOne.setColor(titleColor);
-          textOne.setFont(selectedfonts);
-          textOne.addEffect("fadeIn", 1.5, 0.6);
-          scene3.addChild(textOne);
-          if (text2 != "") {
-            const textNext = new FFText({
-              text: text2,
+          if (data.sceneData.textAligmnet == 'text-center') {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+            let textOne = new FFText({
+              text: text,
               fontSize: fontSize1,
               x: 480,
-              y: 980,
+              y: 920,
             });
-            textNext.alignCenter();
-            textNext.setStyle({ padding: [0, 20, 10, 20] });
-            textNext.setColor(titleColor);
-            textNext.setFont(selectedfonts);
-            textNext.addEffect("fadeIn", 1.5, 1.0);
-            scene3.addChild(textNext);
+            textOne.alignCenter();
+            textOne.setStyle({ padding: [0, 20, 10, 20] });
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            textOne.addEffect("fadeIn", 1.5, 0.6);
+            scene3.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 480,
+                y: 980,
+              });
+              textNext.alignCenter();
+              textNext.setStyle({ padding: [0, 20, 10, 20] });
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("fadeIn", 1.5, 1.0);
+              scene3.addChild(textNext);
+            }
+          } else {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+            let textOne = new FFText({
+              text: text,
+              fontSize: fontSize1,
+              x: 50,
+              y: 895,
+            });
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            textOne.addEffect("fadeIn", 1.5, 0.6);
+            scene3.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 50,
+                y: 950,
+              });
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("fadeIn", 1.5, 1.0);
+              scene3.addChild(textNext);
+            }
           }
           if (user.userPlan == 0) {
             const watermark = new FFImage({
@@ -1109,35 +1135,68 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene4.addChild(fimg1);
-            const fontSize1 =
-              parseInt(data.sceneData.textArray[0].fontSize) + 15;
-            const fontSize2 =
-              parseInt(data.sceneData.textArray[1].fontSize) + 15;
-            const text = new FFText({
-              text: text1,
-              fontSize: fontSize1,
-              x: 480,
-              y: 975,
-              height: 200,
-            });
-            text.alignCenter();
-            text.setColor(titleColor);
-            text.setFont(selectedfonts);
-            text.addEffect("fadeIn", 1, 0.6);
-            scene4.addChild(text);
-            if (text2 != "") {
-              const textNext = new FFText({
-                text: text2,
+
+            if (data.sceneData.textArray[0].fontAlignment == 'text-center') {
+              const fontSize1 =
+                parseInt(data.sceneData.textArray[0].fontSize) + 15;
+              const fontSize2 =
+                parseInt(data.sceneData.textArray[1].fontSize) + 15;
+              const text = new FFText({
+                text: text1,
                 fontSize: fontSize1,
                 x: 480,
-                y: 1035,
-                height: 100,
+                y: 975,
+                height: 200,
               });
-              textNext.alignCenter();
-              textNext.setColor(titleColor);
-              textNext.setFont(selectedfonts);
-              textNext.addEffect("fadeIn", 1, 0.8);
-              scene4.addChild(textNext);
+              text.alignCenter();
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("fadeIn", 1, 0.6);
+              scene4.addChild(text);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 480,
+                  y: 1035,
+                  height: 100,
+                });
+                textNext.alignCenter();
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("fadeIn", 1, 0.8);
+                scene4.addChild(textNext);
+              }
+            }
+            else {
+              const fontSize1 =
+                parseInt(data.sceneData.textArray[0].fontSize) + 15;
+              const fontSize2 =
+                parseInt(data.sceneData.textArray[1].fontSize) + 15;
+              const text = new FFText({
+                text: text1,
+                fontSize: fontSize1,
+                x: 50,
+                y: 955,
+                height: 200,
+              });
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("fadeIn", 1, 0.6);
+              scene4.addChild(text);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 50,
+                  y: 1015,
+                  height: 100,
+                });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("fadeIn", 1, 0.8);
+                scene4.addChild(textNext);
+              }
             }
             const img3 = new FFImage({
               path:
@@ -1190,31 +1249,58 @@ exports.createVideo = async (req, res, next) => {
             });
             // fimg2.addEffect("fadeInUp", 1, 3.2);
             scene4.addChild(fimg2);
-            const textnext3 = new FFText({
-              text: text3,
-              fontSize: fontSize2,
-              x: 1440,
-              y: 975,
-              height: 100,
-            });
-            textnext3.alignCenter();
-            textnext3.setColor(titleColor2);
-            textnext3.setFont(selectedfonts2);
-            textnext3.addEffect("fadeIn", 1.2, 4.2);
-            scene4.addChild(textnext3);
-            if (text4 != "") {
-              const textNext2 = new FFText({
-                text: text4,
+            if (data.sceneData.textArray[1].fontAlignment == 'text-center') {
+              const textnext3 = new FFText({
+                text: text3,
                 fontSize: fontSize2,
                 x: 1440,
-                y: 1035,
+                y: 975,
                 height: 100,
               });
-              textNext2.alignCenter();
-              textNext2.setColor(titleColor2);
-              textNext2.setFont(selectedfonts2);
-              textNext2.addEffect("fadeIn", 1.2, 4.4);
-              scene4.addChild(textNext2);
+              textnext3.alignCenter();
+              textnext3.setColor(titleColor2);
+              textnext3.setFont(selectedfonts2);
+              textnext3.addEffect("fadeIn", 1.2, 4.2);
+              scene4.addChild(textnext3);
+              if (text4 != "") {
+                const textNext2 = new FFText({
+                  text: text4,
+                  fontSize: fontSize2,
+                  x: 1440,
+                  y: 1035,
+                  height: 100,
+                });
+                textNext2.alignCenter();
+                textNext2.setColor(titleColor2);
+                textNext2.setFont(selectedfonts2);
+                textNext2.addEffect("fadeIn", 1.2, 4.4);
+                scene4.addChild(textNext2);
+              }
+            } else {
+              const textnext3 = new FFText({
+                text: text3,
+                fontSize: fontSize2,
+                x: 1010,
+                y: 955,
+                height: 100,
+              });
+              textnext3.setColor(titleColor2);
+              textnext3.setFont(selectedfonts2);
+              textnext3.addEffect("fadeIn", 1.2, 4.2);
+              scene4.addChild(textnext3);
+              if (text4 != "") {
+                const textNext2 = new FFText({
+                  text: text4,
+                  fontSize: fontSize2,
+                  x: 1010,
+                  y: 1015,
+                  height: 100,
+                });
+                textNext2.setColor(titleColor2);
+                textNext2.setFont(selectedfonts2);
+                textNext2.addEffect("fadeIn", 1.2, 4.4);
+                scene4.addChild(textNext2);
+              }
             }
             if (user.userPlan == 0) {
               const watermark = new FFImage({
@@ -1743,7 +1829,7 @@ exports.createVideo = async (req, res, next) => {
               text = text + result[m] + " ";
             }
           }
-          console.log(text2);
+
           let fontfamily = data.sceneData.fontFamily;
           let selectedfonts;
           fonts.map(function (font) {
@@ -1790,32 +1876,57 @@ exports.createVideo = async (req, res, next) => {
             ease: "Cubic.InOut",
           });
           scene3.addChild(fimg1);
-          const fontSize1 = parseInt(data.sceneData.textSize) + 25;
-          let textOne = new FFText({
-            text: text,
-            fontSize: fontSize1,
-            x: 960,
-            y: 50,
-          });
-          textOne.alignCenter();
-          textOne.setColor(titleColor);
-          textOne.setFont(selectedfonts);
-          textOne.addEffect("fadeIn", 1.5, 0.6);
-          scene3.addChild(textOne);
-          if (text2 != "") {
-            const textNext = new FFText({
-              text: text2,
+          if (data.sceneData.textAligmnet == 'text-center') {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+            let textOne = new FFText({
+              text: text,
               fontSize: fontSize1,
               x: 960,
-              y: 120,
+              y: 50,
             });
-            textNext.alignCenter();
-            textNext.setColor(titleColor);
-            textNext.setFont(selectedfonts);
-            textNext.addEffect("fadeIn", 1.0, 1.0);
-            scene3.addChild(textNext);
+            textOne.alignCenter();
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            textOne.addEffect("fadeIn", 1.5, 0.6);
+            scene3.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 960,
+                y: 120,
+              });
+              textNext.alignCenter();
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("fadeIn", 1.0, 1.0);
+              scene3.addChild(textNext);
+            }
+          } else {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+            let textOne = new FFText({
+              text: text,
+              fontSize: fontSize1,
+              x: 50,
+              y: 50,
+            });
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            textOne.addEffect("fadeIn", 1.5, 0.6);
+            scene3.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 50,
+                y: 120,
+              });
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("fadeIn", 1.0, 1.0);
+              scene3.addChild(textNext);
+            }
           }
-
           const scene3img = new FFImage({
             path: assetsPath + "cropped.jpg",
             y: 540,
@@ -1971,53 +2082,101 @@ exports.createVideo = async (req, res, next) => {
               y: 560,
             });
             scene4.addChild(fimg1);
-            const fontSize1 =
-              parseInt(data.sceneData.textArray[0].fontSize) + 15;
-            const fontSize2 =
-              parseInt(data.sceneData.textArray[1].fontSize) + 15;
-            console.log(text1);
-            const text = new FFText({
-              text: text1,
-              fontSize: fontSize1,
-              x: 480,
-              y: 510,
-              height: 300,
-              width: 540,
-            });
-            text.alignCenter();
-            text.setColor(titleColor);
-            text.setFont(selectedfonts);
-            text.addEffect("fadeIn", 1, 0.6);
-            scene4.addChild(text);
-            console.log(text2);
-            if (text2 != "") {
-              const textNext = new FFText({
-                text: text2,
+            if (data.sceneData.textArray[0].fontAlignment == 'text-center') {
+              const fontSize1 =
+                parseInt(data.sceneData.textArray[0].fontSize) + 15;
+              const fontSize2 =
+                parseInt(data.sceneData.textArray[1].fontSize) + 15;
+              console.log(text1);
+              const text = new FFText({
+                text: text1,
                 fontSize: fontSize1,
                 x: 480,
-                y: 560,
-                height: 100,
+                y: 510,
+                height: 300,
+                width: 540,
               });
-              textNext.alignCenter();
-              textNext.setColor(titleColor);
-              textNext.setFont(selectedfonts);
-              textNext.addEffect("fadeIn", 1, 0.8);
-              scene4.addChild(textNext);
-            }
-            console.log(text3);
-            if (text3 != "") {
-              const textNext3 = new FFText({
-                text: text3,
+              text.alignCenter();
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("fadeIn", 1, 0.6);
+              scene4.addChild(text);
+              console.log(text2);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 480,
+                  y: 560,
+                  height: 100,
+                });
+                textNext.alignCenter();
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("fadeIn", 1, 0.8);
+                scene4.addChild(textNext);
+              }
+              console.log(text3);
+              if (text3 != "") {
+                const textNext3 = new FFText({
+                  text: text3,
+                  fontSize: fontSize1,
+                  x: 480,
+                  y: 610,
+                  height: 100,
+                });
+                textNext3.alignCenter();
+                textNext3.setColor(titleColor);
+                textNext3.setFont(selectedfonts);
+                textNext3.addEffect("fadeIn", 1, 0.8);
+                scene4.addChild(textNext3);
+              }
+            } else {
+              const fontSize1 =
+                parseInt(data.sceneData.textArray[0].fontSize) + 15;
+              const fontSize2 =
+                parseInt(data.sceneData.textArray[1].fontSize) + 15;
+              console.log(text1);
+              const text = new FFText({
+                text: text1,
                 fontSize: fontSize1,
-                x: 480,
-                y: 610,
-                height: 100,
+                x: 80,
+                y: 480,
+                height: 300,
+                width: 540,
               });
-              textNext3.alignCenter();
-              textNext3.setColor(titleColor);
-              textNext3.setFont(selectedfonts);
-              textNext3.addEffect("fadeIn", 1, 0.8);
-              scene4.addChild(textNext3);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("fadeIn", 1, 0.6);
+              scene4.addChild(text);
+              console.log(text2);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 80,
+                  y: 530,
+                  height: 100,
+                });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("fadeIn", 1, 0.8);
+                scene4.addChild(textNext);
+              }
+              console.log(text3);
+              if (text3 != "") {
+                const textNext3 = new FFText({
+                  text: text3,
+                  fontSize: fontSize1,
+                  x: 80,
+                  y: 580,
+                  height: 100,
+                });
+                textNext3.setColor(titleColor);
+                textNext3.setFont(selectedfonts);
+                textNext3.addEffect("fadeIn", 1, 0.8);
+                scene4.addChild(textNext3);
+              }
             }
             scene4.setBgColor("#fff");
             const fcloud2 = new FFImage({
@@ -2112,32 +2271,57 @@ exports.createVideo = async (req, res, next) => {
             ease: "Cubic.InOut",
           });
           scene3.addChild(fimg1);
-          const fontSize1 = parseInt(data.sceneData.textSize) + 25;
-          let textOne = new FFText({
-            text: text,
-            fontSize: fontSize1,
-            x: 960,
-            y: 930,
-          });
-          textOne.alignCenter();
-          textOne.setColor(titleColor);
-          textOne.setFont(selectedfonts);
-          textOne.addEffect("fadeIn", 1.5, 0.6);
-          scene3.addChild(textOne);
-          if (text2 != "") {
-            const textNext = new FFText({
-              text: text2,
+          if (data.sceneData.textAligmnet == 'text-center') {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+            let textOne = new FFText({
+              text: text,
               fontSize: fontSize1,
               x: 960,
-              y: 990,
+              y: 930,
             });
-            textNext.alignCenter();
-            textNext.setColor(titleColor);
-            textNext.setFont(selectedfonts);
-            textNext.addEffect("fadeIn", 1.0, 1.0);
-            scene3.addChild(textNext);
+            textOne.alignCenter();
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            textOne.addEffect("fadeIn", 1.5, 0.6);
+            scene3.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 960,
+                y: 990,
+              });
+              textNext.alignCenter();
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("fadeIn", 1.0, 1.0);
+              scene3.addChild(textNext);
+            }
+          } else {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+            let textOne = new FFText({
+              text: text,
+              fontSize: fontSize1,
+              x: 50,
+              y: 930,
+            });
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            textOne.addEffect("fadeIn", 1.5, 0.6);
+            scene3.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 50,
+                y: 990,
+              });
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("fadeIn", 1.0, 1.0);
+              scene3.addChild(textNext);
+            }
           }
-
           const scene3img = new FFImage({
             path: assetsPath + "cropped.jpg",
             y: 540,
@@ -5372,7 +5556,7 @@ exports.createVideo = async (req, res, next) => {
               text: textcontent3,
               fontSize: fontSize1,
               x: 1160,
-              y:565,
+              y: 565,
             });
             // text3.alignCenter();
             // text3.setStyle({ padding: [4, 20, 6, 20] });
@@ -8607,32 +8791,62 @@ exports.createVideo = async (req, res, next) => {
           });
 
           scene6.addChild(fimg2);
-          const fontSize1 = parseInt(data.sceneData.textSize) + 20;
-          let textOne = new FFText({
-            text: text,
-            fontSize: fontSize1,
-            x: 960,
-            y: 940,
-          });
-          textOne.setColor(titleColor);
-          textOne.setFont(selectedfonts);
-          textOne.alignCenter();
-          textOne.setStyle({ padding: [0, 20, 10, 20] });
-          textOne.addEffect("zoomInDown", 1.5, 0.6);
-          scene6.addChild(textOne);
-          if (text2 != "") {
-            const textNext = new FFText({
-              text: text2,
+          if (data.sceneData.textAligmnet == 'text-center') {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+            let textOne = new FFText({
+              text: text,
               fontSize: fontSize1,
               x: 960,
-              y: 1020,
+              y: 940,
             });
-            textNext.alignCenter();
-            textNext.setStyle({ padding: [0, 20, 10, 20] });
-            textNext.setColor(titleColor);
-            textNext.setFont(selectedfonts);
-            textNext.addEffect("zoomInDown", 1.5, 1.0);
-            scene6.addChild(textNext);
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            textOne.alignCenter();
+            textOne.setStyle({ padding: [0, 20, 10, 20] });
+            textOne.addEffect("zoomInDown", 1.5, 0.6);
+            scene6.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 960,
+                y: 1020,
+              });
+              textNext.alignCenter();
+              textNext.setStyle({ padding: [0, 20, 10, 20] });
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("zoomInDown", 1.5, 1.0);
+              scene6.addChild(textNext);
+            }
+          } else {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+            let textOne = new FFText({
+              text: text,
+              fontSize: fontSize1,
+              x: 80,
+              y: 920,
+            });
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            // textOne.alignCenter();
+            // textOne.setStyle({ padding: [0, 20, 10, 20] });
+            textOne.addEffect("zoomInDown", 1.5, 0.6);
+            scene6.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 80,
+                y: 1000,
+              });
+              // textNext.alignCenter();
+              // textNext.setStyle({ padding: [0, 20, 10, 20] });
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("zoomInDown", 1.5, 1.0);
+              scene6.addChild(textNext);
+            }
           }
           if (user.userPlan == 0) {
             const watermark = new FFImage({
@@ -8666,7 +8880,7 @@ exports.createVideo = async (req, res, next) => {
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
-            if (j >= 14) {
+            if (j >= 15) {
               text2 = text2 + result[j] + " ";
             } else {
               text = text + result[j] + " ";
@@ -8743,34 +8957,60 @@ exports.createVideo = async (req, res, next) => {
             });
 
             scene4.addChild(fimg2);
-            const fontSize1 = parseInt(data.sceneData.textSize) + 25;
-            let textOne = new FFText({
-              text: text,
-              fontSize: fontSize1,
-              x: 960,
-              y: 940,
-            });
-            textOne.alignCenter();
-            textOne.setStyle({ padding: [0, 20, 10, 20] });
-            textOne.setColor(titleColor);
-            textOne.setFont(selectedfonts);
-            textOne.addEffect("zoomInDown", 1.5, 1.3);
-            scene4.addChild(textOne);
-            if (text2 != "") {
-              const textNext = new FFText({
-                text: text2,
+            if (data.sceneData.textAligmnet == 'text-center') {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              let textOne = new FFText({
+                text: text,
                 fontSize: fontSize1,
                 x: 960,
-                y: 1020,
+                y: 940,
               });
-              textNext.alignCenter();
-              textNext.setStyle({ padding: [0, 20, 10, 20] });
-              textNext.setColor(titleColor);
-              textNext.setFont(selectedfonts);
-              textNext.addEffect("zoomInDown", 1.5, 1.5);
-              scene4.addChild(textNext);
-            }
+              textOne.alignCenter();
+              textOne.setStyle({ padding: [0, 20, 10, 20] });
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.addEffect("zoomInDown", 1.5, 1.3);
+              scene4.addChild(textOne);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 960,
+                  y: 1020,
+                });
+                textNext.alignCenter();
+                textNext.setStyle({ padding: [0, 20, 10, 20] });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("zoomInDown", 1.5, 1.5);
+                scene4.addChild(textNext);
+              }
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              let textOne = new FFText({
+                text: text,
+                fontSize: fontSize1,
+                x: 100,
+                y: 920,
+              });
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.addEffect("zoomInDown", 1.5, 1.3);
+              scene4.addChild(textOne);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 100,
+                  y: 1000,
+                });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("zoomInDown", 1.5, 1.5);
+                scene4.addChild(textNext);
+              }
 
+            }
             if (user.userPlan == 0) {
               const watermark = new FFImage({
                 path: assetsPath + "reveoLogo.png",
@@ -8812,7 +9052,7 @@ exports.createVideo = async (req, res, next) => {
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
-            if (j >= 14) {
+            if (j >= 15) {
               text2 = text2 + result[j] + " ";
             } else {
               text = text + result[j] + " ";
@@ -8864,32 +9104,58 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene4.addChild(fimg2);
-            const fontSize1 = parseInt(data.sceneData.textSize) + 25;
-            let textOne = new FFText({
-              text: text,
-              fontSize: fontSize1,
-              x: 960,
-              y: 940,
-            });
-            textOne.setColor(titleColor);
-            textOne.setFont(selectedfonts);
-            textOne.alignCenter();
-            textOne.setStyle({ padding: [0, 20, 10, 20] });
-            textOne.addEffect("zoomInDown", 1.5, 1.6);
-            scene4.addChild(textOne);
-            if (text2 != "") {
-              const textNext = new FFText({
-                text: text2,
+            if (data.sceneData.textAligmnet == 'text-center') {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              let textOne = new FFText({
+                text: text,
                 fontSize: fontSize1,
                 x: 960,
-                y: 1020,
+                y: 940,
               });
-              textNext.alignCenter();
-              textNext.setStyle({ padding: [0, 20, 10, 20] });
-              textNext.setColor(titleColor);
-              textNext.setFont(selectedfonts);
-              textNext.addEffect("zoomInDown", 1.5, 1.8);
-              scene4.addChild(textNext);
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.alignCenter();
+              textOne.setStyle({ padding: [0, 20, 10, 20] });
+              textOne.addEffect("zoomInDown", 1.5, 1.6);
+              scene4.addChild(textOne);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 960,
+                  y: 1020,
+                });
+                textNext.alignCenter();
+                textNext.setStyle({ padding: [0, 20, 10, 20] });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("zoomInDown", 1.5, 1.8);
+                scene4.addChild(textNext);
+              }
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              let textOne = new FFText({
+                text: text,
+                fontSize: fontSize1,
+                x: 100,
+                y: 920,
+              });
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.addEffect("zoomInDown", 1.5, 1.6);
+              scene4.addChild(textOne);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 100,
+                  y: 1000,
+                });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("zoomInDown", 1.5, 1.8);
+                scene4.addChild(textNext);
+              }
             }
             if (user.userPlan == 0) {
               const watermark = new FFImage({
@@ -9827,7 +10093,7 @@ exports.createVideo = async (req, res, next) => {
             "/template1/" +
             mediaDate +
             "-imglast2.png",
-          x: 1260,
+          x: 1220,
           y: 620,
         });
         fimg1.addEffect("fadeIn", 1.5, 0.5);
