@@ -11,7 +11,7 @@
 /* eslint-disable quotes */
 /* eslint-disable no-unused-vars */
 /* eslint-disable valid-jsdoc */
-const sgMail = require('@sendgrid/mail');
+const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const path = require("path");
 const Jimp = require("jimp");
@@ -241,10 +241,10 @@ exports.mergeVideo = async (req, res, next) => {
     var command = new ffmpeg();
     command.input(
       "./src/Assets/template/videos/" +
-      userId +
-      "/template1/" +
-      videoName +
-      ".mp4"
+        userId +
+        "/template1/" +
+        videoName +
+        ".mp4"
     );
     command.input(assetsPath + template.musicFile);
     command
@@ -254,10 +254,10 @@ exports.mergeVideo = async (req, res, next) => {
       .addOption("-shortest")
       .save(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        videoName +
-        "-audio.mp4"
+          userId +
+          "/template1/" +
+          videoName +
+          "-audio.mp4"
       )
       .on("start", function (commandLine) {
         console.log(commandLine);
@@ -269,10 +269,10 @@ exports.mergeVideo = async (req, res, next) => {
       .on("end", function () {
         deleteFiles(
           "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          videoName +
-          ".mp4"
+            userId +
+            "/template1/" +
+            videoName +
+            ".mp4"
         );
         saveVideoDb(
           template.title,
@@ -939,32 +939,58 @@ exports.createVideo = async (req, res, next) => {
             ease: "Cubic.InOut",
           });
           scene3.addChild(fimg1);
-          const fontSize1 = parseInt(data.sceneData.textSize) + 25;
-          let textOne = new FFText({
-            text: text,
-            fontSize: fontSize1,
-            x: 480,
-            y: 920,
-          });
-          textOne.alignCenter();
-          textOne.setStyle({ padding: [0, 20, 10, 20] });
-          textOne.setColor(titleColor);
-          textOne.setFont(selectedfonts);
-          textOne.addEffect("fadeIn", 1.5, 0.6);
-          scene3.addChild(textOne);
-          if (text2 != "") {
-            const textNext = new FFText({
-              text: text2,
+          if (data.sceneData.textAligmnet == "text-center") {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+            let textOne = new FFText({
+              text: text,
               fontSize: fontSize1,
               x: 480,
-              y: 980,
+              y: 920,
             });
-            textNext.alignCenter();
-            textNext.setStyle({ padding: [0, 20, 10, 20] });
-            textNext.setColor(titleColor);
-            textNext.setFont(selectedfonts);
-            textNext.addEffect("fadeIn", 1.5, 1.0);
-            scene3.addChild(textNext);
+            textOne.alignCenter();
+            textOne.setStyle({ padding: [0, 20, 10, 20] });
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            textOne.addEffect("fadeIn", 1.5, 0.6);
+            scene3.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 480,
+                y: 980,
+              });
+              textNext.alignCenter();
+              textNext.setStyle({ padding: [0, 20, 10, 20] });
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("fadeIn", 1.5, 1.0);
+              scene3.addChild(textNext);
+            }
+          } else {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+            let textOne = new FFText({
+              text: text,
+              fontSize: fontSize1,
+              x: 50,
+              y: 895,
+            });
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            textOne.addEffect("fadeIn", 1.5, 0.6);
+            scene3.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 50,
+                y: 950,
+              });
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("fadeIn", 1.5, 1.0);
+              scene3.addChild(textNext);
+            }
           }
           if (user.userPlan == 0) {
             const watermark = new FFImage({
@@ -1109,35 +1135,67 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene4.addChild(fimg1);
-            const fontSize1 =
-              parseInt(data.sceneData.textArray[0].fontSize) + 15;
-            const fontSize2 =
-              parseInt(data.sceneData.textArray[1].fontSize) + 15;
-            const text = new FFText({
-              text: text1,
-              fontSize: fontSize1,
-              x: 480,
-              y: 975,
-              height: 200,
-            });
-            text.alignCenter();
-            text.setColor(titleColor);
-            text.setFont(selectedfonts);
-            text.addEffect("fadeIn", 1, 0.6);
-            scene4.addChild(text);
-            if (text2 != "") {
-              const textNext = new FFText({
-                text: text2,
+
+            if (data.sceneData.textArray[0].fontAlignment == "text-center") {
+              const fontSize1 =
+                parseInt(data.sceneData.textArray[0].fontSize) + 15;
+              const fontSize2 =
+                parseInt(data.sceneData.textArray[1].fontSize) + 15;
+              const text = new FFText({
+                text: text1,
                 fontSize: fontSize1,
                 x: 480,
-                y: 1035,
-                height: 100,
+                y: 975,
+                height: 200,
               });
-              textNext.alignCenter();
-              textNext.setColor(titleColor);
-              textNext.setFont(selectedfonts);
-              textNext.addEffect("fadeIn", 1, 0.8);
-              scene4.addChild(textNext);
+              text.alignCenter();
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("fadeIn", 1, 0.6);
+              scene4.addChild(text);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 480,
+                  y: 1035,
+                  height: 100,
+                });
+                textNext.alignCenter();
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("fadeIn", 1, 0.8);
+                scene4.addChild(textNext);
+              }
+            } else {
+              const fontSize1 =
+                parseInt(data.sceneData.textArray[0].fontSize) + 15;
+              const fontSize2 =
+                parseInt(data.sceneData.textArray[1].fontSize) + 15;
+              const text = new FFText({
+                text: text1,
+                fontSize: fontSize1,
+                x: 50,
+                y: 955,
+                height: 200,
+              });
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("fadeIn", 1, 0.6);
+              scene4.addChild(text);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 50,
+                  y: 1015,
+                  height: 100,
+                });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("fadeIn", 1, 0.8);
+                scene4.addChild(textNext);
+              }
             }
             const img3 = new FFImage({
               path:
@@ -1190,31 +1248,58 @@ exports.createVideo = async (req, res, next) => {
             });
             // fimg2.addEffect("fadeInUp", 1, 3.2);
             scene4.addChild(fimg2);
-            const textnext3 = new FFText({
-              text: text3,
-              fontSize: fontSize2,
-              x: 1440,
-              y: 975,
-              height: 100,
-            });
-            textnext3.alignCenter();
-            textnext3.setColor(titleColor2);
-            textnext3.setFont(selectedfonts2);
-            textnext3.addEffect("fadeIn", 1.2, 4.2);
-            scene4.addChild(textnext3);
-            if (text4 != "") {
-              const textNext2 = new FFText({
-                text: text4,
+            if (data.sceneData.textArray[1].fontAlignment == "text-center") {
+              const textnext3 = new FFText({
+                text: text3,
                 fontSize: fontSize2,
                 x: 1440,
-                y: 1035,
+                y: 975,
                 height: 100,
               });
-              textNext2.alignCenter();
-              textNext2.setColor(titleColor2);
-              textNext2.setFont(selectedfonts2);
-              textNext2.addEffect("fadeIn", 1.2, 4.4);
-              scene4.addChild(textNext2);
+              textnext3.alignCenter();
+              textnext3.setColor(titleColor2);
+              textnext3.setFont(selectedfonts2);
+              textnext3.addEffect("fadeIn", 1.2, 4.2);
+              scene4.addChild(textnext3);
+              if (text4 != "") {
+                const textNext2 = new FFText({
+                  text: text4,
+                  fontSize: fontSize2,
+                  x: 1440,
+                  y: 1035,
+                  height: 100,
+                });
+                textNext2.alignCenter();
+                textNext2.setColor(titleColor2);
+                textNext2.setFont(selectedfonts2);
+                textNext2.addEffect("fadeIn", 1.2, 4.4);
+                scene4.addChild(textNext2);
+              }
+            } else {
+              const textnext3 = new FFText({
+                text: text3,
+                fontSize: fontSize2,
+                x: 1010,
+                y: 955,
+                height: 100,
+              });
+              textnext3.setColor(titleColor2);
+              textnext3.setFont(selectedfonts2);
+              textnext3.addEffect("fadeIn", 1.2, 4.2);
+              scene4.addChild(textnext3);
+              if (text4 != "") {
+                const textNext2 = new FFText({
+                  text: text4,
+                  fontSize: fontSize2,
+                  x: 1010,
+                  y: 1015,
+                  height: 100,
+                });
+                textNext2.setColor(titleColor2);
+                textNext2.setFont(selectedfonts2);
+                textNext2.addEffect("fadeIn", 1.2, 4.4);
+                scene4.addChild(textNext2);
+              }
             }
             if (user.userPlan == 0) {
               const watermark = new FFImage({
@@ -1269,7 +1354,7 @@ exports.createVideo = async (req, res, next) => {
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
-            if (j >= 8) {
+            if (j >= 7) {
               text2 = text2 + result[j] + " ";
             } else {
               text = text + result[j] + " ";
@@ -1324,45 +1409,94 @@ exports.createVideo = async (req, res, next) => {
           //fimg1.setOpacity(0.8);
           scene5.addChild(fimg1);
           const fontSize1 = parseInt(data.sceneData.textSize) + 15;
-          if (text2 != "") {
-            let textOne = new FFText({
-              text: text,
-              fontSize: fontSize1,
-              x: 100,
-              y: 890,
-              height: 150,
-            });
-            textOne.setColor(titleColor);
-            textOne.setFont(selectedfonts);
-            textOne.setStyle({ padding: 10 });
-            textOne.addEffect("fadeIn", 1.5, 0.6);
-            scene5.addChild(textOne);
+          if (data.sceneData.textAligmnet == "text-center") {
+            if (text2 != "") {
+              let textOne = new FFText({
+                text: text,
+                fontSize: fontSize1,
+                x: 520,
+                y: 920,
+                height: 150,
+              });
+              textOne.alignCenter();
+              textOne.setStyle({ padding: [0, 20, 10, 20] });
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.setStyle({ padding: 10 });
+              textOne.addEffect("fadeIn", 1.5, 0.6);
+              scene5.addChild(textOne);
 
-            const textNext = new FFText({
-              text: text2,
-              fontSize: fontSize1,
-              x: 100,
-              y: 940,
-              height: 150,
-            });
-            textNext.setStyle({ padding: 10 });
-            textNext.setColor(titleColor);
-            textNext.setFont(selectedfonts);
-            textNext.addEffect("fadeIn", 1.5, 1.0);
-            scene5.addChild(textNext);
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 520,
+                y: 980,
+                height: 150,
+              });
+              textNext.alignCenter();
+              textNext.setStyle({ padding: [0, 20, 10, 20] });
+              textNext.setStyle({ padding: 10 });
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("fadeIn", 1.5, 1.0);
+              scene5.addChild(textNext);
+            } else {
+              let textOne = new FFText({
+                text: text,
+                fontSize: fontSize1,
+                x: 520,
+                y: 950,
+                height: 150,
+              });
+              textOne.alignCenter();
+              textOne.setStyle({ padding: [0, 20, 10, 20] });
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.setStyle({ padding: 10 });
+              textOne.addEffect("fadeIn", 1.5, 0.6);
+              scene5.addChild(textOne);
+            }
           } else {
-            let textOne = new FFText({
-              text: text,
-              fontSize: fontSize1,
-              x: 80,
-              y: 900,
-              height: 150,
-            });
-            textOne.setColor(titleColor);
-            textOne.setFont(selectedfonts);
-            textOne.setStyle({ padding: 10 });
-            textOne.addEffect("fadeIn", 1.5, 0.6);
-            scene5.addChild(textOne);
+            if (text2 != "") {
+              let textOne = new FFText({
+                text: text,
+                fontSize: fontSize1,
+                x: 100,
+                y: 890,
+                height: 150,
+              });
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.setStyle({ padding: 10 });
+              textOne.addEffect("fadeIn", 1.5, 0.6);
+              scene5.addChild(textOne);
+
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 100,
+                y: 940,
+                height: 150,
+              });
+              textNext.setStyle({ padding: 10 });
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("fadeIn", 1.5, 1.0);
+              scene5.addChild(textNext);
+            } else {
+              let textOne = new FFText({
+                text: text,
+                fontSize: fontSize1,
+                x: 80,
+                y: 900,
+                height: 150,
+              });
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.setStyle({ padding: 10 });
+              textOne.addEffect("fadeIn", 1.5, 0.6);
+              scene5.addChild(textOne);
+            }
           }
           if (user.userPlan == 0) {
             const watermark = new FFImage({
@@ -1478,29 +1612,60 @@ exports.createVideo = async (req, res, next) => {
           // slide1.addEffect("zoomingIn", 3.5, 1);
           scene6.addChild(slide1);
           const fontSize1 = parseInt(data.sceneData.textSize) + 15;
-          let textOne = new FFText({
-            text: text,
-            fontSize: fontSize1,
-            x: 150,
-            y: 900,
-          });
-          textOne.setColor(titleColor);
-          textOne.setFont(selectedfonts);
-          textOne.setStyle({ padding: 10 });
-          textOne.addEffect("fadeInUp", 1.5, 0.6);
-          scene6.addChild(textOne);
-          if (text2 != "") {
-            const textNext = new FFText({
-              text: text2,
+          if (data.sceneData.textAligmnet == "text-center") {
+            let textOne = new FFText({
+              text: text,
+              fontSize: fontSize1,
+              x: 960,
+              y: 920,
+            });
+            textOne.alignCenter();
+            textOne.setStyle({ padding: [0, 20, 10, 20] });
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            textOne.setStyle({ padding: 10 });
+            textOne.addEffect("fadeInUp", 1.5, 0.6);
+            scene6.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 960,
+                y: 980,
+              });
+              textNext.alignCenter();
+              textNext.setStyle({ padding: [0, 20, 10, 20] });
+              textNext.setStyle({ padding: 10 });
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("fadeIn", 1.5, 1.0);
+              scene6.addChild(textNext);
+            }
+          } else {
+            let textOne = new FFText({
+              text: text,
               fontSize: fontSize1,
               x: 150,
-              y: 970,
+              y: 900,
             });
-            textNext.setStyle({ padding: 10 });
-            textNext.setColor(titleColor);
-            textNext.setFont(selectedfonts);
-            textNext.addEffect("fadeIn", 1.5, 1.0);
-            scene6.addChild(textNext);
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            textOne.setStyle({ padding: 10 });
+            textOne.addEffect("fadeInUp", 1.5, 0.6);
+            scene6.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 150,
+                y: 970,
+              });
+              textNext.setStyle({ padding: 10 });
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("fadeIn", 1.5, 1.0);
+              scene6.addChild(textNext);
+            }
           }
           if (user.userPlan == 0) {
             const watermark = new FFImage({
@@ -1743,7 +1908,7 @@ exports.createVideo = async (req, res, next) => {
               text = text + result[m] + " ";
             }
           }
-          console.log(text2);
+
           let fontfamily = data.sceneData.fontFamily;
           let selectedfonts;
           fonts.map(function (font) {
@@ -1790,32 +1955,57 @@ exports.createVideo = async (req, res, next) => {
             ease: "Cubic.InOut",
           });
           scene3.addChild(fimg1);
-          const fontSize1 = parseInt(data.sceneData.textSize) + 25;
-          let textOne = new FFText({
-            text: text,
-            fontSize: fontSize1,
-            x: 960,
-            y: 50,
-          });
-          textOne.alignCenter();
-          textOne.setColor(titleColor);
-          textOne.setFont(selectedfonts);
-          textOne.addEffect("fadeIn", 1.5, 0.6);
-          scene3.addChild(textOne);
-          if (text2 != "") {
-            const textNext = new FFText({
-              text: text2,
+          if (data.sceneData.textAligmnet == "text-center") {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+            let textOne = new FFText({
+              text: text,
               fontSize: fontSize1,
               x: 960,
-              y: 120,
+              y: 50,
             });
-            textNext.alignCenter();
-            textNext.setColor(titleColor);
-            textNext.setFont(selectedfonts);
-            textNext.addEffect("fadeIn", 1.0, 1.0);
-            scene3.addChild(textNext);
+            textOne.alignCenter();
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            textOne.addEffect("fadeIn", 1.5, 0.6);
+            scene3.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 960,
+                y: 120,
+              });
+              textNext.alignCenter();
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("fadeIn", 1.0, 1.0);
+              scene3.addChild(textNext);
+            }
+          } else {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+            let textOne = new FFText({
+              text: text,
+              fontSize: fontSize1,
+              x: 50,
+              y: 50,
+            });
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            textOne.addEffect("fadeIn", 1.5, 0.6);
+            scene3.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 50,
+                y: 120,
+              });
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("fadeIn", 1.0, 1.0);
+              scene3.addChild(textNext);
+            }
           }
-
           const scene3img = new FFImage({
             path: assetsPath + "cropped.jpg",
             y: 540,
@@ -1971,53 +2161,101 @@ exports.createVideo = async (req, res, next) => {
               y: 560,
             });
             scene4.addChild(fimg1);
-            const fontSize1 =
-              parseInt(data.sceneData.textArray[0].fontSize) + 15;
-            const fontSize2 =
-              parseInt(data.sceneData.textArray[1].fontSize) + 15;
-            console.log(text1);
-            const text = new FFText({
-              text: text1,
-              fontSize: fontSize1,
-              x: 480,
-              y: 510,
-              height: 300,
-              width: 540,
-            });
-            text.alignCenter();
-            text.setColor(titleColor);
-            text.setFont(selectedfonts);
-            text.addEffect("fadeIn", 1, 0.6);
-            scene4.addChild(text);
-            console.log(text2);
-            if (text2 != "") {
-              const textNext = new FFText({
-                text: text2,
+            if (data.sceneData.textArray[0].fontAlignment == "text-center") {
+              const fontSize1 =
+                parseInt(data.sceneData.textArray[0].fontSize) + 15;
+              const fontSize2 =
+                parseInt(data.sceneData.textArray[1].fontSize) + 15;
+              console.log(text1);
+              const text = new FFText({
+                text: text1,
                 fontSize: fontSize1,
                 x: 480,
-                y: 560,
-                height: 100,
+                y: 510,
+                height: 300,
+                width: 540,
               });
-              textNext.alignCenter();
-              textNext.setColor(titleColor);
-              textNext.setFont(selectedfonts);
-              textNext.addEffect("fadeIn", 1, 0.8);
-              scene4.addChild(textNext);
-            }
-            console.log(text3);
-            if (text3 != "") {
-              const textNext3 = new FFText({
-                text: text3,
+              text.alignCenter();
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("fadeIn", 1, 0.6);
+              scene4.addChild(text);
+              console.log(text2);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 480,
+                  y: 560,
+                  height: 100,
+                });
+                textNext.alignCenter();
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("fadeIn", 1, 0.8);
+                scene4.addChild(textNext);
+              }
+              console.log(text3);
+              if (text3 != "") {
+                const textNext3 = new FFText({
+                  text: text3,
+                  fontSize: fontSize1,
+                  x: 480,
+                  y: 610,
+                  height: 100,
+                });
+                textNext3.alignCenter();
+                textNext3.setColor(titleColor);
+                textNext3.setFont(selectedfonts);
+                textNext3.addEffect("fadeIn", 1, 0.8);
+                scene4.addChild(textNext3);
+              }
+            } else {
+              const fontSize1 =
+                parseInt(data.sceneData.textArray[0].fontSize) + 15;
+              const fontSize2 =
+                parseInt(data.sceneData.textArray[1].fontSize) + 15;
+              console.log(text1);
+              const text = new FFText({
+                text: text1,
                 fontSize: fontSize1,
-                x: 480,
-                y: 610,
-                height: 100,
+                x: 80,
+                y: 480,
+                height: 300,
+                width: 540,
               });
-              textNext3.alignCenter();
-              textNext3.setColor(titleColor);
-              textNext3.setFont(selectedfonts);
-              textNext3.addEffect("fadeIn", 1, 0.8);
-              scene4.addChild(textNext3);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("fadeIn", 1, 0.6);
+              scene4.addChild(text);
+              console.log(text2);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 80,
+                  y: 530,
+                  height: 100,
+                });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("fadeIn", 1, 0.8);
+                scene4.addChild(textNext);
+              }
+              console.log(text3);
+              if (text3 != "") {
+                const textNext3 = new FFText({
+                  text: text3,
+                  fontSize: fontSize1,
+                  x: 80,
+                  y: 580,
+                  height: 100,
+                });
+                textNext3.setColor(titleColor);
+                textNext3.setFont(selectedfonts);
+                textNext3.addEffect("fadeIn", 1, 0.8);
+                scene4.addChild(textNext3);
+              }
             }
             scene4.setBgColor("#fff");
             const fcloud2 = new FFImage({
@@ -2112,32 +2350,57 @@ exports.createVideo = async (req, res, next) => {
             ease: "Cubic.InOut",
           });
           scene3.addChild(fimg1);
-          const fontSize1 = parseInt(data.sceneData.textSize) + 25;
-          let textOne = new FFText({
-            text: text,
-            fontSize: fontSize1,
-            x: 960,
-            y: 930,
-          });
-          textOne.alignCenter();
-          textOne.setColor(titleColor);
-          textOne.setFont(selectedfonts);
-          textOne.addEffect("fadeIn", 1.5, 0.6);
-          scene3.addChild(textOne);
-          if (text2 != "") {
-            const textNext = new FFText({
-              text: text2,
+          if (data.sceneData.textAligmnet == "text-center") {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+            let textOne = new FFText({
+              text: text,
               fontSize: fontSize1,
               x: 960,
-              y: 990,
+              y: 930,
             });
-            textNext.alignCenter();
-            textNext.setColor(titleColor);
-            textNext.setFont(selectedfonts);
-            textNext.addEffect("fadeIn", 1.0, 1.0);
-            scene3.addChild(textNext);
+            textOne.alignCenter();
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            textOne.addEffect("fadeIn", 1.5, 0.6);
+            scene3.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 960,
+                y: 990,
+              });
+              textNext.alignCenter();
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("fadeIn", 1.0, 1.0);
+              scene3.addChild(textNext);
+            }
+          } else {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+            let textOne = new FFText({
+              text: text,
+              fontSize: fontSize1,
+              x: 50,
+              y: 930,
+            });
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            textOne.addEffect("fadeIn", 1.5, 0.6);
+            scene3.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 50,
+                y: 990,
+              });
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("fadeIn", 1.0, 1.0);
+              scene3.addChild(textNext);
+            }
           }
-
           const scene3img = new FFImage({
             path: assetsPath + "cropped.jpg",
             y: 540,
@@ -2948,28 +3211,59 @@ exports.createVideo = async (req, res, next) => {
             });
             scene4.addChild(fimg1);
             console.log("heres2");
-            const fontSize1 = parseInt(data.sceneData.textSize) + 15;
-            let textOne = new FFText({
-              text: text,
-              fontSize: fontSize1,
-              x: 100,
-              y: 895,
-            });
-            textOne.setColor(titleColor);
-            textOne.setFont(selectedfonts);
-            textOne.addEffect("fadeIn", 1.5, 0.6);
-            scene4.addChild(textOne);
-            if (text2 != "") {
-              const textNext = new FFText({
-                text: text2,
+            if (data.sceneData.textAligmnet == "text-center") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              let textOne = new FFText({
+                text: text,
+                fontSize: fontSize1,
+                x: 520,
+                y: 925,
+              });
+              textOne.alignCenter();
+              textOne.setStyle({ padding: [0, 20, 10, 20] });
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.addEffect("fadeIn", 1.5, 0.6);
+              scene4.addChild(textOne);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 520,
+                  y: 995,
+                });
+                textNext.alignCenter();
+                textNext.setStyle({ padding: [0, 20, 10, 20] });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("fadeIn", 1.5, 1.0);
+                scene4.addChild(textNext);
+              }
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              let textOne = new FFText({
+                text: text,
                 fontSize: fontSize1,
                 x: 100,
-                y: 950,
+                y: 895,
               });
-              textNext.setColor(titleColor);
-              textNext.setFont(selectedfonts);
-              textNext.addEffect("fadeIn", 1.5, 1.0);
-              scene4.addChild(textNext);
+
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.addEffect("fadeIn", 1.5, 0.6);
+              scene4.addChild(textOne);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 100,
+                  y: 950,
+                });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("fadeIn", 1.5, 1.0);
+                scene4.addChild(textNext);
+              }
             }
             scene4.setBgColor("#444");
             // const fimg2 = new FFImage({
@@ -3579,77 +3873,149 @@ exports.createVideo = async (req, res, next) => {
           // });
           scene2.addChild(slidebg);
 
-          if (contentParts[2] != undefined && contentParts[2] != "") {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 25;
-            const text = new FFText({
-              text: contentParts[0],
-              fontSize: fontSize1,
-              x: 350,
-              y: 475,
-            });
-            scene2.addChild(text);
-            text.setColor(titleColor);
-            text.setFont(selectedfonts);
-            text.addEffect("fadeIn", 1, 1.3);
-            text.alignCenter();
-            text.setStyle({ padding: [0, 20, 10, 20] });
-            scene2.addChild(text);
+          if (data.sceneData.textAligmnet == "text-center") {
+            if (contentParts[2] != undefined && contentParts[2] != "") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+              const text = new FFText({
+                text: contentParts[0],
+                fontSize: fontSize1,
+                x: 350,
+                y: 475,
+              });
+              scene2.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInLeft", 1, 1.3);
+              text.alignCenter();
+              text.setStyle({ padding: [0, 20, 10, 20] });
+              scene2.addChild(text);
 
-            const text2 = new FFText({
-              text: contentParts[1],
-              fontSize: fontSize1,
-              x: 350,
-              y: 545,
-            });
-            text2.alignCenter();
-            text2.setStyle({ padding: [4, 20, 6, 20] });
-            text2.setColor(titleColor);
-            text2.setFont(selectedfonts);
-            text2.addEffect("fadeIn", 1.0, 1.4);
-            scene2.addChild(text2);
+              const text2 = new FFText({
+                text: contentParts[1],
+                fontSize: fontSize1,
+                x: 350,
+                y: 545,
+              });
+              text2.alignCenter();
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInLeft", 1.0, 1.4);
+              scene2.addChild(text2);
 
-            const text3 = new FFText({
-              text: contentParts[2],
-              fontSize: fontSize1,
-              x: 350,
-              y: 615,
-            });
-            text3.alignCenter();
-            text3.setStyle({ padding: [4, 20, 6, 20] });
-            text3.setColor(titleColor);
-            text3.setFont(selectedfonts);
-            text3.addEffect("fadeIn", 1.0, 1.4);
-            scene2.addChild(text3);
+              const text3 = new FFText({
+                text: contentParts[2],
+                fontSize: fontSize1,
+                x: 350,
+                y: 615,
+              });
+              text3.alignCenter();
+              text3.setStyle({ padding: [4, 20, 6, 20] });
+              text3.setColor(titleColor);
+              text3.setFont(selectedfonts);
+              text3.addEffect("backInLeft", 1.0, 1.4);
+              scene2.addChild(text3);
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+              const text = new FFText({
+                text: contentParts[0],
+                fontSize: fontSize1,
+                x: 350,
+                y: 510,
+              });
+              scene2.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInLeft", 1, 1.3);
+              text.alignCenter();
+              text.setStyle({ padding: [0, 20, 10, 20] });
+              scene2.addChild(text);
+
+              const text2 = new FFText({
+                text: contentParts[1],
+                fontSize: fontSize1,
+                x: 350,
+                y: 580,
+              });
+              text2.alignCenter();
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInLeft", 1.0, 1.4);
+              scene2.addChild(text2);
+            }
           } else {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 25;
-            const text = new FFText({
-              text: contentParts[0],
-              fontSize: fontSize1,
-              x: 350,
-              y: 510,
-            });
-            scene2.addChild(text);
-            text.setColor(titleColor);
-            text.setFont(selectedfonts);
-            text.addEffect("fadeIn", 1, 1.3);
-            text.alignCenter();
-            text.setStyle({ padding: [0, 20, 10, 20] });
-            scene2.addChild(text);
+            if (contentParts[2] != undefined && contentParts[2] != "") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+              const text = new FFText({
+                text: contentParts[0],
+                fontSize: fontSize1,
+                x: 80,
+                y: 445,
+              });
+              scene2.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInLeft", 1, 1.3);
 
-            const text2 = new FFText({
-              text: contentParts[1],
-              fontSize: fontSize1,
-              x: 350,
-              y: 580,
-            });
-            text2.alignCenter();
-            text2.setStyle({ padding: [4, 20, 6, 20] });
-            text2.setColor(titleColor);
-            text2.setFont(selectedfonts);
-            text2.addEffect("fadeIn", 1.0, 1.4);
-            scene2.addChild(text2);
+              text.setStyle({ padding: [0, 20, 10, 20] });
+              scene2.addChild(text);
+
+              const text2 = new FFText({
+                text: contentParts[1],
+                fontSize: fontSize1,
+                x: 80,
+                y: 505,
+              });
+
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInLeft", 1.0, 1.4);
+              scene2.addChild(text2);
+
+              const text3 = new FFText({
+                text: contentParts[2],
+                fontSize: fontSize1,
+                x: 80,
+                y: 475,
+              });
+
+              text3.setStyle({ padding: [4, 20, 6, 20] });
+              text3.setColor(titleColor);
+              text3.setFont(selectedfonts);
+              text3.addEffect("backInLeft", 1.0, 1.4);
+              scene2.addChild(text3);
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+              const text = new FFText({
+                text: contentParts[0],
+                fontSize: fontSize1,
+                x: 80,
+                y: 470,
+              });
+              scene2.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInLeft", 1, 1.3);
+
+              text.setStyle({ padding: [0, 20, 10, 20] });
+              scene2.addChild(text);
+
+              const text2 = new FFText({
+                text: contentParts[1],
+                fontSize: fontSize1,
+                x: 80,
+                y: 540,
+              });
+
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInLeft", 1.0, 1.4);
+              scene2.addChild(text2);
+            }
           }
-
           if (user.userPlan == 0) {
             const watermark = new FFImage({
               path: assetsPath + "reveoLogo.png",
@@ -3761,29 +4127,58 @@ exports.createVideo = async (req, res, next) => {
             });
             fimg1.setScale(0.6);
             scene4.addChild(fimg1);
-            console.log("heres2");
-            const fontSize1 = parseInt(data.sceneData.textSize) + 15;
-            let textOne = new FFText({
-              text: text,
-              fontSize: fontSize1,
-              x: 450,
-              y: 895,
-            });
-            textOne.setColor(titleColor);
-            textOne.setFont(selectedfonts);
-            textOne.addEffect("fadeIn", 1.5, 0.6);
-            scene4.addChild(textOne);
-            if (text2 != "") {
-              const textNext = new FFText({
-                text: text2,
+            if (data.sceneData.textAligmnet == "text-center") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 15;
+              let textOne = new FFText({
+                text: text,
+                fontSize: fontSize1,
+                x: 960,
+                y: 920,
+              });
+              textOne.alignCenter();
+              textOne.setStyle({ padding: [4, 20, 6, 20] });
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.addEffect("fadeIn", 1.5, 0.6);
+              scene4.addChild(textOne);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 960,
+                  y: 980,
+                });
+                textNext.alignCenter();
+                textNext.setStyle({ padding: [4, 20, 6, 20] });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("fadeIn", 1.5, 1.0);
+                scene4.addChild(textNext);
+              }
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 15;
+              let textOne = new FFText({
+                text: text,
                 fontSize: fontSize1,
                 x: 450,
-                y: 950,
+                y: 895,
               });
-              textNext.setColor(titleColor);
-              textNext.setFont(selectedfonts);
-              textNext.addEffect("fadeIn", 1.5, 1.0);
-              scene4.addChild(textNext);
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.addEffect("fadeIn", 1.5, 0.6);
+              scene4.addChild(textOne);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 450,
+                  y: 950,
+                });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("fadeIn", 1.5, 1.0);
+                scene4.addChild(textNext);
+              }
             }
             if (user.userPlan == 0) {
               const watermark = new FFImage({
@@ -4344,76 +4739,149 @@ exports.createVideo = async (req, res, next) => {
             y: 540,
           });
           scene1.addChild(fimg1);
-          if (textcontent3 != undefined && textcontent3 != "") {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
-            const text = new FFText({
-              text: textcontent1,
-              fontSize: fontSize1,
-              x: 960,
-              y: 465,
-            });
-            scene1.addChild(text);
-            text.alignCenter();
-            text.setColor(titleColor);
-            text.setFont(selectedfonts);
-            text.addEffect("fadeIn", 1, 0.3);
-            text.alignCenter();
-            text.setStyle({ padding: [0, 20, 10, 20] });
-            scene1.addChild(text);
+          if (data.sceneData.textAligmnet == "text-center") {
+            if (textcontent3 != undefined && textcontent3 != "") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 960,
+                y: 465,
+              });
+              scene1.addChild(text);
+              text.alignCenter();
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("fadeIn", 1, 0.3);
+              text.alignCenter();
+              text.setStyle({ padding: [0, 20, 10, 20] });
+              scene1.addChild(text);
 
-            const text2 = new FFText({
-              text: textcontent2,
-              fontSize: fontSize1,
-              x: 960,
-              y: 540,
-            });
-            text2.alignCenter();
-            text2.setStyle({ padding: [4, 20, 6, 20] });
-            text2.setColor(titleColor);
-            text2.setFont(selectedfonts);
-            text2.addEffect("fadeIn", 1.0, 0.8);
-            scene1.addChild(text2);
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 960,
+                y: 540,
+              });
+              text2.alignCenter();
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("fadeIn", 1.0, 0.8);
+              scene1.addChild(text2);
 
-            const text3 = new FFText({
-              text: textcontent3,
-              fontSize: fontSize1,
-              x: 960,
-              y: 625,
-            });
-            text3.alignCenter();
-            text3.setStyle({ padding: [4, 20, 6, 20] });
-            text3.setColor(titleColor);
-            text3.setFont(selectedfonts);
-            text3.addEffect("fadeIn", 1.0, 1.1);
-            scene1.addChild(text3);
+              const text3 = new FFText({
+                text: textcontent3,
+                fontSize: fontSize1,
+                x: 960,
+                y: 625,
+              });
+              text3.alignCenter();
+              text3.setStyle({ padding: [4, 20, 6, 20] });
+              text3.setColor(titleColor);
+              text3.setFont(selectedfonts);
+              text3.addEffect("fadeIn", 1.0, 1.1);
+              scene1.addChild(text3);
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 960,
+                y: 515,
+              });
+              scene1.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("fadeIn", 1, 0.3);
+              text.alignCenter();
+              text.setStyle({ padding: [0, 20, 10, 20] });
+              scene1.addChild(text);
+
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 960,
+                y: 585,
+              });
+              text2.alignCenter();
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("fadeIn", 1.0, 0.8);
+              scene1.addChild(text2);
+            }
           } else {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
-            const text = new FFText({
-              text: textcontent1,
-              fontSize: fontSize1,
-              x: 960,
-              y: 515,
-            });
-            scene1.addChild(text);
-            text.setColor(titleColor);
-            text.setFont(selectedfonts);
-            text.addEffect("fadeIn", 1, 0.3);
-            text.alignCenter();
-            text.setStyle({ padding: [0, 20, 10, 20] });
-            scene1.addChild(text);
+            if (textcontent3 != undefined && textcontent3 != "") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 100,
+                y: 425,
+              });
+              scene1.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("fadeIn", 1, 0.3);
 
-            const text2 = new FFText({
-              text: textcontent2,
-              fontSize: fontSize1,
-              x: 960,
-              y: 585,
-            });
-            text2.alignCenter();
-            text2.setStyle({ padding: [4, 20, 6, 20] });
-            text2.setColor(titleColor);
-            text2.setFont(selectedfonts);
-            text2.addEffect("fadeIn", 1.0, 0.8);
-            scene1.addChild(text2);
+              text.setStyle({ padding: [0, 20, 10, 20] });
+              scene1.addChild(text);
+
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 100,
+                y: 500,
+              });
+
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("fadeIn", 1.0, 0.8);
+              scene1.addChild(text2);
+
+              const text3 = new FFText({
+                text: textcontent3,
+                fontSize: fontSize1,
+                x: 100,
+                y: 580,
+              });
+
+              text3.setStyle({ padding: [4, 20, 6, 20] });
+              text3.setColor(titleColor);
+              text3.setFont(selectedfonts);
+              text3.addEffect("fadeIn", 1.0, 1.1);
+              scene1.addChild(text3);
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 100,
+                y: 465,
+              });
+              scene1.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("fadeIn", 1, 0.3);
+
+              text.setStyle({ padding: [0, 20, 10, 20] });
+              scene1.addChild(text);
+
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 100,
+                y: 545,
+              });
+
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("fadeIn", 1.0, 0.8);
+              scene1.addChild(text2);
+            }
           }
           // add bottom cloud
           // const fcloud = new FFImage({
@@ -4450,7 +4918,7 @@ exports.createVideo = async (req, res, next) => {
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
-            if (j >= 8) {
+            if (j >= 7) {
               text2 = text2 + result[j] + " ";
             } else {
               text = text + result[j] + " ";
@@ -4526,33 +4994,61 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene4.addChild(fimg1);
-            console.log("heres2");
-            const fontSize1 = parseInt(data.sceneData.textSize) + 18;
-            let textOne = new FFText({
-              text: text,
-              fontSize: fontSize1,
-              x: 500,
-              y: 920,
-            });
-            textOne.alignCenter();
-            textOne.setColor(titleColor);
-            textOne.setFont(selectedfonts);
-            textOne.addEffect("fadeIn", 1.5, 1.3);
-            scene4.addChild(textOne);
-            if (text2 != "") {
-              const textNext = new FFText({
-                text: text2,
+            console.log(data.sceneData.textAligmnet);
+            console.log("data.sceneData.textAligmnet");
+            if (data.sceneData.textAligmnet == "text-center") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 18;
+              let textOne = new FFText({
+                text: text,
                 fontSize: fontSize1,
                 x: 500,
-                y: 970,
+                y: 920,
               });
-              textNext.alignCenter();
-              textNext.setColor(titleColor);
-              textNext.setFont(selectedfonts);
-              textNext.addEffect("fadeIn", 1.5, 1.5);
-              scene4.addChild(textNext);
-            }
+              textOne.alignCenter();
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.addEffect("fadeIn", 1.5, 1.3);
+              scene4.addChild(textOne);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 500,
+                  y: 970,
+                });
+                textNext.alignCenter();
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("fadeIn", 1.5, 1.5);
+                scene4.addChild(textNext);
+              }
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 18;
+              let textOne = new FFText({
+                text: text,
+                fontSize: fontSize1,
+                x: 100,
+                y: 900,
+              });
 
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.addEffect("fadeIn", 1.5, 1.3);
+              scene4.addChild(textOne);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 100,
+                  y: 950,
+                });
+
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("fadeIn", 1.5, 1.5);
+                scene4.addChild(textNext);
+              }
+            }
             if (user.userPlan == 0) {
               const watermark = new FFImage({
                 path: assetsPath + "reveoLogo.png",
@@ -4808,75 +5304,148 @@ exports.createVideo = async (req, res, next) => {
           //   delay: 0.1,
           //   ease: "Cubic.InOut",
           // });
-          if (contentParts[2] != undefined && contentParts[2] != "") {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 25;
-            const text = new FFText({
-              text: contentParts[0],
-              fontSize: fontSize1,
-              x: 350,
-              y: 475,
-            });
-            scene2.addChild(text);
-            text.setColor(titleColor);
-            text.setFont(selectedfonts);
-            text.addEffect("backInLeft", 1, 1.3);
-            text.alignCenter();
-            text.setStyle({ padding: [0, 20, 10, 20] });
-            scene2.addChild(text);
+          if (data.sceneData.textAligmnet == "text-center") {
+            if (contentParts[2] != undefined && contentParts[2] != "") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+              const text = new FFText({
+                text: contentParts[0],
+                fontSize: fontSize1,
+                x: 350,
+                y: 475,
+              });
+              scene2.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInLeft", 1, 1.3);
+              text.alignCenter();
+              text.setStyle({ padding: [0, 20, 10, 20] });
+              scene2.addChild(text);
 
-            const text2 = new FFText({
-              text: contentParts[1],
-              fontSize: fontSize1,
-              x: 350,
-              y: 545,
-            });
-            text2.alignCenter();
-            text2.setStyle({ padding: [4, 20, 6, 20] });
-            text2.setColor(titleColor);
-            text2.setFont(selectedfonts);
-            text2.addEffect("backInLeft", 1.0, 1.4);
-            scene2.addChild(text2);
+              const text2 = new FFText({
+                text: contentParts[1],
+                fontSize: fontSize1,
+                x: 350,
+                y: 545,
+              });
+              text2.alignCenter();
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInLeft", 1.0, 1.4);
+              scene2.addChild(text2);
 
-            const text3 = new FFText({
-              text: contentParts[2],
-              fontSize: fontSize1,
-              x: 350,
-              y: 615,
-            });
-            text3.alignCenter();
-            text3.setStyle({ padding: [4, 20, 6, 20] });
-            text3.setColor(titleColor);
-            text3.setFont(selectedfonts);
-            text3.addEffect("backInLeft", 1.0, 1.4);
-            scene2.addChild(text3);
+              const text3 = new FFText({
+                text: contentParts[2],
+                fontSize: fontSize1,
+                x: 350,
+                y: 615,
+              });
+              text3.alignCenter();
+              text3.setStyle({ padding: [4, 20, 6, 20] });
+              text3.setColor(titleColor);
+              text3.setFont(selectedfonts);
+              text3.addEffect("backInLeft", 1.0, 1.4);
+              scene2.addChild(text3);
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+              const text = new FFText({
+                text: contentParts[0],
+                fontSize: fontSize1,
+                x: 350,
+                y: 510,
+              });
+              scene2.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInLeft", 1, 1.3);
+              text.alignCenter();
+              text.setStyle({ padding: [0, 20, 10, 20] });
+              scene2.addChild(text);
+
+              const text2 = new FFText({
+                text: contentParts[1],
+                fontSize: fontSize1,
+                x: 350,
+                y: 580,
+              });
+              text2.alignCenter();
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInLeft", 1.0, 1.4);
+              scene2.addChild(text2);
+            }
           } else {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 25;
-            const text = new FFText({
-              text: contentParts[0],
-              fontSize: fontSize1,
-              x: 350,
-              y: 510,
-            });
-            scene2.addChild(text);
-            text.setColor(titleColor);
-            text.setFont(selectedfonts);
-            text.addEffect("backInLeft", 1, 1.3);
-            text.alignCenter();
-            text.setStyle({ padding: [0, 20, 10, 20] });
-            scene2.addChild(text);
+            if (contentParts[2] != undefined && contentParts[2] != "") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+              const text = new FFText({
+                text: contentParts[0],
+                fontSize: fontSize1,
+                x: 80,
+                y: 445,
+              });
+              scene2.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInLeft", 1, 1.3);
 
-            const text2 = new FFText({
-              text: contentParts[1],
-              fontSize: fontSize1,
-              x: 350,
-              y: 580,
-            });
-            text2.alignCenter();
-            text2.setStyle({ padding: [4, 20, 6, 20] });
-            text2.setColor(titleColor);
-            text2.setFont(selectedfonts);
-            text2.addEffect("backInLeft", 1.0, 1.4);
-            scene2.addChild(text2);
+              text.setStyle({ padding: [0, 20, 10, 20] });
+              scene2.addChild(text);
+
+              const text2 = new FFText({
+                text: contentParts[1],
+                fontSize: fontSize1,
+                x: 80,
+                y: 505,
+              });
+
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInLeft", 1.0, 1.4);
+              scene2.addChild(text2);
+
+              const text3 = new FFText({
+                text: contentParts[2],
+                fontSize: fontSize1,
+                x: 80,
+                y: 475,
+              });
+
+              text3.setStyle({ padding: [4, 20, 6, 20] });
+              text3.setColor(titleColor);
+              text3.setFont(selectedfonts);
+              text3.addEffect("backInLeft", 1.0, 1.4);
+              scene2.addChild(text3);
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 25;
+              const text = new FFText({
+                text: contentParts[0],
+                fontSize: fontSize1,
+                x: 80,
+                y: 470,
+              });
+              scene2.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInLeft", 1, 1.3);
+
+              text.setStyle({ padding: [0, 20, 10, 20] });
+              scene2.addChild(text);
+
+              const text2 = new FFText({
+                text: contentParts[1],
+                fontSize: fontSize1,
+                x: 80,
+                y: 540,
+              });
+
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInLeft", 1.0, 1.4);
+              scene2.addChild(text2);
+            }
           }
           if (user.userPlan == 0) {
             const watermark = new FFImage({
@@ -5268,11 +5837,11 @@ exports.createVideo = async (req, res, next) => {
           var textcontent3 = "";
           var textcontent4 = "";
           for (var l = 0; l < content.length; l++) {
-            if (l > 4 && l <= 8) {
+            if (l > 4 && l <= 9) {
               textcontent2 = textcontent2 + content[l] + " ";
-            } else if (l > 8 && l <= 12) {
+            } else if (l > 9 && l <= 14) {
               textcontent3 = textcontent3 + content[l] + " ";
-            } else if (l > 12) {
+            } else if (l > 14) {
               textcontent4 = textcontent4 + content[l] + " ";
             } else {
               textcontent1 = textcontent1 + content[l] + " ";
@@ -5341,125 +5910,258 @@ exports.createVideo = async (req, res, next) => {
             x: 1400,
           });
           scene2.addChild(slidebg);
-          if (textcontent4 != undefined && textcontent4 != "") {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
-            const text = new FFText({
-              text: textcontent1,
-              fontSize: fontSize1,
-              x: 1160,
-              y: 405,
-            });
-            scene2.addChild(text);
-            text.setColor(titleColor);
-            text.setFont(selectedfonts);
-            text.addEffect("backInRight", 1, 0.6);
-            scene2.addChild(text);
+          if (data.sceneData.textAligmnet == "text-left") {
+            if (textcontent4 != undefined && textcontent4 != "") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 1160,
+                y: 405,
+              });
+              scene2.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInRight", 1, 0.6);
+              scene2.addChild(text);
 
-            const text2 = new FFText({
-              text: textcontent2,
-              fontSize: fontSize1,
-              x: 1160,
-              y: 480,
-            });
-            // text2.alignCenter();
-            // text2.setStyle({ padding: [4, 20, 6, 20] });
-            text2.setColor(titleColor);
-            text2.setFont(selectedfonts);
-            text2.addEffect("backInRight", 1.0, 1);
-            scene2.addChild(text2);
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 1160,
+                y: 480,
+              });
+              // text2.alignCenter();
+              // text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInRight", 1.0, 1);
+              scene2.addChild(text2);
 
-            const text3 = new FFText({
-              text: textcontent3,
-              fontSize: fontSize1,
-              x: 1160,
-              y:565,
-            });
-            // text3.alignCenter();
-            // text3.setStyle({ padding: [4, 20, 6, 20] });
-            text3.setColor(titleColor);
-            text3.setFont(selectedfonts);
-            text3.addEffect("backInRight", 1.0, 1.4);
-            scene2.addChild(text3);
-            const text4 = new FFText({
-              text: textcontent4,
-              fontSize: fontSize1,
-              x: 1160,
-              y: 620,
-            });
-            // text3.alignCenter();
-            // text3.setStyle({ padding: [4, 20, 6, 20] });
-            text4.setColor(titleColor);
-            text4.setFont(selectedfonts);
-            text4.addEffect("backInRight", 1.0, 1.4);
-            scene2.addChild(text4);
-          } else if (textcontent3 != undefined && textcontent3 != "" && textcontent4 == "") {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
-            const text = new FFText({
-              text: textcontent1,
-              fontSize: fontSize1,
-              x: 1160,
-              y: 465,
-            });
-            scene2.addChild(text);
-            text.setColor(titleColor);
-            text.setFont(selectedfonts);
-            text.addEffect("backInRight", 1, 0.6);
-            scene2.addChild(text);
+              const text3 = new FFText({
+                text: textcontent3,
+                fontSize: fontSize1,
+                x: 1160,
+                y: 545,
+              });
+              // text3.alignCenter();
+              // text3.setStyle({ padding: [4, 20, 6, 20] });
+              text3.setColor(titleColor);
+              text3.setFont(selectedfonts);
+              text3.addEffect("backInRight", 1.0, 1.4);
+              scene2.addChild(text3);
+              const text4 = new FFText({
+                text: textcontent4,
+                fontSize: fontSize1,
+                x: 1160,
+                y: 610,
+              });
+              // text3.alignCenter();
+              // text3.setStyle({ padding: [4, 20, 6, 20] });
+              text4.setColor(titleColor);
+              text4.setFont(selectedfonts);
+              text4.addEffect("backInRight", 1.0, 1.4);
+              scene2.addChild(text4);
+            } else if (
+              textcontent3 != undefined &&
+              textcontent3 != "" &&
+              textcontent4 == ""
+            ) {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 1160,
+                y: 465,
+              });
+              scene2.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInRight", 1, 0.6);
+              scene2.addChild(text);
 
-            const text2 = new FFText({
-              text: textcontent2,
-              fontSize: fontSize1,
-              x: 1160,
-              y: 540,
-            });
-            // text2.alignCenter();
-            // text2.setStyle({ padding: [4, 20, 6, 20] });
-            text2.setColor(titleColor);
-            text2.setFont(selectedfonts);
-            text2.addEffect("backInRight", 1.0, 1);
-            scene2.addChild(text2);
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 1160,
+                y: 540,
+              });
+              // text2.alignCenter();
+              // text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInRight", 1.0, 1);
+              scene2.addChild(text2);
 
-            const text3 = new FFText({
-              text: textcontent3,
-              fontSize: fontSize1,
-              x: 1160,
-              y: 625,
-            });
-            // text3.alignCenter();
-            // text3.setStyle({ padding: [4, 20, 6, 20] });
-            text3.setColor(titleColor);
-            text3.setFont(selectedfonts);
-            text3.addEffect("backInRight", 1.0, 1.4);
-            scene2.addChild(text3);
-          }
-          else {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
-            const text = new FFText({
-              text: textcontent1,
-              fontSize: fontSize1,
-              x: 1160,
-              y: 515,
-            });
-            scene2.addChild(text);
-            text.setColor(titleColor);
-            text.setFont(selectedfonts);
-            text.addEffect("backInRight", 1, 0.6);
-            // text.alignCenter();
-            // text.setStyle({ padding: [0, 20, 10, 20] });
-            scene2.addChild(text);
+              const text3 = new FFText({
+                text: textcontent3,
+                fontSize: fontSize1,
+                x: 1160,
+                y: 625,
+              });
+              // text3.alignCenter();
+              // text3.setStyle({ padding: [4, 20, 6, 20] });
+              text3.setColor(titleColor);
+              text3.setFont(selectedfonts);
+              text3.addEffect("backInRight", 1.0, 1.4);
+              scene2.addChild(text3);
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 1160,
+                y: 515,
+              });
+              scene2.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInRight", 1, 0.6);
+              // text.alignCenter();
+              // text.setStyle({ padding: [0, 20, 10, 20] });
+              scene2.addChild(text);
 
-            const text2 = new FFText({
-              text: textcontent2,
-              fontSize: fontSize1,
-              x: 1160,
-              y: 575,
-            });
-            // text2.alignCenter();
-            // text2.setStyle({ padding: [4, 20, 6, 20] });
-            text2.setColor(titleColor);
-            text2.setFont(selectedfonts);
-            text2.addEffect("backInRight", 1.0, 1);
-            scene2.addChild(text2);
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 1160,
+                y: 575,
+              });
+              // text2.alignCenter();
+              // text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInRight", 1.0, 1);
+              scene2.addChild(text2);
+            }
+          } else {
+            if (textcontent4 != undefined && textcontent4 != "") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 1500,
+                y: 405,
+              });
+              text.alignCenter();
+              text.setStyle({ padding: [4, 20, 6, 20] });
+              scene2.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInRight", 1, 0.6);
+              scene2.addChild(text);
+
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 1500,
+                y: 480,
+              });
+              text2.alignCenter();
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInRight", 1.0, 1);
+              scene2.addChild(text2);
+
+              const text3 = new FFText({
+                text: textcontent3,
+                fontSize: fontSize1,
+                x: 1500,
+                y: 545,
+              });
+              text3.alignCenter();
+              text3.setStyle({ padding: [4, 20, 6, 20] });
+              text3.setColor(titleColor);
+              text3.setFont(selectedfonts);
+              text3.addEffect("backInRight", 1.0, 1.4);
+              scene2.addChild(text3);
+              const text4 = new FFText({
+                text: textcontent4,
+                fontSize: fontSize1,
+                x: 1500,
+                y: 610,
+              });
+              text4.alignCenter();
+              text4.setStyle({ padding: [4, 20, 6, 20] });
+              text4.setColor(titleColor);
+              text4.setFont(selectedfonts);
+              text4.addEffect("backInRight", 1.0, 1.4);
+              scene2.addChild(text4);
+            } else if (
+              textcontent3 != undefined &&
+              textcontent3 != "" &&
+              textcontent4 == ""
+            ) {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 1500,
+                y: 465,
+              });
+              scene2.addChild(text);
+              text.alignCenter();
+              text.setStyle({ padding: [4, 20, 6, 20] });
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInRight", 1, 0.6);
+              scene2.addChild(text);
+
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 1500,
+                y: 540,
+              });
+              text2.alignCenter();
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInRight", 1.0, 1);
+              scene2.addChild(text2);
+
+              const text3 = new FFText({
+                text: textcontent3,
+                fontSize: fontSize1,
+                x: 1500,
+                y: 625,
+              });
+              text3.alignCenter();
+              text3.setStyle({ padding: [4, 20, 6, 20] });
+              text3.setColor(titleColor);
+              text3.setFont(selectedfonts);
+              text3.addEffect("backInRight", 1.0, 1.4);
+              scene2.addChild(text3);
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 1500,
+                y: 515,
+              });
+              scene2.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInRight", 1, 0.6);
+              text.alignCenter();
+              text.setStyle({ padding: [0, 20, 10, 20] });
+              scene2.addChild(text);
+
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 1500,
+                y: 575,
+              });
+              text2.alignCenter();
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInRight", 1.0, 1);
+              scene2.addChild(text2);
+            }
           }
           // const fcloud = new FFImage({
           //   path: assetsPath + "cropped.jpg",
@@ -5617,7 +6319,7 @@ exports.createVideo = async (req, res, next) => {
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
-            if (j >= 15) {
+            if (j >= 16) {
               text2 = text2 + result[j] + " ";
             } else {
               text = text + result[j] + " ";
@@ -5697,33 +6399,62 @@ exports.createVideo = async (req, res, next) => {
 
           // slide1.addEffect("zoomingIn", 3.5, 1);
           scene6.addChild(slide3);
-          const fontSize1 = parseInt(data.sceneData.textSize) + 20;
-          let textOne = new FFText({
-            text: text,
-            fontSize: fontSize1,
-            x: 960,
-            y: 940,
-          });
-
-          textOne.setColor(titleColor);
-          textOne.setFont(selectedfonts);
-          textOne.alignCenter();
-          textOne.setStyle({ padding: [0, 20, 10, 20] });
-          textOne.addEffect("fadeInUp", 1.5, 0.6);
-          scene6.addChild(textOne);
-          if (text2 != "") {
-            const textNext = new FFText({
-              text: text2,
+          if (data.sceneData.textAligmnet == "text-center") {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+            let textOne = new FFText({
+              text: text,
               fontSize: fontSize1,
               x: 960,
-              y: 1020,
+              y: 940,
             });
-            textNext.alignCenter();
-            textNext.setStyle({ padding: [0, 20, 10, 20] });
-            textNext.setColor(titleColor);
-            textNext.setFont(selectedfonts);
-            textNext.addEffect("fadeIn", 1.5, 1.0);
-            scene6.addChild(textNext);
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            textOne.alignCenter();
+            textOne.setStyle({ padding: [0, 20, 10, 20] });
+            textOne.addEffect("zoomInDown", 1.5, 0.6);
+            scene6.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 960,
+                y: 1020,
+              });
+              textNext.alignCenter();
+              textNext.setStyle({ padding: [0, 20, 10, 20] });
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("zoomInDown", 1.5, 1.0);
+              scene6.addChild(textNext);
+            }
+          } else {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+            let textOne = new FFText({
+              text: text,
+              fontSize: fontSize1,
+              x: 80,
+              y: 920,
+            });
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            // textOne.alignCenter();
+            // textOne.setStyle({ padding: [0, 20, 10, 20] });
+            textOne.addEffect("zoomInDown", 1.5, 0.6);
+            scene6.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 80,
+                y: 1000,
+              });
+              // textNext.alignCenter();
+              // textNext.setStyle({ padding: [0, 20, 10, 20] });
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("zoomInDown", 1.5, 1.0);
+              scene6.addChild(textNext);
+            }
           }
           if (user.userPlan == 0) {
             const watermark = new FFImage({
@@ -5780,7 +6511,7 @@ exports.createVideo = async (req, res, next) => {
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
-            if (j >= 8) {
+            if (j >= 7) {
               text2 = text2 + result[j] + " ";
             } else {
               text = text + result[j] + " ";
@@ -5850,29 +6581,59 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene4.addChild(fimg1);
-            console.log("heres2");
-            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
-            let textOne = new FFText({
-              text: text,
-              fontSize: fontSize1,
-              x: 100,
-              y: 895,
-            });
-            textOne.setColor(titleColor);
-            textOne.setFont(selectedfonts);
-            textOne.addEffect("fadeIn", 1.5, 0.6);
-            scene4.addChild(textOne);
-            if (text2 != "") {
-              const textNext = new FFText({
-                text: text2,
+            if (data.sceneData.textAligmnet == "text-center") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              let textOne = new FFText({
+                text: text,
+                fontSize: fontSize1,
+                x: 520,
+                y: 925,
+              });
+              textOne.alignCenter();
+              textOne.setStyle({ padding: [0, 20, 10, 20] });
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.addEffect("fadeIn", 1.5, 0.6);
+              scene4.addChild(textOne);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 520,
+                  y: 995,
+                });
+                textNext.alignCenter();
+                textNext.setStyle({ padding: [0, 20, 10, 20] });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("fadeIn", 1.5, 1.0);
+                scene4.addChild(textNext);
+              }
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              let textOne = new FFText({
+                text: text,
                 fontSize: fontSize1,
                 x: 100,
-                y: 950,
+                y: 895,
               });
-              textNext.setColor(titleColor);
-              textNext.setFont(selectedfonts);
-              textNext.addEffect("fadeIn", 1.5, 1.0);
-              scene4.addChild(textNext);
+
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.addEffect("fadeIn", 1.5, 0.6);
+              scene4.addChild(textOne);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 100,
+                  y: 950,
+                });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("fadeIn", 1.5, 1.0);
+                scene4.addChild(textNext);
+              }
             }
             scene4.setBgColor("#e04e1c");
             // const fimg2 = new FFImage({
@@ -6826,29 +7587,58 @@ exports.createVideo = async (req, res, next) => {
             });
             fimg1.setScale(0.6);
             scene4.addChild(fimg1);
-            console.log("heres2");
-            const fontSize1 = parseInt(data.sceneData.textSize) + 15;
-            let textOne = new FFText({
-              text: text,
-              fontSize: fontSize1,
-              x: 450,
-              y: 895,
-            });
-            textOne.setColor(titleColor);
-            textOne.setFont(selectedfonts);
-            textOne.addEffect("fadeIn", 1.5, 0.6);
-            scene4.addChild(textOne);
-            if (text2 != "") {
-              const textNext = new FFText({
-                text: text2,
+            if (data.sceneData.textAligmnet == "text-center") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 15;
+              let textOne = new FFText({
+                text: text,
+                fontSize: fontSize1,
+                x: 960,
+                y: 920,
+              });
+              textOne.alignCenter();
+              textOne.setStyle({ padding: [0, 20, 10, 20] });
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.addEffect("fadeIn", 1.5, 0.6);
+              scene4.addChild(textOne);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 960,
+                  y: 980,
+                });
+                textNext.alignCenter();
+                textNext.setStyle({ padding: [0, 20, 10, 20] });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("fadeIn", 1.5, 1.0);
+                scene4.addChild(textNext);
+              }
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 15;
+              let textOne = new FFText({
+                text: text,
                 fontSize: fontSize1,
                 x: 450,
-                y: 950,
+                y: 895,
               });
-              textNext.setColor(titleColor);
-              textNext.setFont(selectedfonts);
-              textNext.addEffect("fadeIn", 1.5, 1.0);
-              scene4.addChild(textNext);
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.addEffect("fadeIn", 1.5, 0.6);
+              scene4.addChild(textOne);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 450,
+                  y: 950,
+                });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("fadeIn", 1.5, 1.0);
+                scene4.addChild(textNext);
+              }
             }
             if (user.userPlan == 0) {
               const watermark = new FFImage({
@@ -7108,9 +7898,9 @@ exports.createVideo = async (req, res, next) => {
           var textcontent2 = "";
           var textcontent3 = "";
           for (var l = 0; l < content.length; l++) {
-            if (l >= 12 && l <= 25) {
+            if (l >= 10 && l <= 20) {
               textcontent2 = textcontent2 + content[l] + " ";
-            } else if (l > 25) {
+            } else if (l > 20) {
               textcontent3 = textcontent3 + content[l] + " ";
             } else {
               textcontent1 = textcontent1 + content[l] + " ";
@@ -7158,67 +7948,149 @@ exports.createVideo = async (req, res, next) => {
             watermark.setScale(0.5);
             scene1.addChild(watermark);
           }
-          if (textcontent3 != undefined && textcontent3 != "") {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 25;
-            const text = new FFText({
-              text: textcontent1,
-              fontSize: fontSize1,
-              x: 100,
-              y: 350,
-            });
-            scene1.addChild(text);
-            text.setColor(titleColor);
-            text.setFont(selectedfonts);
-            text.addEffect("backInUp", 1, 0.3);
-            scene1.addChild(text);
+          if (data.sceneData.textAligmnet == "text-center") {
+            if (textcontent3 != undefined && textcontent3 != "") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 960,
+                y: 465,
+              });
+              scene1.addChild(text);
+              text.alignCenter();
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("fadeIn", 1, 0.3);
+              text.alignCenter();
+              text.setStyle({ padding: [0, 20, 10, 20] });
+              scene1.addChild(text);
 
-            const text2 = new FFText({
-              text: textcontent2,
-              fontSize: fontSize1,
-              x: 100,
-              y: 450,
-            });
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 960,
+                y: 540,
+              });
+              text2.alignCenter();
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("fadeIn", 1.0, 0.8);
+              scene1.addChild(text2);
 
-            text2.setColor(titleColor);
-            text2.setFont(selectedfonts);
-            text2.addEffect("backInUp", 1.0, 0.8);
-            scene1.addChild(text2);
+              const text3 = new FFText({
+                text: textcontent3,
+                fontSize: fontSize1,
+                x: 960,
+                y: 625,
+              });
+              text3.alignCenter();
+              text3.setStyle({ padding: [4, 20, 6, 20] });
+              text3.setColor(titleColor);
+              text3.setFont(selectedfonts);
+              text3.addEffect("fadeIn", 1.0, 1.1);
+              scene1.addChild(text3);
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 960,
+                y: 515,
+              });
+              scene1.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("fadeIn", 1, 0.3);
+              text.alignCenter();
+              text.setStyle({ padding: [0, 20, 10, 20] });
+              scene1.addChild(text);
 
-            const text3 = new FFText({
-              text: textcontent3,
-              fontSize: fontSize1,
-              x: 100,
-              y: 550,
-            });
-            text3.setColor(titleColor);
-            text3.setFont(selectedfonts);
-            text3.addEffect("backInUp", 1.0, 1.1);
-            scene1.addChild(text3);
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 960,
+                y: 585,
+              });
+              text2.alignCenter();
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("fadeIn", 1.0, 0.8);
+              scene1.addChild(text2);
+            }
           } else {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 25;
-            const text = new FFText({
-              text: textcontent1,
-              fontSize: fontSize1,
-              x: 100,
-              y: 415,
-            });
-            scene1.addChild(text);
-            text.setColor(titleColor);
-            text.setFont(selectedfonts);
-            text.addEffect("fadeIn", 1, 0.3);
+            if (textcontent3 != undefined && textcontent3 != "") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 100,
+                y: 425,
+              });
+              scene1.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("fadeIn", 1, 0.3);
 
-            scene1.addChild(text);
+              text.setStyle({ padding: [0, 20, 10, 20] });
+              scene1.addChild(text);
 
-            const text2 = new FFText({
-              text: textcontent2,
-              fontSize: fontSize1,
-              x: 100,
-              y: 515,
-            });
-            text2.setColor(titleColor);
-            text2.setFont(selectedfonts);
-            text2.addEffect("fadeIn", 1.0, 0.8);
-            scene1.addChild(text2);
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 100,
+                y: 500,
+              });
+
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("fadeIn", 1.0, 0.8);
+              scene1.addChild(text2);
+
+              const text3 = new FFText({
+                text: textcontent3,
+                fontSize: fontSize1,
+                x: 100,
+                y: 580,
+              });
+
+              text3.setStyle({ padding: [4, 20, 6, 20] });
+              text3.setColor(titleColor);
+              text3.setFont(selectedfonts);
+              text3.addEffect("fadeIn", 1.0, 1.1);
+              scene1.addChild(text3);
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 100,
+                y: 465,
+              });
+              scene1.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("fadeIn", 1, 0.3);
+
+              text.setStyle({ padding: [0, 20, 10, 20] });
+              scene1.addChild(text);
+
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 100,
+                y: 545,
+              });
+
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("fadeIn", 1.0, 0.8);
+              scene1.addChild(text2);
+            }
           }
           // add bottom cloud
           // const fcloud = new FFImage({
@@ -7632,69 +8504,134 @@ exports.createVideo = async (req, res, next) => {
           //   ease: "Cubic.InOut",
           // });
           scene2.addChild(slidebg);
-          if (textcontent3 != undefined && textcontent3 != "") {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
-            const text = new FFText({
-              text: textcontent1,
-              fontSize: fontSize1,
-              x: 480,
-              y: 400,
-            });
-            scene2.addChild(text);
-            text.alignCenter();
-            text.setColor(titleColor);
-            text.setFont(selectedfonts);
-            text.addEffect("backInUp", 1, 0.3);
-            scene2.addChild(text);
+          if (data.sceneData.textAligmnet == "text-center") {
+            if (textcontent3 != undefined && textcontent3 != "") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 480,
+                y: 400,
+              });
+              scene2.addChild(text);
+              text.alignCenter();
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInUp", 1, 0.3);
+              scene2.addChild(text);
 
-            const text2 = new FFText({
-              text: textcontent2,
-              fontSize: fontSize1,
-              x: 480,
-              y: 490,
-            });
-            text2.alignCenter();
-            text2.setColor(titleColor);
-            text2.setFont(selectedfonts);
-            text2.addEffect("backInUp", 1.0, 0.8);
-            scene2.addChild(text2);
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 480,
+                y: 490,
+              });
+              text2.alignCenter();
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInUp", 1.0, 0.8);
+              scene2.addChild(text2);
 
-            const text3 = new FFText({
-              text: textcontent3,
-              fontSize: fontSize1,
-              x: 480,
-              y: 580,
-            });
-            text3.alignCenter();
-            text3.setColor(titleColor);
-            text3.setFont(selectedfonts);
-            text3.addEffect("backInUp", 1.0, 1.1);
-            scene2.addChild(text3);
+              const text3 = new FFText({
+                text: textcontent3,
+                fontSize: fontSize1,
+                x: 480,
+                y: 580,
+              });
+              text3.alignCenter();
+              text3.setColor(titleColor);
+              text3.setFont(selectedfonts);
+              text3.addEffect("backInUp", 1.0, 1.1);
+              scene2.addChild(text3);
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 480,
+                y: 515,
+              });
+              text.alignCenter();
+              fd;
+              scene2.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInUp", 1, 0.3);
+              scene2.addChild(text);
+
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 100,
+                y: 625,
+              });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInUp", 1.0, 0.8);
+              scene2.addChild(text2);
+            }
           } else {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
-            const text = new FFText({
-              text: textcontent1,
-              fontSize: fontSize1,
-              x: 480,
-              y: 515,
-            });
-            text.alignCenter(); fd
-            scene2.addChild(text);
-            text.setColor(titleColor);
-            text.setFont(selectedfonts);
-            text.addEffect("backInUp", 1, 0.3);
-            scene2.addChild(text);
+            if (textcontent3 != undefined && textcontent3 != "") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 100,
+                y: 400,
+              });
+              scene2.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInUp", 1, 0.3);
+              scene2.addChild(text);
 
-            const text2 = new FFText({
-              text: textcontent2,
-              fontSize: fontSize1,
-              x: 100,
-              y: 625,
-            });
-            text2.setColor(titleColor);
-            text2.setFont(selectedfonts);
-            text2.addEffect("backInUp", 1.0, 0.8);
-            scene2.addChild(text2);
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 100,
+                y: 490,
+              });
+
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInUp", 1.0, 0.8);
+              scene2.addChild(text2);
+
+              const text3 = new FFText({
+                text: textcontent3,
+                fontSize: fontSize1,
+                x: 100,
+                y: 580,
+              });
+              text3.setColor(titleColor);
+              text3.setFont(selectedfonts);
+              text3.addEffect("backInUp", 1.0, 1.1);
+              scene2.addChild(text3);
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 100,
+                y: 515,
+              });
+              scene2.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInUp", 1, 0.3);
+              scene2.addChild(text);
+
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 100,
+                y: 625,
+              });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInUp", 1.0, 0.8);
+              scene2.addChild(text2);
+            }
           }
           if (user.userPlan == 0) {
             const watermark = new FFImage({
@@ -7867,7 +8804,7 @@ exports.createVideo = async (req, res, next) => {
         //   creator.addChild(scene2);
         //   scene2.setTransition("wind", 1);
         //   i++;
-        // } 
+        // }
         else if (templateBlock[i].sceneId == 41) {
           let data = templateBlock[i];
           const firstVideo = await videoTemplate41(data);
@@ -7942,70 +8879,134 @@ exports.createVideo = async (req, res, next) => {
           //   ease: "Cubic.InOut",
           // });
           scene2.addChild(slidebg);
-          if (textcontent3 != undefined && textcontent3 != "") {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
-            const text = new FFText({
-              text: textcontent1,
-              fontSize: fontSize1,
-              x: 1440,
-              y: 400,
-            });
-            text.alignCenter();
-            scene2.addChild(text);
-            text.setColor(titleColor);
-            text.setFont(selectedfonts);
-            text.addEffect("backInUp", 1, 0.3);
-            scene2.addChild(text);
+          if (data.sceneData.textAligmnet == "text-center") {
+            if (textcontent3 != undefined && textcontent3 != "") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 1440,
+                y: 400,
+              });
+              text.alignCenter();
+              scene2.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInUp", 1, 0.3);
+              scene2.addChild(text);
 
-            const text2 = new FFText({
-              text: textcontent2,
-              fontSize: fontSize1,
-              x: 1440,
-              y: 490,
-            });
-            text2.alignCenter();
-            text2.setColor(titleColor);
-            text2.setFont(selectedfonts);
-            text2.addEffect("backInUp", 1.0, 0.8);
-            scene2.addChild(text2);
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 1440,
+                y: 490,
+              });
+              text2.alignCenter();
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInUp", 1.0, 0.8);
+              scene2.addChild(text2);
 
-            const text3 = new FFText({
-              text: textcontent3,
-              fontSize: fontSize1,
-              x: 1440,
-              y: 580,
-            });
-            text3.alignCenter();
-            text3.setColor(titleColor);
-            text3.setFont(selectedfonts);
-            text3.addEffect("backInUp", 1.0, 1.1);
-            scene2.addChild(text3);
+              const text3 = new FFText({
+                text: textcontent3,
+                fontSize: fontSize1,
+                x: 1440,
+                y: 580,
+              });
+              text3.alignCenter();
+              text3.setColor(titleColor);
+              text3.setFont(selectedfonts);
+              text3.addEffect("backInUp", 1.0, 1.1);
+              scene2.addChild(text3);
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 1440,
+                y: 515,
+              });
+              scene2.addChild(text);
+              text.alignCenter();
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInUp", 1, 0.3);
+              scene2.addChild(text);
+
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 1440,
+                y: 625,
+              });
+              text2.alignCenter();
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInUp", 1.0, 0.8);
+              scene2.addChild(text2);
+            }
           } else {
-            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
-            const text = new FFText({
-              text: textcontent1,
-              fontSize: fontSize1,
-              x: 1440,
-              y: 515,
-            });
-            scene2.addChild(text);
-            text.alignCenter();
-            text.setColor(titleColor);
-            text.setFont(selectedfonts);
-            text.addEffect("backInUp", 1, 0.3);
-            scene2.addChild(text);
+            if (textcontent3 != undefined && textcontent3 != "") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 1100,
+                y: 400,
+              });
+              scene2.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInUp", 1, 0.3);
+              scene2.addChild(text);
 
-            const text2 = new FFText({
-              text: textcontent2,
-              fontSize: fontSize1,
-              x: 1440,
-              y: 625,
-            });
-            text2.alignCenter();
-            text2.setColor(titleColor);
-            text2.setFont(selectedfonts);
-            text2.addEffect("backInUp", 1.0, 0.8);
-            scene2.addChild(text2);
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 1100,
+                y: 490,
+              });
+
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInUp", 1.0, 0.8);
+              scene2.addChild(text2);
+
+              const text3 = new FFText({
+                text: textcontent3,
+                fontSize: fontSize1,
+                x: 1100,
+                y: 580,
+              });
+              text3.setColor(titleColor);
+              text3.setFont(selectedfonts);
+              text3.addEffect("backInUp", 1.0, 1.1);
+              scene2.addChild(text3);
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              const text = new FFText({
+                text: textcontent1,
+                fontSize: fontSize1,
+                x: 1100,
+                y: 515,
+              });
+              scene2.addChild(text);
+              text.setColor(titleColor);
+              text.setFont(selectedfonts);
+              text.addEffect("backInUp", 1, 0.3);
+              scene2.addChild(text);
+
+              const text2 = new FFText({
+                text: textcontent2,
+                fontSize: fontSize1,
+                x: 1100,
+                y: 625,
+              });
+              text2.setColor(titleColor);
+              text2.setFont(selectedfonts);
+              text2.addEffect("backInUp", 1.0, 0.8);
+              scene2.addChild(text2);
+            }
           }
           if (user.userPlan == 0) {
             const watermark = new FFImage({
@@ -8607,32 +9608,62 @@ exports.createVideo = async (req, res, next) => {
           });
 
           scene6.addChild(fimg2);
-          const fontSize1 = parseInt(data.sceneData.textSize) + 20;
-          let textOne = new FFText({
-            text: text,
-            fontSize: fontSize1,
-            x: 960,
-            y: 940,
-          });
-          textOne.setColor(titleColor);
-          textOne.setFont(selectedfonts);
-          textOne.alignCenter();
-          textOne.setStyle({ padding: [0, 20, 10, 20] });
-          textOne.addEffect("zoomInDown", 1.5, 0.6);
-          scene6.addChild(textOne);
-          if (text2 != "") {
-            const textNext = new FFText({
-              text: text2,
+          if (data.sceneData.textAligmnet == "text-center") {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+            let textOne = new FFText({
+              text: text,
               fontSize: fontSize1,
               x: 960,
-              y: 1020,
+              y: 940,
             });
-            textNext.alignCenter();
-            textNext.setStyle({ padding: [0, 20, 10, 20] });
-            textNext.setColor(titleColor);
-            textNext.setFont(selectedfonts);
-            textNext.addEffect("zoomInDown", 1.5, 1.0);
-            scene6.addChild(textNext);
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            textOne.alignCenter();
+            textOne.setStyle({ padding: [0, 20, 10, 20] });
+            textOne.addEffect("zoomInDown", 1.5, 0.6);
+            scene6.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 960,
+                y: 1020,
+              });
+              textNext.alignCenter();
+              textNext.setStyle({ padding: [0, 20, 10, 20] });
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("zoomInDown", 1.5, 1.0);
+              scene6.addChild(textNext);
+            }
+          } else {
+            const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+            let textOne = new FFText({
+              text: text,
+              fontSize: fontSize1,
+              x: 80,
+              y: 920,
+            });
+            textOne.setColor(titleColor);
+            textOne.setFont(selectedfonts);
+            // textOne.alignCenter();
+            // textOne.setStyle({ padding: [0, 20, 10, 20] });
+            textOne.addEffect("zoomInDown", 1.5, 0.6);
+            scene6.addChild(textOne);
+            if (text2 != "") {
+              const textNext = new FFText({
+                text: text2,
+                fontSize: fontSize1,
+                x: 80,
+                y: 1000,
+              });
+              // textNext.alignCenter();
+              // textNext.setStyle({ padding: [0, 20, 10, 20] });
+              textNext.setColor(titleColor);
+              textNext.setFont(selectedfonts);
+              textNext.addEffect("zoomInDown", 1.5, 1.0);
+              scene6.addChild(textNext);
+            }
           }
           if (user.userPlan == 0) {
             const watermark = new FFImage({
@@ -8666,7 +9697,7 @@ exports.createVideo = async (req, res, next) => {
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
-            if (j >= 14) {
+            if (j >= 15) {
               text2 = text2 + result[j] + " ";
             } else {
               text = text + result[j] + " ";
@@ -8743,34 +9774,59 @@ exports.createVideo = async (req, res, next) => {
             });
 
             scene4.addChild(fimg2);
-            const fontSize1 = parseInt(data.sceneData.textSize) + 25;
-            let textOne = new FFText({
-              text: text,
-              fontSize: fontSize1,
-              x: 960,
-              y: 940,
-            });
-            textOne.alignCenter();
-            textOne.setStyle({ padding: [0, 20, 10, 20] });
-            textOne.setColor(titleColor);
-            textOne.setFont(selectedfonts);
-            textOne.addEffect("zoomInDown", 1.5, 1.3);
-            scene4.addChild(textOne);
-            if (text2 != "") {
-              const textNext = new FFText({
-                text: text2,
+            if (data.sceneData.textAligmnet == "text-center") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              let textOne = new FFText({
+                text: text,
                 fontSize: fontSize1,
                 x: 960,
-                y: 1020,
+                y: 940,
               });
-              textNext.alignCenter();
-              textNext.setStyle({ padding: [0, 20, 10, 20] });
-              textNext.setColor(titleColor);
-              textNext.setFont(selectedfonts);
-              textNext.addEffect("zoomInDown", 1.5, 1.5);
-              scene4.addChild(textNext);
+              textOne.alignCenter();
+              textOne.setStyle({ padding: [0, 20, 10, 20] });
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.addEffect("zoomInDown", 1.5, 1.3);
+              scene4.addChild(textOne);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 960,
+                  y: 1020,
+                });
+                textNext.alignCenter();
+                textNext.setStyle({ padding: [0, 20, 10, 20] });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("zoomInDown", 1.5, 1.5);
+                scene4.addChild(textNext);
+              }
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              let textOne = new FFText({
+                text: text,
+                fontSize: fontSize1,
+                x: 100,
+                y: 920,
+              });
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.addEffect("zoomInDown", 1.5, 1.3);
+              scene4.addChild(textOne);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 100,
+                  y: 1000,
+                });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("zoomInDown", 1.5, 1.5);
+                scene4.addChild(textNext);
+              }
             }
-
             if (user.userPlan == 0) {
               const watermark = new FFImage({
                 path: assetsPath + "reveoLogo.png",
@@ -8812,7 +9868,7 @@ exports.createVideo = async (req, res, next) => {
           var text = "";
           var text2 = "";
           for (var j = 0; j < result.length; j++) {
-            if (j >= 14) {
+            if (j >= 15) {
               text2 = text2 + result[j] + " ";
             } else {
               text = text + result[j] + " ";
@@ -8864,32 +9920,58 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene4.addChild(fimg2);
-            const fontSize1 = parseInt(data.sceneData.textSize) + 25;
-            let textOne = new FFText({
-              text: text,
-              fontSize: fontSize1,
-              x: 960,
-              y: 940,
-            });
-            textOne.setColor(titleColor);
-            textOne.setFont(selectedfonts);
-            textOne.alignCenter();
-            textOne.setStyle({ padding: [0, 20, 10, 20] });
-            textOne.addEffect("zoomInDown", 1.5, 1.6);
-            scene4.addChild(textOne);
-            if (text2 != "") {
-              const textNext = new FFText({
-                text: text2,
+            if (data.sceneData.textAligmnet == "text-center") {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              let textOne = new FFText({
+                text: text,
                 fontSize: fontSize1,
                 x: 960,
-                y: 1020,
+                y: 940,
               });
-              textNext.alignCenter();
-              textNext.setStyle({ padding: [0, 20, 10, 20] });
-              textNext.setColor(titleColor);
-              textNext.setFont(selectedfonts);
-              textNext.addEffect("zoomInDown", 1.5, 1.8);
-              scene4.addChild(textNext);
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.alignCenter();
+              textOne.setStyle({ padding: [0, 20, 10, 20] });
+              textOne.addEffect("zoomInDown", 1.5, 1.6);
+              scene4.addChild(textOne);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 960,
+                  y: 1020,
+                });
+                textNext.alignCenter();
+                textNext.setStyle({ padding: [0, 20, 10, 20] });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("zoomInDown", 1.5, 1.8);
+                scene4.addChild(textNext);
+              }
+            } else {
+              const fontSize1 = parseInt(data.sceneData.textSize) + 20;
+              let textOne = new FFText({
+                text: text,
+                fontSize: fontSize1,
+                x: 100,
+                y: 920,
+              });
+              textOne.setColor(titleColor);
+              textOne.setFont(selectedfonts);
+              textOne.addEffect("zoomInDown", 1.5, 1.6);
+              scene4.addChild(textOne);
+              if (text2 != "") {
+                const textNext = new FFText({
+                  text: text2,
+                  fontSize: fontSize1,
+                  x: 100,
+                  y: 1000,
+                });
+                textNext.setColor(titleColor);
+                textNext.setFont(selectedfonts);
+                textNext.addEffect("zoomInDown", 1.5, 1.8);
+                scene4.addChild(textNext);
+              }
             }
             if (user.userPlan == 0) {
               const watermark = new FFImage({
@@ -9671,6 +10753,90 @@ exports.createVideo = async (req, res, next) => {
             creator.addChild(scene4);
           }
           i++;
+        } else if (templateBlock[i].sceneId == 51) {
+          let data = templateBlock[i];
+         // const fourthVideo = await videoTemplate4(data);
+          var result = data.sceneData.textArray[0].text.split(" ");
+          var text1 = "";
+          var text2 = "";
+          for (var l = 0; l < result.length; l++) {
+            if (l >= 10) {
+              text2 = text2 + result[l] + " ";
+            } else {
+              text1 = text1 + result[l] + " ";
+            }
+          }
+          let fontfamily = data.sceneData.textArray[0].fontFamily;
+          let selectedfonts;
+          fonts.map(function (font) {
+            if (font.family == fontfamily) {
+              if (data.sceneData.textArray[0].fontWeight == "lighter") {
+                selectedfonts = font.lighter;
+              } else if (data.sceneData.textArray[0].fontWeight == "normal") {
+                selectedfonts = font.file;
+              } else if (data.sceneData.textArray[0].fontWeight == "bold") {
+                selectedfonts = font.bold;
+              }
+            }
+          });
+          var titleColor = data.sceneData.textArray[0].fontColor;
+          if (titleColor.length == "4") {
+            titleColor = titleColor.replaceAll(
+              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
+              "#$1$1$2$2$3$3"
+            );
+          }
+
+          let result2 = data.sceneData.textArray[1].text.split(" ");
+          let text3 = "";
+          let text4 = "";
+          for (var k = 0; k < result2.length; k++) {
+            if (k >= 10) {
+              text4 = text4 + result2[k] + " ";
+            } else {
+              text3 = text3 + result2[k] + " ";
+            }
+          }
+          let fontfamily2 = data.sceneData.textArray[1].fontFamily;
+          let selectedfonts2;
+          fonts.map(function (font) {
+            if (font.family == fontfamily2) {
+              if (data.sceneData.textArray[1].fontWeight == "lighter") {
+                selectedfonts2 = font.lighter;
+              } else if (data.sceneData.textArray[1].fontWeight == "normal") {
+                selectedfonts2 = font.file;
+              } else if (data.sceneData.textArray[1].fontWeight == "bold") {
+                selectedfonts2 = font.bold;
+              }
+            }
+          });
+          var titleColor2 = data.sceneData.textArray[1].fontColor;
+          if (titleColor2.length == "4") {
+            titleColor2 = titleColor2.replaceAll(
+              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
+              "#$1$1$2$2$3$3"
+            );
+          }
+
+          if (data.sceneData.media[0].type == "image") {
+            const scene51 = new FFScene();
+            const image = new FFImage({
+              path: assetsPath + "Darkbluebg.png",
+              y: 540,
+            });
+            image.addAnimate({
+              from: { x: -960 },
+              to: { x: 475 },
+              time: 1.5,
+              delay: 0.1,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(image);
+
+            scene51.setDuration(7.5);
+            creator.addChild(scene51);
+          }
+          i++;
         }
       }
       if (lastScene) {
@@ -9827,8 +10993,8 @@ exports.createVideo = async (req, res, next) => {
             "/template1/" +
             mediaDate +
             "-imglast2.png",
-          x: 1260,
-          y: 600,
+          x: 1240,
+          y: 620,
         });
         fimg1.addEffect("fadeIn", 1.5, 0.5);
         sceneLast.addChild(fimg1);
@@ -9902,10 +11068,10 @@ exports.createVideo = async (req, res, next) => {
         fs.rename(
           e.output,
           "./src/Assets/template/videos/" +
-          userId +
-          "/template1/" +
-          videoName +
-          ".mp4",
+            userId +
+            "/template1/" +
+            videoName +
+            ".mp4",
           () => {
             var finalvideo1 =
               "template/videos/" + userId + "/template1/" + videoName + ".mp4";
@@ -9940,143 +11106,143 @@ exports.createVideo = async (req, res, next) => {
       const uploadData = await newUpload.save();
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img1.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img1.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img2.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img2.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img3.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img3.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img4.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img4.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img41.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img41.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img42.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img42.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img43.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img43.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img44.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img44.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img101.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img101.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img102.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img102.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img103.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img103.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img61.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img61.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img71.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img71.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img72.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img72.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img73.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img73.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img74.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img74.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img131.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img131.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img132.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img132.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img151.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img151.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img152.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img152.png"
       );
       // deleteFiles(
       //   "./src/Assets/template/videos/" + userId + "/template1/" +
@@ -10091,451 +11257,451 @@ exports.createVideo = async (req, res, next) => {
 
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img161.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img161.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img162.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img162.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img171.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img171.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img172.png"
-      );
-
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img181.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img182.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img191.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img192.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img201.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img172.png"
       );
 
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img301.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img181.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img302.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img182.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img303.png"
-      );
-
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img291.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img191.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img292.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img192.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img293.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img294.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img281.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img282.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img283.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img201.png"
       );
 
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img271.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img301.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img272.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img302.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img261.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img262.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img263.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img303.png"
       );
 
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img251.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img291.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img241.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img292.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img242.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img293.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img221.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img294.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img222.png"
-      );
-
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img222.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img281.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img331.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img282.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img332.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-361.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img322.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img321.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img341.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img342.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img351.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img352.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img283.png"
       );
 
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-imglast1.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img271.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-imglast2.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img272.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img371.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img261.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img372.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img262.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img373.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img263.png"
+      );
+
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img251.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img391.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img241.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-img392.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img242.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-401.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img221.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-411.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img222.png"
+      );
+
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img222.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-421.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img331.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-431.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img332.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-432.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-361.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-441.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img322.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-442.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img321.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-443.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img341.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-451.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img342.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-452.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img351.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-461.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img352.png"
+      );
+
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-imglast1.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-471.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-imglast2.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-472.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img371.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-473.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img372.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-491.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img373.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-481.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img391.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-482.png"
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-img392.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-401.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-411.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-421.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-431.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-432.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-441.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-442.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-443.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-451.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-452.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-461.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-471.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-472.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-473.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-491.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-481.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          mediaDate +
+          "-482.png"
       );
       console.log("herer");
       const msg = {
@@ -10578,11 +11744,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img1.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img1.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -10595,11 +11761,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img2.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img2.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["2"].url)
               .then((img) => {
@@ -10612,11 +11778,11 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                    "template/videos/" +
-                    userId +
-                    "/template1/" +
-                    mediaDate +
-                    "-img3.png"
+                      "template/videos/" +
+                      userId +
+                      "/template1/" +
+                      mediaDate +
+                      "-img3.png"
                   ); // save
                 Jimp.read(assetsPath + data.sceneData.media["3"].url)
                   .then((img) => {
@@ -10626,15 +11792,15 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         950,
                         530,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
-                        Jimp.VERTICAL_ALIGN_CENTER
+                          Jimp.VERTICAL_ALIGN_CENTER
                       )
                       .write(
                         assetsPath +
-                        "template/videos/" +
-                        userId +
-                        "/template1/" +
-                        mediaDate +
-                        "-img4.png"
+                          "template/videos/" +
+                          userId +
+                          "/template1/" +
+                          mediaDate +
+                          "-img4.png"
                       ); // save
                     setTimeout(function () {
                       resolve("done");
@@ -10672,11 +11838,11 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img41.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img41.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -10689,11 +11855,11 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img42.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img42.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["2"].url)
               .then((img) => {
@@ -10706,11 +11872,11 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                    "template/videos/" +
-                    userId +
-                    "/template1/" +
-                    mediaDate +
-                    "-img43.png"
+                      "template/videos/" +
+                      userId +
+                      "/template1/" +
+                      mediaDate +
+                      "-img43.png"
                   ); // save
                 Jimp.read(assetsPath + data.sceneData.media["3"].url)
                   .then((img) => {
@@ -10720,15 +11886,15 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
                         960,
                         1080,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
-                        Jimp.VERTICAL_ALIGN_CENTER
+                          Jimp.VERTICAL_ALIGN_CENTER
                       )
                       .write(
                         assetsPath +
-                        "template/videos/" +
-                        userId +
-                        "/template1/" +
-                        mediaDate +
-                        "-img44.png"
+                          "template/videos/" +
+                          userId +
+                          "/template1/" +
+                          mediaDate +
+                          "-img44.png"
                       ); // save
                     setTimeout(function () {
                       resolve("done");
@@ -10765,11 +11931,11 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img21.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img21.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -10782,11 +11948,11 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img22.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img22.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -10815,11 +11981,11 @@ global.videoTemplate10 = async function videoTemplate10(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img101.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img101.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -10832,11 +11998,11 @@ global.videoTemplate10 = async function videoTemplate10(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img102.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img102.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["2"].url)
               .then((img) => {
@@ -10849,11 +12015,11 @@ global.videoTemplate10 = async function videoTemplate10(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                    "template/videos/" +
-                    userId +
-                    "/template1/" +
-                    mediaDate +
-                    "-img103.png"
+                      "template/videos/" +
+                      userId +
+                      "/template1/" +
+                      mediaDate +
+                      "-img103.png"
                   ); // save
                 setTimeout(function () {
                   resolve("done");
@@ -10886,11 +12052,11 @@ global.videoTemplateLast = async function videoTemplateLast(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-imglast1.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-imglast1.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -10903,11 +12069,11 @@ global.videoTemplateLast = async function videoTemplateLast(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-imglast2.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-imglast2.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -10946,11 +12112,11 @@ global.videoTemplate6 = async function videoTemplate6(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img61.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img61.png"
           ); // save
         setTimeout(function () {
           resolve("done");
@@ -10975,11 +12141,11 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img71.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img71.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -10992,11 +12158,11 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img72.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img72.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["2"].url)
               .then((img) => {
@@ -11009,11 +12175,11 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                    "template/videos/" +
-                    userId +
-                    "/template1/" +
-                    mediaDate +
-                    "-img73.png"
+                      "template/videos/" +
+                      userId +
+                      "/template1/" +
+                      mediaDate +
+                      "-img73.png"
                   ); // save
                 Jimp.read(assetsPath + data.sceneData.media["3"].url)
                   .then((img) => {
@@ -11023,15 +12189,15 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
                         640,
                         360,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
-                        Jimp.VERTICAL_ALIGN_CENTER
+                          Jimp.VERTICAL_ALIGN_CENTER
                       )
                       .write(
                         assetsPath +
-                        "template/videos/" +
-                        userId +
-                        "/template1/" +
-                        mediaDate +
-                        "-img74.png"
+                          "template/videos/" +
+                          userId +
+                          "/template1/" +
+                          mediaDate +
+                          "-img74.png"
                       ); // save
                     setTimeout(function () {
                       resolve("done");
@@ -11068,11 +12234,11 @@ global.videoTemplate13 = async function videoTemplate13(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img131.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img131.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11085,11 +12251,11 @@ global.videoTemplate13 = async function videoTemplate13(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img132.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img132.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11117,11 +12283,11 @@ global.videoTemplate15 = async function videoTemplate15(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img151.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img151.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11134,11 +12300,11 @@ global.videoTemplate15 = async function videoTemplate15(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img152.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img152.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11166,11 +12332,11 @@ global.videoTemplate16 = async function videoTemplate16(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img161.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img161.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11183,11 +12349,11 @@ global.videoTemplate16 = async function videoTemplate16(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img162.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img162.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11216,11 +12382,11 @@ global.videoTemplate17 = async function videoTemplate17(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img171.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img171.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11233,11 +12399,11 @@ global.videoTemplate17 = async function videoTemplate17(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img172.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img172.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11265,11 +12431,11 @@ global.videoTemplate18 = async function videoTemplate18(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img181.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img181.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11282,11 +12448,11 @@ global.videoTemplate18 = async function videoTemplate18(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img182.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img182.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11315,11 +12481,11 @@ global.videoTemplate19 = async function videoTemplate19(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img191.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img191.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11332,11 +12498,11 @@ global.videoTemplate19 = async function videoTemplate19(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img192.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img192.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11365,11 +12531,11 @@ global.videoTemplate20 = async function videoTemplate20(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img201.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img201.png"
           ); // save
         setTimeout(function () {
           resolve("done");
@@ -11394,11 +12560,11 @@ global.videoTemplate22 = async function videoTemplate22(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img221.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img221.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11411,11 +12577,11 @@ global.videoTemplate22 = async function videoTemplate22(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img222.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img222.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11443,11 +12609,11 @@ global.videoTemplate25 = async function videoTemplate25(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img251.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img251.png"
           ); // save
         setTimeout(function () {
           resolve("done");
@@ -11471,11 +12637,11 @@ global.videoTemplate24 = async function videoTemplate24(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img241.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img241.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11488,11 +12654,11 @@ global.videoTemplate24 = async function videoTemplate24(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img242.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img242.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11521,11 +12687,11 @@ global.videoTemplate26 = async function videoTemplate26(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img261.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img261.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["0"].url)
           .then((img) => {
@@ -11538,11 +12704,11 @@ global.videoTemplate26 = async function videoTemplate26(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img262.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img262.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["0"].url)
               .then((img) => {
@@ -11556,11 +12722,11 @@ global.videoTemplate26 = async function videoTemplate26(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                    "template/videos/" +
-                    userId +
-                    "/template1/" +
-                    mediaDate +
-                    "-img263.png"
+                      "template/videos/" +
+                      userId +
+                      "/template1/" +
+                      mediaDate +
+                      "-img263.png"
                   ); // save
                 setTimeout(function () {
                   resolve("done");
@@ -11592,11 +12758,11 @@ global.videoTemplate27 = async function videoTemplate27(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img271.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img271.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11609,11 +12775,11 @@ global.videoTemplate27 = async function videoTemplate27(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img272.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img272.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11642,11 +12808,11 @@ global.videoTemplate28 = async function videoTemplate28(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img281.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img281.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["0"].url)
           .then((img) => {
@@ -11659,11 +12825,11 @@ global.videoTemplate28 = async function videoTemplate28(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img282.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img282.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["0"].url)
               .then((img) => {
@@ -11677,11 +12843,11 @@ global.videoTemplate28 = async function videoTemplate28(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                    "template/videos/" +
-                    userId +
-                    "/template1/" +
-                    mediaDate +
-                    "-img283.png"
+                      "template/videos/" +
+                      userId +
+                      "/template1/" +
+                      mediaDate +
+                      "-img283.png"
                   ); // save
                 setTimeout(function () {
                   resolve("done");
@@ -11713,11 +12879,11 @@ global.videoTemplate29 = async function videoTemplate29(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img291.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img291.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11730,11 +12896,11 @@ global.videoTemplate29 = async function videoTemplate29(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img292.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img292.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["2"].url)
               .then((img) => {
@@ -11747,11 +12913,11 @@ global.videoTemplate29 = async function videoTemplate29(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                    "template/videos/" +
-                    userId +
-                    "/template1/" +
-                    mediaDate +
-                    "-img293.png"
+                      "template/videos/" +
+                      userId +
+                      "/template1/" +
+                      mediaDate +
+                      "-img293.png"
                   ); // save
                 Jimp.read(assetsPath + data.sceneData.media["3"].url)
                   .then((img) => {
@@ -11761,15 +12927,15 @@ global.videoTemplate29 = async function videoTemplate29(data, req, res) {
                         840,
                         470,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
-                        Jimp.VERTICAL_ALIGN_CENTER
+                          Jimp.VERTICAL_ALIGN_CENTER
                       )
                       .write(
                         assetsPath +
-                        "template/videos/" +
-                        userId +
-                        "/template1/" +
-                        mediaDate +
-                        "-img294.png"
+                          "template/videos/" +
+                          userId +
+                          "/template1/" +
+                          mediaDate +
+                          "-img294.png"
                       ); // save
                     setTimeout(function () {
                       resolve("done");
@@ -11806,11 +12972,11 @@ global.videoTemplate30 = async function videoTemplate30(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img301.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img301.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["0"].url)
           .then((img) => {
@@ -11823,11 +12989,11 @@ global.videoTemplate30 = async function videoTemplate30(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img302.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img302.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["0"].url)
               .then((img) => {
@@ -11841,11 +13007,11 @@ global.videoTemplate30 = async function videoTemplate30(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                    "template/videos/" +
-                    userId +
-                    "/template1/" +
-                    mediaDate +
-                    "-img303.png"
+                      "template/videos/" +
+                      userId +
+                      "/template1/" +
+                      mediaDate +
+                      "-img303.png"
                   ); // save
                 setTimeout(function () {
                   resolve("done");
@@ -11877,11 +13043,11 @@ global.videoTemplate33 = async function videoTemplate33(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img331.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img331.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11894,11 +13060,11 @@ global.videoTemplate33 = async function videoTemplate33(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img332.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img332.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -11927,11 +13093,11 @@ global.videoTemplate36 = async function videoTemplate36(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img361.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img361.png"
           ); // save
         setTimeout(function () {
           resolve("done");
@@ -11955,11 +13121,11 @@ global.videoTemplate32 = async function videoTemplate32(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img321.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img321.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -11972,11 +13138,11 @@ global.videoTemplate32 = async function videoTemplate32(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img322.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img322.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -12004,11 +13170,11 @@ global.videoTemplate34 = async function videoTemplate34(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img341.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img341.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -12021,11 +13187,11 @@ global.videoTemplate34 = async function videoTemplate34(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img342.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img342.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -12053,11 +13219,11 @@ global.videoTemplate35 = async function videoTemplate35(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img351.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img351.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -12070,11 +13236,11 @@ global.videoTemplate35 = async function videoTemplate35(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img352.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img352.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -12102,11 +13268,11 @@ global.videoTemplate37 = async function videoTemplate37(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img371.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img371.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -12119,11 +13285,11 @@ global.videoTemplate37 = async function videoTemplate37(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img372.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img372.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["2"].url)
               .then((img) => {
@@ -12136,11 +13302,11 @@ global.videoTemplate37 = async function videoTemplate37(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                    "template/videos/" +
-                    userId +
-                    "/template1/" +
-                    mediaDate +
-                    "-img373.png"
+                      "template/videos/" +
+                      userId +
+                      "/template1/" +
+                      mediaDate +
+                      "-img373.png"
                   ); // save
                 setTimeout(function () {
                   resolve("done");
@@ -12172,11 +13338,11 @@ global.videoTemplate39 = async function videoTemplate39(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img391.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img391.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -12189,11 +13355,11 @@ global.videoTemplate39 = async function videoTemplate39(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img392.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img392.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -12221,11 +13387,11 @@ global.videoTemplate40 = async function videoTemplate40(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img401.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img401.png"
           ); // save
         setTimeout(function () {
           resolve("done");
@@ -12249,11 +13415,11 @@ global.videoTemplate41 = async function videoTemplate41(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img411.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img411.png"
           ); // save
         setTimeout(function () {
           resolve("done");
@@ -12278,11 +13444,11 @@ global.videoTemplate42 = async function videoTemplate42(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img421.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img421.png"
           ); // save
         setTimeout(function () {
           resolve("done");
@@ -12307,11 +13473,11 @@ global.videoTemplate43 = async function videoTemplate43(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img431.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img431.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -12324,11 +13490,11 @@ global.videoTemplate43 = async function videoTemplate43(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img432.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img432.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -12357,11 +13523,11 @@ global.videoTemplate44 = async function videoTemplate44(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img441.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img441.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["0"].url)
           .then((img) => {
@@ -12374,11 +13540,11 @@ global.videoTemplate44 = async function videoTemplate44(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img442.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img442.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["0"].url)
               .then((img) => {
@@ -12392,11 +13558,11 @@ global.videoTemplate44 = async function videoTemplate44(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                    "template/videos/" +
-                    userId +
-                    "/template1/" +
-                    mediaDate +
-                    "-img443.png"
+                      "template/videos/" +
+                      userId +
+                      "/template1/" +
+                      mediaDate +
+                      "-img443.png"
                   ); // save
                 setTimeout(function () {
                   resolve("done");
@@ -12428,11 +13594,11 @@ global.videoTemplate45 = async function videoTemplate45(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img451.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img451.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -12445,11 +13611,11 @@ global.videoTemplate45 = async function videoTemplate45(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img452.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img452.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -12477,11 +13643,11 @@ global.videoTemplate46 = async function videoTemplate46(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img461.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img461.png"
           ); // save
         setTimeout(function () {
           resolve("done");
@@ -12505,11 +13671,11 @@ global.videoTemplate47 = async function videoTemplate47(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img471.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img471.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -12522,11 +13688,11 @@ global.videoTemplate47 = async function videoTemplate47(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img472.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img472.png"
               ); // save
             Jimp.read(assetsPath + data.sceneData.media["2"].url)
               .then((img) => {
@@ -12539,11 +13705,11 @@ global.videoTemplate47 = async function videoTemplate47(data, req, res) {
                   )
                   .write(
                     assetsPath +
-                    "template/videos/" +
-                    userId +
-                    "/template1/" +
-                    mediaDate +
-                    "-img473.png"
+                      "template/videos/" +
+                      userId +
+                      "/template1/" +
+                      mediaDate +
+                      "-img473.png"
                   ); // save
                 setTimeout(function () {
                   resolve("done");
@@ -12575,11 +13741,11 @@ global.videoTemplate48 = async function videoTemplate48(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img481.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img481.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -12592,11 +13758,11 @@ global.videoTemplate48 = async function videoTemplate48(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img482.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img482.png"
               ); // save
             setTimeout(function () {
               resolve("done");
@@ -12624,11 +13790,11 @@ global.videoTemplate49 = async function videoTemplate49(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img491.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img491.png"
           ); // save
         setTimeout(function () {
           resolve("done");
@@ -12652,11 +13818,11 @@ global.videoTemplate50 = async function videoTemplate50(data, req, res) {
           )
           .write(
             assetsPath +
-            "template/videos/" +
-            userId +
-            "/template1/" +
-            mediaDate +
-            "-img501.png"
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img501.png"
           ); // save
         Jimp.read(assetsPath + data.sceneData.media["1"].url)
           .then((img) => {
@@ -12669,11 +13835,11 @@ global.videoTemplate50 = async function videoTemplate50(data, req, res) {
               )
               .write(
                 assetsPath +
-                "template/videos/" +
-                userId +
-                "/template1/" +
-                mediaDate +
-                "-img502.png"
+                  "template/videos/" +
+                  userId +
+                  "/template1/" +
+                  mediaDate +
+                  "-img502.png"
               ); // save
             setTimeout(function () {
               resolve("done");
