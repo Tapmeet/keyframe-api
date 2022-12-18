@@ -939,11 +939,7 @@ exports.createVideo = async (req, res, next) => {
             ease: "Cubic.InOut",
           });
           scene3.addChild(fimg1);
-<<<<<<< HEAD
           if (data.sceneData.textAligmnet == "text-center") {
-=======
-          if (data.sceneData.textAligmnet == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
             const fontSize1 = parseInt(data.sceneData.textSize) + 20;
             let textOne = new FFText({
               text: text,
@@ -1140,11 +1136,7 @@ exports.createVideo = async (req, res, next) => {
             });
             scene4.addChild(fimg1);
 
-<<<<<<< HEAD
             if (data.sceneData.textArray[0].fontAlignment == "text-center") {
-=======
-            if (data.sceneData.textArray[0].fontAlignment == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
               const fontSize1 =
                 parseInt(data.sceneData.textArray[0].fontSize) + 15;
               const fontSize2 =
@@ -1175,12 +1167,7 @@ exports.createVideo = async (req, res, next) => {
                 textNext.addEffect("fadeIn", 1, 0.8);
                 scene4.addChild(textNext);
               }
-<<<<<<< HEAD
             } else {
-=======
-            }
-            else {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
               const fontSize1 =
                 parseInt(data.sceneData.textArray[0].fontSize) + 15;
               const fontSize2 =
@@ -1261,11 +1248,7 @@ exports.createVideo = async (req, res, next) => {
             });
             // fimg2.addEffect("fadeInUp", 1, 3.2);
             scene4.addChild(fimg2);
-<<<<<<< HEAD
             if (data.sceneData.textArray[1].fontAlignment == "text-center") {
-=======
-            if (data.sceneData.textArray[1].fontAlignment == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
               const textnext3 = new FFText({
                 text: text3,
                 fontSize: fontSize2,
@@ -1426,11 +1409,7 @@ exports.createVideo = async (req, res, next) => {
           //fimg1.setOpacity(0.8);
           scene5.addChild(fimg1);
           const fontSize1 = parseInt(data.sceneData.textSize) + 15;
-<<<<<<< HEAD
           if (data.sceneData.textAligmnet == "text-center") {
-=======
-          if (data.sceneData.textAligmnet == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
             if (text2 != "") {
               let textOne = new FFText({
                 text: text,
@@ -1633,11 +1612,7 @@ exports.createVideo = async (req, res, next) => {
           // slide1.addEffect("zoomingIn", 3.5, 1);
           scene6.addChild(slide1);
           const fontSize1 = parseInt(data.sceneData.textSize) + 15;
-<<<<<<< HEAD
           if (data.sceneData.textAligmnet == "text-center") {
-=======
-          if (data.sceneData.textAligmnet == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
             let textOne = new FFText({
               text: text,
               fontSize: fontSize1,
@@ -1980,11 +1955,7 @@ exports.createVideo = async (req, res, next) => {
             ease: "Cubic.InOut",
           });
           scene3.addChild(fimg1);
-<<<<<<< HEAD
           if (data.sceneData.textAligmnet == "text-center") {
-=======
-          if (data.sceneData.textAligmnet == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
             const fontSize1 = parseInt(data.sceneData.textSize) + 25;
             let textOne = new FFText({
               text: text,
@@ -2190,11 +2161,7 @@ exports.createVideo = async (req, res, next) => {
               y: 560,
             });
             scene4.addChild(fimg1);
-<<<<<<< HEAD
             if (data.sceneData.textArray[0].fontAlignment == "text-center") {
-=======
-            if (data.sceneData.textArray[0].fontAlignment == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
               const fontSize1 =
                 parseInt(data.sceneData.textArray[0].fontSize) + 15;
               const fontSize2 =
@@ -2383,11 +2350,7 @@ exports.createVideo = async (req, res, next) => {
             ease: "Cubic.InOut",
           });
           scene3.addChild(fimg1);
-<<<<<<< HEAD
           if (data.sceneData.textAligmnet == "text-center") {
-=======
-          if (data.sceneData.textAligmnet == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
             const fontSize1 = parseInt(data.sceneData.textSize) + 20;
             let textOne = new FFText({
               text: text,
@@ -3248,11 +3211,7 @@ exports.createVideo = async (req, res, next) => {
             });
             scene4.addChild(fimg1);
             console.log("heres2");
-<<<<<<< HEAD
             if (data.sceneData.textAligmnet == "text-center") {
-=======
-            if (data.sceneData.textAligmnet == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
               const fontSize1 = parseInt(data.sceneData.textSize) + 20;
               let textOne = new FFText({
                 text: text,
@@ -3914,11 +3873,7 @@ exports.createVideo = async (req, res, next) => {
           // });
           scene2.addChild(slidebg);
 
-<<<<<<< HEAD
           if (data.sceneData.textAligmnet == "text-center") {
-=======
-          if (data.sceneData.textAligmnet == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
             if (contentParts[2] != undefined && contentParts[2] != "") {
               const fontSize1 = parseInt(data.sceneData.textSize) + 25;
               const text = new FFText({
@@ -4046,7 +4001,6 @@ exports.createVideo = async (req, res, next) => {
 
               text.setStyle({ padding: [0, 20, 10, 20] });
               scene2.addChild(text);
-<<<<<<< HEAD
 
               const text2 = new FFText({
                 text: contentParts[1],
@@ -4055,16 +4009,6 @@ exports.createVideo = async (req, res, next) => {
                 y: 540,
               });
 
-=======
-
-              const text2 = new FFText({
-                text: contentParts[1],
-                fontSize: fontSize1,
-                x: 80,
-                y: 540,
-              });
-
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
               text2.setStyle({ padding: [4, 20, 6, 20] });
               text2.setColor(titleColor);
               text2.setFont(selectedfonts);
@@ -4183,11 +4127,7 @@ exports.createVideo = async (req, res, next) => {
             });
             fimg1.setScale(0.6);
             scene4.addChild(fimg1);
-<<<<<<< HEAD
             if (data.sceneData.textAligmnet == "text-center") {
-=======
-            if (data.sceneData.textAligmnet == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
               const fontSize1 = parseInt(data.sceneData.textSize) + 15;
               let textOne = new FFText({
                 text: text,
@@ -4799,11 +4739,7 @@ exports.createVideo = async (req, res, next) => {
             y: 540,
           });
           scene1.addChild(fimg1);
-<<<<<<< HEAD
           if (data.sceneData.textAligmnet == "text-center") {
-=======
-          if (data.sceneData.textAligmnet == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
             if (textcontent3 != undefined && textcontent3 != "") {
               const fontSize1 = parseInt(data.sceneData.textSize) + 25;
               const text = new FFText({
@@ -5059,13 +4995,8 @@ exports.createVideo = async (req, res, next) => {
             });
             scene4.addChild(fimg1);
             console.log(data.sceneData.textAligmnet);
-<<<<<<< HEAD
             console.log("data.sceneData.textAligmnet");
             if (data.sceneData.textAligmnet == "text-center") {
-=======
-            console.log('data.sceneData.textAligmnet');
-            if (data.sceneData.textAligmnet == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
               const fontSize1 = parseInt(data.sceneData.textSize) + 18;
               let textOne = new FFText({
                 text: text,
@@ -5373,11 +5304,7 @@ exports.createVideo = async (req, res, next) => {
           //   delay: 0.1,
           //   ease: "Cubic.InOut",
           // });
-<<<<<<< HEAD
           if (data.sceneData.textAligmnet == "text-center") {
-=======
-          if (data.sceneData.textAligmnet == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
             if (contentParts[2] != undefined && contentParts[2] != "") {
               const fontSize1 = parseInt(data.sceneData.textSize) + 25;
               const text = new FFText({
@@ -5983,11 +5910,7 @@ exports.createVideo = async (req, res, next) => {
             x: 1400,
           });
           scene2.addChild(slidebg);
-<<<<<<< HEAD
           if (data.sceneData.textAligmnet == "text-left") {
-=======
-          if (data.sceneData.textAligmnet == 'text-left') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
             if (textcontent4 != undefined && textcontent4 != "") {
               const fontSize1 = parseInt(data.sceneData.textSize) + 20;
               const text = new FFText({
@@ -6039,15 +5962,11 @@ exports.createVideo = async (req, res, next) => {
               text4.setFont(selectedfonts);
               text4.addEffect("backInRight", 1.0, 1.4);
               scene2.addChild(text4);
-<<<<<<< HEAD
             } else if (
               textcontent3 != undefined &&
               textcontent3 != "" &&
               textcontent4 == ""
             ) {
-=======
-            } else if (textcontent3 != undefined && textcontent3 != "" && textcontent4 == "") {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
               const fontSize1 = parseInt(data.sceneData.textSize) + 20;
               const text = new FFText({
                 text: textcontent1,
@@ -6086,12 +6005,7 @@ exports.createVideo = async (req, res, next) => {
               text3.setFont(selectedfonts);
               text3.addEffect("backInRight", 1.0, 1.4);
               scene2.addChild(text3);
-<<<<<<< HEAD
             } else {
-=======
-            }
-            else {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
               const fontSize1 = parseInt(data.sceneData.textSize) + 20;
               const text = new FFText({
                 text: textcontent1,
@@ -6174,15 +6088,11 @@ exports.createVideo = async (req, res, next) => {
               text4.setFont(selectedfonts);
               text4.addEffect("backInRight", 1.0, 1.4);
               scene2.addChild(text4);
-<<<<<<< HEAD
             } else if (
               textcontent3 != undefined &&
               textcontent3 != "" &&
               textcontent4 == ""
             ) {
-=======
-            } else if (textcontent3 != undefined && textcontent3 != "" && textcontent4 == "") {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
               const fontSize1 = parseInt(data.sceneData.textSize) + 20;
               const text = new FFText({
                 text: textcontent1,
@@ -6223,12 +6133,7 @@ exports.createVideo = async (req, res, next) => {
               text3.setFont(selectedfonts);
               text3.addEffect("backInRight", 1.0, 1.4);
               scene2.addChild(text3);
-<<<<<<< HEAD
             } else {
-=======
-            }
-            else {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
               const fontSize1 = parseInt(data.sceneData.textSize) + 20;
               const text = new FFText({
                 text: textcontent1,
@@ -6494,11 +6399,7 @@ exports.createVideo = async (req, res, next) => {
 
           // slide1.addEffect("zoomingIn", 3.5, 1);
           scene6.addChild(slide3);
-<<<<<<< HEAD
           if (data.sceneData.textAligmnet == "text-center") {
-=======
-          if (data.sceneData.textAligmnet == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
             const fontSize1 = parseInt(data.sceneData.textSize) + 20;
             let textOne = new FFText({
               text: text,
@@ -6680,11 +6581,7 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene4.addChild(fimg1);
-<<<<<<< HEAD
             if (data.sceneData.textAligmnet == "text-center") {
-=======
-            if (data.sceneData.textAligmnet == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
               const fontSize1 = parseInt(data.sceneData.textSize) + 20;
               let textOne = new FFText({
                 text: text,
@@ -7690,12 +7587,7 @@ exports.createVideo = async (req, res, next) => {
             });
             fimg1.setScale(0.6);
             scene4.addChild(fimg1);
-<<<<<<< HEAD
             if (data.sceneData.textAligmnet == "text-center") {
-=======
-            if (data.sceneData.textAligmnet == 'text-center') {
-
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
               const fontSize1 = parseInt(data.sceneData.textSize) + 15;
               let textOne = new FFText({
                 text: text,
@@ -8056,11 +7948,7 @@ exports.createVideo = async (req, res, next) => {
             watermark.setScale(0.5);
             scene1.addChild(watermark);
           }
-<<<<<<< HEAD
           if (data.sceneData.textAligmnet == "text-center") {
-=======
-          if (data.sceneData.textAligmnet == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
             if (textcontent3 != undefined && textcontent3 != "") {
               const fontSize1 = parseInt(data.sceneData.textSize) + 20;
               const text = new FFText({
@@ -8616,11 +8504,7 @@ exports.createVideo = async (req, res, next) => {
           //   ease: "Cubic.InOut",
           // });
           scene2.addChild(slidebg);
-<<<<<<< HEAD
           if (data.sceneData.textAligmnet == "text-center") {
-=======
-          if (data.sceneData.textAligmnet == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
             if (textcontent3 != undefined && textcontent3 != "") {
               const fontSize1 = parseInt(data.sceneData.textSize) + 20;
               const text = new FFText({
@@ -8667,12 +8551,8 @@ exports.createVideo = async (req, res, next) => {
                 x: 480,
                 y: 515,
               });
-<<<<<<< HEAD
               text.alignCenter();
               fd;
-=======
-              text.alignCenter(); fd
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
               scene2.addChild(text);
               text.setColor(titleColor);
               text.setFont(selectedfonts);
@@ -8999,11 +8879,7 @@ exports.createVideo = async (req, res, next) => {
           //   ease: "Cubic.InOut",
           // });
           scene2.addChild(slidebg);
-<<<<<<< HEAD
           if (data.sceneData.textAligmnet == "text-center") {
-=======
-          if (data.sceneData.textAligmnet == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
             if (textcontent3 != undefined && textcontent3 != "") {
               const fontSize1 = parseInt(data.sceneData.textSize) + 20;
               const text = new FFText({
@@ -9069,12 +8945,7 @@ exports.createVideo = async (req, res, next) => {
               text2.addEffect("backInUp", 1.0, 0.8);
               scene2.addChild(text2);
             }
-<<<<<<< HEAD
           } else {
-=======
-          }
-          else {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
             if (textcontent3 != undefined && textcontent3 != "") {
               const fontSize1 = parseInt(data.sceneData.textSize) + 20;
               const text = new FFText({
@@ -9095,21 +8966,12 @@ exports.createVideo = async (req, res, next) => {
                 x: 1100,
                 y: 490,
               });
-<<<<<<< HEAD
 
               text2.setColor(titleColor);
               text2.setFont(selectedfonts);
               text2.addEffect("backInUp", 1.0, 0.8);
               scene2.addChild(text2);
 
-=======
-
-              text2.setColor(titleColor);
-              text2.setFont(selectedfonts);
-              text2.addEffect("backInUp", 1.0, 0.8);
-              scene2.addChild(text2);
-
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
               const text3 = new FFText({
                 text: textcontent3,
                 fontSize: fontSize1,
@@ -9746,11 +9608,7 @@ exports.createVideo = async (req, res, next) => {
           });
 
           scene6.addChild(fimg2);
-<<<<<<< HEAD
           if (data.sceneData.textAligmnet == "text-center") {
-=======
-          if (data.sceneData.textAligmnet == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
             const fontSize1 = parseInt(data.sceneData.textSize) + 20;
             let textOne = new FFText({
               text: text,
@@ -9916,7 +9774,7 @@ exports.createVideo = async (req, res, next) => {
             });
 
             scene4.addChild(fimg2);
-            if (data.sceneData.textAligmnet == 'text-center') {
+            if (data.sceneData.textAligmnet == "text-center") {
               const fontSize1 = parseInt(data.sceneData.textSize) + 20;
               let textOne = new FFText({
                 text: text,
@@ -9968,10 +9826,6 @@ exports.createVideo = async (req, res, next) => {
                 textNext.addEffect("zoomInDown", 1.5, 1.5);
                 scene4.addChild(textNext);
               }
-<<<<<<< HEAD
-=======
-
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
             }
             if (user.userPlan == 0) {
               const watermark = new FFImage({
@@ -10066,11 +9920,7 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene4.addChild(fimg2);
-<<<<<<< HEAD
             if (data.sceneData.textAligmnet == "text-center") {
-=======
-            if (data.sceneData.textAligmnet == 'text-center') {
->>>>>>> 8641a9ce23a1b4fc1e5d0389faf4acd7faf14aa7
               const fontSize1 = parseInt(data.sceneData.textSize) + 20;
               let textOne = new FFText({
                 text: text,
