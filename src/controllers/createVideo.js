@@ -11078,30 +11078,30 @@ exports.createVideo = async (req, res, next) => {
             });
             scene51.addChild(image6);
             
-            // const image = new FFImage({
-            //   path: assetsPath + "Darkbluebg.png",
-            //   y: 540,
-            // });
-            // image.addAnimate({
-            //   from: { x: -960 },
-            //   to: { x: 300 },
-            //   time: 1.5,
-            //   delay: 0.1,
-            //   ease: "Cubic.InOut",
-            // });
-            // scene51.addChild(image);
-            // const image2 = new FFImage({
-            //   path: assetsPath + "lgt-greens.png",
-            //   x: 300,
-            // });
-            // image2.addAnimate({
-            //   from: { y: 1560 },
-            //   to: { y: 950 },
-            //   time: 1.5,
-            //   delay: 0.5,
-            //   ease: "Cubic.InOut",
-            // });
-            // scene51.addChild(image2);
+            const image = new FFImage({
+              path: assetsPath + "bgdark.png",
+              y: 45,
+            });
+            image.addAnimate({
+              from: { x: -960 },
+              to: { x: 960 },
+              time: 1.5,
+              delay: 0.1,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(image);
+            const image2 = new FFImage({
+              path: assetsPath + "bggreenlight.png",
+              y: 45,
+            });
+            image2.addAnimate({
+              from: { x: 2600 },
+              to: { x: 1600 },
+              time: 1.5,
+              delay: 0.5,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(image2);
 
             const image3 = new FFImage({
               path:
@@ -11141,45 +11141,34 @@ exports.createVideo = async (req, res, next) => {
             scene51.addChild(image4);
             
             
-            // const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 45;
-            // const textNext = new FFText({
-            //   text: result[0],
-            //   fontSize: fontSize1,
-            //   x: 280,
-            //   y: 530,
-            // });
-            // textNext.alignCenter();
-            // textNext.setStyle({ padding: [4, 20, 6, 20] });
-            // textNext.setColor(titleColor);
-            // textNext.setFont(selectedfonts);
-            // textNext.addEffect("backInLeft", 1.5, 1.0);
-            // scene51.addChild(textNext);
+            const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 45;
+            const textNext = new FFText({
+              text: data.sceneData.textArray[0].text,
+              fontSize: fontSize1,
+              x: 600,
+              y: 120,
+            });
+            textNext.alignCenter();
+            textNext.setStyle({ padding: [4, 20, 6, 20] });
+            textNext.setColor(titleColor);
+            textNext.setFont(selectedfonts);
+            textNext.addEffect("backInLeft", 1.5, 1.0);
+            scene51.addChild(textNext);
 
-            // const textNext2 = new FFText({
-            //   text: result[1],
-            //   fontSize: fontSize1,
-            //   x: 280,
-            //   y: 630,
-            // });
-            // textNext2.setColor(titleColor);
-            // textNext2.setFont(selectedfonts);
-            // textNext2.alignCenter();
-            // textNext2.setStyle({ padding: [4, 20, 6, 20] });
-            // textNext2.addEffect("backInLeft", 1.5, 1.0);
-            // scene51.addChild(textNext2);
-            // const fontSize2 = parseInt(data.sceneData.textArray[1].fontSize) + 25;
-            // const textNext3 = new FFText({
-            //   text: result2[0],
-            //   fontSize: fontSize2,
-            //   x: 280,
-            //   y: 950,
-            // });
-            // textNext3.setColor(titleColor2);
-            // textNext3.setFont(selectedfonts2);
-            // textNext3.alignCenter();
-            // textNext3.setStyle({ padding: [4, 20, 6, 20] });
-            // textNext3.addEffect("backInLeft", 1.5, 1.0);
-            // scene51.addChild(textNext3);
+  
+            const fontSize2 = parseInt(data.sceneData.textArray[1].fontSize) + 25;
+            const textNext3 = new FFText({
+              text: data.sceneData.textArray[1].text,
+              fontSize: fontSize2,
+              x: 1550,
+              y: 120,
+            });
+            textNext3.setColor(titleColor2);
+            textNext3.setFont(selectedfonts2);
+            textNext3.alignCenter();
+            textNext3.setStyle({ padding: [4, 20, 6, 20] });
+            textNext3.addEffect("backInRight", 1.5, 1.0);
+            scene51.addChild(textNext3);
        
             scene51.setDuration(7.5);
             creator.addChild(scene51);
