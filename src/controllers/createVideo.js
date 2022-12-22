@@ -10803,8 +10803,7 @@ exports.createVideo = async (req, res, next) => {
           if (data.sceneData.media[0].type == "image") {
             const scene51 = new FFScene();
             scene51.setBgColor("#fff");
-            console.log(selectedfonts)
-            console.log('data.sceneData')
+          
 
 
             const image5 = new FFImage({
@@ -10981,9 +10980,10 @@ exports.createVideo = async (req, res, next) => {
             textNext3.setStyle({ padding: [4, 20, 6, 20] });
             textNext3.addEffect("backInLeft", 1.5, 1.0);
             scene51.addChild(textNext3);
-
+            scene51.setTransition("squareswire", 0.5);
             scene51.setDuration(7.5);
             creator.addChild(scene51);
+            console.log('data.sceneData 1')
           }
           i++;
         }
@@ -11149,13 +11149,11 @@ exports.createVideo = async (req, res, next) => {
               y: 120,
             });
             textNext.alignCenter();
-            textNext.setStyle({ padding: [4, 20, 6, 20] });
+            textNext.setStyle({ padding: [4, 20, 6, 20] }); 
             textNext.setColor(titleColor);
+            textNext.addEffect("backInLeft", 1.5, 1.0);
             textNext.setFont(selectedfonts);
-            c
             scene51.addChild(textNext);
-
-
             const fontSize2 = parseInt(data.sceneData.textArray[1].fontSize) + 25;
             const textNext3 = new FFText({
               text: data.sceneData.textArray[1].text,
@@ -11169,7 +11167,7 @@ exports.createVideo = async (req, res, next) => {
             textNext3.setStyle({ padding: [4, 20, 6, 20] });
             textNext3.addEffect("backInRight", 1.5, 1.0);
             scene51.addChild(textNext3);
-
+            scene51.setTransition("squareswire", 0.5);
             scene51.setDuration(7.5);
             creator.addChild(scene51);
           }
@@ -11272,6 +11270,8 @@ exports.createVideo = async (req, res, next) => {
             scene51.addChild(imagepent3);
 
             const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 20;
+            console.log(result[0])
+            console.log('result[0]')
             const textNext = new FFText({
               text: result[0],
               fontSize: fontSize1,
@@ -11284,6 +11284,8 @@ exports.createVideo = async (req, res, next) => {
             textNext.setFont(selectedfonts);
             textNext.addEffect("backInUp", 1.5, 1.0);
             scene51.addChild(textNext);
+            console.log(result[1])
+            console.log('result[1]')
             const textNext1 = new FFText({
               text: result[1],
               fontSize: fontSize1,
@@ -11296,6 +11298,8 @@ exports.createVideo = async (req, res, next) => {
             textNext1.setFont(selectedfonts);
             textNext1.addEffect("backInUp", 1.5, 1.0);
             scene51.addChild(textNext1);
+            console.log(result[2])
+            console.log('result[2]')
             if (result[2] !== undefined) {
               const textNext1 = new FFText({
                 text: result[2],
@@ -11310,12 +11314,28 @@ exports.createVideo = async (req, res, next) => {
               textNext1.addEffect("backInUp", 1.5, 1.0);
               scene51.addChild(textNext1);
             }
+            console.log(result[3])
+            console.log('result[3]')
             if (result[3] !== undefined) {
               const textNext1 = new FFText({
                 text: result[3],
                 fontSize: fontSize1,
                 x: 960,
                 y: 690,
+              });
+              textNext1.alignCenter();
+              textNext1.setStyle({ padding: [4, 20, 6, 20] });
+              textNext1.setColor(titleColor);
+              textNext1.setFont(selectedfonts);
+              textNext1.addEffect("backInUp", 1.5, 1.0);
+              scene51.addChild(textNext1);
+            }
+            if (result[4] !== undefined) {
+              const textNext1 = new FFText({
+                text: result[4],
+                fontSize: fontSize1,
+                x: 960,
+                y: 770,
               });
               textNext1.alignCenter();
               textNext1.setStyle({ padding: [4, 20, 6, 20] });
@@ -11361,6 +11381,7 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene51.addChild(image6);
+            scene51.setTransition("squareswire", 0.5);
             scene51.setDuration(7.5);
             creator.addChild(scene51);
           }
@@ -11425,8 +11446,6 @@ exports.createVideo = async (req, res, next) => {
           if (data.sceneData.media[0].type == "image") {
             const scene51 = new FFScene();
              scene51.setBgColor("#fff");
-            // // console.log(selectedfonts)
-            // // console.log('data.sceneData')
 
 
             const image5 = new FFImage({
@@ -11601,7 +11620,7 @@ exports.createVideo = async (req, res, next) => {
             textNext3.setStyle({ padding: [4, 20, 6, 20] });
             textNext3.addEffect("backInRight", 1.5, 1.0);
             scene51.addChild(textNext3);
-
+            scene51.setTransition("squareswire", 0.5);
             scene51.setDuration(7.5);
             creator.addChild(scene51);
           }
@@ -12542,6 +12561,48 @@ exports.createVideo = async (req, res, next) => {
         "/template1/" +
         mediaDate +
         "-524.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-531.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-532.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-541.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-542.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-543.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-544.png"
       );
       console.log("herer");
       const msg = {
