@@ -10868,6 +10868,36 @@ exports.createVideo = async (req, res, next) => {
             });
             scene51.addChild(image2);
 
+            const imagepent1 = new FFImage({
+              path: assetsPath + "pentagon.png",
+              x: 550,
+              height: 150,
+              width: 150
+            });
+            imagepent1.addAnimate({
+              from: { y: -400 },
+              to: { y: 150 },
+              time: 1.5,
+              delay: 1.5,
+              ease: "Cubic.InOut",
+            });
+            imagepent1.setOpacity(0.3);
+            scene51.addChild(imagepent1);
+            const imagepent2 = new FFImage({
+              path: assetsPath + "pentagon.png",
+              y: 250,
+              height: 100,
+              width: 100
+            });
+            imagepent2.addAnimate({
+              from: { x: -560 },
+              to: { x: 30 },
+              time: 1.5,
+              delay: 1.5,
+              ease: "Cubic.InOut",
+            });
+            imagepent2.setOpacity(0.3);
+            scene51.addChild(imagepent2);
             const image3 = new FFImage({
               path:
                 assetsPath +
