@@ -386,10 +386,10 @@ exports.createVideo = async (req, res, next) => {
 
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           const content = data.sceneData.content;
           const contentParts = content.split("\n");
@@ -602,10 +602,10 @@ exports.createVideo = async (req, res, next) => {
             }
           });
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var subtitleColor = data.sceneData.textColor;
           if (subtitleColor.length == "4") {
@@ -873,10 +873,10 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -1059,10 +1059,10 @@ exports.createVideo = async (req, res, next) => {
           });
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
 
           let result2 = data.sceneData.textArray[1].text.split(" ");
@@ -1090,10 +1090,10 @@ exports.createVideo = async (req, res, next) => {
           });
           var titleColor2 = data.sceneData.textArray[1].fontColor;
           if (titleColor2.length == "4") {
-            titleColor2 = titleColor2.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor2 = titleColor2.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
 
           if (data.sceneData.media[0].type == "image") {
@@ -1345,10 +1345,10 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -1543,10 +1543,10 @@ exports.createVideo = async (req, res, next) => {
           const sixVideo = await videoTemplate6(data);
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -1892,10 +1892,10 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           console.log(result);
@@ -2104,10 +2104,10 @@ exports.createVideo = async (req, res, next) => {
           });
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           if (data.sceneData.media[0].type == "image") {
             const scene4 = new FFScene();
@@ -2291,10 +2291,10 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           console.log(result);
@@ -2520,10 +2520,10 @@ exports.createVideo = async (req, res, next) => {
             }
           });
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var subtitleColor = data.sceneData.textColor;
           if (subtitleColor.length == "4") {
@@ -2836,10 +2836,10 @@ exports.createVideo = async (req, res, next) => {
 
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           const content = data.sceneData.content;
           const contentParts = content.split("\n");
@@ -3131,10 +3131,10 @@ exports.createVideo = async (req, res, next) => {
           const fourthVideo = await videoTemplate16(data);
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -3324,10 +3324,10 @@ exports.createVideo = async (req, res, next) => {
           const fourthVideo = await videoTemplate17(data);
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -3502,10 +3502,10 @@ exports.createVideo = async (req, res, next) => {
             }
           });
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var subtitleColor = data.sceneData.textColor;
           if (subtitleColor.length == "4") {
@@ -3802,10 +3802,10 @@ exports.createVideo = async (req, res, next) => {
 
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           const content = data.sceneData.content;
           const contentParts = content.split("\n");
@@ -4048,10 +4048,10 @@ exports.createVideo = async (req, res, next) => {
           const fourthVideo = await videoTemplate20(data);
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -4238,10 +4238,10 @@ exports.createVideo = async (req, res, next) => {
 
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           const content = data.sceneData.content;
           const contentParts = content.split("\n");
@@ -4391,10 +4391,10 @@ exports.createVideo = async (req, res, next) => {
             }
           });
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var subtitleColor = data.sceneData.textColor;
           if (subtitleColor.length == "4") {
@@ -4698,10 +4698,10 @@ exports.createVideo = async (req, res, next) => {
 
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           // const  content= data.sceneData.content;
           var content = data.sceneData.content.split(" ");
@@ -4909,10 +4909,10 @@ exports.createVideo = async (req, res, next) => {
 
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -5081,10 +5081,10 @@ exports.createVideo = async (req, res, next) => {
           const sixVideo = await videoTemplate25(data);
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -5226,10 +5226,10 @@ exports.createVideo = async (req, res, next) => {
 
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           const content = data.sceneData.content;
           const contentParts = content.split("\n");
@@ -5508,10 +5508,10 @@ exports.createVideo = async (req, res, next) => {
             }
           });
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var subtitleColor = data.sceneData.textColor;
           if (subtitleColor.length == "4") {
@@ -5825,10 +5825,10 @@ exports.createVideo = async (req, res, next) => {
 
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           // const  content= data.sceneData.content;
           var content = data.sceneData.content.split(" ");
@@ -6310,10 +6310,10 @@ exports.createVideo = async (req, res, next) => {
           const sixVideo = await videoTemplate30(data);
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -6502,10 +6502,10 @@ exports.createVideo = async (req, res, next) => {
           const fourthVideo = await videoTemplate16(data);
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -6707,10 +6707,10 @@ exports.createVideo = async (req, res, next) => {
 
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           const content = data.sceneData.content;
           const contentParts = content.split("\n");
@@ -6906,10 +6906,10 @@ exports.createVideo = async (req, res, next) => {
             }
           });
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var subtitleColor = data.sceneData.textColor;
           if (subtitleColor.length == "4") {
@@ -7192,10 +7192,10 @@ exports.createVideo = async (req, res, next) => {
 
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           // console.log(result);
@@ -7350,10 +7350,10 @@ exports.createVideo = async (req, res, next) => {
 
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           // console.log(result);
@@ -7508,10 +7508,10 @@ exports.createVideo = async (req, res, next) => {
           const fourthVideo = await videoTemplate36(data);
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -7700,10 +7700,10 @@ exports.createVideo = async (req, res, next) => {
 
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           const content = data.sceneData.content;
           const contentParts = content.split("\n");
@@ -7887,10 +7887,10 @@ exports.createVideo = async (req, res, next) => {
 
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           // const  content= data.sceneData.content;
           var content = data.sceneData.content.split(" ");
@@ -8146,10 +8146,10 @@ exports.createVideo = async (req, res, next) => {
             }
           });
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var subtitleColor = data.sceneData.textColor;
           if (subtitleColor.length == "4") {
@@ -8446,10 +8446,10 @@ exports.createVideo = async (req, res, next) => {
 
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           // const  content= data.sceneData.content;
           var content = data.sceneData.content.split(" ");
@@ -8823,10 +8823,10 @@ exports.createVideo = async (req, res, next) => {
 
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           // const  content= data.sceneData.content;
           var content = data.sceneData.content.split(" ");
@@ -9039,10 +9039,10 @@ exports.createVideo = async (req, res, next) => {
 
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           const content = data.sceneData.content;
           const contentParts = content.split("\n");
@@ -9232,10 +9232,10 @@ exports.createVideo = async (req, res, next) => {
             }
           });
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var subtitleColor = data.sceneData.textColor;
           if (subtitleColor.length == "4") {
@@ -9506,10 +9506,10 @@ exports.createVideo = async (req, res, next) => {
           const sixVideo = await videoTemplate44(data);
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -9688,10 +9688,10 @@ exports.createVideo = async (req, res, next) => {
 
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -9859,10 +9859,10 @@ exports.createVideo = async (req, res, next) => {
           const fourthVideo = await videoTemplate46(data);
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -10019,10 +10019,10 @@ exports.createVideo = async (req, res, next) => {
           });
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           const scene4 = new FFScene();
           const content = data.sceneData.textArray[0].text;
@@ -10221,10 +10221,10 @@ exports.createVideo = async (req, res, next) => {
             }
           });
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var subtitleColor = data.sceneData.textColor;
           if (subtitleColor.length == "4") {
@@ -10499,10 +10499,10 @@ exports.createVideo = async (req, res, next) => {
           const sixVideo = await videoTemplate49(data);
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -10635,10 +10635,10 @@ exports.createVideo = async (req, res, next) => {
           const fourthVideo = await videoTemplate50(data);
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -10772,10 +10772,10 @@ exports.createVideo = async (req, res, next) => {
           });
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
 
           let result2 = data.sceneData.textArray[1].text.split(" ");
@@ -10794,16 +10794,16 @@ exports.createVideo = async (req, res, next) => {
           });
           var titleColor2 = data.sceneData.textArray[1].fontColor;
           if (titleColor2.length == "4") {
-            titleColor2 = titleColor2.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor2 = titleColor2.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
 
           if (data.sceneData.media[0].type == "image") {
             const scene51 = new FFScene();
             scene51.setBgColor("#fff");
-          
+
 
 
             const image5 = new FFImage({
@@ -10867,7 +10867,18 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene51.addChild(image2);
-
+            const imageHome = new FFImage({
+              path: assetsPath + "home-con.png",
+              x: 300,
+            });
+            imageHome.addAnimate({
+              from: { y: -500 },
+              to: { y: 200 },
+              time: 1.5,
+              delay: 0.5,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(imageHome);
             const imagepent1 = new FFImage({
               path: assetsPath + "pentagon.png",
               x: 550,
@@ -11036,10 +11047,10 @@ exports.createVideo = async (req, res, next) => {
           });
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
 
           let result2 = data.sceneData.textArray[1].text.split(" ");
@@ -11058,10 +11069,10 @@ exports.createVideo = async (req, res, next) => {
           });
           var titleColor2 = data.sceneData.textArray[1].fontColor;
           if (titleColor2.length == "4") {
-            titleColor2 = titleColor2.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor2 = titleColor2.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
 
           if (data.sceneData.media[0].type == "image") {
@@ -11179,7 +11190,7 @@ exports.createVideo = async (req, res, next) => {
               y: 120,
             });
             textNext.alignCenter();
-            textNext.setStyle({ padding: [4, 20, 6, 20] }); 
+            textNext.setStyle({ padding: [4, 20, 6, 20] });
             textNext.setColor(titleColor);
             textNext.addEffect("backInLeft", 1.5, 1.0);
             textNext.setFont(selectedfonts);
@@ -11222,10 +11233,10 @@ exports.createVideo = async (req, res, next) => {
           });
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
 
           if (data.sceneData.media[0].type == "image") {
@@ -11436,10 +11447,10 @@ exports.createVideo = async (req, res, next) => {
           });
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
-            titleColor = titleColor.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
 
           var text1 = "";
@@ -11465,17 +11476,23 @@ exports.createVideo = async (req, res, next) => {
               }
             }
           });
+
           var titleColor2 = data.sceneData.textArray[1].fontColor;
+          console.log('here2')
+          console.log(titleColor2)
           if (titleColor2.length == "4") {
-            titleColor2 = titleColor2.replaceAll(
-              "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
-              "#$1$1$2$2$3$3"
-            );
+            titleColor2 = titleColor2.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
           }
+          console.log(titleColor2)
+          console.log('here2')
+          console.log(data.sceneData)
 
           if (data.sceneData.media[0].type == "image") {
             const scene51 = new FFScene();
-             scene51.setBgColor("#fff");
+            scene51.setBgColor("#fff");
 
 
             const image5 = new FFImage({
@@ -11539,6 +11556,18 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene51.addChild(image2);
+            const imageHome = new FFImage({
+              path: assetsPath + "home-con.png",
+              x: 1640,
+            });
+            imageHome.addAnimate({
+              from: { y: -500 },
+              to: { y: 200 },
+              time: 1.5,
+              delay: 0.5,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(imageHome);
             const imagepent1 = new FFImage({
               path: assetsPath + "pentagon.png",
               y: 250,
@@ -11591,7 +11620,7 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene51.addChild(image4);
-           
+
             const imagepent2 = new FFImage({
               path: assetsPath + "pentagon.png",
               y: 150,
@@ -11609,7 +11638,7 @@ exports.createVideo = async (req, res, next) => {
             scene51.addChild(imagepent2);
 
 
-            const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 45;
+            const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 25;
             const textNext = new FFText({
               text: text1,
               fontSize: fontSize1,
