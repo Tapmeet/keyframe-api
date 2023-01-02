@@ -8834,9 +8834,9 @@ exports.createVideo = async (req, res, next) => {
           var textcontent2 = "";
           var textcontent3 = "";
           for (var l = 0; l < content.length; l++) {
-            if (l >= 5 && l <= 11) {
+            if (l >= 5 && l <= 9) {
               textcontent2 = textcontent2 + content[l] + " ";
-            } else if (l > 11) {
+            } else if (l > 9) {
               textcontent3 = textcontent3 + content[l] + " ";
             } else {
               textcontent1 = textcontent1 + content[l] + " ";
@@ -10982,7 +10982,7 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene51.addChild(image8);
-            const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 45;
+            const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 35;
             const textNext = new FFText({
               text: result[0],
               fontSize: fontSize1,
@@ -11182,7 +11182,7 @@ exports.createVideo = async (req, res, next) => {
             scene51.addChild(image4);
 
 
-            const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 45;
+            const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 35;
             const textNext = new FFText({
               text: data.sceneData.textArray[0].text,
               fontSize: fontSize1,
