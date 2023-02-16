@@ -316,7 +316,9 @@ exports.createVideo = async (req, res, next) => {
 
     templatemainId = template.templateId;
     const lastScene = await Scene.findOne({ templateId: templateId });
-
+    
+    // console.log(templateBlock);
+    // return false
     const data = {
       templateBlock: templateBlock,
       template: template,
@@ -11031,6 +11033,7 @@ exports.createVideo = async (req, res, next) => {
           i++;
         }
         else if (templateBlock[i].sceneId == 52) {
+          console.log('here 52')
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate52(data);
           var result = data.sceneData.textArray[0].text.split(" ");
@@ -11938,8 +11941,9 @@ exports.createVideo = async (req, res, next) => {
           sceneLast.setDuration(3);
           creator.addChild(sceneLast);
           console.log('data2');
+          i++;
         }
-        i++;
+       
       }
       if (lastScene) {
         //  `console.log(lastScene.sceneData.textArray);
