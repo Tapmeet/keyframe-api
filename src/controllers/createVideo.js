@@ -340,6 +340,7 @@ exports.createVideo = async (req, res, next) => {
     } catch (err) {
       console.error(err);
     }
+   
     if (templateBlock) {
       const blockLength = parseFloat(templateBlock.length);
       console.log(blockLength);
@@ -10756,6 +10757,7 @@ exports.createVideo = async (req, res, next) => {
         } else if (templateBlock[i].sceneId == 51) {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate51(data);
+
           var result = data.sceneData.textArray[0].text.split(" ");
           let fontfamily = data.sceneData.textArray[0].fontFamily;
           let selectedfonts;
@@ -11211,6 +11213,7 @@ exports.createVideo = async (req, res, next) => {
             scene51.setTransition("squareswire", 0.5);
             scene51.setDuration(7.5);
             creator.addChild(scene51);
+            console.log('data.sceneData 52')
           }
           i++;
         }
@@ -11425,6 +11428,7 @@ exports.createVideo = async (req, res, next) => {
             scene51.setTransition("squareswire", 0.5);
             scene51.setDuration(7.5);
             creator.addChild(scene51);
+            console.log('data.sceneData 53')
           }
           i++;
         }
@@ -11682,9 +11686,260 @@ exports.createVideo = async (req, res, next) => {
             scene51.setTransition("squareswire", 0.5);
             scene51.setDuration(7.5);
             creator.addChild(scene51);
+            console.log('data.sceneData 54')
           }
           i++;
         }
+        else if (templateBlock[i].sceneId == 'last2') {   
+          let data = templateBlock[i];
+         console.log('data');
+          const lastVideo = await videoTemplateLast2(data);
+          if (data.sceneData.textArray[0] != undefined) {
+            var titleColor1 = data.sceneData.textArray[0].fontColor;
+            let fontfamily = data.sceneData.textArray[0].fontFamily;
+            var fontSize1 = parseFloat(data.sceneData.textArray[0].fontSize) + 15;
+            var selectedfonts1 = "";
+            fonts.map(function (font) {
+              if (font.family == fontfamily) {
+                if (data.sceneData.textArray[0].fontWeight == "lighter") {
+                  selectedfonts1 = font.lighter;
+                } else if (data.sceneData.textArray[0].fontWeight == "normal") {
+                  selectedfonts1 = font.file;
+                } else if (data.sceneData.textArray[0].fontWeight == "bold") {
+                  selectedfonts1 = font.bold;
+                }
+              }
+            });
+            if (titleColor1.length == "4") {
+              var $hex = titleColor1;
+              titleColor1 =
+                "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
+            }
+            var fieldText1 = data.sceneData.textArray[0].text;
+            if (selectedfonts1 == "") {
+              selectedfonts1 = fonts[0].file;
+            }
+          } else {
+            var fieldText1 = "";
+            var titleColor1 = "#00000";
+            var selectedfonts1 = fonts[0].file;
+            var fontSize1 = "20";
+          }
+          console.log('data1');
+          if (data.sceneData.textArray[1] != undefined) {
+            var fieldText2 = data.sceneData.textArray[1].text;
+            var titleColor2 = data.sceneData.textArray[1].fontColor;
+            let fontfamily = data.sceneData.textArray[1].fontFamily;
+            var fontSize2 = parseFloat(data.sceneData.textArray[1].fontSize) + 15;
+            var selectedfonts2 = "";
+            fonts.map(function (font) {
+              if (font.family == fontfamily) {
+                if (data.sceneData.textArray[1].fontWeight == "lighter") {
+                  selectedfonts2 = font.lighter;
+                } else if (data.sceneData.textArray[1].fontWeight == "normal") {
+                  selectedfonts2 = font.file;
+                } else if (data.sceneData.textArray[1].fontWeight == "bold") {
+                  selectedfonts2 = font.bold;
+                }
+              }
+            });
+            if (titleColor2.length == "4") {
+              var $hex = titleColor2;
+              titleColor2 =
+                "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
+            }
+            if (selectedfonts2 == "") {
+              selectedfonts2 = fonts[0].file;
+            }
+          } else {
+            var fieldText2 = "";
+            var titleColor2 = "#00000";
+            var selectedfonts2 = fonts[0].file;
+            let fontSize2 = "20";
+          }
+          if (data.sceneData.textArray[2] != undefined) {
+            var fieldText3 = data.sceneData.textArray[2].text;
+            var titleColor3 = data.sceneData.textArray[2].fontColor;
+            let fontfamily = data.sceneData.textArray[2].fontFamily;
+            var fontSize3 = parseFloat(data.sceneData.textArray[2].fontSize) + 15;
+            var selectedfonts3 = "";
+            fonts.map(function (font) {
+              if (font.family == fontfamily) {
+                if (data.sceneData.textArray[2].fontWeight == "lighter") {
+                  selectedfonts3 = font.lighter;
+                } else if (data.sceneData.textArray[2].fontWeight == "normal") {
+                  selectedfonts3 = font.file;
+                } else if (data.sceneData.textArray[2].fontWeight == "bold") {
+                  selectedfonts3 = font.bold;
+                }
+              }
+            });
+            if (titleColor3.length == "4") {
+              var $hex = titleColor3;
+              titleColor3 =
+                "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
+            }
+            if (selectedfonts3 == "") {
+              selectedfonts3 = fonts[0].file;
+            }
+          } else {
+            var fieldText3 = "";
+            var titleColor3 = "#00000";
+            var selectedfonts3 = fonts[0].file;
+            var fontSize3 = "30";
+          }
+          if (data.sceneData.textArray[3] != undefined) {
+            var fieldText4 = data.sceneData.textArray[3].text;
+            var titleColor4 = data.sceneData.textArray[3].fontColor;
+            let fontfamily = data.sceneData.textArray[3].fontFamily;
+            var fontSize4 = parseFloat(data.sceneData.textArray[3].fontSize) + 15;
+            var selectedfonts4 = "";
+            fonts.map(function (font) {
+              if (font.family == fontfamily) {
+                if (data.sceneData.textArray[3].fontWeight == "lighter") {
+                  selectedfonts4 = font.lighter;
+                } else if (data.sceneData.textArray[3].fontWeight == "normal") {
+                  selectedfonts4 = font.file;
+                } else if (data.sceneData.textArray[3].fontWeight == "bold") {
+                  selectedfonts4 = font.bold;
+                }
+              }
+            });
+            if (titleColor4.length == "4") {
+              var $hex = titleColor4;
+              titleColor4 =
+                "#" + $hex[1] + $hex[1] + $hex[2] + $hex[2] + $hex[3] + $hex[3];
+            }
+            if (selectedfonts4 == "") {
+              selectedfonts4 = fonts[0].file;
+            }
+          } else {
+            var fieldText4 = "";
+            var titleColor4 = "#00000";
+            var fontSize4 = "40";
+            var selectedfonts4 = fonts[0].file;
+          }
+          const sceneLast = new FFScene();
+          sceneLast.setBgColor("#fff");
+          const fbg1 = new FFImage({
+            path:
+              assetsPath +
+              "scenebglast2.jpg",
+            x: 980,
+            y: 540,
+          });
+          sceneLast.addChild(fbg1);
+          const fbgblue = new FFImage({
+            path:
+              assetsPath +
+              "bglastblue.png",
+            x: 490,
+            y: 540,
+          });
+          fbgblue.setOpacity(0.9);
+          sceneLast.addChild(fbgblue);
+          const fbggreen = new FFImage({
+            path:
+              assetsPath +
+              "bglastgreen.png",
+            x: 1470,
+            y: 540,
+          });
+          fbggreen.setOpacity(0.9);
+          sceneLast.addChild(fbggreen);
+          const fbgcircle = new FFImage({
+            path:
+              assetsPath +
+              "new-moon2.png",
+            x: 980,
+            y: 10,
+          });
+          sceneLast.addChild(fbgcircle);
+          const fbg = new FFImage({
+            path:
+              assetsPath +
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-imglast21.png",
+            x: 660,
+            y: 480,
+          });
+          fbg.addEffect("fadeInLeft", 0.6, 0.2);
+          sceneLast.addChild(fbg);
+          const fimg1 = new FFImage({
+            path:
+              assetsPath +
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-imglast22.png",
+            x: 1650,
+            y: 80,
+          });
+          
+          fimg1.addEffect("fadeIn", 1.5, 0.5);
+          sceneLast.addChild(fimg1);
+          const text = new FFText({
+            text: fieldText1,
+            fontSize: fontSize1,
+            x: 1060,
+            y: 360,
+          });
+          text.setColor(titleColor1);
+          text.setFont(selectedfonts1);
+          text.addEffect("fadeInRight", 1.1, 0.8);
+          sceneLast.addChild(text);
+
+          const text2 = new FFText({
+            text: fieldText2,
+            fontSize: fontSize2,
+            x: 1060,
+            y: 430,
+          });
+          text2.setColor(titleColor2);
+          text.setFont(selectedfonts2);
+          text2.addEffect("fadeInRight", 1.2, 0.9);
+          sceneLast.addChild(text2);
+
+          const text3 = new FFText({
+            text: fieldText3,
+            fontSize: fontSize3,
+            x: 1060,
+            y: 490,
+          });
+          text3.setColor(titleColor3);
+          text.setFont(selectedfonts3);
+          text3.addEffect("fadeInRight", 1.3, 1.0);
+          sceneLast.addChild(text3);
+
+          const text4 = new FFText({
+            text: fieldText4,
+            fontSize: fontSize4,
+            x: 1060,
+            y: 550,
+          });
+          text4.setColor(titleColor3);
+          text.setFont(selectedfonts4);
+          text4.addEffect("fadeInRight", 1.4, 1.1);
+          sceneLast.addChild(text4);
+          if (user.userPlan == 0) {
+            const watermark = new FFImage({
+              path: assetsPath + "reveoLogo.png",
+              x: 1680,
+              y: 50,
+            });
+            watermark.setOpacity(0.7);
+            watermark.setScale(0.5);
+            sceneLast.addChild(watermark);
+          }
+          sceneLast.setDuration(3);
+          creator.addChild(sceneLast);
+          console.log('data2');
+        }
+        i++;
       }
       if (lastScene) {
         //  `console.log(lastScene.sceneData.textArray);
@@ -12663,6 +12918,34 @@ exports.createVideo = async (req, res, next) => {
         mediaDate +
         "-544.png"
       );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-imglast21.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-imglast22.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-imglast1.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-imglast2.png"
+      );
       console.log("herer");
       const msg = {
         to: user.email,
@@ -13035,6 +13318,55 @@ global.videoTemplateLast = async function videoTemplateLast(data, req, res) {
                 "/template1/" +
                 mediaDate +
                 "-imglast2.png"
+              ); // save
+            setTimeout(function () {
+              resolve("done");
+            }, 500);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
+};
+global.videoTemplateLast2 = async function videoTemplateLast2(data, req, res) {
+  return new Promise((resolve) => {
+    Jimp.read(assetsPath + data.sceneData.media["0"].url)
+      .then((img) => {
+        img
+          .quality(60)
+          .scaleToFit(
+            450,
+            300,
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+          )
+          .write(
+            assetsPath +
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-imglast21.png"
+          ); // save
+        Jimp.read(assetsPath + data.sceneData.media["1"].url)
+          .then((img) => {
+            img
+              .quality(60)
+              .scaleToFit(
+                350,
+                120,
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+              )
+              .write(
+                assetsPath +
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-imglast22.png"
               ); // save
             setTimeout(function () {
               resolve("done");

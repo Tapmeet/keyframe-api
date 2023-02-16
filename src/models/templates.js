@@ -42,6 +42,10 @@ const templatesSchema = new mongoose.Schema({
   templateId: {
     type: String,
   },
+  lastSceneOption: {
+    type: Boolean,
+    default: false,
+  },
 
 }, {timestamps: true});
 
