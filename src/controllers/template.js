@@ -309,7 +309,6 @@ exports.getAdminTemplates = async function (req, res) {
  */
 
 exports.addAdminTemplates = async function (req, res) {
-  ///console.log(req.body);
   try {
     const sceneOrder = req.body.sceneOrder;
     //console.log(newArr);
@@ -370,20 +369,27 @@ exports.addAdminTemplates = async function (req, res) {
             templateId: tempateData._id,
           });
           let newblockData = await newBlock.save();
-
+          console.log(newblockData)
+          console.log('newblockData')
           blockData.push(newblockData);
         }
       });
-    const sceneData = await Scene.findOne({ templateId: "1" });
-    const newScene = new Scene({
-      sceneId: sceneData.sceneId,
-      templateId: tempateData._id,
-      sceneTitle: sceneData.sceneTitle,
-      sceneThumbnail: sceneData.sceneThumbnail,
-      sceneData: sceneData.sceneData,
-    });
-    const blockDatas = await newScene.save();
-    res.status(200).json({ message: "Template created", blockData: blockData });
+
+    if (!req.body.lastSceneOption) {
+      const sceneData = await Scene.findOne({ templateId: "1" });
+      const newScene = new Scene({
+        sceneId: sceneData.sceneId,
+        templateId: tempateData._id,
+        sceneTitle: sceneData.sceneTitle,
+        sceneThumbnail: sceneData.sceneThumbnail,
+        sceneData: sceneData.sceneData,
+      });
+      const blockDatas = await newScene.save();
+    }
+    console.log(blockData)
+    console.log('blockData')
+    setTimeout(function () { res.status(200).json({ message: "Template created", blockData: blockData }) }, 1000);
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
