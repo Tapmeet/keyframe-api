@@ -316,7 +316,7 @@ exports.createVideo = async (req, res, next) => {
 
     templatemainId = template.templateId;
     const lastScene = await Scene.findOne({ templateId: templateId });
-    
+
     // console.log(templateBlock);
     // return false
     const data = {
@@ -342,7 +342,7 @@ exports.createVideo = async (req, res, next) => {
     } catch (err) {
       console.error(err);
     }
-   
+
     if (templateBlock) {
       const blockLength = parseFloat(templateBlock.length);
       console.log(blockLength);
@@ -372,8 +372,9 @@ exports.createVideo = async (req, res, next) => {
         if (templateBlock[i].sceneId == 1) {
           // Resize Images for scene
           let data = templateBlock[i];
+          // console.log(data)
           const firstVideo = await videoTemplate1(data);
-          console.log(firstVideo);
+
           fontfamily = data.sceneData.fontFamily;
           fonts.map(function (font) {
             if (font.family == fontfamily) {
@@ -396,7 +397,7 @@ exports.createVideo = async (req, res, next) => {
           }
           const content = data.sceneData.content;
           const contentParts = content.split("\n");
-          console.log(contentParts);
+
           const scene1 = new FFScene();
           scene1.setBgColor("#fff");
 
@@ -446,7 +447,7 @@ exports.createVideo = async (req, res, next) => {
             watermark.setOpacity(0.7);
             watermark.setScale(0.5);
             scene1.addChild(watermark);
-            console.log("here");
+
           }
           const img4 = new FFImage({
             path:
@@ -560,20 +561,17 @@ exports.createVideo = async (req, res, next) => {
             from: { x: -960 },
             to: { x: 960 },
             time: 1,
-            delay: 3.5,
+            delay: parseFloat(data.sceneData.time) - 1,
             ease: "Cubic.InOut",
           });
           scene1.addChild(fcloud);
-          scene1.setDuration(4.5);
+          scene1.setDuration(data.sceneData.time);
           creator.addChild(scene1);
-          console.log(i);
-          console.log("scene1");
           i++;
-          console.log(i);
         } else if (templateBlock[i].sceneId == 2) {
           let data = templateBlock[i];
           const firstVideo = await videoTemplate2(data);
-          console.log(firstVideo);
+
           let titleColor;
           if (data.sceneData.titleColor) {
             titleColor = data.sceneData.titleColor;
@@ -864,11 +862,11 @@ exports.createVideo = async (req, res, next) => {
             from: { x: -960 },
             to: { x: 960 },
             time: 1,
-            delay: 5.5,
+            delay: parseFloat(data.sceneData.time) - 1,
             ease: "Cubic.InOut",
           });
           scene2.addChild(fcloud);
-          scene2.setDuration(6.5);
+          scene2.setDuration(data.sceneData.time);
           creator.addChild(scene2);
           // scene2.setTransition("fade", 1);
           i++;
@@ -1026,11 +1024,11 @@ exports.createVideo = async (req, res, next) => {
             from: { y: 1620 },
             to: { y: 540 },
             time: 1,
-            delay: 4.5,
+            delay: parseFloat(data.sceneData.time) - 1,
             ease: "Cubic.InOut",
           });
           scene3.addChild(fcloud2);
-          scene3.setDuration(5.5);
+          scene3.setDuration(data.sceneData.time);
           creator.addChild(scene3);
           i++;
         } else if (templateBlock[i].sceneId == 4) {
@@ -1335,12 +1333,12 @@ exports.createVideo = async (req, res, next) => {
               from: { y: 1620 },
               to: { y: 540 },
               time: 1,
-              delay: 6.5,
+              delay: parseFloat(data.sceneData.time) - 1,
               ease: "Cubic.InOut",
             });
             scene4.addChild(fcloud3);
 
-            scene4.setDuration(7.5);
+            scene4.setDuration(data.sceneData.time);
             creator.addChild(scene4);
           }
           i++;
@@ -1538,7 +1536,7 @@ exports.createVideo = async (req, res, next) => {
           });
           console.log("here");
           scene5.addChild(fcloud2);
-          scene5.setDuration(5);
+          scene5.setDuration(data.sceneData.time);
           creator.addChild(scene5);
           i++;
         } else if (templateBlock[i].sceneId == 6) {
@@ -1707,7 +1705,7 @@ exports.createVideo = async (req, res, next) => {
           scene6.addChild(fcloud3);
           scene6.setBgColor("#399891");
           // scene5.addChild(fcloud2);
-          scene6.setDuration(5.5);
+          scene6.setDuration(data.sceneData.time);
           creator.addChild(scene6);
           i++;
         } else if (templateBlock[i].sceneId == 7) {
@@ -1888,7 +1886,7 @@ exports.createVideo = async (req, res, next) => {
           scene6.addChild(fcloud3);
           scene6.setBgColor("#399891");
           // scene5.addChild(fcloud2);
-          scene6.setDuration(5.5);
+          scene6.setDuration(data.sceneData.time);
           creator.addChild(scene6);
           i++;
         } else if (templateBlock[i].sceneId == 8) {
@@ -2029,11 +2027,11 @@ exports.createVideo = async (req, res, next) => {
             from: { x: -1620 },
             to: { x: 960 },
             time: 1,
-            delay: 5,
+            delay: parseFloat(data.sceneData.time) - 1,
             ease: "Cubic.InOut",
           });
           scene3.addChild(fcloud2);
-          scene3.setDuration(6);
+          scene3.setDuration(data.sceneData.time);
           creator.addChild(scene3);
           i++;
         } else if (templateBlock[i].sceneId == 9) {
@@ -2073,7 +2071,7 @@ exports.createVideo = async (req, res, next) => {
             ease: "Cubic.InOut",
           });
           scene3.addChild(fcloud2);
-          scene3.setDuration(5);
+          scene3.setDuration(data.sceneData.time);
           creator.addChild(scene3);
           i++;
         } else if (templateBlock[i].sceneId == 10) {
@@ -2281,12 +2279,12 @@ exports.createVideo = async (req, res, next) => {
               from: { y: 1620 },
               to: { y: 540 },
               time: 1,
-              delay: 6.5,
+              delay: parseFloat(data.sceneData.time) - 1,
               ease: "Cubic.InOut",
             });
             scene4.addChild(fcloud3);
 
-            scene4.setDuration(7.5);
+            scene4.setDuration(data.sceneData.time);
             creator.addChild(scene4);
           }
           i++;
@@ -2424,11 +2422,11 @@ exports.createVideo = async (req, res, next) => {
             from: { x: -1620 },
             to: { x: 960 },
             time: 1,
-            delay: 5,
+            delay: parseFloat(data.sceneData.time) -1,
             ease: "Cubic.InOut",
           });
           scene3.addChild(fcloud2);
-          scene3.setDuration(6);
+          scene3.setDuration(data.sceneData.time);
           creator.addChild(scene3);
           i++;
         } else if (templateBlock[i].sceneId == 12) {
@@ -2478,11 +2476,11 @@ exports.createVideo = async (req, res, next) => {
               from: { x: -1620 },
               to: { x: 960 },
               time: 1,
-              delay: 4,
+              delay: parseFloat(data.sceneData.time) - 1,
               ease: "Cubic.InOut",
             });
             scene3.addChild(fcloud2);
-            scene3.setDuration(5);
+            scene3.setDuration(data.sceneData.time);
           }
           scene3.addChild(slide1);
           creator.addChild(scene3);
@@ -2814,10 +2812,9 @@ exports.createVideo = async (req, res, next) => {
             delay: 0.1,
             ease: "Cubic.InOut",
           });
-          console.log("here");
           scene2.addChild(fcloud2);
           scene2.addChild(fcloud);
-          scene2.setDuration(6.5);
+          scene2.setDuration(data.sceneData.time);
           creator.addChild(scene2);
           // scene2.setTransition("fade", 1);
           i++;
@@ -3002,7 +2999,7 @@ exports.createVideo = async (req, res, next) => {
           scene6.addChild(fcloud3);
           scene6.setBgColor("#399891");
           // scene5.addChild(fcloud2);
-          scene6.setDuration(5.5);
+          scene6.setDuration(data.sceneData.time);
           creator.addChild(scene6);
           i++;
         } else if (templateBlock[i].sceneId == 15) {
@@ -3121,12 +3118,12 @@ exports.createVideo = async (req, res, next) => {
             from: { y: 1620 },
             to: { y: 540 },
             time: 1,
-            delay: 5.5,
+            delay: parseFloat(data.sceneData.time) - 1,
             ease: "Cubic.InOut",
           });
           scene3.addChild(fcloud2);
           scene3.setTransition("fade", 0.5);
-          scene3.setDuration(6.5);
+          scene3.setDuration(data.sceneData.time);
           creator.addChild(scene3);
           i++;
         } else if (templateBlock[i].sceneId == 16) {
@@ -3313,12 +3310,12 @@ exports.createVideo = async (req, res, next) => {
               from: { y: 1620 },
               to: { y: 540 },
               time: 1,
-              delay: 6.5,
+              delay: parseFloat(data.sceneData.time) - 1,
               ease: "Cubic.InOut",
             });
             scene4.addChild(fcloud3);
 
-            scene4.setDuration(7.5);
+            scene4.setDuration(data.sceneData.time);
             creator.addChild(scene4);
           }
           i++;
@@ -3461,12 +3458,12 @@ exports.createVideo = async (req, res, next) => {
               from: { y: 1620 },
               to: { y: 540 },
               time: 1,
-              delay: 6.5,
+              delay:parseFloat(data.sceneData.time) - 1,
               ease: "Cubic.InOut",
             });
             scene4.addChild(fcloud3);
 
-            scene4.setDuration(7.5);
+            scene4.setDuration(data.sceneData.time);
             creator.addChild(scene4);
           }
           i++;
@@ -3778,11 +3775,11 @@ exports.createVideo = async (req, res, next) => {
             from: { x: -960 },
             to: { x: 960 },
             time: 1,
-            delay: 5.5,
+            delay: parseFloat(data.sceneData.time) - 1,
             ease: "Cubic.InOut",
           });
           scene2.addChild(fcloud);
-          scene2.setDuration(6.5);
+          scene2.setDuration(data.sceneData.time);
           creator.addChild(scene2);
           // scene2.setTransition("fade", 1);
           i++;
@@ -4037,11 +4034,11 @@ exports.createVideo = async (req, res, next) => {
             from: { x: -960 },
             to: { x: 960 },
             time: 1,
-            delay: 5.5,
+            delay: parseFloat(data.sceneData.time) - 1,
             ease: "Cubic.InOut",
           });
           scene2.addChild(fcloud);
-          scene2.setDuration(6.5);
+          scene2.setDuration(data.sceneData.time);
           creator.addChild(scene2);
           console.log("here19 end");
           // scene2.setTransition("fade", 1);
@@ -4214,12 +4211,12 @@ exports.createVideo = async (req, res, next) => {
               from: { y: 1620 },
               to: { y: 540 },
               time: 1,
-              delay: 4.5,
+              delay: parseFloat(data.sceneData.time) - 1,
               ease: "Cubic.InOut",
             });
             scene4.addChild(fcloud3);
 
-            scene4.setDuration(5.5);
+            scene4.setDuration(data.sceneData.time);
             creator.addChild(scene4);
           }
           i++;
@@ -4353,7 +4350,7 @@ exports.createVideo = async (req, res, next) => {
           // });
           // scene1.addChild(fcloud);
           scene1.setTransition("fade", 0.5);
-          scene1.setDuration(4.5);
+          scene1.setDuration(data.sceneData.time);
           creator.addChild(scene1);
           console.log(i);
           console.log("scene1");
@@ -4679,7 +4676,7 @@ exports.createVideo = async (req, res, next) => {
           // });
           // scene2.addChild(fcloud);
           scene2.setTransition("fade", 0.5);
-          scene2.setDuration(6.5);
+          scene2.setDuration(data.sceneData.time);
           creator.addChild(scene2);
           // scene2.setTransition("fade", 1);
           i++;
@@ -4900,7 +4897,7 @@ exports.createVideo = async (req, res, next) => {
           // });
           // scene1.addChild(fcloud);
           scene1.setTransition("fade", 0.5);
-          scene1.setDuration(4.5);
+          scene1.setDuration(data.sceneData.time);
           creator.addChild(scene1);
           console.log(i);
           console.log("scene1");
@@ -5075,7 +5072,7 @@ exports.createVideo = async (req, res, next) => {
             // });
             // scene4.addChild(fcloud3);
             scene4.setTransition("fade", 0.5);
-            scene4.setDuration(7.5);
+            scene4.setDuration(data.sceneData.time);
             creator.addChild(scene4);
           }
           i++;
@@ -5208,7 +5205,7 @@ exports.createVideo = async (req, res, next) => {
           scene6.setTransition("fade", 0.5);
           scene6.setBgColor("#399891");
           // scene5.addChild(fcloud2);
-          scene6.setDuration(5.5);
+          scene6.setDuration(data.sceneData.time);
           creator.addChild(scene6);
           i++;
         } else if (templateBlock[i].sceneId == 26) {
@@ -5473,7 +5470,7 @@ exports.createVideo = async (req, res, next) => {
           // });
           // scene2.addChild(fcloud);
           scene2.setTransition("fade", 0.5);
-          scene2.setDuration(6.5);
+          scene2.setDuration(data.sceneData.time);
           creator.addChild(scene2);
           // scene2.setTransition("fade", 1);
           i++;
@@ -5806,7 +5803,7 @@ exports.createVideo = async (req, res, next) => {
           // scene2.addChild(fcloud2);
           // scene2.addChild(fcloud);
           scene2.setTransition("fade", 0.5);
-          scene2.setDuration(6.5);
+          scene2.setDuration(data.sceneData.time);
           creator.addChild(scene2);
           // scene2.setTransition("fade", 1);
           i++;
@@ -6179,7 +6176,7 @@ exports.createVideo = async (req, res, next) => {
           // });
           // scene2.addChild(fcloud);
           scene2.setTransition("fade", 0.5);
-          scene2.setDuration(6.5);
+          scene2.setDuration(data.sceneData.time);
           creator.addChild(scene2);
           // scene2.setTransition("fade", 1);
           i++;
@@ -6305,7 +6302,7 @@ exports.createVideo = async (req, res, next) => {
           scene6.setTransition("fade", 0.5);
           scene6.setBgColor("#e04e1c");
           // scene5.addChild(fcloud2);
-          scene6.setDuration(5.5);
+          scene6.setDuration(data.sceneData.time);
           creator.addChild(scene6);
           i++;
         } else if (templateBlock[i].sceneId == 30) {
@@ -6497,7 +6494,7 @@ exports.createVideo = async (req, res, next) => {
           scene6.setBgColor("#e04e1c");
           scene6.setTransition("fade", 0.5);
           // scene5.addChild(fcloud2);
-          scene6.setDuration(5.5);
+          scene6.setDuration(data.sceneData.time);
           creator.addChild(scene6);
           i++;
         } else if (templateBlock[i].sceneId == 31) {
@@ -6688,7 +6685,7 @@ exports.createVideo = async (req, res, next) => {
             // });
             // scene4.addChild(fcloud3);
             scene4.setTransition("fade", 0.5);
-            scene4.setDuration(7.5);
+            scene4.setDuration(data.sceneData.time);
             creator.addChild(scene4);
           }
           i++;
@@ -6871,7 +6868,7 @@ exports.createVideo = async (req, res, next) => {
           // });
           // scene3.addChild(fcloud2);
           scene3.setTransition("fade", 0.5);
-          scene3.setDuration(6.5);
+          scene3.setDuration(data.sceneData.time);
           creator.addChild(scene3);
           i++;
         } else if (templateBlock[i].sceneId == 33) {
@@ -7182,11 +7179,11 @@ exports.createVideo = async (req, res, next) => {
             from: { x: -960 },
             to: { x: 960 },
             time: 1,
-            delay: 5.5,
+            delay: parseFloat(data.sceneData.time) - 1,
             ease: "Cubic.InOut",
           });
           scene2.addChild(fcloud);
-          scene2.setDuration(6.5);
+          scene2.setDuration(data.sceneData.time);
           creator.addChild(scene2);
           // scene2.setTransition("fade", 1);
           i++;
@@ -7340,12 +7337,12 @@ exports.createVideo = async (req, res, next) => {
             from: { y: 1620 },
             to: { y: 540 },
             time: 1,
-            delay: 5.5,
+            delay: parseFloat(data.sceneData.time) - 1,
             ease: "Cubic.InOut",
           });
           scene3.addChild(fcloud2);
           scene3.setTransition("fade", 0.5);
-          scene3.setDuration(6.5);
+          scene3.setDuration(data.sceneData.time);
           creator.addChild(scene3);
           i++;
         } else if (templateBlock[i].sceneId == 35) {
@@ -7498,12 +7495,12 @@ exports.createVideo = async (req, res, next) => {
             from: { y: 1620 },
             to: { y: 540 },
             time: 1,
-            delay: 5.5,
+            delay: parseFloat(data.sceneData.time) - 1,
             ease: "Cubic.InOut",
           });
           scene3.addChild(fcloud2);
           scene3.setTransition("fade", 0.5);
-          scene3.setDuration(6.5);
+          scene3.setDuration(data.sceneData.time);
           creator.addChild(scene3);
           i++;
         } else if (templateBlock[i].sceneId == 36) {
@@ -7674,12 +7671,12 @@ exports.createVideo = async (req, res, next) => {
               from: { y: 1620 },
               to: { y: 540 },
               time: 1,
-              delay: 4.5,
+              delay: parseFloat(data.sceneData.time) - 1,
               ease: "Cubic.InOut",
             });
             scene4.addChild(fcloud3);
 
-            scene4.setDuration(5.5);
+            scene4.setDuration(data.sceneData.time);
             creator.addChild(scene4);
           }
           i++;
@@ -7869,7 +7866,7 @@ exports.createVideo = async (req, res, next) => {
           }
           // add bottom cloud
           scene1.setTransition("fade", 1.5);
-          scene1.setDuration(5);
+          scene1.setDuration(data.sceneData.time);
           creator.addChild(scene1);
           i++;
         } else if (templateBlock[i].sceneId == 38) {
@@ -7901,9 +7898,9 @@ exports.createVideo = async (req, res, next) => {
           var textcontent2 = "";
           var textcontent3 = "";
           for (var l = 0; l < content.length; l++) {
-            if (l >= 10 && l <= 20) {
+            if (l >= 11 && l <= 21) {
               textcontent2 = textcontent2 + content[l] + " ";
-            } else if (l > 20) {
+            } else if (l > 21) {
               textcontent3 = textcontent3 + content[l] + " ";
             } else {
               textcontent1 = textcontent1 + content[l] + " ";
@@ -8109,7 +8106,7 @@ exports.createVideo = async (req, res, next) => {
           // });
           // scene1.addChild(fcloud);
           scene1.setTransition("fade", 0.5);
-          scene1.setDuration(4.5);
+          scene1.setDuration(data.sceneData.time);
           creator.addChild(scene1);
           console.log(i);
           console.log("scene1");
@@ -8426,7 +8423,7 @@ exports.createVideo = async (req, res, next) => {
           //   ease: "Cubic.InOut",
           // });
           // scene2.addChild(fcloud);
-          scene2.setDuration(6.5);
+          scene2.setDuration(data.sceneData.time);
           creator.addChild(scene2);
           scene2.setTransition("fade", 1.5);
           // scene2.setTransition("fade", 1);
@@ -8646,7 +8643,7 @@ exports.createVideo = async (req, res, next) => {
             watermark.setScale(0.5);
             scene2.addChild(watermark);
           }
-          scene2.setDuration(6.5);
+          scene2.setDuration(data.sceneData.time);
           creator.addChild(scene2);
           scene2.setTransition("fade", 1);
           i++;
@@ -9021,7 +9018,7 @@ exports.createVideo = async (req, res, next) => {
             watermark.setScale(0.5);
             scene2.addChild(watermark);
           }
-          scene2.setDuration(5.5);
+          scene2.setDuration(data.sceneData.time);
           creator.addChild(scene2);
           scene2.setTransition("Fade", 1);
           i++;
@@ -9197,7 +9194,7 @@ exports.createVideo = async (req, res, next) => {
           });
           scene3.addChild(scene3img);
           scene3.setTransition("PolkaDotsCurtain", 0.5);
-          scene3.setDuration(6.5);
+          scene3.setDuration(data.sceneData.time);
           creator.addChild(scene3);
           i++;
         } else if (templateBlock[i].sceneId == 43) {
@@ -9500,7 +9497,7 @@ exports.createVideo = async (req, res, next) => {
             ease: "Cubic.InOut",
           });
           scene2.addChild(fcloud1);
-          scene2.setDuration(6.5);
+          scene2.setDuration(data.sceneData.time);
           creator.addChild(scene2);
           scene2.setTransition("PolkaDotsCurtain", 1);
           i++;
@@ -9681,7 +9678,7 @@ exports.createVideo = async (req, res, next) => {
           scene6.setBgColor("#7fb9dc");
           // scene6.setTransition("zoomInDown", 0.5);
           // scene5.addChild(fcloud2);
-          scene6.setDuration(5.5);
+          scene6.setDuration(data.sceneData.time);
           scene6.setTransition("PolkaDotsCurtain", 0.5);
           creator.addChild(scene6);
           i++;
@@ -9853,7 +9850,7 @@ exports.createVideo = async (req, res, next) => {
             // });
             // scene4.addChild(fcloud3);
             scene4.setTransition("PolkaDotsCurtain", 0.5);
-            scene4.setDuration(7.5);
+            scene4.setDuration(data.sceneData.time);
             creator.addChild(scene4);
           }
           i++;
@@ -9999,7 +9996,7 @@ exports.createVideo = async (req, res, next) => {
             });
             scene4.addChild(fcloud2);
             scene4.setTransition("DoomScreenTransition", 0.5);
-            scene4.setDuration(5.5);
+            scene4.setDuration(data.sceneData.time);
             creator.addChild(scene4);
           }
           i++;
@@ -10185,7 +10182,7 @@ exports.createVideo = async (req, res, next) => {
           });
           scene4.addChild(fcloud2);
           scene4.setTransition("squareswire", 0.5);
-          scene4.setDuration(7.5);
+          scene4.setDuration(data.sceneData.time);
           creator.addChild(scene4);
           i++;
         } else if (templateBlock[i].sceneId == 48) {
@@ -10493,7 +10490,7 @@ exports.createVideo = async (req, res, next) => {
             watermark.setScale(0.5);
             scene2.addChild(watermark);
           }
-          scene2.setDuration(6.5);
+          scene2.setDuration(data.sceneData.time);
           creator.addChild(scene2);
           scene2.setTransition("PolkaDotsCurtain", 0.5);
           i++;
@@ -10630,7 +10627,7 @@ exports.createVideo = async (req, res, next) => {
           }
           scene6.setBgColor("#697784");
           scene6.setTransition("PolkaDotsCurtain", 0.5);
-          scene6.setDuration(5.5);
+          scene6.setDuration(data.sceneData.time);
           creator.addChild(scene6);
           i++;
         } else if (templateBlock[i].sceneId == 50) {
@@ -10752,7 +10749,7 @@ exports.createVideo = async (req, res, next) => {
               scene4.addChild(watermark);
             }
             scene4.setTransition("squareswire", 0.5);
-            scene4.setDuration(7.5);
+            scene4.setDuration(data.sceneData.time);
             creator.addChild(scene4);
           }
           i++;
@@ -11026,7 +11023,7 @@ exports.createVideo = async (req, res, next) => {
             textNext3.addEffect("backInLeft", 1.5, 1.0);
             scene51.addChild(textNext3);
             scene51.setTransition("squareswire", 0.5);
-            scene51.setDuration(7.5);
+            scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
             console.log('data.sceneData 1')
           }
@@ -11214,7 +11211,7 @@ exports.createVideo = async (req, res, next) => {
             textNext3.addEffect("backInRight", 1.5, 1.0);
             scene51.addChild(textNext3);
             scene51.setTransition("squareswire", 0.5);
-            scene51.setDuration(7.5);
+            scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
             console.log('data.sceneData 52')
           }
@@ -11429,7 +11426,7 @@ exports.createVideo = async (req, res, next) => {
             });
             scene51.addChild(image6);
             scene51.setTransition("squareswire", 0.5);
-            scene51.setDuration(7.5);
+            scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
             console.log('data.sceneData 53')
           }
@@ -11687,15 +11684,15 @@ exports.createVideo = async (req, res, next) => {
             textNext3.addEffect("backInRight", 1.5, 1.0);
             scene51.addChild(textNext3);
             scene51.setTransition("squareswire", 0.5);
-            scene51.setDuration(7.5);
+            scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
             console.log('data.sceneData 54')
           }
           i++;
         }
-        else if (templateBlock[i].sceneId == 'last2') {   
+        else if (templateBlock[i].sceneId == 'last2') {
           let data = templateBlock[i];
-         console.log('data');
+          console.log('data');
           const lastVideo = await videoTemplateLast2(data);
           if (data.sceneData.textArray[0] != undefined) {
             var titleColor1 = data.sceneData.textArray[0].fontColor;
@@ -11882,7 +11879,7 @@ exports.createVideo = async (req, res, next) => {
             x: 1650,
             y: 80,
           });
-          
+
           fimg1.addEffect("fadeIn", 1.5, 0.5);
           sceneLast.addChild(fimg1);
           const text = new FFText({
@@ -11943,7 +11940,7 @@ exports.createVideo = async (req, res, next) => {
           console.log('data2');
           i++;
         }
-       
+
       }
       if (lastScene) {
         //  `console.log(lastScene.sceneData.textArray);

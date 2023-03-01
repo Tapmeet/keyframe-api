@@ -311,7 +311,7 @@ exports.getAdminTemplates = async function (req, res) {
 exports.addAdminTemplates = async function (req, res) {
   try {
     const sceneOrder = req.body.sceneOrder;
-    //console.log(newArr);
+
     var scenes = [];
     await sceneOrder.map((data, index) => {
       scenes = [...scenes]; // copying the old datas array
@@ -369,13 +369,12 @@ exports.addAdminTemplates = async function (req, res) {
             templateId: tempateData._id,
           });
           let newblockData = await newBlock.save();
-          console.log(newblockData)
-          console.log('newblockData')
           blockData.push(newblockData);
         }
       });
 
-    if (!req.body.lastSceneOption) {
+    if (req.body.lastSceneOption == false) {
+
       const sceneData = await Scene.findOne({ templateId: "1" });
       const newScene = new Scene({
         sceneId: sceneData.sceneId,
@@ -386,8 +385,6 @@ exports.addAdminTemplates = async function (req, res) {
       });
       const blockDatas = await newScene.save();
     }
-    console.log(blockData)
-    console.log('blockData')
     setTimeout(function () { res.status(200).json({ message: "Template created", blockData: blockData }) }, 1000);
 
   } catch (error) {
