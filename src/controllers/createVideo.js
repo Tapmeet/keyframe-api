@@ -12993,21 +12993,21 @@ exports.createVideo = async (req, res, next) => {
         userId +
         "/template1/" +
         mediaDate +
-        "-401.png"
+        "-img401.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
         "/template1/" +
         mediaDate +
-        "-411.png"
+        "-img411.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
         "/template1/" +
         mediaDate +
-        "-421.png"
+        "-img421.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
@@ -13021,7 +13021,7 @@ exports.createVideo = async (req, res, next) => {
         userId +
         "/template1/" +
         mediaDate +
-        "-432.png"
+        "-img432.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
@@ -13035,220 +13035,220 @@ exports.createVideo = async (req, res, next) => {
         userId +
         "/template1/" +
         mediaDate +
-        "-442.png"
+        "-img442.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
         "/template1/" +
         mediaDate +
-        "-443.png"
+        "-img443.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
         "/template1/" +
         mediaDate +
-        "-451.png"
+        "-img451.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
         "/template1/" +
         mediaDate +
-        "-452.png"
+        "-img452.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
         "/template1/" +
         mediaDate +
-        "-461.png"
+        "-img461.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
         "/template1/" +
         mediaDate +
-        "-471.png"
+        "-img471.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
         "/template1/" +
         mediaDate +
-        "-472.png"
+        "-img472.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
         "/template1/" +
         mediaDate +
-        "-473.png"
+        "-img473.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
         "/template1/" +
         mediaDate +
-        "-491.png"
+        "-img491.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
         "/template1/" +
         mediaDate +
-        "-481.png"
+        "-img481.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
         "/template1/" +
         mediaDate +
-        "-482.png"
+        "-img482.png"
       );
+
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img511.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img512.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img513.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img514.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img515.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img516.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img521.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img522.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img523.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img524.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img531.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img532.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img541.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img542.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img543.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img544.png"
+      );
+
 
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
         "/template1/" +
         mediaDate +
-        "-511.png"
+        "-img551.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
         "/template1/" +
         mediaDate +
-        "-512.png"
+        "-img552.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
         "/template1/" +
         mediaDate +
-        "-513.png"
+        "-img553.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
         "/template1/" +
         mediaDate +
-        "-514.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-515.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-516.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-521.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-522.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-523.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-524.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-531.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-532.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-541.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-542.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-543.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-544.png"
-      );
-
-
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-551.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-552.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-553.png"
-      );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-554.png"
+        "-img554.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +
