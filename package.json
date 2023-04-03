@@ -41,7 +41,7 @@
     "passport-jwt": "^4.0.0",
     "paykickstart-ipn-validator": "^1.0.3",
     "react-data-table-component": "^7.0.0-alpha-5",
-    "sharp": "^0.30.7",
+    "sharp": "^0.32.0",
     "videoshow": "^0.1.12",
     "youtube-api": "^3.0.1"
   },
