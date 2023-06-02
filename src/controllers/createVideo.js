@@ -13592,6 +13592,744 @@ exports.createVideo = async (req, res, next) => {
           }
           i++;
         }
+        else if (templateBlock[i].sceneId == 64) {
+          let data = templateBlock[i];
+          const fourthVideo = await videoTemplate64(data);
+
+          //var result = data.sceneData.textArray[0].text.split(" ");
+          let selectedfonts1;
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          var titleColor1 = data.sceneData.textArray[0].fontColor;
+          if (titleColor1.length == "4") {
+            titleColor1 = getColor(titleColor);
+          }
+          let selectedfonts2 = '';
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+          var titleColor2 = data.sceneData.textArray[1].fontColor;
+          if (titleColor2.length == "4") {
+            titleColor2 = getColor(titleColor2);
+          }
+          let selectedfonts3;
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
+          var titleColor3 = data.sceneData.textArray[2].fontColor;
+          if (titleColor3.length == "4") {
+            titleColor3 = getColor(titleColor3);
+          }
+
+          const content = data.sceneData.textArray[3].text;
+          const contentParts = content.split("\n");
+          let selectedfonts4;
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          var titleColor4 = data.sceneData.textArray[3].fontColor;
+          if (titleColor4.length == "4") {
+            titleColor4 = getColor(titleColor4);
+          }
+
+          let selectedfonts5;
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
+          var titleColor5 = data.sceneData.textArray[4].fontColor;
+          if (titleColor5.length == "4") {
+            titleColor5 = getColor(titleColor5);
+          }
+
+
+
+          if (data.sceneData.media[0].type == "image") {
+
+            const scene51 = new FFScene();
+            scene51.setBgColor("#fff");
+            const slidebg = new FFImage({
+              path: assetsPath + "navyblue.png",
+              y: 720,
+              height: 730,
+              width: 1920
+            });
+            slidebg.addAnimate({
+              from: { x: -1200 },
+              to: { x: 960 },
+              time: 3,
+              delay: 0.2,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(slidebg);
+            const slidebg2 = new FFImage({
+              path: assetsPath + "cropped.jpg",
+              y: 720,
+              height: 640,
+              width: 900,
+              x: 1440
+            });
+            // slidebg2.addAnimate({
+            //   from: { x: 3000 },
+            //   to: { x: 1440 },
+            //   time: 3,
+            //   delay: 0.2,
+            //   ease: "Cubic.InOut",
+            // });
+            scene51.addChild(slidebg2);
+
+            const image5 = new FFImage({
+              path:
+                assetsPath +
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img641.png",
+              y: 150,
+            });
+            image5.addAnimate({
+              from: { x: -1560 },
+              to: { x: 960 },
+              time: 3,
+              delay: 0.2,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(image5);
+
+            const image3 = new FFImage({
+              path:
+                assetsPath +
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img642.png",
+              x: 490,
+            });
+            image3.addAnimate({
+              from: { y: -1500 },
+              to: { y: 720 },
+              time: 3,
+              delay: 0.2,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(image3);
+
+
+            const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 20;
+            const textOne = new FFText({
+              text: data.sceneData.textArray[0].text,
+              fontSize: fontSize1,
+              x: 1050,
+              y: 450,
+            });
+            textOne.setColor(titleColor1);
+            textOne.setFont(selectedfonts1);
+            textOne.addEffect("backInLeft", 1.5, 1.0);
+            scene51.addChild(textOne);
+
+
+
+            if (contentParts[2] != undefined && contentParts[2] != "") {
+              const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 20;
+              const text = new FFText({
+                text: contentParts[0],
+                fontSize: fontSize4,
+                x: 1050,
+                y: 600,
+              });
+              text.setColor(titleColor4);
+              text.setFont(selectedfonts4);
+              text.addEffect("fadeIn", 1, 1.3);
+              scene51.addChild(text);
+
+              const text2 = new FFText({
+                text: contentParts[1],
+                fontSize: fontSize4,
+                x: 1050,
+                y: 670,
+              });
+
+              text2.setColor(titleColor4);
+              text2.setFont(selectedfonts4);
+              text2.addEffect("fadeIn", 1.0, 1.4);
+              scene51.addChild(text2);
+
+              const text3 = new FFText({
+                text: contentParts[2],
+                fontSize: fontSize4,
+                x: 1050,
+                y: 730,
+              });
+              text3.setColor(titleColor4);
+              text3.setFont(selectedfonts4);
+              text3.addEffect("fadeIn", 1.0, 1.4);
+              scene51.addChild(text3);
+            } else {
+              const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 15;
+              console.log(fontSize4)
+              const text = new FFText({
+                text: contentParts[0],
+                fontSize: fontSize4,
+                x: 1050,
+                y: 630,
+              });
+              text.setColor(titleColor4);
+              text.setFont(selectedfonts4);
+              text.addEffect("fadeIn", 1, 1.3);
+              scene51.addChild(text);
+
+              const text2 = new FFText({
+                text: contentParts[1],
+                fontSize: fontSize4,
+                x: 1050,
+                y: 700,
+              });
+              text2.setColor(titleColor4);
+              text2.setFont(selectedfonts4);
+              text2.addEffect("fadeIn", 1.0, 1.4);
+              scene51.addChild(text2);
+            }
+
+            const fontSize5 = parseInt(data.sceneData.textArray[4].fontSize) + 15;
+            const text5 = new FFText({
+              text: data.sceneData.textArray[4].text,
+              fontSize: fontSize5,
+              x: 1050,
+              y: 900,
+            });
+
+            text5.setColor(titleColor5);
+            text5.setFont(selectedfonts5);
+            text5.addEffect("backInLeft", 1.5, 1.0);
+            scene51.addChild(text5);
+
+            console.log('herer')
+            scene51.setTransition("fade", 0.5);
+            scene51.setDuration(data.sceneData.time);
+            creator.addChild(scene51);
+            console.log('data.sceneData 1')
+          }
+          i++;
+        }
+        else if (templateBlock[i].sceneId == 65) {
+          let data = templateBlock[i];
+
+          const fourthVideo = await videoTemplate65(data);
+          console.log(data)
+          console.log('data')
+          //var result = data.sceneData.textArray[0].text.split(" ");
+          let selectedfonts1;
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          var titleColor1 = data.sceneData.textArray[0].fontColor;
+          if (titleColor1.length == "4") {
+            titleColor1 = getColor(titleColor);
+          }
+          let selectedfonts2 = '';
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+          var titleColor2 = data.sceneData.textArray[1].fontColor;
+          if (titleColor2.length == "4") {
+            titleColor2 = getColor(titleColor2);
+          }
+          let selectedfonts3;
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
+          var titleColor3 = data.sceneData.textArray[2].fontColor;
+          if (titleColor3.length == "4") {
+            titleColor3 = getColor(titleColor3);
+          }
+
+          const content = data.sceneData.textArray[3].text;
+          const contentParts = content.split("\n");
+          let selectedfonts4;
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          var titleColor4 = data.sceneData.textArray[3].fontColor;
+          if (titleColor4.length == "4") {
+            titleColor4 = getColor(titleColor4);
+          }
+
+          let selectedfonts5;
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
+          var titleColor5 = data.sceneData.textArray[4].fontColor;
+          if (titleColor5.length == "4") {
+            titleColor5 = getColor(titleColor5);
+          }
+
+
+
+          if (data.sceneData.media[0].type == "image") {
+            const scene51 = new FFScene();
+            scene51.setBgColor("#ffffff");
+            const blackline1 = new FFImage({
+              path: assetsPath + "blackline.png",
+              y: 400,
+              height: 2,
+              width: 1920
+            });
+            blackline1.addAnimate({
+              from: { x: -1600 },
+              to: { x: 960 },
+              time: 2,
+              delay: 0.1,
+              ease: "Cubic.InOut",
+            });
+            //blackstrip2.setOpacity(0.7);
+            scene51.addChild(blackline1);
+            const blackline2 = new FFImage({
+              path: assetsPath + "blackline.png",
+              y: 700,
+              height: 2,
+              width: 1920
+            });
+            blackline2.addAnimate({
+              from: { x: 3600 },
+              to: { x: 960 },
+              time: 2,
+              delay: 0.1,
+              ease: "Cubic.InOut",
+            });
+            //blackstrip2.setOpacity(0.7);
+            scene51.addChild(blackline2);
+
+            const blackline3 = new FFImage({
+              path: assetsPath + "blackline2.png",
+              x: 850,
+              height: 1080,
+              width: 2
+            });
+            blackline3.addAnimate({
+              from: { y: -600 },
+              to: { y: 540 },
+              time: 2,
+              delay: 0.1,
+              ease: "Cubic.InOut",
+            });
+            //blackstrip2.setOpacity(0.7);
+            scene51.addChild(blackline3);
+            const blackline4 = new FFImage({
+              path: assetsPath + "blackline2.png",
+              x: 1080,
+              height: 1080,
+              width: 2
+            });
+            blackline4.addAnimate({
+              from: { y: 1600 },
+              to: { y: 540 },
+              time: 2,
+              delay: 0.1,
+              ease: "Cubic.InOut",
+            });
+            //blackstrip2.setOpacity(0.7);
+            scene51.addChild(blackline4);
+
+
+            const image5 = new FFImage({
+              path:
+                assetsPath +
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img651.png",
+              x: 355,
+            });
+            image5.addAnimate({
+              from: { y: -1600 },
+              to: { y: 540 },
+              time: 3,
+              delay: 0.1,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(image5);
+            const image6 = new FFImage({
+              path:
+                assetsPath +
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img653.png",
+              x: 960,
+            });
+            image6.addAnimate({
+              from: { y: 2600 },
+              to: { y: 540 },
+              time: 3,
+              delay: 0.0,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(image6);
+            const image7 = new FFImage({
+              path:
+                assetsPath +
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img652.png",
+              x: 1565,
+            });
+            image7.addAnimate({
+              from: { y: -1000 },
+              to: { y: 540 },
+              time: 3,
+              delay: 0.0,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(image7);
+
+
+
+            const blackstrip = new FFImage({
+              path: assetsPath + "shortblue2.png",
+              x: 355,
+              height: 150,
+              width: 560
+            });
+            blackstrip.addAnimate({
+              from: { y: 2600 },
+              to: { y: 960 },
+              time: 2,
+              delay: 0.1,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(blackstrip);
+
+            const blackstrip2 = new FFImage({
+              path: assetsPath + "shortblue2.png",
+              x: 1565,
+              height: 150,
+              width: 560
+            });
+            blackstrip2.addAnimate({
+              from: { y: 2600 },
+              to: { y: 960 },
+              time: 2,
+              delay: 0.1,
+              ease: "Cubic.InOut",
+            });
+            //blackstrip2.setOpacity(0.7);
+            scene51.addChild(blackstrip2);
+
+            const blackstrip3 = new FFImage({
+              path: assetsPath + "shortblue2.png",
+              x: 960,
+              height: 150,
+              width: 560
+            });
+            blackstrip3.addAnimate({
+              from: { y: -260 },
+              to: { y: 120 },
+              time: 2,
+              delay: 0.1,
+              ease: "Cubic.InOut",
+            });
+            //blackstrip2.setOpacity(0.7);
+            scene51.addChild(blackstrip3);
+
+            const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 25;
+            const textOne = new FFText({
+              text: data.sceneData.textArray[0].text,
+              fontSize: fontSize1,
+              x: 960,
+              y: 125,
+            });
+            textOne.alignCenter();
+            textOne.setStyle({ padding: [4, 20, 6, 20] });
+            textOne.setColor(titleColor1);
+            textOne.setFont(selectedfonts1);
+            textOne.addEffect("backInDown", 1.5, 1.0);
+            scene51.addChild(textOne);
+
+            const fontSize2 = parseInt(data.sceneData.textArray[1].fontSize) + 15;
+            const textTwo = new FFText({
+              text: data.sceneData.textArray[1].text,
+              fontSize: fontSize2,
+              x: 355,
+              y: 970,
+            });
+            textTwo.alignCenter();
+            textTwo.setStyle({ padding: [4, 20, 20, 20] });
+            textTwo.setStyle({ height: 50 });
+            textTwo.setColor(titleColor2);
+            textTwo.setFont(selectedfonts2);
+            textTwo.addEffect("backInUp", 1.5, 1.0);
+            scene51.addChild(textTwo);
+
+
+            const fontSize3 = parseInt(data.sceneData.textArray[2].fontSize) + 15;
+            const text3o = new FFText({
+              text: data.sceneData.textArray[2].text,
+              fontSize: fontSize3,
+              x: 1565,
+              y: 970,
+            });
+            text3o.alignCenter();
+            text3o.setStyle({ padding: [4, 20, 6, 20] });
+            text3o.setColor(titleColor3);
+            text3o.setFont(selectedfonts3);
+            text3o.addEffect("backInUp", 1.5, 1.0);
+            scene51.addChild(text3o);
+            const blackstrip4 = new FFImage({
+              path: assetsPath + "shortblue2.png",
+              x: 960,
+              height: 250,
+              width: 560
+            });
+            blackstrip4.addAnimate({
+              from: { y: -260 },
+              to: { y: 640 },
+              time: 2,
+              delay: 0.1,
+              ease: "Cubic.InOut",
+            });
+            blackstrip4.setOpacity(0.7);
+            scene51.addChild(blackstrip4);
+
+            if (contentParts[2] != undefined && contentParts[2] != "") {
+              const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 15;
+              const text = new FFText({
+                text: contentParts[0],
+                fontSize: fontSize4,
+                x: 960,
+                y: 580,
+              });
+              text.setColor(titleColor4);
+              text.setFont(selectedfonts4);
+              text.addEffect("backInUp", 1, 1.3);
+              text.alignCenter();
+              text.setStyle({ padding: [0, 20, 10, 20] });
+              scene51.addChild(text);
+
+              const text2 = new FFText({
+                text: contentParts[1],
+                fontSize: fontSize4,
+                x: 960,
+                y: 640,
+              });
+              text2.alignCenter();
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor4);
+              text2.setFont(selectedfonts4);
+              text2.addEffect("backInUp", 1.0, 1.4);
+              scene51.addChild(text2);
+
+              const text3 = new FFText({
+                text: contentParts[2],
+                fontSize: fontSize4,
+                x: 960,
+                y: 700,
+              });
+              text3.alignCenter();
+              text3.setStyle({ padding: [4, 20, 6, 20] });
+              text3.setColor(titleColor4);
+              text3.setFont(selectedfonts4);
+              text3.addEffect("backInUp", 1.0, 1.4);
+              scene51.addChild(text3);
+            } else {
+              const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 15;
+              console.log(fontSize4)
+              const text = new FFText({
+                text: contentParts[0],
+                fontSize: fontSize4,
+                x: 960,
+                y: 620,
+              });
+              text.setColor(titleColor4);
+              text.setFont(selectedfonts4);
+              text.addEffect("backInUp", 1, 1.3);
+              text.alignCenter();
+              text.setStyle({ padding: [0, 20, 10, 20] });
+              scene51.addChild(text);
+
+              const text2 = new FFText({
+                text: contentParts[1],
+                fontSize: fontSize4,
+                x: 960,
+                y: 680,
+              });
+              text2.alignCenter();
+              text2.setStyle({ padding: [4, 20, 6, 20] });
+              text2.setColor(titleColor4);
+              text2.setFont(selectedfonts4);
+              text2.addEffect("backInUp", 1.0, 1.4);
+              scene51.addChild(text2);
+            }
+
+            // const fontSize5 = parseInt(data.sceneData.textArray[4].fontSize) + 15;
+            // const text5 = new FFText({
+            //   text: data.sceneData.textArray[4].text,
+            //   fontSize: fontSize5,
+            //   x: 960,
+            //   y: 980,
+            // });
+            // text5.alignCenter();
+            // text5.setStyle({ padding: [4, 20, 6, 20] });
+            // text5.setColor(titleColor5);
+            // text5.setFont(selectedfonts5);
+            // text5.addEffect("backInUp", 1.5, 1.0);
+            // scene51.addChild(text5);
+            scene51.setTransition("fade", 0.5);
+            scene51.setDuration(data.sceneData.time);
+            creator.addChild(scene51);
+
+          }
+          i++;
+        }
+        else if (templateBlock[i].sceneId == 66) {
+          let data = templateBlock[i];
+          const fourthVideo = await videoTemplate66(data);
+
+          var result = data.sceneData.textArray[0].text.split(" ");
+          let selectedfonts1;
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          var titleColor1 = data.sceneData.textArray[0].fontColor;
+          if (titleColor1.length == "4") {
+            titleColor1 = getColor(titleColor);
+          }
+
+
+          if (data.sceneData.media[0].type == "image") {
+            const scene51 = new FFScene();
+            scene51.setBgColor("#fff");
+            const image5 = new FFImage({
+              path:
+                assetsPath +
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img661.png",
+              y: 280,
+            });
+            image5.addAnimate({
+              from: { x: -1600 },
+              to: { x: 1340 },
+              time: 3,
+              delay: 0.2,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(image5);
+
+
+            const image = new FFImage({
+              path: assetsPath + "brick-wall-texture.jpg",
+              y: 540,
+              height: 1080,
+              width: 800,
+            });
+            image.addAnimate({
+              from: { x: -960 },
+              to: { x: 310 },
+              time: 1.5,
+              delay: 0.1,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(image);
+
+
+            const imageline1 = new FFImage({
+              path: assetsPath + "line.png",
+              y: 360,
+            });
+            imageline1.addAnimate({
+              from: { x: -960 },
+              to: { x: 150 },
+              time: 1.5,
+              delay: 0.1,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(imageline1);
+
+
+            const imageline2 = new FFImage({
+              path: assetsPath + "line.png",
+              y: 360,
+            });
+            imageline2.addAnimate({
+              from: { x: -960 },
+              to: { x: 550 },
+              time: 1.5,
+              delay: 0.1,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(imageline2);
+
+            const imagebrown = new FFImage({
+              path: assetsPath + "brownnglight12.png",
+              y: 540,
+
+            });
+            imagebrown.addAnimate({
+              from: { x: -960 },
+              to: { x: 340 },
+              time: 1.5,
+              delay: 0.1,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(imagebrown);
+
+            const image3 = new FFImage({
+              path:
+                assetsPath +
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img662.png",
+              x: 1050,
+            });
+            image3.addAnimate({
+              from: { y: -1600 },
+              to: { y: 820 },
+              time: 3,
+              delay: 0.2,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(image3);
+            const image4 = new FFImage({
+              path:
+                assetsPath +
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img663.png",
+              y: 820,
+            });
+            image4.addAnimate({
+              from: { x: 2600 },
+              to: { x: 1710 },
+              time: 3,
+              delay: 0.2,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(image4);
+            const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 35;
+            const textOne = new FFText({
+              text: result[0],
+              fontSize: fontSize1,
+              x: 340,
+              y: 490,
+            });
+            textOne.alignCenter();
+            textOne.setStyle({ padding: [4, 20, 6, 20] });
+            textOne.setColor(titleColor1);
+            textOne.setFont(selectedfonts1);
+            textOne.addEffect("backInLeft", 1.5, 1.0);
+            scene51.addChild(textOne);
+
+            const textOne2 = new FFText({
+              text: result[1],
+              fontSize: fontSize1,
+              x: 340,
+              y: 570,
+            });
+            textOne2.alignCenter();
+            textOne2.setStyle({ padding: [4, 20, 6, 20] });
+            textOne2.setColor(titleColor1);
+            textOne2.setFont(selectedfonts1);
+            textOne2.addEffect("backInLeft", 1.5, 1.0);
+            scene51.addChild(textOne2);
+
+
+            scene51.setTransition("fade", 0.5);
+            scene51.setDuration(data.sceneData.time);
+            creator.addChild(scene51);
+            console.log('data.sceneData 1')
+          }
+          i++;
+        }
         else if (templateBlock[i].sceneId == 67) {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate67(data);
@@ -13795,7 +14533,7 @@ exports.createVideo = async (req, res, next) => {
               delay: 0.1,
               ease: "Cubic.InOut",
             });
-        
+
             imagepenta.setOpacity(0.5);
 
             const image1 = new FFImage({
@@ -13835,8 +14573,8 @@ exports.createVideo = async (req, res, next) => {
             });
             scene51.addChild(image21);
 
-            
-           // imagepenta.setScale(0.5);
+
+            // imagepenta.setScale(0.5);
             scene51.addChild(imagepenta);
             const image3 = new FFImage({
               path:
@@ -13930,6 +14668,143 @@ exports.createVideo = async (req, res, next) => {
             creator.addChild(scene51);
             console.log('data.sceneData 52')
           }
+          i++;
+        }
+        else if (templateBlock[i].sceneId == 69) {
+          let data = templateBlock[i];
+          var result = data.sceneData.textArray[0].text.split(" ");
+          let fontfamily = data.sceneData.textArray[0].fontFamily;
+          let selectedfonts;
+
+          fonts.map(function (font) {
+            if (font.family == fontfamily) {
+              if (data.sceneData.textArray[0].fontWeight == "lighter") {
+                selectedfonts = font.lighter;
+              } else if (data.sceneData.textArray[0].fontWeight == "normal") {
+                selectedfonts = font.file;
+              } else if (data.sceneData.textArray[0].fontWeight == "bold") {
+                selectedfonts = font.bold;
+              }
+            }
+          });
+          var titleColor = data.sceneData.textArray[0].fontColor;
+          if (titleColor.length == "4") {
+            titleColor = titleColor.split("").map((item) => {
+              if (item == "#") { return item }
+              return item + item;
+            }).join("")
+          }
+
+
+          const firstVideo15 = await videoTemplate69(data);
+          const scene3 = new FFScene();
+          const slide1 = new FFImage({
+            path:
+              assetsPath +
+              "template/videos/" +
+              userId +
+              "/template1/" +
+              mediaDate +
+              "-img691.png",
+            y: 540,
+            x: 960,
+          });
+          slide1.addEffect("zoomingIn", 3.5, 1);
+          scene3.addChild(slide1);
+          const fimg2 = new FFImage({
+            path: assetsPath + "footertemplte-3.png",
+            y: 808,
+            x: 960,
+            height: 550,
+            width: 1920
+          });
+          // fimg2.addAnimate({
+          //   from: { x: 2660 },
+          //   to: { x: 960 },
+          //   time: 1,
+          //   delay: 0.5,
+          //   ease: "Cubic.InOut",
+          // });
+
+          scene3.addChild(fimg2);
+          const fimg3 = new FFImage({
+            path: assetsPath + "cropped-white-3.jpg",
+            x: 1300,
+            height: 290,
+            width: 550
+          });
+          fimg3.addAnimate({
+            from: { y: 1620 },
+            to: { y: 800 },
+            time: 2,
+            delay: 0.1,
+            ease: "Cubic.InOut",
+          });
+          // fimg3.addEffect("fadeIn", 1.5, 1.5);
+          scene3.addChild(fimg3);
+          const slide2 = new FFImage({
+            path: assetsPath + "maroonglight1.png",
+            x: 1300,
+          });
+          slide2.addAnimate({
+            from: { y: 1620 },
+            to: { y: 800 },
+            time: 2,
+            delay: 0.1,
+            ease: "Cubic.InOut",
+          });
+          scene3.addChild(slide2);
+          const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 25;
+          const textNext = new FFText({
+            text: result[0],
+            fontSize: fontSize1,
+            x: 1300,
+            y: 740,
+          });
+          textNext.alignCenter();
+          textNext.setStyle({ padding: [4, 20, 6, 20] });
+          textNext.setColor(titleColor);
+          textNext.addEffect("backInLeft", 1.5, 1.0);
+          textNext.setFont(selectedfonts);
+          scene3.addChild(textNext);
+          const textNext2 = new FFText({
+            text: result[1],
+            fontSize: fontSize1,
+            x: 1300,
+            y: 840,
+          });
+          textNext2.alignCenter();
+          textNext2.setStyle({ padding: [4, 20, 6, 20] });
+          textNext2.setColor(titleColor);
+          textNext2.addEffect("backInLeft", 1.5, 1.0);
+          textNext2.setFont(selectedfonts);
+          scene3.addChild(textNext2);
+          if (user.userPlan == 0) {
+            const watermark = new FFImage({
+              path: assetsPath + "reveoLogo.png",
+              x: 1680,
+              y: 50,
+            });
+            watermark.setOpacity(0.7);
+            watermark.setScale(0.5);
+            scene3.addChild(watermark);
+          }
+
+          const scene3img = new FFImage({
+            path: assetsPath + "cropped.jpg",
+            x: 960,
+          });
+          scene3img.addAnimate({
+            from: { y: 540 },
+            to: { y: -2000 },
+            time: 1.2,
+            delay: 0.5,
+            ease: "Cubic.InOut",
+          });
+          scene3.addChild(scene3img);
+          scene3.setTransition("PolkaDotsCurtain", 0.5);
+          scene3.setDuration(data.sceneData.time);
+          creator.addChild(scene3);
           i++;
         }
 
@@ -15049,6 +15924,68 @@ exports.createVideo = async (req, res, next) => {
       );
 
 
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img681.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img682.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img683.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img684.png"
+      );
+
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img691.png"
+      );
+
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img651.png"
+      );
+
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img652.png"
+      );
+
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img653.png"
+      );
+
+
 
 
       deleteFiles(
@@ -15092,6 +16029,22 @@ exports.createVideo = async (req, res, next) => {
         "/template1/" +
         mediaDate +
         "-img686.png"
+      );
+
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img641.png"
+      );
+
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img642.png"
       );
 
       deleteFiles(
@@ -15159,7 +16112,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
           .cover(
             950,
             530,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -15176,7 +16129,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
               .cover(
                 950,
                 530,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -15193,7 +16146,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                   .cover(
                     950,
                     530,
-                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
                   )
                   .write(
                     assetsPath +
@@ -15211,7 +16164,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
                         950,
                         530,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
-                        Jimp.VERTICAL_ALIGN_CENTER
+                        Jimp.VERTICAL_ALIGN_MIDDLE
                       )
                       .write(
                         assetsPath +
@@ -15253,7 +16206,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
           .cover(
             960,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -15270,7 +16223,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
               .cover(
                 960,
                 1080,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -15287,7 +16240,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
                   .cover(
                     960,
                     1080,
-                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
                   )
                   .write(
                     assetsPath +
@@ -15305,7 +16258,7 @@ global.videoTemplate4 = async function videoTemplate4(data, req, res) {
                         960,
                         1080,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
-                        Jimp.VERTICAL_ALIGN_CENTER
+                        Jimp.VERTICAL_ALIGN_MIDDLE
                       )
                       .write(
                         assetsPath +
@@ -15347,7 +16300,7 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
           .scaleToFit(
             1920,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -15364,7 +16317,7 @@ global.videoTemplate2 = async function videoTemplate2(data, req, res) {
               .scaleToFit(
                 1920,
                 1080,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -15397,7 +16350,7 @@ global.videoTemplate10 = async function videoTemplate10(data, req, res) {
           .cover(
             960,
             540,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -15414,7 +16367,7 @@ global.videoTemplate10 = async function videoTemplate10(data, req, res) {
               .cover(
                 960,
                 540,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -15431,7 +16384,7 @@ global.videoTemplate10 = async function videoTemplate10(data, req, res) {
                   .cover(
                     960,
                     1080,
-                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
                   )
                   .write(
                     assetsPath +
@@ -15468,7 +16421,7 @@ global.videoTemplateLast = async function videoTemplateLast(data, req, res) {
           .scaleToFit(
             450,
             300,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -15485,7 +16438,7 @@ global.videoTemplateLast = async function videoTemplateLast(data, req, res) {
               .scaleToFit(
                 350,
                 120,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -15517,7 +16470,7 @@ global.videoTemplateLast2 = async function videoTemplateLast2(data, req, res) {
           .scaleToFit(
             450,
             300,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -15534,7 +16487,7 @@ global.videoTemplateLast2 = async function videoTemplateLast2(data, req, res) {
               .scaleToFit(
                 350,
                 120,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -15577,7 +16530,7 @@ global.videoTemplate6 = async function videoTemplate6(data, req, res) {
           .cover(
             1368,
             768,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -15606,7 +16559,7 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
           .cover(
             640,
             360,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -15623,7 +16576,7 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
               .cover(
                 640,
                 360,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -15640,7 +16593,7 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
                   .cover(
                     640,
                     360,
-                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
                   )
                   .write(
                     assetsPath +
@@ -15658,7 +16611,7 @@ global.videoTemplate7 = async function videoTemplate7(data, req, res) {
                         640,
                         360,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
-                        Jimp.VERTICAL_ALIGN_CENTER
+                        Jimp.VERTICAL_ALIGN_MIDDLE
                       )
                       .write(
                         assetsPath +
@@ -15699,7 +16652,7 @@ global.videoTemplate13 = async function videoTemplate13(data, req, res) {
           .cover(
             1368,
             768,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -15716,7 +16669,7 @@ global.videoTemplate13 = async function videoTemplate13(data, req, res) {
               .cover(
                 1368,
                 768,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -15748,7 +16701,7 @@ global.videoTemplate15 = async function videoTemplate15(data, req, res) {
           .cover(
             1920,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -15765,7 +16718,7 @@ global.videoTemplate15 = async function videoTemplate15(data, req, res) {
               .cover(
                 1920,
                 1080,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -15797,7 +16750,7 @@ global.videoTemplate16 = async function videoTemplate16(data, req, res) {
           .cover(
             920,
             1030,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -15814,7 +16767,7 @@ global.videoTemplate16 = async function videoTemplate16(data, req, res) {
               .cover(
                 920,
                 1030,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -15847,7 +16800,7 @@ global.videoTemplate17 = async function videoTemplate17(data, req, res) {
           .cover(
             1140,
             1000,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -15864,7 +16817,7 @@ global.videoTemplate17 = async function videoTemplate17(data, req, res) {
               .cover(
                 620,
                 1000,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -15896,7 +16849,7 @@ global.videoTemplate18 = async function videoTemplate18(data, req, res) {
           .cover(
             1200,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -15913,7 +16866,7 @@ global.videoTemplate18 = async function videoTemplate18(data, req, res) {
               .cover(
                 1200,
                 1080,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -15946,7 +16899,7 @@ global.videoTemplate19 = async function videoTemplate19(data, req, res) {
           .cover(
             1200,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -15963,7 +16916,7 @@ global.videoTemplate19 = async function videoTemplate19(data, req, res) {
               .cover(
                 1200,
                 1080,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -15996,7 +16949,7 @@ global.videoTemplate20 = async function videoTemplate20(data, req, res) {
           .cover(
             1860,
             1020,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16025,7 +16978,7 @@ global.videoTemplate22 = async function videoTemplate22(data, req, res) {
           .cover(
             1200,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16042,7 +16995,7 @@ global.videoTemplate22 = async function videoTemplate22(data, req, res) {
               .cover(
                 1200,
                 1080,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -16074,7 +17027,7 @@ global.videoTemplate25 = async function videoTemplate25(data, req, res) {
           .cover(
             1550,
             850,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16102,7 +17055,7 @@ global.videoTemplate24 = async function videoTemplate24(data, req, res) {
           .cover(
             960,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16119,7 +17072,7 @@ global.videoTemplate24 = async function videoTemplate24(data, req, res) {
               .cover(
                 960,
                 1080,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -16152,7 +17105,7 @@ global.videoTemplate26 = async function videoTemplate26(data, req, res) {
           .cover(
             900,
             506,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16169,7 +17122,7 @@ global.videoTemplate26 = async function videoTemplate26(data, req, res) {
               .cover(
                 900,
                 506,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -16187,7 +17140,7 @@ global.videoTemplate26 = async function videoTemplate26(data, req, res) {
                   .cover(
                     900,
                     506,
-                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
                   )
                   .write(
                     assetsPath +
@@ -16223,7 +17176,7 @@ global.videoTemplate27 = async function videoTemplate27(data, req, res) {
           .cover(
             1368,
             768,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16240,7 +17193,7 @@ global.videoTemplate27 = async function videoTemplate27(data, req, res) {
               .cover(
                 1368,
                 768,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -16273,7 +17226,7 @@ global.videoTemplate28 = async function videoTemplate28(data, req, res) {
           .cover(
             900,
             506,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16290,7 +17243,7 @@ global.videoTemplate28 = async function videoTemplate28(data, req, res) {
               .cover(
                 900,
                 506,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -16308,7 +17261,7 @@ global.videoTemplate28 = async function videoTemplate28(data, req, res) {
                   .cover(
                     900,
                     506,
-                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
                   )
                   .write(
                     assetsPath +
@@ -16344,7 +17297,7 @@ global.videoTemplate29 = async function videoTemplate29(data, req, res) {
           .cover(
             840,
             470,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16361,7 +17314,7 @@ global.videoTemplate29 = async function videoTemplate29(data, req, res) {
               .cover(
                 840,
                 470,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -16378,7 +17331,7 @@ global.videoTemplate29 = async function videoTemplate29(data, req, res) {
                   .cover(
                     840,
                     470,
-                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
                   )
                   .write(
                     assetsPath +
@@ -16396,7 +17349,7 @@ global.videoTemplate29 = async function videoTemplate29(data, req, res) {
                         840,
                         470,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
-                        Jimp.VERTICAL_ALIGN_CENTER
+                        Jimp.VERTICAL_ALIGN_MIDDLE
                       )
                       .write(
                         assetsPath +
@@ -16437,7 +17390,7 @@ global.videoTemplate30 = async function videoTemplate30(data, req, res) {
           .cover(
             1000,
             720,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16454,7 +17407,7 @@ global.videoTemplate30 = async function videoTemplate30(data, req, res) {
               .cover(
                 1000,
                 720,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -16472,7 +17425,7 @@ global.videoTemplate30 = async function videoTemplate30(data, req, res) {
                   .cover(
                     1000,
                     720,
-                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
                   )
                   .write(
                     assetsPath +
@@ -16508,7 +17461,7 @@ global.videoTemplate33 = async function videoTemplate33(data, req, res) {
           .cover(
             1200,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16525,7 +17478,7 @@ global.videoTemplate33 = async function videoTemplate33(data, req, res) {
               .cover(
                 1200,
                 1080,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -16558,7 +17511,7 @@ global.videoTemplate36 = async function videoTemplate36(data, req, res) {
           .cover(
             1860,
             1020,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16586,7 +17539,7 @@ global.videoTemplate32 = async function videoTemplate32(data, req, res) {
           .cover(
             1920,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16603,7 +17556,7 @@ global.videoTemplate32 = async function videoTemplate32(data, req, res) {
               .cover(
                 1920,
                 1080,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -16635,7 +17588,7 @@ global.videoTemplate34 = async function videoTemplate34(data, req, res) {
           .cover(
             1920,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16652,7 +17605,7 @@ global.videoTemplate34 = async function videoTemplate34(data, req, res) {
               .cover(
                 650,
                 365,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -16684,7 +17637,7 @@ global.videoTemplate35 = async function videoTemplate35(data, req, res) {
           .cover(
             1920,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16701,7 +17654,7 @@ global.videoTemplate35 = async function videoTemplate35(data, req, res) {
               .cover(
                 650,
                 365,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -16733,7 +17686,7 @@ global.videoTemplate37 = async function videoTemplate37(data, req, res) {
           .cover(
             950,
             530,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16750,7 +17703,7 @@ global.videoTemplate37 = async function videoTemplate37(data, req, res) {
               .cover(
                 950,
                 530,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -16767,7 +17720,7 @@ global.videoTemplate37 = async function videoTemplate37(data, req, res) {
                   .cover(
                     950,
                     530,
-                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
                   )
                   .write(
                     assetsPath +
@@ -16803,7 +17756,7 @@ global.videoTemplate39 = async function videoTemplate39(data, req, res) {
           .cover(
             1200,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16820,7 +17773,7 @@ global.videoTemplate39 = async function videoTemplate39(data, req, res) {
               .cover(
                 1200,
                 1080,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -16852,7 +17805,7 @@ global.videoTemplate40 = async function videoTemplate40(data, req, res) {
           .cover(
             960,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16880,7 +17833,7 @@ global.videoTemplate41 = async function videoTemplate41(data, req, res) {
           .cover(
             1200,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16909,7 +17862,7 @@ global.videoTemplate42 = async function videoTemplate42(data, req, res) {
           .cover(
             1920,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16938,7 +17891,7 @@ global.videoTemplate43 = async function videoTemplate43(data, req, res) {
           .cover(
             1200,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -16955,7 +17908,7 @@ global.videoTemplate43 = async function videoTemplate43(data, req, res) {
               .cover(
                 1200,
                 1080,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -16988,7 +17941,7 @@ global.videoTemplate44 = async function videoTemplate44(data, req, res) {
           .cover(
             1000,
             720,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -17005,7 +17958,7 @@ global.videoTemplate44 = async function videoTemplate44(data, req, res) {
               .cover(
                 1000,
                 720,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -17023,7 +17976,7 @@ global.videoTemplate44 = async function videoTemplate44(data, req, res) {
                   .cover(
                     1000,
                     720,
-                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
                   )
                   .write(
                     assetsPath +
@@ -17059,7 +18012,7 @@ global.videoTemplate45 = async function videoTemplate45(data, req, res) {
           .cover(
             960,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -17076,7 +18029,7 @@ global.videoTemplate45 = async function videoTemplate45(data, req, res) {
               .cover(
                 960,
                 1080,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -17108,7 +18061,7 @@ global.videoTemplate46 = async function videoTemplate46(data, req, res) {
           .cover(
             1860,
             1020,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -17136,7 +18089,7 @@ global.videoTemplate47 = async function videoTemplate47(data, req, res) {
           .cover(
             960,
             540,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -17153,7 +18106,7 @@ global.videoTemplate47 = async function videoTemplate47(data, req, res) {
               .cover(
                 960,
                 540,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -17170,7 +18123,7 @@ global.videoTemplate47 = async function videoTemplate47(data, req, res) {
                   .cover(
                     960,
                     1080,
-                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
                   )
                   .write(
                     assetsPath +
@@ -17206,7 +18159,7 @@ global.videoTemplate48 = async function videoTemplate48(data, req, res) {
           .cover(
             1368,
             768,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -17223,7 +18176,7 @@ global.videoTemplate48 = async function videoTemplate48(data, req, res) {
               .cover(
                 1368,
                 768,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -17255,7 +18208,7 @@ global.videoTemplate49 = async function videoTemplate49(data, req, res) {
           .cover(
             1368,
             768,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -17283,7 +18236,7 @@ global.videoTemplate50 = async function videoTemplate50(data, req, res) {
           .cover(
             1140,
             1000,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -17300,7 +18253,7 @@ global.videoTemplate50 = async function videoTemplate50(data, req, res) {
               .cover(
                 620,
                 1000,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -17332,7 +18285,7 @@ global.videoTemplate51 = async function videoTemplate51(data, req, res) {
           .cover(
             655,
             360,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -17349,7 +18302,7 @@ global.videoTemplate51 = async function videoTemplate51(data, req, res) {
               .cover(
                 655,
                 360,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -17366,7 +18319,7 @@ global.videoTemplate51 = async function videoTemplate51(data, req, res) {
                   .cover(
                     880,
                     360,
-                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
                   )
                   .write(
                     assetsPath +
@@ -17384,7 +18337,7 @@ global.videoTemplate51 = async function videoTemplate51(data, req, res) {
                         440,
                         360,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
-                        Jimp.VERTICAL_ALIGN_CENTER
+                        Jimp.VERTICAL_ALIGN_MIDDLE
                       )
                       .write(
                         assetsPath +
@@ -17405,7 +18358,7 @@ global.videoTemplate51 = async function videoTemplate51(data, req, res) {
                             440,
                             360,
                             Jimp.HORIZONTAL_ALIGN_CENTER |
-                            Jimp.VERTICAL_ALIGN_CENTER
+                            Jimp.VERTICAL_ALIGN_MIDDLE
                           )
                           .write(
                             assetsPath +
@@ -17423,7 +18376,7 @@ global.videoTemplate51 = async function videoTemplate51(data, req, res) {
                                 880,
                                 360,
                                 Jimp.HORIZONTAL_ALIGN_CENTER |
-                                Jimp.VERTICAL_ALIGN_CENTER
+                                Jimp.VERTICAL_ALIGN_MIDDLE
                               )
                               .write(
                                 assetsPath +
@@ -17471,7 +18424,7 @@ global.videoTemplate52 = async function videoTemplate52(data, req, res) {
           .cover(
             960,
             440,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -17488,7 +18441,7 @@ global.videoTemplate52 = async function videoTemplate52(data, req, res) {
               .cover(
                 960,
                 440,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -17505,7 +18458,7 @@ global.videoTemplate52 = async function videoTemplate52(data, req, res) {
                   .cover(
                     960,
                     440,
-                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
                   )
                   .write(
                     assetsPath +
@@ -17523,7 +18476,7 @@ global.videoTemplate52 = async function videoTemplate52(data, req, res) {
                         960,
                         440,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
-                        Jimp.VERTICAL_ALIGN_CENTER
+                        Jimp.VERTICAL_ALIGN_MIDDLE
                       )
                       .write(
                         assetsPath +
@@ -17563,7 +18516,7 @@ global.videoTemplate53 = async function videoTemplate53(data, req, res) {
           .cover(
             800,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -17580,7 +18533,7 @@ global.videoTemplate53 = async function videoTemplate53(data, req, res) {
               .cover(
                 800,
                 1080,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -17612,7 +18565,7 @@ global.videoTemplate54 = async function videoTemplate54(data, req, res) {
           .cover(
             680,
             680,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -17629,7 +18582,7 @@ global.videoTemplate54 = async function videoTemplate54(data, req, res) {
               .cover(
                 680,
                 400,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -17646,7 +18599,7 @@ global.videoTemplate54 = async function videoTemplate54(data, req, res) {
                   .cover(
                     680,
                     400,
-                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
                   )
                   .write(
                     assetsPath +
@@ -17664,7 +18617,7 @@ global.videoTemplate54 = async function videoTemplate54(data, req, res) {
                         680,
                         680,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
-                        Jimp.VERTICAL_ALIGN_CENTER
+                        Jimp.VERTICAL_ALIGN_MIDDLE
                       )
                       .write(
                         assetsPath +
@@ -17704,7 +18657,7 @@ global.videoTemplate55 = async function videoTemplate55(data, req, res) {
           .cover(
             1220,
             360,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -17721,7 +18674,7 @@ global.videoTemplate55 = async function videoTemplate55(data, req, res) {
               .cover(
                 640,
                 335,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -17738,7 +18691,7 @@ global.videoTemplate55 = async function videoTemplate55(data, req, res) {
                   .cover(
                     640,
                     335,
-                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
                   )
                   .write(
                     assetsPath +
@@ -17756,7 +18709,7 @@ global.videoTemplate55 = async function videoTemplate55(data, req, res) {
                         1220,
                         360,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
-                        Jimp.VERTICAL_ALIGN_CENTER
+                        Jimp.VERTICAL_ALIGN_MIDDLE
                       )
                       .write(
                         assetsPath +
@@ -17796,7 +18749,7 @@ global.videoTemplate56 = async function videoTemplate56(data, req, res) {
           .cover(
             1920,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -17825,7 +18778,7 @@ global.videoTemplate57 = async function videoTemplate57(data, req, res) {
           .cover(
             920,
             500,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -17842,7 +18795,7 @@ global.videoTemplate57 = async function videoTemplate57(data, req, res) {
               .cover(
                 920,
                 500,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -17874,7 +18827,7 @@ global.videoTemplate58 = async function videoTemplate58(data, req, res) {
           .cover(
             700,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -17891,7 +18844,7 @@ global.videoTemplate58 = async function videoTemplate58(data, req, res) {
               .cover(
                 700,
                 1080,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -17924,7 +18877,7 @@ global.videoTemplate59 = async function videoTemplate59(data, req, res) {
           .cover(
             700,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -17941,7 +18894,7 @@ global.videoTemplate59 = async function videoTemplate59(data, req, res) {
               .cover(
                 700,
                 1080,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -17973,7 +18926,7 @@ global.videoTemplate60 = async function videoTemplate60(data, req, res) {
           .cover(
             1920,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -18002,7 +18955,7 @@ global.videoTemplate61 = async function videoTemplate61(data, req, res) {
           .cover(
             250,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -18019,7 +18972,7 @@ global.videoTemplate61 = async function videoTemplate61(data, req, res) {
               .cover(
                 640,
                 335,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -18036,7 +18989,7 @@ global.videoTemplate61 = async function videoTemplate61(data, req, res) {
                   .cover(
                     640,
                     660,
-                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
                   )
                   .write(
                     assetsPath +
@@ -18054,7 +19007,7 @@ global.videoTemplate61 = async function videoTemplate61(data, req, res) {
                         640,
                         335,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
-                        Jimp.VERTICAL_ALIGN_CENTER
+                        Jimp.VERTICAL_ALIGN_MIDDLE
                       )
                       .write(
                         assetsPath +
@@ -18085,6 +19038,195 @@ global.videoTemplate61 = async function videoTemplate61(data, req, res) {
       });
   });
 };
+global.videoTemplate64 = async function videoTemplate64(data, req, res) {
+  return new Promise((resolve) => {
+    Jimp.read(assetsPath + data.sceneData.media["2"].url)
+      .then((img) => {
+        img
+          .quality(60)
+          .cover(
+            1920,
+            400,
+            Jimp.VERTICAL_ALIGN_MIDDLE | Jimp.HORIZONTAL_ALIGN_CENTER
+          )
+          .write(
+            assetsPath +
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img641.png"
+          ); // save
+        Jimp.read(assetsPath + data.sceneData.media["0"].url)
+          .then((img) => {
+            img
+              .quality(60)
+              .cover(
+                850,
+                580,
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
+              )
+              .write(
+                assetsPath +
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img642.png"
+              ); // save
+            setTimeout(function () {
+              resolve("done");
+            }, 500);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
+};
+global.videoTemplate66 = async function videoTemplate66(data, req, res) {
+  return new Promise((resolve) => {
+    Jimp.read(assetsPath + data.sceneData.media["0"].url)
+      .then((img) => {
+        img
+          .quality(60)
+          .cover(
+            1220,
+            520,
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
+          )
+          .write(
+            assetsPath +
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img661.png"
+          ); // save
+        Jimp.read(assetsPath + data.sceneData.media["1"].url)
+          .then((img) => {
+            img
+              .quality(60)
+              .cover(
+                640,
+                520,
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
+              )
+              .write(
+                assetsPath +
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img662.png"
+              ); // save
+            Jimp.read(assetsPath + data.sceneData.media["2"].url)
+              .then((img) => {
+                img
+                  .quality(60)
+                  .cover(
+                    640,
+                    520,
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
+                  )
+                  .write(
+                    assetsPath +
+                    "template/videos/" +
+                    userId +
+                    "/template1/" +
+                    mediaDate +
+                    "-img663.png"
+                  ); // save
+                setTimeout(function () {
+                  resolve("done");
+                }, 500);
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
+};
+global.videoTemplate65 = async function videoTemplate65(data, req, res) {
+  return new Promise((resolve) => {
+    Jimp.read(assetsPath + data.sceneData.media["0"].url)
+      .then((img) => {
+        img
+          .quality(60)
+          .cover(
+            560,
+            900,
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
+          )
+          .write(
+            assetsPath +
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img651.png"
+          ); // save
+        Jimp.read(assetsPath + data.sceneData.media["1"].url)
+          .then((img) => {
+            img
+              .quality(60)
+              .cover(
+                560,
+                900,
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
+              )
+              .write(
+                assetsPath +
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img652.png"
+              ); // save
+            Jimp.read(assetsPath + data.sceneData.media["2"].url)
+              .then((img) => {
+                img
+                  .quality(60)
+                  .cover(
+                    560,
+                    900,
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
+                  )
+                  .write(
+                    assetsPath +
+                    "template/videos/" +
+                    userId +
+                    "/template1/" +
+                    mediaDate +
+                    "-img653.png"
+                  ); // save
+                setTimeout(function () {
+                  resolve("done");
+                }, 500);
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
+};
 global.videoTemplate67 = async function videoTemplate67(data, req, res) {
   return new Promise((resolve) => {
     Jimp.read(assetsPath + data.sceneData.media["2"].url)
@@ -18094,7 +19236,7 @@ global.videoTemplate67 = async function videoTemplate67(data, req, res) {
           .cover(
             960,
             1080,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -18111,7 +19253,7 @@ global.videoTemplate67 = async function videoTemplate67(data, req, res) {
               .cover(
                 960,
                 540,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -18128,7 +19270,7 @@ global.videoTemplate67 = async function videoTemplate67(data, req, res) {
                   .cover(
                     960,
                     540,
-                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
                   )
                   .write(
                     assetsPath +
@@ -18165,7 +19307,7 @@ global.videoTemplate68 = async function videoTemplate68(data, req, res) {
           .cover(
             960,
             440,
-            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(
             assetsPath +
@@ -18182,7 +19324,7 @@ global.videoTemplate68 = async function videoTemplate68(data, req, res) {
               .cover(
                 960,
                 440,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
               .write(
                 assetsPath +
@@ -18199,7 +19341,7 @@ global.videoTemplate68 = async function videoTemplate68(data, req, res) {
                   .cover(
                     475,
                     440,
-                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_CENTER
+                    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
                   )
                   .write(
                     assetsPath +
@@ -18217,7 +19359,7 @@ global.videoTemplate68 = async function videoTemplate68(data, req, res) {
                         475,
                         440,
                         Jimp.HORIZONTAL_ALIGN_CENTER |
-                        Jimp.VERTICAL_ALIGN_CENTER
+                        Jimp.VERTICAL_ALIGN_MIDDLE
                       )
                       .write(
                         assetsPath +
@@ -18238,7 +19380,7 @@ global.videoTemplate68 = async function videoTemplate68(data, req, res) {
                             475,
                             440,
                             Jimp.HORIZONTAL_ALIGN_CENTER |
-                            Jimp.VERTICAL_ALIGN_CENTER
+                            Jimp.VERTICAL_ALIGN_MIDDLE
                           )
                           .write(
                             assetsPath +
@@ -18256,7 +19398,7 @@ global.videoTemplate68 = async function videoTemplate68(data, req, res) {
                                 475,
                                 440,
                                 Jimp.HORIZONTAL_ALIGN_CENTER |
-                                Jimp.VERTICAL_ALIGN_CENTER
+                                Jimp.VERTICAL_ALIGN_MIDDLE
                               )
                               .write(
                                 assetsPath +
@@ -18289,6 +19431,34 @@ global.videoTemplate68 = async function videoTemplate68(data, req, res) {
           .catch((err) => {
             console.error(err);
           });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
+};
+global.videoTemplate69 = async function videoTemplate69(data, req, res) {
+  return new Promise((resolve) => {
+    Jimp.read(assetsPath + data.sceneData.media["0"].url)
+      .then((img) => {
+        img
+          .quality(60)
+          .cover(
+            1920,
+            1080,
+            Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
+          )
+          .write(
+            assetsPath +
+            "template/videos/" +
+            userId +
+            "/template1/" +
+            mediaDate +
+            "-img691.png"
+          ); // save
+        setTimeout(function () {
+          resolve("done");
+        }, 500);
       })
       .catch((err) => {
         console.error(err);
