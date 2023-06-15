@@ -15,7 +15,6 @@
     "@ffprobe-installer/ffprobe": "^1.1.0",
     "@sendgrid/mail": "^6.5.0",
     "bcrypt": "^3.0.7",
-    "bcryptjs": "^2.4.3",
     "canvas": "^2.10.1",
     "cors": "^2.8.5",
     "cross-spawn": "^7.0.3",

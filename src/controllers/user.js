@@ -3,7 +3,7 @@
 
 const Datauri = require('datauri');
 const path = require('path');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
 

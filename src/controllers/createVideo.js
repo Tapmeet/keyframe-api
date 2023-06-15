@@ -167,156 +167,156 @@ function deleteFiles(file) {
  * @desc Add Event
  * @access Admin
  */
-// exports.mergeVideo = async (req, res, next) => {
-//   // console.log(req.body.videos);
-//   const transitions = [];
-//   const { templateId } = req.body;
-//   const template = await Template.findOne({ _id: templateId });
-//   const videos = req.body.videos;
-//   const userId = template.userId;
-//   const templateTitle = template.title.split(" ").join("-");
-//   const videoName = templateTitle + Date.now();
-//   const tractionsVideos = [
-//     {
-//       name: "circleOpen",
-//       duration: 1000,
-//     },
-//     {
-//       duration: 1000,
-//       name: "fade",
-//     },
-//     {
-//       duration: 1000,
-//       name: "swap",
-//     },
-//     {
-//       name: "crossWarp",
-//       duration: 1000,
-//     },
-//     {
-//       name: "directionalWarp",
-//       duration: 1000,
-//       params: { direction: [1, -1] },
-//     },
-//     {
-//       name: "squaresWire",
-//       duration: 1000,
-//     },
-//     {
-//       name: "dreamy",
-//       duration: 1000,
-//     },
-//     {
-//       name: "squareswire",
-//       duration: 1000,
-//     },
-//     {
-//       name: "angular",
-//       duration: 1000,
-//     },
-//   ];
+exports.mergeVideo = async (req, res, next) => {
+  // console.log(req.body.videos);
+  const transitions = [];
+  const { templateId } = req.body;
+  const template = await Template.findOne({ _id: templateId });
+  const videos = req.body.videos;
+  const userId = template.userId;
+  const templateTitle = template.title.split(" ").join("-");
+  const videoName = templateTitle + Date.now();
+  const tractionsVideos = [
+    {
+      name: "circleOpen",
+      duration: 1000,
+    },
+    {
+      duration: 1000,
+      name: "fade",
+    },
+    {
+      duration: 1000,
+      name: "swap",
+    },
+    {
+      name: "crossWarp",
+      duration: 1000,
+    },
+    {
+      name: "directionalWarp",
+      duration: 1000,
+      params: { direction: [1, -1] },
+    },
+    {
+      name: "squaresWire",
+      duration: 1000,
+    },
+    {
+      name: "dreamy",
+      duration: 1000,
+    },
+    {
+      name: "squareswire",
+      duration: 1000,
+    },
+    {
+      name: "angular",
+      duration: 1000,
+    },
+  ];
 
-//   var transitionsvideo = [];
-//   videos.map((video, index) => {
-//     if (index + 1 < videos.length) {
-//       var transaionsRand = Math.floor(Math.random() * 9);
-//       var trans = tractionsVideos[transaionsRand];
-//       transitionsvideo.push(trans);
-//     }
-//   });
-//   const promises = await concat({
-//     output:
-//       "./src/Assets/template/videos/" +
-//       userId +
-//       "/template1/" +
-//       videoName +
-//       ".mp4",
-//     videos: videos,
-//     transition: {
-//       name: "fade",
-//       duration: 1000,
-//     },
-//     concurrency: videos.length,
-//     cleanupFrames: true,
-//   });
-//   if (typeof promises == "undefined") {
-//     videos.map(async (data) => {
-//       deleteFiles(data);
-//     });
-//     if (template.musicFile) {
-//       mergeAudio();
-//     } else {
-//       saveVideoDb(
-//         template.title,
-//         "template/videos/" + userId + "/template1/" + videoName + ".mp4"
-//       );
-//       // res.status(200).json({
-//       //   message: "successfull",
-//       //   data: "template/videos/" + userId + "/template1/finalVideo.mp4",
-//       // });
-//     }
-//   }
-//   function mergeAudio() {
-//     var command = new ffmpeg();
-//     command.input(
-//       "./src/Assets/template/videos/" +
-//       userId +
-//       "/template1/" +
-//       videoName +
-//       ".mp4"
-//     );
-//     command.input(assetsPath + template.musicFile);
-//     command
-//       .addOption("-map", "0")
-//       .addOption("-map", "1:a")
-//       .addOption("-c:v", "copy")
-//       .addOption("-shortest")
-//       .save(
-//         "./src/Assets/template/videos/" +
-//         userId +
-//         "/template1/" +
-//         videoName +
-//         "-audio.mp4"
-//       )
-//       .on("start", function (commandLine) {
-//         console.log(commandLine);
-//       })
-//       .on("error", function (er) {
-//         res.status(200).json({ message: "Video failed" });
-//         return;
-//       })
-//       .on("end", function () {
-//         deleteFiles(
-//           "./src/Assets/template/videos/" +
-//           userId +
-//           "/template1/" +
-//           videoName +
-//           ".mp4"
-//         );
-//         saveVideoDb(
-//           template.title,
-//           "template/videos/" + userId + "/template1/" + videoName + "-audio.mp4"
-//         );
-//       });
-//   }
-//   async function saveVideoDb(videoTitle, path) {
-//     try {
-//       const newUpload = new UserVideos({
-//         userId: userId,
-//         videoTitle: videoTitle,
-//         templateImage: template.templateImage,
-//         path: path,
-//       });
-//       const uploadData = await newUpload.save();
-//       res.status(200).json({
-//         message: "successfull",
-//         data: path,
-//       });
-//     } catch (error) {
-//       res.status(500).json({ message: error.message });
-//     }
-//   }
-// };
+  var transitionsvideo = [];
+  videos.map((video, index) => {
+    if (index + 1 < videos.length) {
+      var transaionsRand = Math.floor(Math.random() * 9);
+      var trans = tractionsVideos[transaionsRand];
+      transitionsvideo.push(trans);
+    }
+  });
+  const promises = await concat({
+    output:
+      "./src/Assets/template/videos/" +
+      userId +
+      "/template1/" +
+      videoName +
+      ".mp4",
+    videos: videos,
+    transition: {
+      name: "fade",
+      duration: 1000,
+    },
+    concurrency: videos.length,
+    cleanupFrames: true,
+  });
+  if (typeof promises == "undefined") {
+    videos.map(async (data) => {
+      deleteFiles(data);
+    });
+    if (template.musicFile) {
+      mergeAudio();
+    } else {
+      saveVideoDb(
+        template.title,
+        "template/videos/" + userId + "/template1/" + videoName + ".mp4"
+      );
+      // res.status(200).json({
+      //   message: "successfull",
+      //   data: "template/videos/" + userId + "/template1/finalVideo.mp4",
+      // });
+    }
+  }
+  function mergeAudio() {
+    var command = new ffmpeg();
+    command.input(
+      "./src/Assets/template/videos/" +
+      userId +
+      "/template1/" +
+      videoName +
+      ".mp4"
+    );
+    command.input(assetsPath + template.musicFile);
+    command
+      .addOption("-map", "0")
+      .addOption("-map", "1:a")
+      .addOption("-c:v", "copy")
+      .addOption("-shortest")
+      .save(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        videoName +
+        "-audio.mp4"
+      )
+      .on("start", function (commandLine) {
+        console.log(commandLine);
+      })
+      .on("error", function (er) {
+        res.status(200).json({ message: "Video failed" });
+        return;
+      })
+      .on("end", function () {
+        deleteFiles(
+          "./src/Assets/template/videos/" +
+          userId +
+          "/template1/" +
+          videoName +
+          ".mp4"
+        );
+        saveVideoDb(
+          template.title,
+          "template/videos/" + userId + "/template1/" + videoName + "-audio.mp4"
+        );
+      });
+  }
+  async function saveVideoDb(videoTitle, path) {
+    try {
+      const newUpload = new UserVideos({
+        userId: userId,
+        videoTitle: videoTitle,
+        templateImage: template.templateImage,
+        path: path,
+      });
+      const uploadData = await newUpload.save();
+      res.status(200).json({
+        message: "successfull",
+        data: path,
+      });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+};
 /**
  * @function  "createVideo" used to create new Event
  * @route POST /api/template/create-videos
