@@ -638,6 +638,16 @@ exports.deleteBlock = async function (req, res) {
     const block = await Block.findOneAndDelete({
       _id: id,
     });
+    console.log(id)
+    if (block == null) {
+      const lasttemplate = await Scene.findOneAndDelete({
+        _id: id,
+      });
+
+      console.log(lasttemplate)
+    }
+
+   
     res.status(200).json({ message: "Block has been deleted" });
   } catch (error) {
     res.status(500).json({ message: error.message });
