@@ -1135,7 +1135,7 @@ exports.createVideo = async (req, res, next) => {
               const fontSize2 = parseInt(data.sceneData.textArray[1].fontSize) + 15;
               const textnext3 = new FFText({
                 text: result2,
-                x: 110,
+                x: 1000,
                 y: 975,
                 height: 100,
               })
@@ -16160,6 +16160,403 @@ exports.createVideo = async (req, res, next) => {
           }
           i++;
         }
+        else if (templateBlock[i].sceneId == 76) {
+          let data = templateBlock[i];
+          const fourthVideo = await videoTemplate56(data);
+
+          //var result = data.sceneData.textArray[0].text.split(" ");
+          let selectedfonts1;
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          var titleColor1 = data.sceneData.textArray[0].fontColor;
+
+          let selectedfonts2 = '';
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+
+          let selectedfonts3;
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
+
+
+
+          let selectedfonts4;
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+
+          let selectedfonts5;
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
+
+          if (data.sceneData.media[0].type == "image" || data.sceneData.media[0].type == "img") {
+
+            const scene51 = new FFScene();
+            scene51.setBgColor("#fff");
+            const image5 = new FFImage({
+              path:
+                assetsPath +
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img561.png",
+              y: 540,
+              x: 960
+            });
+            image5.addEffect("zoomingIn", 10, 1.5);
+            scene51.addChild(image5);
+            const image = new FFImage({
+              path: assetsPath + "scene10bg.jpg",
+              x: 230,
+            });
+            image.addAnimate({
+              from: { y: -1960 },
+              to: { y: 1000 },
+              time: 1.5,
+              delay: 0.1,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(image);
+
+
+
+
+            const imagepentagon = new FFImage({
+              path: assetsPath + "pentagon3.png",
+              y: 580,
+              x: 680
+            });
+            imagepentagon.addEffect("fadeIn", 0.6, 1.6);
+            scene51.addChild(imagepentagon);
+
+            const imageVline = new FFImage({
+              path: assetsPath + "brownverticleline.png",
+              y: 585,
+            });
+            imageVline.addAnimate({
+              from: { x: -560 },
+              to: { x: 7 },
+              time: 1.5,
+              delay: 0.5,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(imageVline);
+
+            const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 35;
+            const textOne = new FFText({
+              text: data.sceneData.textArray[0].text,
+              fontSize: fontSize1,
+              x: 370,
+              y: 600,
+            });
+            textOne.setStyle({
+              wordWrap: true,
+              wordWrapWidth: 560,
+              fontSize: fontSize1,
+              padding: [4, 20, 6, 20],
+              lineHeight: fontSize1 + 20,
+              color: data.sceneData.textArray[0].fontColor,
+            });
+            textOne.alignCenter();
+            textOne.setFont(selectedfonts1);
+            textOne.addEffect("fadeIn", 1, 1.0);
+            scene51.addChild(textOne);
+
+
+
+
+            const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 15;
+
+            const text = new FFText({
+              text: data.sceneData.textArray[3].text,
+              x: 370,
+              y: 750,
+            });
+            text.setStyle({
+              wordWrap: true,
+              wordWrapWidth: 560,
+              fontSize: fontSize4,
+              padding: [0, 20, 10, 20],
+              lineHeight: fontSize4 + 20,
+              color: data.sceneData.textArray[3].fontColor,
+            });
+
+            text.setFont(selectedfonts4);
+            text.addEffect("fadeIn", 1, 1.3);
+            text.alignCenter();
+            scene51.addChild(text);
+
+
+
+            const fontSize5 = parseInt(data.sceneData.textArray[4].fontSize) + 15;
+            const text5 = new FFText({
+              text: data.sceneData.textArray[4].text,
+              fontSize: fontSize5,
+              x: 370,
+              y: 1000,
+            });
+            text5.setStyle({
+              wordWrap: true,
+              wordWrapWidth: 560,
+              fontSize: fontSize5,
+              padding: [0, 20, 10, 20],
+              lineHeight: fontSize5 + 20,
+              color: data.sceneData.textArray[4].fontColor,
+            });
+            text5.alignCenter();
+            text5.setFont(selectedfonts5);
+            text5.addEffect("fadeIn", 1.8, 1.0);
+            scene51.addChild(text5);
+
+            scene51.setTransition("fade", 0.5);
+            scene51.setDuration(data.sceneData.time);
+            creator.addChild(scene51);
+          }
+          i++;
+        }
+        else if (templateBlock[i].sceneId == 77) {
+          let data = templateBlock[i];
+          const fourthVideo = await videoTemplate60(data);
+
+          //var result = data.sceneData.textArray[0].text.split(" ");
+          let selectedfonts1;
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+
+          let selectedfonts2 = '';
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+
+          let selectedfonts3;
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
+
+          let selectedfonts4;
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+
+
+          let selectedfonts5;
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
+
+
+          if (data.sceneData.media[0].type == "image" || data.sceneData.media[0].type == "img") {
+
+            const scene51 = new FFScene();
+            scene51.setBgColor("#fff");
+            const image5 = new FFImage({
+              path:
+                assetsPath +
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img601.png",
+              y: 0,
+              x: 0,
+              resetXY: true
+            });
+            image5.addEffect("zoomingIn", 10, 1.5);
+            scene51.addChild(image5);
+            const image = new FFImage({
+              path: assetsPath + "bgwhitetransparent2.png",
+              x: 450,
+              height: 600
+            });
+            image.addAnimate({
+              from: { y: -1960 },
+              to: { y: 540 },
+              time: 1.5,
+              delay: 0.1,
+              ease: "Cubic.InOut",
+            });
+            image.setOpacity(0.8);
+            scene51.addChild(image);
+
+            const image2 = new FFImage({
+              path: assetsPath + "icon-coming-soon.png",
+              x: 450,
+            });
+            image2.addAnimate({
+              from: { y: -1960 },
+              to: { y: 350 },
+              time: 1.5,
+              delay: 0.1,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(image2)
+
+
+            const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 35;
+            const textOne = new FFText({
+              text: data.sceneData.textArray[0].text,
+              x: 450,
+              y: 500,
+            });
+            textOne.setStyle({
+              wordWrap: true,
+              wordWrapWidth: 560,
+              fontSize: fontSize1,
+              padding: [4, 20, 6, 20],
+              lineHeight: fontSize1 + 20,
+              color: data.sceneData.textArray[0].fontColor,
+            });
+            textOne.alignCenter();
+
+            textOne.setFont(selectedfonts1);
+            textOne.addEffect("fadeIn", 1, 1.0);
+            scene51.addChild(textOne);
+
+
+            const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 15;
+            console.log(fontSize4)
+            const text = new FFText({
+              text: data.sceneData.textArray[3].text,
+              x: 450,
+              y: 650,
+            });
+            text.setStyle({
+              wordWrap: true,
+              wordWrapWidth: 560,
+              fontSize: fontSize4,
+              padding: [4, 20, 6, 20],
+              lineHeight: fontSize4 + 20,
+              color: data.sceneData.textArray[3].fontColor,
+            });
+            text.setFont(selectedfonts4);
+            text.addEffect("fadeIn", 1, 1.3);
+            text.alignCenter();
+            text.setStyle({ padding: [0, 20, 10, 20] });
+            scene51.addChild(text);
+
+
+
+
+
+            scene51.setTransition("fade", 0.5);
+            scene51.setDuration(data.sceneData.time);
+            creator.addChild(scene51);
+          }
+          i++;
+        }
+        else if (templateBlock[i].sceneId == 78) {
+          let data = templateBlock[i];
+          const fourthVideo = await videoTemplate56(data);
+
+          //var result = data.sceneData.textArray[0].text.split(" ");
+          let selectedfonts1;
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          var titleColor1 = data.sceneData.textArray[0].fontColor;
+
+          let selectedfonts2 = '';
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+
+          let selectedfonts3;
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
+
+
+
+          let selectedfonts4;
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+
+          let selectedfonts5;
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
+
+          if (data.sceneData.media[0].type == "image" || data.sceneData.media[0].type == "img") {
+
+            const scene51 = new FFScene();
+            scene51.setBgColor("#fff");
+            const image5 = new FFImage({
+              path:
+                assetsPath +
+                "template/videos/" +
+                userId +
+                "/template1/" +
+                mediaDate +
+                "-img561.png",
+              y: 540,
+              x: 960
+            });
+            image5.addEffect("zoomingIn", 10, 1.5);
+            scene51.addChild(image5);
+            const image = new FFImage({
+              path: assetsPath + "scene10bg.jpg",
+              x: 230,
+            });
+            image.addAnimate({
+              from: { y: -1960 },
+              to: { y: 1100 },
+              time: 1.5,
+              delay: 0.1,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(image);
+
+
+
+
+            const imagepentagon = new FFImage({
+              path: assetsPath + "pentagon3.png",
+              y: 680,
+              x: 680
+            });
+            imagepentagon.addEffect("fadeIn", 0.6, 1.6);
+            scene51.addChild(imagepentagon);
+
+            const imageVline = new FFImage({
+              path: assetsPath + "brownverticleline.png",
+              y: 685,
+            });
+            imageVline.addAnimate({
+              from: { x: -560 },
+              to: { x: 7 },
+              time: 1.5,
+              delay: 0.5,
+              ease: "Cubic.InOut",
+            });
+            scene51.addChild(imageVline);
+
+            const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 35;
+            const textOne = new FFText({
+              text: data.sceneData.textArray[0].text,
+              fontSize: fontSize1,
+              x: 370,
+              y: 700,
+            });
+            textOne.setStyle({
+              wordWrap: true,
+              wordWrapWidth: 560,
+              fontSize: fontSize1,
+              padding: [4, 20, 6, 20],
+              lineHeight: fontSize1 + 20,
+              color: data.sceneData.textArray[0].fontColor,
+            });
+            textOne.alignCenter();
+            textOne.setFont(selectedfonts1);
+            textOne.addEffect("fadeIn", 1, 1.0);
+            scene51.addChild(textOne);
+
+
+
+
+            const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 15;
+
+            const text = new FFText({
+              text: data.sceneData.textArray[3].text,
+              x: 370,
+              y: 850,
+            });
+            text.setStyle({
+              wordWrap: true,
+              wordWrapWidth: 560,
+              fontSize: fontSize4,
+              padding: [0, 20, 10, 20],
+              lineHeight: fontSize4 + 20,
+              color: data.sceneData.textArray[3].fontColor,
+            });
+
+            text.setFont(selectedfonts4);
+            text.addEffect("fadeIn", 1, 1.3);
+            text.alignCenter();
+            scene51.addChild(text);
+
+            scene51.setTransition("fade", 0.5);
+            scene51.setDuration(data.sceneData.time);
+            creator.addChild(scene51);
+          }
+          i++;
+        }
       }
       if (lastScene) {
         //  `console.log(lastScene.sceneData.textArray);
@@ -16439,6 +16836,20 @@ exports.createVideo = async (req, res, next) => {
         "/template1/" +
         mediaDate +
         "-img2.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img21.png"
+      );
+      deleteFiles(
+        "./src/Assets/template/videos/" +
+        userId +
+        "/template1/" +
+        mediaDate +
+        "-img22.png"
       );
       deleteFiles(
         "./src/Assets/template/videos/" +

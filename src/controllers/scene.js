@@ -39,7 +39,7 @@ exports.getCategoryScenes = async function(req, res) {
 *   @access Public
 */
 exports.index = async function(req, res) {
-  const scenes = await Scene.find({});
+  const scenes = await Scene.find({}).sort({_id: 1 });
   res.status(200).json({scenes});
 };
 

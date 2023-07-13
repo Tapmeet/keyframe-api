@@ -263,7 +263,9 @@ exports.getAdminTemplates = async function (req, res) {
       [
         {
           $match: { adminTemplate: true },
+         
         },
+        { $sort: { _id: 1 } },
         {
           $project: {
             _id: {
@@ -578,6 +580,7 @@ exports.getAdminTemplate = async (req, res, next) => {
         {
           $match: { _id: id },
         },
+        { $sort: { _id: 1 } },
         {
           $project: {
             _id: {
@@ -647,7 +650,7 @@ exports.deleteBlock = async function (req, res) {
       console.log(lasttemplate)
     }
 
-   
+
     res.status(200).json({ message: "Block has been deleted" });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -2780,6 +2783,7 @@ exports.getAllTemplates = async function (req, res) {
         {
           $match: { adminTemplate: false },
         },
+        { $sort: { _id: 1 } },
         {
           $project: {
             _id: {
