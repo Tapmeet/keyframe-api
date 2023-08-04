@@ -42,6 +42,9 @@ const templatesSchema = new mongoose.Schema({
   templateId: {
     type: String,
   },
+  templateOrder: {
+    type: Number,
+  },
   lastSceneOption: {
     type: Boolean,
     default: false,

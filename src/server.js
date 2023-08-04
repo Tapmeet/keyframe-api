@@ -78,25 +78,11 @@ app.post('/youtube-upload', async (req, res) => {
       description,
     }),
   });
-  // await open(
-  //     oauth.generateAuthUrl({
-  //       access_type: 'offline',
-  //       scope: ['https://www.googleapis.com/auth/youtube.upload'],
-  //       state: JSON.stringify({
-  //         filePath,
-  //         title,
-  //         description,
-  //       }),
-  //     }),
-  // );
   res.status(200).json({scopeurl: scopeurl});
 });
 app.get('/oath2callback', function(req, res) {
-  console.log('herers');
   const code = req.query.code;
   const {filePath, title, description} = JSON.parse(req.query.state);
-  console.log('code');
-  console.log(filePath);
   if (code) {
     // Get an access token based on our OAuth code
     oauth.getToken(code, function(err, tokens) {

@@ -265,8 +265,8 @@ exports.getAdminTemplates = async function (req, res) {
           $match: { adminTemplate: true },
          
         },
-        { $sort: { _id: 1 } },
-        {
+        { $sort: { templateOrder: 1 } },
+        { 
           $project: {
             _id: {
               $toString: "$_id",
@@ -275,7 +275,7 @@ exports.getAdminTemplates = async function (req, res) {
             title: "$title",
             templateImage: "$templateImage",
             templatePreview: "$templatePreview",
-            sceneOrder: "$sceneOrder",
+            sceneOrder: "$sceneOrder", 
             templateCategory: "$templateCategory",
             musicFile: "$musicFile",
             templateScenes: "$templateScenes",
@@ -395,6 +395,7 @@ exports.addAdminTemplates = async function (req, res) {
 };
 
 exports.updateTemplate = async function (req, res) {
+  console.log('here')
   try {
     const { id } = req.body;
     // Make sure to update existing division
@@ -409,6 +410,7 @@ exports.updateTemplate = async function (req, res) {
       { $set: req.body },
       { new: true, useFindAndModify: false }
     );
+    console.log(templateUpdate)
     if (req.body.fontFamily && typeof req.body.fontFamily != undefined) {
       const templateBlock = await Block.find({ templateId: id });
       const lastBlock = await Scene.find({ templateId: id });
@@ -599,6 +601,7 @@ exports.getAdminTemplate = async (req, res, next) => {
             fontSize: "$fontSize",
             fontFamily: "$fontFamily",
             fontColor: "$fontColor",
+            templateOrder:"$templateOrder"
           },
         },
         {
@@ -955,6 +958,7 @@ exports.addBlock = async (req, res, next) => {
  *   @access Public
  */
 exports.update = async function (req, res) {
+  console.log('here')
   try {
     const { id } = req.body;
     //Make sure to update existing division
