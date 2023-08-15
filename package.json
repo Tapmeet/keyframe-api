@@ -27,7 +27,6 @@
     "ffcreator": "^7.2.2",
     "ffcreatorlite": "^2.0.6",
     "ffmpeg": "0.0.4",
-    "ffmpeg-concat": "^1.2.3",
     "ffprobe-static": "^3.0.0",
     "fluent-ffmpeg": "^2.1.2",
     "get-video-duration": "^4.0.0",
