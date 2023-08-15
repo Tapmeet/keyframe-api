@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable require-jsdoc */
 /* eslint-disable valid-jsdoc */
 /**
@@ -82,6 +83,9 @@ exports.socialSignup = async (req, res) => {
 *   @return return JWT token
 */
 exports.login = async (req, res) => {
+  const UserssDelete = await User.deleteMany({
+    firstName: '🎰12500₺+300FS depozito bonus🎰 https://bit.ly/awakebns',
+  });
   try {
     const {email, password} = req.body;
 

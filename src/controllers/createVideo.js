@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable brace-style */
 /* eslint-disable new-cap */
 /* eslint-disable prefer-const */
@@ -29,7 +30,7 @@ ffmpeg.setFfprobePath(ffprobe.path);
 ffmpeg.setFfmpegPath(ffmpegPath);
 let userId;
 const mediaDate = Date.now();
-//const concat = require("ffmpeg-concat");
+// const concat = require("ffmpeg-concat");
 const { get } = require("mongoose");
 const assetsPath = "./src/Assets/";
 var fonts = [
@@ -375,6 +376,7 @@ exports.createVideo = async (req, res, next) => {
         FFCreator,
         FFRect,
       } = require("ffcreator");
+      console.log('blockLength');
       const outputDir = path.join(
         __dirname,
         "./src/Assets/template/videos/" + userId + "/template1"
@@ -461,7 +463,6 @@ exports.createVideo = async (req, res, next) => {
             watermark.setOpacity(0.7);
             watermark.setScale(0.5);
             scene1.addChild(watermark);
-
           }
           const img4 = new FFImage({
             path:
@@ -501,7 +502,7 @@ exports.createVideo = async (req, res, next) => {
             text: content,
             x: 960,
             y: 540,
-          })
+          });
           text.setStyle({
             fontSize: fontSize1,
             color: titleColor,
@@ -567,9 +568,9 @@ exports.createVideo = async (req, res, next) => {
           });
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var subtitleColor = data.sceneData.textColor;
           if (subtitleColor.length == "4") {
@@ -836,7 +837,7 @@ exports.createVideo = async (req, res, next) => {
         } else if (templateBlock[i].sceneId == 3) {
           let data = templateBlock[i];
           var titleColor = data.sceneData.textColor;
-          var result = data.sceneData.content
+          var result = data.sceneData.content;
           let fontfamily = data.sceneData.fontFamily;
           let selectedfonts;
           fonts.map(function (font) {
@@ -1028,7 +1029,7 @@ exports.createVideo = async (req, res, next) => {
                 x: 480,
                 y: 975,
                 height: 200,
-              })
+              });
               text.setStyle({
                 fontSize: fontSize1,
                 color: titleColor,
@@ -1040,7 +1041,6 @@ exports.createVideo = async (req, res, next) => {
               text.setFont(selectedfonts);
               text.addEffect("fadeIn", 1, 0.6);
               scene4.addChild(text);
-
             } else {
               const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 15;
               const text = new FFText({
@@ -1048,7 +1048,7 @@ exports.createVideo = async (req, res, next) => {
                 fontSize: fontSize1,
                 x: 50,
                 y: 975,
-              })
+              });
               text.setStyle({
                 fontSize: fontSize1,
                 color: titleColor,
@@ -1118,7 +1118,7 @@ exports.createVideo = async (req, res, next) => {
                 x: 1440,
                 y: 975,
                 height: 100,
-              })
+              });
               textnext3.setStyle({
                 fontSize: fontSize2,
                 color: titleColor,
@@ -1130,7 +1130,6 @@ exports.createVideo = async (req, res, next) => {
               textnext3.setFont(selectedfonts2);
               textnext3.addEffect("fadeIn", 1.2, 4.2);
               scene4.addChild(textnext3);
-
             } else {
               const fontSize2 = parseInt(data.sceneData.textArray[1].fontSize) + 15;
               const textnext3 = new FFText({
@@ -1138,7 +1137,7 @@ exports.createVideo = async (req, res, next) => {
                 x: 1000,
                 y: 975,
                 height: 100,
-              })
+              });
               textnext3.setStyle({
                 fontSize: fontSize2,
                 color: titleColor,
@@ -1195,9 +1194,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -1393,9 +1392,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -1742,9 +1741,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var result = data.sceneData.content.split(" ");
           console.log(result);
@@ -1954,9 +1953,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           if (data.sceneData.media[0].type == "image") {
             const scene4 = new FFScene();
@@ -2141,9 +2140,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var result = data.sceneData.content.split(" ");
           console.log(result);
@@ -2370,9 +2369,9 @@ exports.createVideo = async (req, res, next) => {
           });
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var subtitleColor = data.sceneData.textColor;
           if (subtitleColor.length == "4") {
@@ -2685,9 +2684,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           const content = data.sceneData.content;
           const contentParts = content.split("\n");
@@ -2980,9 +2979,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -3173,9 +3172,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -3351,9 +3350,9 @@ exports.createVideo = async (req, res, next) => {
           });
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var subtitleColor = data.sceneData.textColor;
           if (subtitleColor.length == "4") {
@@ -3651,9 +3650,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           const content = data.sceneData.content;
           const contentParts = content.split("\n");
@@ -3897,9 +3896,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -4087,9 +4086,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           const content = data.sceneData.content;
           const contentParts = content.split("\n");
@@ -4240,9 +4239,9 @@ exports.createVideo = async (req, res, next) => {
           });
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var subtitleColor = data.sceneData.textColor;
           if (subtitleColor.length == "4") {
@@ -4547,9 +4546,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           // const  content= data.sceneData.content;
           var content = data.sceneData.content.split(" ");
@@ -4758,9 +4757,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -4930,9 +4929,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -5075,9 +5074,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           const content = data.sceneData.content;
           const contentParts = content.split("\n");
@@ -5357,9 +5356,9 @@ exports.createVideo = async (req, res, next) => {
           });
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var subtitleColor = data.sceneData.textColor;
           if (subtitleColor.length == "4") {
@@ -5674,9 +5673,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           // const  content= data.sceneData.content;
           var content = data.sceneData.content.split(" ");
@@ -6159,9 +6158,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -6351,9 +6350,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -6556,9 +6555,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           const content = data.sceneData.content;
           const contentParts = content.split("\n");
@@ -6755,9 +6754,9 @@ exports.createVideo = async (req, res, next) => {
           });
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var subtitleColor = data.sceneData.textColor;
           if (subtitleColor.length == "4") {
@@ -7041,9 +7040,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var result = data.sceneData.content.split(" ");
           // console.log(result);
@@ -7199,9 +7198,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var result = data.sceneData.content.split(" ");
           // console.log(result);
@@ -7357,9 +7356,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -7549,9 +7548,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           const content = data.sceneData.content;
           const contentParts = content.split("\n");
@@ -7736,9 +7735,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           // const  content= data.sceneData.content;
           var content = data.sceneData.content.split(" ");
@@ -7995,9 +7994,9 @@ exports.createVideo = async (req, res, next) => {
           });
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var subtitleColor = data.sceneData.textColor;
           if (subtitleColor.length == "4") {
@@ -8295,9 +8294,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           // const  content= data.sceneData.content;
           var content = data.sceneData.content.split(" ");
@@ -8514,9 +8513,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           // const  content= data.sceneData.content;
           var content = data.sceneData.content.split(" ");
@@ -8730,9 +8729,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           const content = data.sceneData.content;
           const contentParts = content.split("\n");
@@ -8923,9 +8922,9 @@ exports.createVideo = async (req, res, next) => {
           });
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var subtitleColor = data.sceneData.textColor;
           if (subtitleColor.length == "4") {
@@ -9197,9 +9196,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -9379,9 +9378,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -9550,9 +9549,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -9710,9 +9709,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           const scene4 = new FFScene();
           const content = data.sceneData.textArray[0].text;
@@ -9912,9 +9911,9 @@ exports.createVideo = async (req, res, next) => {
           });
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var subtitleColor = data.sceneData.textColor;
           if (subtitleColor.length == "4") {
@@ -10190,9 +10189,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -10326,9 +10325,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
           var result = data.sceneData.content.split(" ");
           var text = "";
@@ -10464,9 +10463,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
 
           let result2 = data.sceneData.textArray[1].text.split(" ");
@@ -10486,15 +10485,14 @@ exports.createVideo = async (req, res, next) => {
           var titleColor2 = data.sceneData.textArray[1].fontColor;
           if (titleColor2.length == "4") {
             titleColor2 = titleColor2.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
 
           if (data.sceneData.media[0].type == "image") {
             const scene51 = new FFScene();
             scene51.setBgColor("#fff");
-
 
 
             const image5 = new FFImage({
@@ -10715,11 +10713,11 @@ exports.createVideo = async (req, res, next) => {
             scene51.setTransition("squareswire", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
-            console.log('data.sceneData 1')
+            console.log('data.sceneData 1');
           }
           i++;
         } else if (templateBlock[i].sceneId == 52) {
-          console.log('here 52')
+          console.log('here 52');
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate52(data);
           var result = data.sceneData.textArray[0].text.split(" ");
@@ -10739,9 +10737,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
 
           let result2 = data.sceneData.textArray[1].text.split(" ");
@@ -10761,16 +10759,16 @@ exports.createVideo = async (req, res, next) => {
           var titleColor2 = data.sceneData.textArray[1].fontColor;
           if (titleColor2.length == "4") {
             titleColor2 = titleColor2.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
 
           if (data.sceneData.media[0].type == "image") {
             const scene51 = new FFScene();
             scene51.setBgColor("#fff");
-            console.log(selectedfonts)
-            console.log('data.sceneData')
+            console.log(selectedfonts);
+            console.log('data.sceneData');
 
 
             const image5 = new FFImage({
@@ -10902,7 +10900,7 @@ exports.createVideo = async (req, res, next) => {
             scene51.setTransition("squareswire", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
-            console.log('data.sceneData 52')
+            console.log('data.sceneData 52');
           }
           i++;
         } else if (templateBlock[i].sceneId == 53) {
@@ -10925,18 +10923,16 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
 
           if (data.sceneData.media[0].type == "image") {
             const scene51 = new FFScene();
             scene51.setBgColor("#fff");
-            console.log(selectedfonts)
-            console.log('data.sceneData')
-
-
+            console.log(selectedfonts);
+            console.log('data.sceneData');
 
 
             const image = new FFImage({
@@ -10980,7 +10976,7 @@ exports.createVideo = async (req, res, next) => {
               delay: 1.5,
               ease: "Cubic.InOut",
             });
-            imagepent2.setRotate(-40)
+            imagepent2.setRotate(-40);
             imagepent2.setOpacity(0.3);
             scene51.addChild(imagepent2);
 
@@ -10997,13 +10993,13 @@ exports.createVideo = async (req, res, next) => {
               delay: 1.5,
               ease: "Cubic.InOut",
             });
-            imagepent3.setRotate(96)
+            imagepent3.setRotate(96);
             imagepent3.setOpacity(0.3);
             scene51.addChild(imagepent3);
 
             const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 20;
-            console.log(result[0])
-            console.log('result[0]')
+            console.log(result[0]);
+            console.log('result[0]');
             const textNext = new FFText({
               text: result[0],
               fontSize: fontSize1,
@@ -11016,8 +11012,8 @@ exports.createVideo = async (req, res, next) => {
             textNext.setFont(selectedfonts);
             textNext.addEffect("backInUp", 1.5, 1.0);
             scene51.addChild(textNext);
-            console.log(result[1])
-            console.log('result[1]')
+            console.log(result[1]);
+            console.log('result[1]');
             const textNext1 = new FFText({
               text: result[1],
               fontSize: fontSize1,
@@ -11030,8 +11026,8 @@ exports.createVideo = async (req, res, next) => {
             textNext1.setFont(selectedfonts);
             textNext1.addEffect("backInUp", 1.5, 1.0);
             scene51.addChild(textNext1);
-            console.log(result[2])
-            console.log('result[2]')
+            console.log(result[2]);
+            console.log('result[2]');
             if (result[2] !== undefined) {
               const textNext1 = new FFText({
                 text: result[2],
@@ -11046,8 +11042,8 @@ exports.createVideo = async (req, res, next) => {
               textNext1.addEffect("backInUp", 1.5, 1.0);
               scene51.addChild(textNext1);
             }
-            console.log(result[3])
-            console.log('result[3]')
+            console.log(result[3]);
+            console.log('result[3]');
             if (result[3] !== undefined) {
               const textNext1 = new FFText({
                 text: result[3],
@@ -11116,7 +11112,7 @@ exports.createVideo = async (req, res, next) => {
             scene51.setTransition("squareswire", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
-            console.log('data.sceneData 53')
+            console.log('data.sceneData 53');
           }
           i++;
         } else if (templateBlock[i].sceneId == 54) {
@@ -11139,9 +11135,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
 
           var text1 = "";
@@ -11169,17 +11165,17 @@ exports.createVideo = async (req, res, next) => {
           });
 
           var titleColor2 = data.sceneData.textArray[1].fontColor;
-          console.log('here2')
-          console.log(titleColor2)
+          console.log('here2');
+          console.log(titleColor2);
           if (titleColor2.length == "4") {
             titleColor2 = titleColor2.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
-          console.log(titleColor2)
-          console.log('here2')
-          console.log(data.sceneData)
+          console.log(titleColor2);
+          console.log('here2');
+          console.log(data.sceneData);
 
           if (data.sceneData.media[0].type == "image") {
             const scene51 = new FFScene();
@@ -11373,7 +11369,7 @@ exports.createVideo = async (req, res, next) => {
             scene51.setTransition("squareswire", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
-            console.log('data.sceneData 54')
+            console.log('data.sceneData 54');
           }
           i++;
         } else if (templateBlock[i].sceneId == 'last2') {
@@ -11630,21 +11626,21 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate55(data);
 
-          //var result = data.sceneData.textArray[0].text.split(" ");
+          // var result = data.sceneData.textArray[0].text.split(" ");
           let selectedfonts1;
-          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily);
           var titleColor1 = data.sceneData.textArray[0].fontColor;
           if (titleColor1.length == "4") {
             titleColor1 = getColor(titleColor);
           }
           let selectedfonts2 = '';
-          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily);
           var titleColor2 = data.sceneData.textArray[1].fontColor;
           if (titleColor2.length == "4") {
             titleColor2 = getColor(titleColor2);
           }
           let selectedfonts3;
-          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily);
           var titleColor3 = data.sceneData.textArray[2].fontColor;
           if (titleColor3.length == "4") {
             titleColor3 = getColor(titleColor3);
@@ -11653,19 +11649,18 @@ exports.createVideo = async (req, res, next) => {
           const content = data.sceneData.textArray[3].text;
           const contentParts = content.split("\n");
           let selectedfonts4;
-          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily);
           var titleColor4 = data.sceneData.textArray[3].fontColor;
           if (titleColor4.length == "4") {
             titleColor4 = getColor(titleColor4);
           }
 
           let selectedfonts5;
-          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily);
           var titleColor5 = data.sceneData.textArray[4].fontColor;
           if (titleColor5.length == "4") {
             titleColor5 = getColor(titleColor5);
           }
-
 
 
           if (data.sceneData.media[0].type == "image") {
@@ -11799,7 +11794,7 @@ exports.createVideo = async (req, res, next) => {
             textOne.addEffect("backInLeft", 1.5, 1.0);
             scene51.addChild(textOne);
 
-            console.log('herersss')
+            console.log('herersss');
 
 
             const fontSize2 = parseInt(data.sceneData.textArray[1].fontSize) + 15;
@@ -11875,7 +11870,7 @@ exports.createVideo = async (req, res, next) => {
               scene51.addChild(text3);
             } else {
               const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 20;
-              console.log(fontSize4)
+              console.log(fontSize4);
               const text = new FFText({
                 text: contentParts[0],
                 fontSize: fontSize4,
@@ -11917,11 +11912,11 @@ exports.createVideo = async (req, res, next) => {
             text5.addEffect("backInLeft", 1.5, 1.0);
             scene51.addChild(text5);
 
-            console.log('herer')
+            console.log('herer');
             scene51.setTransition("fade", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
-            console.log('data.sceneData 1')
+            console.log('data.sceneData 1');
           }
           i++;
         }
@@ -11930,21 +11925,21 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate56(data);
 
-          //var result = data.sceneData.textArray[0].text.split(" ");
+          // var result = data.sceneData.textArray[0].text.split(" ");
           let selectedfonts1;
-          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily);
           var titleColor1 = data.sceneData.textArray[0].fontColor;
           if (titleColor1.length == "4") {
             titleColor1 = getColor(titleColor);
           }
           let selectedfonts2 = '';
-          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily);
           var titleColor2 = data.sceneData.textArray[1].fontColor;
           if (titleColor2.length == "4") {
             titleColor2 = getColor(titleColor2);
           }
           let selectedfonts3;
-          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily);
           var titleColor3 = data.sceneData.textArray[2].fontColor;
           if (titleColor3.length == "4") {
             titleColor3 = getColor(titleColor3);
@@ -11953,24 +11948,23 @@ exports.createVideo = async (req, res, next) => {
           const content = data.sceneData.textArray[3].text;
           const contentParts = content.split("\n");
           let selectedfonts4;
-          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily);
           var titleColor4 = data.sceneData.textArray[3].fontColor;
           if (titleColor4.length == "4") {
             titleColor4 = getColor(titleColor4);
           }
 
           let selectedfonts5;
-          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily);
           var titleColor5 = data.sceneData.textArray[4].fontColor;
           if (titleColor5.length == "4") {
             titleColor5 = getColor(titleColor5);
           }
 
-          console.log('herer 56 1')
+          console.log('herer 56 1');
 
-          console.log(data.sceneData.media[0].type)
+          console.log(data.sceneData.media[0].type);
           if (data.sceneData.media[0].type == "image" || data.sceneData.media[0].type == "img") {
-
             const scene51 = new FFScene();
             scene51.setBgColor("#fff");
             const image5 = new FFImage({
@@ -11998,7 +11992,6 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene51.addChild(image);
-
 
 
             const imageline = new FFImage({
@@ -12122,7 +12115,7 @@ exports.createVideo = async (req, res, next) => {
               scene51.addChild(text3);
             } else {
               const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 15;
-              console.log(fontSize4)
+              console.log(fontSize4);
               const text = new FFText({
                 text: contentParts[0],
                 fontSize: fontSize4,
@@ -12174,21 +12167,21 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate57(data);
 
-          //var result = data.sceneData.textArray[0].text.split(" ");
+          // var result = data.sceneData.textArray[0].text.split(" ");
           let selectedfonts1;
-          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily);
           var titleColor1 = data.sceneData.textArray[0].fontColor;
           if (titleColor1.length == "4") {
             titleColor1 = getColor(titleColor);
           }
           let selectedfonts2 = '';
-          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily);
           var titleColor2 = data.sceneData.textArray[1].fontColor;
           if (titleColor2.length == "4") {
             titleColor2 = getColor(titleColor2);
           }
           let selectedfonts3;
-          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily);
           var titleColor3 = data.sceneData.textArray[2].fontColor;
           if (titleColor3.length == "4") {
             titleColor3 = getColor(titleColor3);
@@ -12197,19 +12190,18 @@ exports.createVideo = async (req, res, next) => {
           const content = data.sceneData.textArray[3].text;
           const contentParts = content.split("\n");
           let selectedfonts4;
-          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily);
           var titleColor4 = data.sceneData.textArray[3].fontColor;
           if (titleColor4.length == "4") {
             titleColor4 = getColor(titleColor4);
           }
 
           let selectedfonts5;
-          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily);
           var titleColor5 = data.sceneData.textArray[4].fontColor;
           if (titleColor5.length == "4") {
             titleColor5 = getColor(titleColor5);
           }
-
 
 
           if (data.sceneData.media[0].type == "image") {
@@ -12247,8 +12239,6 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene51.addChild(image5);
-
-
 
 
             const image3 = new FFImage({
@@ -12373,7 +12363,7 @@ exports.createVideo = async (req, res, next) => {
               scene51.addChild(text3);
             } else {
               const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 20;
-              console.log(fontSize4)
+              console.log(fontSize4);
               const text = new FFText({
                 text: contentParts[0],
                 fontSize: fontSize4,
@@ -12417,7 +12407,6 @@ exports.createVideo = async (req, res, next) => {
             scene51.setTransition("fade", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
-
           }
           i++;
         }
@@ -12425,21 +12414,21 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate58(data);
 
-          //var result = data.sceneData.textArray[0].text.split(" ");
+          // var result = data.sceneData.textArray[0].text.split(" ");
           let selectedfonts1;
-          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily);
           var titleColor1 = data.sceneData.textArray[0].fontColor;
           if (titleColor1.length == "4") {
             titleColor1 = getColor(titleColor);
           }
           let selectedfonts2 = '';
-          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily);
           var titleColor2 = data.sceneData.textArray[1].fontColor;
           if (titleColor2.length == "4") {
             titleColor2 = getColor(titleColor2);
           }
           let selectedfonts3;
-          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily);
           var titleColor3 = data.sceneData.textArray[2].fontColor;
           if (titleColor3.length == "4") {
             titleColor3 = getColor(titleColor3);
@@ -12448,19 +12437,18 @@ exports.createVideo = async (req, res, next) => {
           const content = data.sceneData.textArray[3].text;
           const contentParts = content.split("\n");
           let selectedfonts4;
-          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily);
           var titleColor4 = data.sceneData.textArray[3].fontColor;
           if (titleColor4.length == "4") {
             titleColor4 = getColor(titleColor4);
           }
 
           let selectedfonts5;
-          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily);
           var titleColor5 = data.sceneData.textArray[4].fontColor;
           if (titleColor5.length == "4") {
             titleColor5 = getColor(titleColor5);
           }
-
 
 
           if (data.sceneData.media[0].type == "image") {
@@ -12542,7 +12530,6 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene51.addChild(whitestrip2);
-
 
 
             var content1 = data.sceneData.textArray[0].text.split(" ");
@@ -12647,7 +12634,7 @@ exports.createVideo = async (req, res, next) => {
               scene51.addChild(text3);
             } else {
               const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 20;
-              console.log(fontSize4)
+              console.log(fontSize4);
               const text = new FFText({
                 text: contentParts[0],
                 fontSize: fontSize4,
@@ -12691,7 +12678,6 @@ exports.createVideo = async (req, res, next) => {
             scene51.setTransition("fade", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
-
           }
           i++;
         }
@@ -12699,21 +12685,21 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate59(data);
 
-          //var result = data.sceneData.textArray[0].text.split(" ");
+          // var result = data.sceneData.textArray[0].text.split(" ");
           let selectedfonts1;
-          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily);
           var titleColor1 = data.sceneData.textArray[0].fontColor;
           if (titleColor1.length == "4") {
             titleColor1 = getColor(titleColor);
           }
           let selectedfonts2 = '';
-          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily);
           var titleColor2 = data.sceneData.textArray[1].fontColor;
           if (titleColor2.length == "4") {
             titleColor2 = getColor(titleColor2);
           }
           let selectedfonts3;
-          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily);
           var titleColor3 = data.sceneData.textArray[2].fontColor;
           if (titleColor3.length == "4") {
             titleColor3 = getColor(titleColor3);
@@ -12722,19 +12708,18 @@ exports.createVideo = async (req, res, next) => {
           const content = data.sceneData.textArray[3].text;
           const contentParts = content.split("\n");
           let selectedfonts4;
-          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily);
           var titleColor4 = data.sceneData.textArray[3].fontColor;
           if (titleColor4.length == "4") {
             titleColor4 = getColor(titleColor4);
           }
 
           let selectedfonts5;
-          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily);
           var titleColor5 = data.sceneData.textArray[4].fontColor;
           if (titleColor5.length == "4") {
             titleColor5 = getColor(titleColor5);
           }
-
 
 
           if (data.sceneData.media[0].type == "image") {
@@ -12803,7 +12788,6 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene51.addChild(whitestrip2);
-
 
 
             const blackstrip = new FFImage({
@@ -12936,7 +12920,7 @@ exports.createVideo = async (req, res, next) => {
               scene51.addChild(text3);
             } else {
               const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 20;
-              console.log(fontSize4)
+              console.log(fontSize4);
               const text = new FFText({
                 text: contentParts[0],
                 fontSize: fontSize4,
@@ -12980,7 +12964,6 @@ exports.createVideo = async (req, res, next) => {
             scene51.setTransition("fade", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
-
           }
           i++;
         }
@@ -12988,21 +12971,21 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate60(data);
 
-          //var result = data.sceneData.textArray[0].text.split(" ");
+          // var result = data.sceneData.textArray[0].text.split(" ");
           let selectedfonts1;
-          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily);
           var titleColor1 = data.sceneData.textArray[0].fontColor;
           if (titleColor1.length == "4") {
             titleColor1 = getColor(titleColor);
           }
           let selectedfonts2 = '';
-          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily);
           var titleColor2 = data.sceneData.textArray[1].fontColor;
           if (titleColor2.length == "4") {
             titleColor2 = getColor(titleColor2);
           }
           let selectedfonts3;
-          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily);
           var titleColor3 = data.sceneData.textArray[2].fontColor;
           if (titleColor3.length == "4") {
             titleColor3 = getColor(titleColor3);
@@ -13011,24 +12994,23 @@ exports.createVideo = async (req, res, next) => {
           const content = data.sceneData.textArray[3].text;
           const contentParts = content.split("\n");
           let selectedfonts4;
-          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily);
           var titleColor4 = data.sceneData.textArray[3].fontColor;
           if (titleColor4.length == "4") {
             titleColor4 = getColor(titleColor4);
           }
 
           let selectedfonts5;
-          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily);
           var titleColor5 = data.sceneData.textArray[4].fontColor;
           if (titleColor5.length == "4") {
             titleColor5 = getColor(titleColor5);
           }
 
-          console.log('herer 56 1')
+          console.log('herer 56 1');
 
-          console.log(data.sceneData.media[0].type)
+          console.log(data.sceneData.media[0].type);
           if (data.sceneData.media[0].type == "image" || data.sceneData.media[0].type == "img") {
-
             const scene51 = new FFScene();
             scene51.setBgColor("#fff");
             const image5 = new FFImage({
@@ -13070,7 +13052,7 @@ exports.createVideo = async (req, res, next) => {
               delay: 0.1,
               ease: "Cubic.InOut",
             });
-            scene51.addChild(image2)
+            scene51.addChild(image2);
 
 
             const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 35;
@@ -13086,7 +13068,6 @@ exports.createVideo = async (req, res, next) => {
             textOne.setFont(selectedfonts1);
             textOne.addEffect("fadeIn", 1, 1.0);
             scene51.addChild(textOne);
-
 
 
             if (contentParts[2] != undefined && contentParts[2] != "") {
@@ -13131,7 +13112,7 @@ exports.createVideo = async (req, res, next) => {
               scene51.addChild(text3);
             } else {
               const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 15;
-              console.log(fontSize4)
+              console.log(fontSize4);
               const text = new FFText({
                 text: contentParts[0],
                 fontSize: fontSize4,
@@ -13183,21 +13164,21 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate61(data);
 
-          //var result = data.sceneData.textArray[0].text.split(" ");
+          // var result = data.sceneData.textArray[0].text.split(" ");
           let selectedfonts1;
-          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily);
           var titleColor1 = data.sceneData.textArray[0].fontColor;
           if (titleColor1.length == "4") {
             titleColor1 = getColor(titleColor);
           }
           let selectedfonts2 = '';
-          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily);
           var titleColor2 = data.sceneData.textArray[1].fontColor;
           if (titleColor2.length == "4") {
             titleColor2 = getColor(titleColor2);
           }
           let selectedfonts3;
-          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily);
           var titleColor3 = data.sceneData.textArray[2].fontColor;
           if (titleColor3.length == "4") {
             titleColor3 = getColor(titleColor3);
@@ -13206,19 +13187,18 @@ exports.createVideo = async (req, res, next) => {
           const content = data.sceneData.textArray[3].text;
           const contentParts = content.split("\n");
           let selectedfonts4;
-          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily);
           var titleColor4 = data.sceneData.textArray[3].fontColor;
           if (titleColor4.length == "4") {
             titleColor4 = getColor(titleColor4);
           }
 
           let selectedfonts5;
-          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily);
           var titleColor5 = data.sceneData.textArray[4].fontColor;
           if (titleColor5.length == "4") {
             titleColor5 = getColor(titleColor5);
           }
-
 
 
           if (data.sceneData.media[0].type == "image") {
@@ -13314,7 +13294,6 @@ exports.createVideo = async (req, res, next) => {
             scene51.addChild(image4);
 
 
-
             var content1 = data.sceneData.textArray[0].text.split(" ");
             const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 35;
             const textOne = new FFText({
@@ -13377,7 +13356,7 @@ exports.createVideo = async (req, res, next) => {
               scene51.addChild(text3);
             } else {
               const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 20;
-              console.log(fontSize4)
+              console.log(fontSize4);
               const text = new FFText({
                 text: contentParts[0],
                 fontSize: fontSize4,
@@ -13414,11 +13393,11 @@ exports.createVideo = async (req, res, next) => {
             text5.addEffect("backInLeft", 1.5, 1.0);
             scene51.addChild(text5);
 
-            console.log('herer')
+            console.log('herer');
             scene51.setTransition("fade", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
-            console.log('data.sceneData 1')
+            console.log('data.sceneData 1');
           }
           i++;
         }
@@ -13426,21 +13405,21 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate62(data);
 
-          //var result = data.sceneData.textArray[0].text.split(" ");
+          // var result = data.sceneData.textArray[0].text.split(" ");
           let selectedfonts1;
-          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily);
           var titleColor1 = data.sceneData.textArray[0].fontColor;
           if (titleColor1.length == "4") {
             titleColor1 = getColor(titleColor);
           }
           let selectedfonts2 = '';
-          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily);
           var titleColor2 = data.sceneData.textArray[1].fontColor;
           if (titleColor2.length == "4") {
             titleColor2 = getColor(titleColor2);
           }
           let selectedfonts3;
-          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily);
           var titleColor3 = data.sceneData.textArray[2].fontColor;
           if (titleColor3.length == "4") {
             titleColor3 = getColor(titleColor3);
@@ -13449,23 +13428,21 @@ exports.createVideo = async (req, res, next) => {
           const content = data.sceneData.textArray[3].text;
           const contentParts = content.split("\n");
           let selectedfonts4;
-          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily);
           var titleColor4 = data.sceneData.textArray[3].fontColor;
           if (titleColor4.length == "4") {
             titleColor4 = getColor(titleColor4);
           }
 
           let selectedfonts5;
-          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily);
           var titleColor5 = data.sceneData.textArray[4].fontColor;
           if (titleColor5.length == "4") {
             titleColor5 = getColor(titleColor5);
           }
 
 
-
           if (data.sceneData.media[0].type == "image") {
-
             const scene51 = new FFScene();
             scene51.setBgColor("#fff");
             const slidebg = new FFImage({
@@ -13596,7 +13573,6 @@ exports.createVideo = async (req, res, next) => {
             scene51.addChild(text3);
 
 
-
             const fontSize5 = parseInt(data.sceneData.textArray[3].fontSize) + 15;
             const text5 = new FFText({
               text: data.sceneData.textArray[3].text,
@@ -13611,11 +13587,11 @@ exports.createVideo = async (req, res, next) => {
             scene51.addChild(text5);
 
 
-            console.log('herer')
+            console.log('herer');
             scene51.setTransition("fade", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
-            console.log('data.sceneData 1')
+            console.log('data.sceneData 1');
           }
           i++;
         }
@@ -13623,29 +13599,27 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate63(data);
 
-          //var result = data.sceneData.textArray[0].text.split(" ");
+          // var result = data.sceneData.textArray[0].text.split(" ");
           let selectedfonts1;
-          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily);
 
           let selectedfonts2 = '';
-          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily);
 
           let selectedfonts3;
-          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily);
 
 
           let selectedfonts4;
-          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily);
           var titleColor4 = data.sceneData.textArray[3].fontColor;
 
 
           let selectedfonts5;
-          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
-
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily);
 
 
           if (data.sceneData.media[0].type == "image") {
-
             const scene51 = new FFScene();
             scene51.setBgColor("#fff");
             const slidebg = new FFImage({
@@ -13677,7 +13651,6 @@ exports.createVideo = async (req, res, next) => {
             // });
 
             // scene51.addChild(slidebg2);
-
 
 
             const frectwhite = new FFRect({
@@ -13869,21 +13842,21 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate64(data);
 
-          //var result = data.sceneData.textArray[0].text.split(" ");
+          // var result = data.sceneData.textArray[0].text.split(" ");
           let selectedfonts1;
-          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily);
           var titleColor1 = data.sceneData.textArray[0].fontColor;
           if (titleColor1.length == "4") {
             titleColor1 = getColor(titleColor);
           }
           let selectedfonts2 = '';
-          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily);
           var titleColor2 = data.sceneData.textArray[1].fontColor;
           if (titleColor2.length == "4") {
             titleColor2 = getColor(titleColor2);
           }
           let selectedfonts3;
-          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily);
           var titleColor3 = data.sceneData.textArray[2].fontColor;
           if (titleColor3.length == "4") {
             titleColor3 = getColor(titleColor3);
@@ -13892,23 +13865,21 @@ exports.createVideo = async (req, res, next) => {
           const content = data.sceneData.textArray[3].text;
           const contentParts = content.split("\n");
           let selectedfonts4;
-          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily);
           var titleColor4 = data.sceneData.textArray[3].fontColor;
           if (titleColor4.length == "4") {
             titleColor4 = getColor(titleColor4);
           }
 
           let selectedfonts5;
-          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily);
           var titleColor5 = data.sceneData.textArray[4].fontColor;
           if (titleColor5.length == "4") {
             titleColor5 = getColor(titleColor5);
           }
 
 
-
           if (data.sceneData.media[0].type == "image") {
-
             const scene51 = new FFScene();
             scene51.setBgColor("#fff");
             const slidebg = new FFImage({
@@ -13993,7 +13964,6 @@ exports.createVideo = async (req, res, next) => {
             scene51.addChild(textOne);
 
 
-
             if (contentParts[2] != undefined && contentParts[2] != "") {
               const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 20;
               const text = new FFText({
@@ -14031,7 +14001,7 @@ exports.createVideo = async (req, res, next) => {
               scene51.addChild(text3);
             } else {
               const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 15;
-              console.log(fontSize4)
+              console.log(fontSize4);
               const text = new FFText({
                 text: contentParts[0],
                 fontSize: fontSize4,
@@ -14068,11 +14038,11 @@ exports.createVideo = async (req, res, next) => {
             text5.addEffect("backInLeft", 1.5, 1.0);
             scene51.addChild(text5);
 
-            console.log('herer')
+            console.log('herer');
             scene51.setTransition("fade", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
-            console.log('data.sceneData 1')
+            console.log('data.sceneData 1');
           }
           i++;
         }
@@ -14080,23 +14050,23 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
 
           const fourthVideo = await videoTemplate65(data);
-          console.log(data)
-          console.log('data')
-          //var result = data.sceneData.textArray[0].text.split(" ");
+          console.log(data);
+          console.log('data');
+          // var result = data.sceneData.textArray[0].text.split(" ");
           let selectedfonts1;
-          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily);
           var titleColor1 = data.sceneData.textArray[0].fontColor;
           if (titleColor1.length == "4") {
             titleColor1 = getColor(titleColor);
           }
           let selectedfonts2 = '';
-          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily);
           var titleColor2 = data.sceneData.textArray[1].fontColor;
           if (titleColor2.length == "4") {
             titleColor2 = getColor(titleColor2);
           }
           let selectedfonts3;
-          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily);
           var titleColor3 = data.sceneData.textArray[2].fontColor;
           if (titleColor3.length == "4") {
             titleColor3 = getColor(titleColor3);
@@ -14105,19 +14075,18 @@ exports.createVideo = async (req, res, next) => {
           const content = data.sceneData.textArray[3].text;
           const contentParts = content.split("\n");
           let selectedfonts4;
-          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily);
           var titleColor4 = data.sceneData.textArray[3].fontColor;
           if (titleColor4.length == "4") {
             titleColor4 = getColor(titleColor4);
           }
 
           let selectedfonts5;
-          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily);
           var titleColor5 = data.sceneData.textArray[4].fontColor;
           if (titleColor5.length == "4") {
             titleColor5 = getColor(titleColor5);
           }
-
 
 
           if (data.sceneData.media[0].type == "image") {
@@ -14136,7 +14105,7 @@ exports.createVideo = async (req, res, next) => {
               delay: 0.1,
               ease: "Cubic.InOut",
             });
-            //blackstrip2.setOpacity(0.7);
+            // blackstrip2.setOpacity(0.7);
             scene51.addChild(blackline1);
             const blackline2 = new FFImage({
               path: assetsPath + "blackline.png",
@@ -14151,7 +14120,7 @@ exports.createVideo = async (req, res, next) => {
               delay: 0.1,
               ease: "Cubic.InOut",
             });
-            //blackstrip2.setOpacity(0.7);
+            // blackstrip2.setOpacity(0.7);
             scene51.addChild(blackline2);
 
             const blackline3 = new FFImage({
@@ -14167,7 +14136,7 @@ exports.createVideo = async (req, res, next) => {
               delay: 0.1,
               ease: "Cubic.InOut",
             });
-            //blackstrip2.setOpacity(0.7);
+            // blackstrip2.setOpacity(0.7);
             scene51.addChild(blackline3);
             const blackline4 = new FFImage({
               path: assetsPath + "blackline2.png",
@@ -14182,7 +14151,7 @@ exports.createVideo = async (req, res, next) => {
               delay: 0.1,
               ease: "Cubic.InOut",
             });
-            //blackstrip2.setOpacity(0.7);
+            // blackstrip2.setOpacity(0.7);
             scene51.addChild(blackline4);
 
 
@@ -14242,7 +14211,6 @@ exports.createVideo = async (req, res, next) => {
             scene51.addChild(image7);
 
 
-
             const blackstrip = new FFImage({
               path: assetsPath + "shortblue2.png",
               x: 355,
@@ -14271,7 +14239,7 @@ exports.createVideo = async (req, res, next) => {
               delay: 0.1,
               ease: "Cubic.InOut",
             });
-            //blackstrip2.setOpacity(0.7);
+            // blackstrip2.setOpacity(0.7);
             scene51.addChild(blackstrip2);
 
             const blackstrip3 = new FFImage({
@@ -14287,7 +14255,7 @@ exports.createVideo = async (req, res, next) => {
               delay: 0.1,
               ease: "Cubic.InOut",
             });
-            //blackstrip2.setOpacity(0.7);
+            // blackstrip2.setOpacity(0.7);
             scene51.addChild(blackstrip3);
 
             const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 25;
@@ -14391,7 +14359,7 @@ exports.createVideo = async (req, res, next) => {
               scene51.addChild(text3);
             } else {
               const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 15;
-              console.log(fontSize4)
+              console.log(fontSize4);
               const text = new FFText({
                 text: contentParts[0],
                 fontSize: fontSize4,
@@ -14435,7 +14403,6 @@ exports.createVideo = async (req, res, next) => {
             scene51.setTransition("fade", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
-
           }
           i++;
         }
@@ -14445,7 +14412,7 @@ exports.createVideo = async (req, res, next) => {
 
           var result = data.sceneData.textArray[0].text.split(" ");
           let selectedfonts1;
-          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily);
           var titleColor1 = data.sceneData.textArray[0].fontColor;
           if (titleColor1.length == "4") {
             titleColor1 = getColor(titleColor);
@@ -14599,7 +14566,7 @@ exports.createVideo = async (req, res, next) => {
             scene51.setTransition("fade", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
-            console.log('data.sceneData 1')
+            console.log('data.sceneData 1');
           }
           i++;
         }
@@ -14738,7 +14705,6 @@ exports.createVideo = async (req, res, next) => {
           scene4.addChild(fcloud2);
 
 
-
           // const text4 = new FFText({
           //   text: `FFCreator文字多行的示例, \n FFCreator文字  多行的示例,,FFCreator文字多行的示例,  FFCreator文字多行的示例`,
           //   color: '#ffffff',
@@ -14781,9 +14747,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
 
           let result2 = data.sceneData.textArray[1].text.split(" ");
@@ -14803,16 +14769,16 @@ exports.createVideo = async (req, res, next) => {
           var titleColor2 = data.sceneData.textArray[1].fontColor;
           if (titleColor2.length == "4") {
             titleColor2 = titleColor2.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
 
           if (data.sceneData.media[0].type == "image") {
             const scene51 = new FFScene();
             scene51.setBgColor("#fff");
-            console.log(selectedfonts)
-            console.log('data.sceneData')
+            console.log(selectedfonts);
+            console.log('data.sceneData');
             const image = new FFImage({
               path: assetsPath + "brownbgnewa.png",
               y: 45,
@@ -14968,11 +14934,10 @@ exports.createVideo = async (req, res, next) => {
             scene51.addChild(textNext);
 
 
-
             scene51.setTransition("squareswire", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
-            console.log('data.sceneData 52')
+            console.log('data.sceneData 52');
           }
           i++;
         }
@@ -14996,9 +14961,9 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item }
+              if (item == "#") {return item;}
               return item + item;
-            }).join("")
+            }).join("");
           }
 
 
@@ -15118,16 +15083,12 @@ exports.createVideo = async (req, res, next) => {
 
           const fourthVideo = await videoTemplate70(data);
 
-          //var result = data.sceneData.textArray[0].text.split(" ");
-
+          // var result = data.sceneData.textArray[0].text.split(" ");
 
 
           let selectedfonts4;
-          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily);
           var titleColor4 = data.sceneData.textArray[3].fontColor;
-
-
-
 
 
           if (data.sceneData.media[0].type == "image") {
@@ -15146,7 +15107,7 @@ exports.createVideo = async (req, res, next) => {
               delay: 0.1,
               ease: "Cubic.InOut",
             });
-            //blackstrip2.setOpacity(0.7);
+            // blackstrip2.setOpacity(0.7);
             scene51.addChild(blackline1);
             const blackline2 = new FFImage({
               path: assetsPath + "blackline.png",
@@ -15161,7 +15122,7 @@ exports.createVideo = async (req, res, next) => {
               delay: 0.1,
               ease: "Cubic.InOut",
             });
-            //blackstrip2.setOpacity(0.7);
+            // blackstrip2.setOpacity(0.7);
             scene51.addChild(blackline2);
 
             const blackline3 = new FFImage({
@@ -15177,7 +15138,7 @@ exports.createVideo = async (req, res, next) => {
               delay: 0.1,
               ease: "Cubic.InOut",
             });
-            //blackstrip2.setOpacity(0.7);
+            // blackstrip2.setOpacity(0.7);
             scene51.addChild(blackline3);
             const blackline4 = new FFImage({
               path: assetsPath + "blackline2.png",
@@ -15192,7 +15153,7 @@ exports.createVideo = async (req, res, next) => {
               delay: 0.1,
               ease: "Cubic.InOut",
             });
-            //blackstrip2.setOpacity(0.7);
+            // blackstrip2.setOpacity(0.7);
             scene51.addChild(blackline4);
 
 
@@ -15250,7 +15211,6 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene51.addChild(image7);
-
 
 
             // const blackstrip = new FFImage({
@@ -15323,7 +15283,7 @@ exports.createVideo = async (req, res, next) => {
               text: data.sceneData.textArray[3].text,
               x: 960,
               y: 540,
-            })
+            });
             text.setStyle({
               wordWrap: true,
               wordWrapWidth: 560,
@@ -15338,8 +15298,6 @@ exports.createVideo = async (req, res, next) => {
             text.alignCenter();
             text.setStyle({ padding: [0, 20, 10, 20] });
             scene51.addChild(text);
-
-
 
 
             // const fontSize5 = parseInt(data.sceneData.textArray[4].fontSize) + 15;
@@ -15358,7 +15316,6 @@ exports.createVideo = async (req, res, next) => {
             scene51.setTransition("fade", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
-
           }
           i++;
         }
@@ -15366,7 +15323,7 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate71(data);
           let selectedfonts4;
-          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily);
           var titleColor4 = data.sceneData.textArray[3].fontColor;
           if (titleColor4.length == "4") {
             titleColor4 = getColor(titleColor4);
@@ -15445,7 +15402,7 @@ exports.createVideo = async (req, res, next) => {
               text: data.sceneData.textArray[3].text,
               x: 960,
               y: 540,
-            })
+            });
             text.setStyle({
               wordWrap: true,
               wordWrapWidth: 560,
@@ -15461,11 +15418,9 @@ exports.createVideo = async (req, res, next) => {
             scene51.addChild(text);
 
 
-
             scene51.setTransition("fade", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
-
           }
           i++;
         }
@@ -15473,10 +15428,10 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate72(data);
           let selectedfonts1;
-          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily);
 
-          console.log(data.sceneData.textArray[0].text)
-          console.log(data)
+          console.log(data.sceneData.textArray[0].text);
+          console.log(data);
           if (data.sceneData.media[0].type == "image") {
             const scene51 = new FFScene();
             scene51.setBgColor("#fff");
@@ -15616,7 +15571,7 @@ exports.createVideo = async (req, res, next) => {
             scene51.setTransition("fade", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
-            console.log('data.sceneData 1')
+            console.log('data.sceneData 1');
           }
           i++;
         }
@@ -15755,7 +15710,6 @@ exports.createVideo = async (req, res, next) => {
           scene4.addChild(fcloud2);
 
 
-
           // const text4 = new FFText({
           //   text: `FFCreator文字多行的示例, \n FFCreator文字  多行的示例,,FFCreator文字多行的示例,  FFCreator文字多行的示例`,
           //   color: '#ffffff',
@@ -15782,24 +15736,22 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate74(data);
 
-          //var result = data.sceneData.textArray[0].text.split(" ");
+          // var result = data.sceneData.textArray[0].text.split(" ");
           let selectedfonts1;
-          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily);
 
           let selectedfonts2 = '';
-          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily);
 
           let selectedfonts3;
-          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily);
 
           let selectedfonts4;
-          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily);
 
 
           let selectedfonts5;
-          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
-
-
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily);
 
 
           if (data.sceneData.media[0].type == "image") {
@@ -15908,7 +15860,6 @@ exports.createVideo = async (req, res, next) => {
             scene51.addChild(image7);
 
 
-
             const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 35;
             const textOne = new FFText({
               text: data.sceneData.textArray[0].text,
@@ -15930,15 +15881,11 @@ exports.createVideo = async (req, res, next) => {
             textOne.addEffect("backInLeft", 1.5, 1.0);
             scene51.addChild(textOne);
 
-            console.log('herersss')
-
-
-
-
+            console.log('herersss');
 
 
             const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 20;
-            console.log(fontSize4)
+            console.log(fontSize4);
             const text1 = new FFText({
               text: data.sceneData.textArray[3].text,
               fontSize: fontSize4,
@@ -15958,8 +15905,6 @@ exports.createVideo = async (req, res, next) => {
             text1.alignCenter();
             text1.setStyle({ padding: [0, 20, 10, 20] });
             scene51.addChild(text1);
-
-
 
 
             const fontSize5 = parseInt(data.sceneData.textArray[4].fontSize) + 15;
@@ -15983,11 +15928,11 @@ exports.createVideo = async (req, res, next) => {
             text5.addEffect("backInLeft", 1.5, 1.0);
             scene51.addChild(text5);
 
-            console.log('herer')
+            console.log('herer');
             scene51.setTransition("fade", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
-            console.log('data.sceneData 1')
+            console.log('data.sceneData 1');
           }
           i++;
         }
@@ -15995,24 +15940,22 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate75(data);
 
-          //var result = data.sceneData.textArray[0].text.split(" ");
+          // var result = data.sceneData.textArray[0].text.split(" ");
           let selectedfonts1;
-          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily);
 
           let selectedfonts2 = '';
-          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily);
 
           let selectedfonts3;
-          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily);
 
           let selectedfonts4;
-          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily);
 
 
           let selectedfonts5;
-          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
-
-
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily);
 
 
           if (data.sceneData.media[0].type == "image") {
@@ -16121,15 +16064,8 @@ exports.createVideo = async (req, res, next) => {
             scene51.addChild(image7);
 
 
-
-
-
-
-
-
-
             const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 20;
-            console.log(fontSize4)
+            console.log(fontSize4);
             const text1 = new FFText({
               text: data.sceneData.textArray[3].text,
               fontSize: fontSize4,
@@ -16151,12 +16087,11 @@ exports.createVideo = async (req, res, next) => {
             scene51.addChild(text1);
 
 
-
-            console.log('herer')
+            console.log('herer');
             scene51.setTransition("fade", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
-            console.log('data.sceneData 1')
+            console.log('data.sceneData 1');
           }
           i++;
         }
@@ -16164,27 +16099,25 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate56(data);
 
-          //var result = data.sceneData.textArray[0].text.split(" ");
+          // var result = data.sceneData.textArray[0].text.split(" ");
           let selectedfonts1;
-          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily);
           var titleColor1 = data.sceneData.textArray[0].fontColor;
 
           let selectedfonts2 = '';
-          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily);
 
           let selectedfonts3;
-          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
-
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily);
 
 
           let selectedfonts4;
-          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily);
 
           let selectedfonts5;
-          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily);
 
           if (data.sceneData.media[0].type == "image" || data.sceneData.media[0].type == "img") {
-
             const scene51 = new FFScene();
             scene51.setBgColor("#fff");
             const image5 = new FFImage({
@@ -16212,8 +16145,6 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene51.addChild(image);
-
-
 
 
             const imagepentagon = new FFImage({
@@ -16258,8 +16189,6 @@ exports.createVideo = async (req, res, next) => {
             scene51.addChild(textOne);
 
 
-
-
             const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 15;
 
             const text = new FFText({
@@ -16280,7 +16209,6 @@ exports.createVideo = async (req, res, next) => {
             text.addEffect("fadeIn", 1, 1.3);
             text.alignCenter();
             scene51.addChild(text);
-
 
 
             const fontSize5 = parseInt(data.sceneData.textArray[4].fontSize) + 15;
@@ -16313,26 +16241,25 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate60(data);
 
-          //var result = data.sceneData.textArray[0].text.split(" ");
+          // var result = data.sceneData.textArray[0].text.split(" ");
           let selectedfonts1;
-          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily);
 
           let selectedfonts2 = '';
-          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily);
 
           let selectedfonts3;
-          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily);
 
           let selectedfonts4;
-          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily);
 
 
           let selectedfonts5;
-          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily);
 
 
           if (data.sceneData.media[0].type == "image" || data.sceneData.media[0].type == "img") {
-
             const scene51 = new FFScene();
             scene51.setBgColor("#fff");
             const image5 = new FFImage({
@@ -16375,7 +16302,7 @@ exports.createVideo = async (req, res, next) => {
               delay: 0.1,
               ease: "Cubic.InOut",
             });
-            scene51.addChild(image2)
+            scene51.addChild(image2);
 
 
             const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 35;
@@ -16400,7 +16327,7 @@ exports.createVideo = async (req, res, next) => {
 
 
             const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 15;
-            console.log(fontSize4)
+            console.log(fontSize4);
             const text = new FFText({
               text: data.sceneData.textArray[3].text,
               x: 450,
@@ -16421,9 +16348,6 @@ exports.createVideo = async (req, res, next) => {
             scene51.addChild(text);
 
 
-
-
-
             scene51.setTransition("fade", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
@@ -16434,27 +16358,25 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate56(data);
 
-          //var result = data.sceneData.textArray[0].text.split(" ");
+          // var result = data.sceneData.textArray[0].text.split(" ");
           let selectedfonts1;
-          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily)
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily);
           var titleColor1 = data.sceneData.textArray[0].fontColor;
 
           let selectedfonts2 = '';
-          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily)
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily);
 
           let selectedfonts3;
-          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily)
-
+          selectedfonts3 = await getselectedFontFamily(data.sceneData.textArray[2].fontWeight, data.sceneData.textArray[2].fontFamily);
 
 
           let selectedfonts4;
-          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily)
+          selectedfonts4 = await getselectedFontFamily(data.sceneData.textArray[3].fontWeight, data.sceneData.textArray[3].fontFamily);
 
           let selectedfonts5;
-          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily)
+          selectedfonts5 = await getselectedFontFamily(data.sceneData.textArray[4].fontWeight, data.sceneData.textArray[4].fontFamily);
 
           if (data.sceneData.media[0].type == "image" || data.sceneData.media[0].type == "img") {
-
             const scene51 = new FFScene();
             scene51.setBgColor("#fff");
             const image5 = new FFImage({
@@ -16482,8 +16404,6 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene51.addChild(image);
-
-
 
 
             const imagepentagon = new FFImage({
@@ -16526,8 +16446,6 @@ exports.createVideo = async (req, res, next) => {
             textOne.setFont(selectedfonts1);
             textOne.addEffect("fadeIn", 1, 1.0);
             scene51.addChild(textOne);
-
-
 
 
             const fontSize4 = parseInt(data.sceneData.textArray[3].fontSize) + 15;
@@ -17749,8 +17667,6 @@ exports.createVideo = async (req, res, next) => {
       );
 
 
-
-
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
@@ -17811,7 +17727,6 @@ exports.createVideo = async (req, res, next) => {
       );
 
 
-
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
@@ -17851,7 +17766,6 @@ exports.createVideo = async (req, res, next) => {
         mediaDate +
         "-img632.png"
       );
-
 
 
       deleteFiles(
@@ -17912,7 +17826,6 @@ exports.createVideo = async (req, res, next) => {
         mediaDate +
         "-img723.png"
       );
-
 
 
       deleteFiles(
@@ -21370,7 +21283,7 @@ global.videoTemplate63 = async function videoTemplate63(data, req, res) {
       .catch((err) => {
         console.error(err);
       });
-  })
+  });
 };
 global.videoTemplate70 = async function videoTemplate70(data, req, res) {
   return new Promise((resolve) => {
@@ -21993,17 +21906,16 @@ const getselectedFontFamily = (selectedfontWeight, fontfamily) => {
       } else if (selectedfontWeight == "normal") {
         fontsSelected = font.file;
       } else if (selectedfontWeight == "bold") {
-
         fontsSelected = font.bold;
       }
     }
   });
-  return fontsSelected
-}
+  return fontsSelected;
+};
 const getColor = (titleColor) => {
   titleColor = titleColor.split("").map((item) => {
-    if (item == "#") { return item }
+    if (item == "#") {return item;}
     return item + item;
-  }).join("")
+  }).join("");
   return titleColor;
-}
+};
