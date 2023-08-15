@@ -367,6 +367,7 @@ exports.createVideo = async (req, res, next) => {
       const blockLength = parseFloat(templateBlock.length);
       console.log(blockLength);
       let i = 0;
+      console.log('blockLength');
       // init FFcreator
       const {
         FFScene,
