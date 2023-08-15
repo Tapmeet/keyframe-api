@@ -21,7 +21,7 @@ var userId;
 // //console.log(ffprobeInstaller.path, ffprobeInstaller.version)
 
 // ffprobe.FFPROBE_PATH = ffprobeInstaller.path
-const concat = require("ffmpeg-concat");
+//const concat = require("ffmpeg-concat");
 const glob = require("glob");
 const userVideos = require("../models/userVideos");
 const user = require("../models/user");
@@ -1434,20 +1434,20 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
     });
     async function mergeBlock2Videos(data, req, res) {
       try {
-        const Createdvideo = await concat({
-          output:
-            "./src/Assets/template/videos/" +
-            userId +
-            "/template1/blockmerged.mp4",
-          videos: [data.video1, data.video2],
-          transitions: [
-            {
-              name: "directional",
-              params: { direction: [1.0, 0.0] },
-              duration: 1000,
-            },
-          ],
-        });
+        // const Createdvideo = await concat({
+        //   output:
+        //     "./src/Assets/template/videos/" +
+        //     userId +
+        //     "/template1/blockmerged.mp4",
+        //   videos: [data.video1, data.video2],
+        //   transitions: [
+        //     {
+        //       name: "directional",
+        //       params: { direction: [1.0, 0.0] },
+        //       duration: 1000,
+        //     },
+        //   ],
+        // });
 
         if (typeof Createdvideo == "undefined") {
           setTimeout(function () {
@@ -1754,20 +1754,20 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
     }
     async function mergeVideos(data, req, res) {
       try {
-        const Createdvideo = await concat({
-          output:
-            "./src/Assets/template/videos/" +
-            userId +
-            "/template1/block2final.mp4",
-          videos: data,
-          transitions: [
-            {
-              name: "directional",
-              params: { direction: [1.0, 0.0] },
-              duration: 1000,
-            },
-          ],
-        });
+        // const Createdvideo = await concat({
+        //   output:
+        //     "./src/Assets/template/videos/" +
+        //     userId +
+        //     "/template1/block2final.mp4",
+        //   videos: data,
+        //   transitions: [
+        //     {
+        //       name: "directional",
+        //       params: { direction: [1.0, 0.0] },
+        //       duration: 1000,
+        //     },
+        //   ],
+        // });
         if (typeof Createdvideo == "undefined") {
           if (block3 && typeof block3.blockData != "undefined") {
             block3Video(block3, req, res);
@@ -1921,19 +1921,19 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
     });
     async function mergeBlock3Videos(data, req, res) {
       try {
-        const Createdvideo = await concat({
-          output:
-            "./src/Assets/template/videos/" +
-            userId +
-            "/template1/block3merged.mp4",
-          videos: [data.video1, data.video2],
-          transitions: [
-            {
-              name: "fade",
-              duration: 1000,
-            },
-          ],
-        });
+        // const Createdvideo = await concat({
+        //   output:
+        //     "./src/Assets/template/videos/" +
+        //     userId +
+        //     "/template1/block3merged.mp4",
+        //   videos: [data.video1, data.video2],
+        //   transitions: [
+        //     {
+        //       name: "fade",
+        //       duration: 1000,
+        //     },
+        //   ],
+        // });
         if (typeof Createdvideo == "undefined") {
           setTimeout(function () {
             const datas = {
@@ -2360,20 +2360,20 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
     async function mergeBlock4Videos1(data) {
       console.log("step3log");
       try {
-        const Createdvideo3 = await concat({
-          output:
-            "./src/Assets/template/videos/" +
-            userId +
-            "/template1/block4merged1.mp4",
-          videos: [data.video1, data.video2],
-          transitions: [
-            {
-              name: "directional",
-              params: { direction: [0, 1] },
-              duration: 1000,
-            },
-          ],
-        });
+        // const Createdvideo3 = await concat({
+        //   output:
+        //     "./src/Assets/template/videos/" +
+        //     userId +
+        //     "/template1/block4merged1.mp4",
+        //   videos: [data.video1, data.video2],
+        //   transitions: [
+        //     {
+        //       name: "directional",
+        //       params: { direction: [0, 1] },
+        //       duration: 1000,
+        //     },
+        //   ],
+        // });
         if (typeof Createdvideo3 == "undefined") {
           block4video3(block4, req, res);
         }
@@ -2612,20 +2612,20 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
     }
     async function mergeBlock4Videos2(data) {
       try {
-        const Createdvideo4 = await concat({
-          output:
-            "./src/Assets/template/videos/" +
-            userId +
-            "/template1/block4merged2.mp4",
-          videos: [data.video1, data.video2],
-          transitions: [
-            {
-              name: "directional",
-              params: { direction: [0, 1] },
-              duration: 1000,
-            },
-          ],
-        });
+        // const Createdvideo4 = await concat({
+        //   output:
+        //     "./src/Assets/template/videos/" +
+        //     userId +
+        //     "/template1/block4merged2.mp4",
+        //   videos: [data.video1, data.video2],
+        //   transitions: [
+        //     {
+        //       name: "directional",
+        //       params: { direction: [0, 1] },
+        //       duration: 1000,
+        //     },
+        //   ],
+        // });
         if (typeof Createdvideo4 == "undefined") {
           block4Finalmerged(block4, req, res);
         }

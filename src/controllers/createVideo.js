@@ -23,7 +23,7 @@ const UserVideos = require("../models/userVideos");
 const User = require("../models/user");
 const fs = require("fs");
 const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
-console.log(ffmpegPath)
+//console.log(ffmpegPath)
 const ffmpeg = require("fluent-ffmpeg");
 // const ffprobe = require("ffprobe-static");
 const { getVideoDurationInSeconds } = require("get-video-duration");
