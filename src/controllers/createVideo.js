@@ -325,10 +325,11 @@ exports.mergeVideo = async (req, res, next) => {
  * @desc Add Event
  * @access Admin
  */
+var templatemainId;
 exports.createVideo = async (req, res, next) => {
   const { templateId } = req.body;
 
-  var templatemainId;
+
   try {
     const templateBlock = await Block.find({ templateId: templateId }).sort({
       order: 1,
@@ -16741,6 +16742,7 @@ exports.createVideo = async (req, res, next) => {
         templateImage: templateImage,
         path: path,
         templateId: templatemainId,
+        templateIdVideo: templateId
       });
       const uploadData = await newUpload.save();
       deleteFiles(

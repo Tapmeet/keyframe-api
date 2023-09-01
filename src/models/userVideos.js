@@ -16,6 +16,9 @@ const UserVideoschema = new mongoose.Schema({
   templateId: {
     type: String,
   },
+  templateIdVideo: {
+    type: String,
+  },
 
 }, {timestamps: true});
 

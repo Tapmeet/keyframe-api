@@ -16,9 +16,11 @@ const templatesBlocksSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  sceneType: {
+    type: String,
+  },
   sceneThumbnail: {
     type: String,
-
   },
   sceneData: {
     type: Object,

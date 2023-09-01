@@ -15,6 +15,9 @@ const sceneSchema = new mongoose.Schema({
   sceneCategory: {
     type: String,
   },
+  sceneType: {
+    type: String,
+  },
   sceneData: {
     type: Object,
   },

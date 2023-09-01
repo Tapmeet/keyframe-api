@@ -263,10 +263,10 @@ exports.getAdminTemplates = async function (req, res) {
       [
         {
           $match: { adminTemplate: true },
-         
+
         },
         { $sort: { templateOrder: 1 } },
-        { 
+        {
           $project: {
             _id: {
               $toString: "$_id",
@@ -275,7 +275,7 @@ exports.getAdminTemplates = async function (req, res) {
             title: "$title",
             templateImage: "$templateImage",
             templatePreview: "$templatePreview",
-            sceneOrder: "$sceneOrder", 
+            sceneOrder: "$sceneOrder",
             templateCategory: "$templateCategory",
             musicFile: "$musicFile",
             templateScenes: "$templateScenes",
@@ -354,6 +354,7 @@ exports.addAdminTemplates = async function (req, res) {
               sceneTitle: data.sceneTitle,
               sceneThumbnail: data.sceneThumbnail,
               sceneData: data.sceneData,
+              sceneType: data.sceneType,
               order: index + 1,
               templateId: tempateData._id,
             });
@@ -367,6 +368,7 @@ exports.addAdminTemplates = async function (req, res) {
             sceneTitle: data.sceneTitle,
             sceneThumbnail: data.sceneThumbnail,
             sceneData: data.sceneData,
+            sceneType:data.sceneType,
             order: index + 1,
             templateId: tempateData._id,
           });
@@ -395,7 +397,6 @@ exports.addAdminTemplates = async function (req, res) {
 };
 
 exports.updateTemplate = async function (req, res) {
-  console.log('here')
   try {
     const { id } = req.body;
     // Make sure to update existing division
@@ -555,6 +556,7 @@ exports.updateTemplate = async function (req, res) {
         sceneTitle: req.body.data.sceneTitle,
         sceneThumbnail: req.body.data.sceneThumbnail,
         sceneData: req.body.data.sceneData,
+        sceneType:req.body.data.sceneType,
       });
       const blockData = await newBlock.save();
       res.status(200).json({
@@ -601,7 +603,7 @@ exports.getAdminTemplate = async (req, res, next) => {
             fontSize: "$fontSize",
             fontFamily: "$fontFamily",
             fontColor: "$fontColor",
-            templateOrder:"$templateOrder"
+            templateOrder: "$templateOrder"
           },
         },
         {
@@ -823,7 +825,7 @@ exports.getMusicUploads = async (req, res, next) => {
   const { userId } = req.query;
   if (userId) {
     try {
-      const uploads = await Musicupload.find({ userId: userId });
+      const uploads = await Musicupload.find({ userId: userId, mimetype: 'audio/mpeg' }).sort({ _id: -1 });
       if (typeof uploads !== "undefined" && uploads.length > 0) {
         res.status(200).json({ message: "Uploads List", data: uploads });
       } else {
@@ -986,7 +988,7 @@ exports.update = async function (req, res) {
  * @access Admin
  */
 exports.createVideo = async (req, res, next) => {
-  console.log("here");
+
   const { templateId } = req.body;
   try {
     const templateBlock = await Block.find({ templateId: templateId });
@@ -2285,7 +2287,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
       console.log("step2log");
       var commands = new ffmpeg();
       if (block4.blockData.containerTwo == block4.blockData.imageTwo) {
-        console.log("here");
+       
         commands
           .input(assetsPath + block4.blockData.imageTwo)
           .complexFilter(["scale=960:1080[checked]"], "checked")
