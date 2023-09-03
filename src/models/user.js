@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable no-invalid-this */
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');

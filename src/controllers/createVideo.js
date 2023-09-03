@@ -18288,9 +18288,9 @@ global.videoTemplateLast = async function videoTemplateLast(data, req, res) {
       .then((img) => {
         img
           .quality(60)
-          .scaleToFit(
+          .resize(
             450,
-            300,
+            Jimp.AUTO,
             Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
           )
           .write(

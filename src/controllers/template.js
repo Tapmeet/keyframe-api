@@ -368,7 +368,7 @@ exports.addAdminTemplates = async function (req, res) {
             sceneTitle: data.sceneTitle,
             sceneThumbnail: data.sceneThumbnail,
             sceneData: data.sceneData,
-            sceneType:data.sceneType,
+            sceneType: data.sceneType,
             order: index + 1,
             templateId: tempateData._id,
           });
@@ -380,12 +380,88 @@ exports.addAdminTemplates = async function (req, res) {
     if (req.body.lastSceneOption == false) {
 
       const sceneData = await Scene.findOne({ templateId: "1" });
+
+      let newArr = [...sceneData.sceneData.textArray]; // copying the old datas array
+      let newMediaArr = [...sceneData.sceneData.media]; // copying the old datas array
+      sceneData.sceneData.textArray.map((data, index) => {
+        let innerdata = '';
+        if (index == 0) {
+          innerdata = user.firstName
+        }
+        else if (index == 1) {
+          if (user.website != '') {
+            innerdata = user.website
+          }
+          else {
+            innerdata = newArr[index].text
+          }
+        }
+        else if (index == 2) {
+          if (user.email != '') {
+            innerdata = user.email
+          }
+          else {
+            innerdata = newArr[index].text
+          }
+        }
+        else if (index == 3) {
+          if (user.phone != '') {
+            innerdata = user.phone
+          }
+          else {
+            innerdata = newArr[index].text
+          }
+        }
+        newArr[index] = {
+          text: innerdata,
+          fontSize: newArr[index].fontSize,
+          fontFamily: newArr[index].fontFamily,
+          fontWeight: newArr[index].fontWeight,
+          fontLineHeight: newArr[index].fontLineHeight,
+          fontAlignment: newArr[index].fontAlignment,
+          fontColor: newArr[index].fontColor,
+          fontCapitalize: newArr[index].fontCapitalize,
+        };
+      })
+
+      sceneData.sceneData.media.map((data, index) => {
+        let innerMediadata = '';
+        if (index == 0) {
+          if (user.profileImage != '') {
+            innerMediadata = user.profileImage
+          }
+          else {
+            innerMediadata = newMediaArr[index].url
+          }
+        }
+        else if (index == 1) {
+          if (user.agencylogo != '') {
+            innerMediadata = user.agencylogo
+          }
+          else {
+            innerMediadata = newMediaArr[index].url
+          }
+        }
+
+        newMediaArr[index] = {
+          type: "img",
+          url: innerMediadata,
+        };
+      })
+
+
+      const data = {
+        textArray: newArr,
+        time: 4,
+        media: newMediaArr,
+      };
+
       const newScene = new Scene({
         sceneId: sceneData.sceneId,
         templateId: tempateData._id,
         sceneTitle: sceneData.sceneTitle,
         sceneThumbnail: sceneData.sceneThumbnail,
-        sceneData: sceneData.sceneData,
+        sceneData: data,
       });
       const blockDatas = await newScene.save();
     }
@@ -556,7 +632,7 @@ exports.updateTemplate = async function (req, res) {
         sceneTitle: req.body.data.sceneTitle,
         sceneThumbnail: req.body.data.sceneThumbnail,
         sceneData: req.body.data.sceneData,
-        sceneType:req.body.data.sceneType,
+        sceneType: req.body.data.sceneType,
       });
       const blockData = await newBlock.save();
       res.status(200).json({
@@ -2287,7 +2363,7 @@ global.videoTemplate1 = async function videoTemplate1(data, req, res) {
       console.log("step2log");
       var commands = new ffmpeg();
       if (block4.blockData.containerTwo == block4.blockData.imageTwo) {
-       
+
         commands
           .input(assetsPath + block4.blockData.imageTwo)
           .complexFilter(["scale=960:1080[checked]"], "checked")
