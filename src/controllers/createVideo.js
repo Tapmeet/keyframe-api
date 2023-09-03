@@ -16739,12 +16739,12 @@ exports.createVideo = async (req, res, next) => {
       const newUpload = new UserVideos({
         userId: userId,
         videoTitle: videoTitle,
-        templateImage: templateImage,
+        templateImage: templateImage, 
         path: path,
         templateId: templatemainId,
         templateIdVideo: templateId
       });
-      const uploadData = await newUpload.save();
+      const uploadData = await newUpload.save(); 
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
