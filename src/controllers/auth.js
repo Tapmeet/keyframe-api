@@ -44,7 +44,6 @@ exports.register = async (req, res) => {
  *  @access Public
  */
 exports.socialSignup = async (req, res) => {
-  console.log(req.body);
   try {
     const {email} = req.body;
     // Make sure this account doesn't already exist
@@ -226,3 +225,30 @@ function sendEmail(user, req, res) {
     }
   });
 }
+
+exports.emailShare = async (req, res) => {
+  console.log(req.body.email);
+  try {
+    const msg = {
+      to: req.body.sentoEmail,
+      from: req.body.email +'<' + process.env.FROM_EMAIL + '>',
+      templateId: 'd-82bb2871376f487e950f8df4ff86cead',
+      dynamic_template_data: {
+        reset_url: req.body.url,
+      },
+    };
+    //  sgMail.send(msg);
+    sgMail
+        .send(msg)
+        .then(() => {
+          console.log('Email sent');
+        })
+        .catch((error) => {
+          console.error(error.response.body);
+        });
+
+    res.status(200).json({message: 'A  email has been sent to ' + req.body.sentoEmail + '. '});
+  } catch (error) {
+    res.status(500).json({message: error.message});
+  }
+};

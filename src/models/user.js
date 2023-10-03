@@ -68,7 +68,7 @@ const UserSchema = new mongoose.Schema({
   },
   userPlan: {
     type: String,
-    default: '0',
+    default: '1',
   },
   userPlanBuyDate: {
     type: Date,

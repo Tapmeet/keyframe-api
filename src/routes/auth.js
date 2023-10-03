@@ -24,7 +24,7 @@ router.post('/login', [
 ], validate, Auth.login);
 
 router.post('/social-login', Auth.socialSignup);
-
+router.post('/email-share', Auth.emailShare);
 // EMAIL Verification
 router.get('/verify/:token', Auth.verify);
 router.post('/resend', Auth.resendVerificationToken);
