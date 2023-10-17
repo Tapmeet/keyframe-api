@@ -120,7 +120,7 @@ exports.checkPlan = async (req, res) => {
   } catch (error) {
     res.status(500).json({message: error.message});
   }
-}; 
+};
 // ===EMAIL VERIFICATION
 
 /** @route GET api/verify/:token
@@ -155,7 +155,7 @@ exports.verify = async (req, res) => {
           dynamic_template_data: {
             sender_name: user.firstName,
             login_url: link,
-          }, 
+          },
         };
 
         sgMail.send(mailOptions, (error, result) => {
@@ -227,25 +227,27 @@ function sendEmail(user, req, res) {
 }
 
 exports.emailShare = async (req, res) => {
-  console.log(req.body.email);
   try {
-    const msg = {
-      to: req.body.sentoEmail,
-      from: req.body.email +'<' + process.env.FROM_EMAIL + '>',
-      templateId: 'd-82bb2871376f487e950f8df4ff86cead',
-      dynamic_template_data: {
-        reset_url: req.body.url,
-      },
-    };
-    //  sgMail.send(msg);
-    sgMail
-        .send(msg)
-        .then(() => {
-          console.log('Email sent');
-        })
-        .catch((error) => {
-          console.error(error.response.body);
-        });
+    req.body.sentoEmail.map(async function(data, arrayIndex) {
+      console.log(data);
+      const msg = {
+        to: data,
+        from: req.body.email + '<' + process.env.FROM_EMAIL + '>',
+        templateId: 'd-82bb2871376f487e950f8df4ff86cead',
+        dynamic_template_data: {
+          reset_url: req.body.url,
+        },
+      };
+      //  sgMail.send(msg);
+      sgMail
+          .send(msg)
+          .then(() => {
+            console.log('Email sent');
+          })
+          .catch((error) => {
+            console.error(error.response.body);
+          });
+    });
 
     res.status(200).json({message: 'A  email has been sent to ' + req.body.sentoEmail + '. '});
   } catch (error) {
