@@ -346,35 +346,36 @@ exports.addAdminTemplates = async function (req, res) {
     await sceneOrder
       .sort((a, b) => a.order - b.order)
       .map(async (data, index) => {
-        if (user.userPlan == 0) {
-          if (index <= 1) {
-            const newBlock = new Block({
-              sceneId: data.sceneId,
-              templateId: data._id,
-              sceneTitle: data.sceneTitle,
-              sceneThumbnail: data.sceneThumbnail,
-              sceneData: data.sceneData,
-              sceneType: data.sceneType,
-              order: index + 1,
-              templateId: tempateData._id,
-            });
-            let newblockData = await newBlock.save();
-            blockData.push(newblockData);
-          }
-        } else {
-          const newBlock = new Block({
-            sceneId: data.sceneId,
-            templateId: data._id,
-            sceneTitle: data.sceneTitle,
-            sceneThumbnail: data.sceneThumbnail,
-            sceneData: data.sceneData,
-            sceneType: data.sceneType,
-            order: index + 1,
-            templateId: tempateData._id,
-          });
-          let newblockData = await newBlock.save();
-          blockData.push(newblockData);
-        }
+        // if (user.userPlan == 0) {
+        //   if (index <= 1) {
+        //     const newBlock = new Block({
+        //       sceneId: data.sceneId,
+        //       templateId: data._id,
+        //       sceneTitle: data.sceneTitle,
+        //       sceneThumbnail: data.sceneThumbnail,
+        //       sceneData: data.sceneData,
+        //       sceneType: data.sceneType,
+        //       order: index + 1,
+        //       templateId: tempateData._id,
+        //     });
+        //     let newblockData = await newBlock.save();
+        //     blockData.push(newblockData);
+        //   }
+        // } else {
+        const newBlock = new Block({
+          sceneId: data.sceneId,
+          templateId: data._id,
+          sceneTitle: data.sceneTitle,
+          sceneThumbnail: data.sceneThumbnail,
+          sceneData: data.sceneData,
+          sceneType: data.sceneType,
+          order: index + 1,
+          templateId: tempateData._id,
+        });
+        let newblockData = await newBlock.save();
+        blockData.push(newblockData);
+
+        //}
       });
 
     if (req.body.lastSceneOption == false) {
@@ -389,7 +390,7 @@ exports.addAdminTemplates = async function (req, res) {
           innerdata = user.firstName
         }
         else if (index == 1) {
-          if (user.website != '') {
+          if (user.website != ''&& user.website != undefined) {
             innerdata = user.website
           }
           else {
@@ -397,7 +398,7 @@ exports.addAdminTemplates = async function (req, res) {
           }
         }
         else if (index == 2) {
-          if (user.email != '') {
+          if (user.email != '' && user.email != undefined) {
             innerdata = user.email
           }
           else {
@@ -405,7 +406,7 @@ exports.addAdminTemplates = async function (req, res) {
           }
         }
         else if (index == 3) {
-          if (user.phone != '') {
+          if (user.phone != '' && user.phone != undefined) {
             innerdata = user.phone
           }
           else {
@@ -427,7 +428,10 @@ exports.addAdminTemplates = async function (req, res) {
       sceneData.sceneData.media.map((data, index) => {
         let innerMediadata = '';
         if (index == 0) {
-          if (user.profileImage != '') {
+          console.log(user.profileImage);
+          console.log(user);
+          // return
+          if (user.profileImage != '' && user.profileImage != undefined) {
             innerMediadata = user.profileImage
           }
           else {
@@ -435,7 +439,7 @@ exports.addAdminTemplates = async function (req, res) {
           }
         }
         else if (index == 1) {
-          if (user.agencylogo != '') {
+          if (user.agencylogo != '' && user.agencylogo != undefined) {
             innerMediadata = user.agencylogo
           }
           else {

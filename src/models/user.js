@@ -123,6 +123,10 @@ const UserSchema = new mongoose.Schema({
   shipping_country: {
     type: String,
   },
+  video_count: {
+    type: String,
+    default: '0',
+  },
 }, {timestamps: true});
 
 

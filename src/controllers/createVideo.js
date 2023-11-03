@@ -571,7 +571,7 @@ exports.createVideo = async (req, res, next) => {
           });
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -1197,7 +1197,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -1395,7 +1395,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -1744,7 +1744,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -1956,7 +1956,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -2143,7 +2143,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -2372,7 +2372,7 @@ exports.createVideo = async (req, res, next) => {
           });
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -2687,7 +2687,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -2982,7 +2982,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -3175,7 +3175,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -3353,7 +3353,7 @@ exports.createVideo = async (req, res, next) => {
           });
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -3653,7 +3653,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -3899,7 +3899,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -4089,7 +4089,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -4242,7 +4242,7 @@ exports.createVideo = async (req, res, next) => {
           });
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -4549,7 +4549,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -4760,7 +4760,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -4932,7 +4932,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -5077,7 +5077,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -5359,7 +5359,7 @@ exports.createVideo = async (req, res, next) => {
           });
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -5676,7 +5676,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -6161,7 +6161,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -6353,7 +6353,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -6558,7 +6558,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -6757,7 +6757,7 @@ exports.createVideo = async (req, res, next) => {
           });
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -7043,7 +7043,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -7201,7 +7201,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -7359,7 +7359,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -7551,7 +7551,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -7738,7 +7738,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -7997,7 +7997,7 @@ exports.createVideo = async (req, res, next) => {
           });
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -8297,7 +8297,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -8516,7 +8516,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -8732,7 +8732,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -8925,7 +8925,7 @@ exports.createVideo = async (req, res, next) => {
           });
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -9199,7 +9199,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -9381,7 +9381,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -9552,7 +9552,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -9712,7 +9712,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -9914,7 +9914,7 @@ exports.createVideo = async (req, res, next) => {
           });
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -10192,7 +10192,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -10328,7 +10328,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -10466,7 +10466,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -10488,7 +10488,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor2 = data.sceneData.textArray[1].fontColor;
           if (titleColor2.length == "4") {
             titleColor2 = titleColor2.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -10740,7 +10740,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -10762,7 +10762,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor2 = data.sceneData.textArray[1].fontColor;
           if (titleColor2.length == "4") {
             titleColor2 = titleColor2.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -10926,7 +10926,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -11138,7 +11138,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -11172,7 +11172,7 @@ exports.createVideo = async (req, res, next) => {
           console.log(titleColor2);
           if (titleColor2.length == "4") {
             titleColor2 = titleColor2.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -14750,7 +14750,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -14772,7 +14772,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor2 = data.sceneData.textArray[1].fontColor;
           if (titleColor2.length == "4") {
             titleColor2 = titleColor2.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -14964,7 +14964,7 @@ exports.createVideo = async (req, res, next) => {
           var titleColor = data.sceneData.textArray[0].fontColor;
           if (titleColor.length == "4") {
             titleColor = titleColor.split("").map((item) => {
-              if (item == "#") {return item;}
+              if (item == "#") { return item; }
               return item + item;
             }).join("");
           }
@@ -16733,18 +16733,19 @@ exports.createVideo = async (req, res, next) => {
   }
   async function saveVideoDb(videoTitle, path, templateImage) {
     try {
-      console.log(templatemainId);
       const user = await User.findOne({ _id: userId });
-      console.log(user.email);
+      const Videouser = user.video_count != null ? parseFloat(user.video_count) + parseFloat(1) : 1;
+      const users = await User.findOneAndUpdate({ _id: userId }, { $set: { video_count: Videouser } }, { new: true, useFindAndModify: false });
       const newUpload = new UserVideos({
         userId: userId,
         videoTitle: videoTitle,
-        templateImage: templateImage, 
+        templateImage: templateImage,
         path: path,
         templateId: templatemainId,
         templateIdVideo: templateId
       });
-      const uploadData = await newUpload.save(); 
+
+      const uploadData = await newUpload.save();
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
@@ -21918,7 +21919,7 @@ const getselectedFontFamily = (selectedfontWeight, fontfamily) => {
 };
 const getColor = (titleColor) => {
   titleColor = titleColor.split("").map((item) => {
-    if (item == "#") {return item;}
+    if (item == "#") { return item; }
     return item + item;
   }).join("");
   return titleColor;
