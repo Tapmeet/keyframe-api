@@ -11,6 +11,7 @@ const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 const ffmpeg = require("fluent-ffmpeg");
 var ffprobe = require("ffprobe-static");
 const Jimp = require("jimp");
+var gm = require('gm');
 ffmpeg.setFfprobePath(ffprobe.path);
 ffmpeg.setFfmpegPath(ffmpegPath);
 
@@ -59,6 +60,7 @@ exports.upload = async (req, res, next) => {
   //const sharp = require("sharp");
   console.log("heressss");
   console.log(req.file);
+
   try {
     const file = req.file;
     if (file) {
@@ -75,11 +77,20 @@ exports.upload = async (req, res, next) => {
                 Date.now() +
                 "--" +
                 req.file.filename;
-              // const img = await sharp(req.file.path)
-              //   // .resize(200, 200)
-              //   .jpeg({ quality: 50 })
-              //   .toFile(filename
-              //   );
+        
+              // async function resizeImage() {
+
+              //   try {
+              //     const img = await sharp(req.file.path)
+              //       // .resize(200, 200)
+              //       .jpeg({ quality: 50 })
+              //       .toFile(filename
+              //       );
+              //   } catch (error) {
+              //     console.log(error);
+              //   }
+              // }
+              // resizeImage();
               // const newUpload = new Userupload({
               //   fieldname: "file",
               //   originalname: req.file.originalname,
@@ -96,44 +107,58 @@ exports.upload = async (req, res, next) => {
               // });
               // const uploadData = await newUpload.save();
               // res.status(200).json({ message: filename });
-              console.log('hetresssss')
-              Jimp.read(req.file.path)
-                .then((img) => {
-                  img
-                    .quality(65) // set JPEG quality
-                    .write(filename); // save
-                  setTimeout(async function () {
-                    const newUpload = new Userupload({
-                      fieldname: "file",
-                      originalname: req.file.originalname,
-                      mimetype: req.file.mimetype,
-                      destination: req.file.destination,
-                      filename: req.file.filename,
-                      path: filename,
-                      size: req.file.size,
-                      userId: req.body.userId,
-                      templateId: req.body.templateId,
-                    });
-                    setTimeout(function () {
-                      fs.unlink(req.file.path, function (err) {
-                        // if (err) throw err;
-                      });
-                    }, 500);
-                    const uploadData = await newUpload.save();
-                    console.log('hetre')
-                    res.status(200).json({ message: filename });
-                  }, 100);
-                })
-                .catch(async (err) => {
+             
+              const newUpload = new Userupload({
+                fieldname: "file",
+                originalname: req.file.originalname,
+                mimetype: req.file.mimetype,
+                destination: req.file.destination,
+                filename: req.file.filename,
+                path:filePath,
+                size: req.file.size,
+                userId: req.body.userId,
+                templateId: req.body.templateId,
+              });
+              const uploadData = await newUpload.save();
+              //console.log(uploadData)
+              res.status(200).json({ message: filePath });
+              // Jimp.read(req.file.path)
+              //   .then((img) => {
+              //     img
+              //       .quality(65) // set JPEG quality
+              //       .write(filename); // save
+              //     setTimeout(async function () {
+              //       const newUpload = new Userupload({
+              //         fieldname: "file",
+              //         originalname: req.file.originalname,
+              //         mimetype: req.file.mimetype,
+              //         destination: req.file.destination,
+              //         filename: req.file.filename,
+              //         path: filename,
+              //         size: req.file.size,
+              //         userId: req.body.userId,
+              //         templateId: req.body.templateId,
+              //       });
+              //       setTimeout(function () {
+              //         fs.unlink(req.file.path, function (err) {
+              //           // if (err) throw err;
+              //         });
+              //       }, 500);
+              //       const uploadData = await newUpload.save();
+              //       console.log('hetre')
+              //       res.status(200).json({ message: filename });
+              //     }, 100);
+              //   })
+              //   .catch(async (err) => {
 
-                  const newUpload = new Userupload({
-                    ...file,
-                    userId: req.body.userId,
-                    templateId: req.body.templateId,
-                  });
-                  const uploadData = await newUpload.save();
-                  res.status(200).json({ message: filePath });
-                });
+              //     const newUpload = new Userupload({
+              //       ...file,
+              //       userId: req.body.userId,
+              //       templateId: req.body.templateId,
+              //     });
+              //     const uploadData = await newUpload.save();
+              //     res.status(200).json({ message: filePath });
+              //   });
 
             } else {
 
@@ -390,7 +415,7 @@ exports.addAdminTemplates = async function (req, res) {
           innerdata = user.firstName
         }
         else if (index == 1) {
-          if (user.website != ''&& user.website != undefined) {
+          if (user.website != '' && user.website != undefined) {
             innerdata = user.website
           }
           else {

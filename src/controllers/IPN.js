@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable require-jsdoc */
 /* eslint-disable camelcase */
 /* eslint-disable max-len */
@@ -36,8 +37,8 @@ exports.index = async (req, res, next) => {
 
   try {
     const isValidated = await paykickstartIPNValidator(
-        req.body,
-        process.env.SECRETIPN,
+      req.body,
+      process.env.SECRETIPN,
     );
     if (!isValidated) {
       console.error('Error validating IPN message.');
@@ -58,9 +59,9 @@ exports.index = async (req, res, next) => {
     //  console.log(member);
     const today = new Date();
     const templateUpdate = await User.findOneAndUpdate(
-        {_id: userid},
-        {$set: {userPlan: selectedplan, userPlanBuyDate: today}},
-        {new: true, useFindAndModify: false},
+      {_id: userid},
+      {$set: {userPlan: selectedplan, userPlanBuyDate: today}},
+      {new: true, useFindAndModify: false},
     );
     console.log('templateUpdate');
     // console.log(templateUpdate);
@@ -71,6 +72,26 @@ exports.index = async (req, res, next) => {
     res.status(500).json({message: error.message});
   }
 };
+exports.addIpn = async (req, res, next) => {
+  try {
+    const {userId} = req.body;
+    const {selectedplan} = req.body;
+    const newTeam = new Ipn({...req.body, userId: userId});
+    const member = await newTeam.save();
+    const today = new Date();
+    const templateUpdate = await User.findOneAndUpdate(
+      {_id: userId},
+      {$set: {userPlan: selectedplan, userPlanBuyDate: today}},
+      {new: true, useFindAndModify: false},
+    );
+    console.log('templateUpdate');
+    // console.log(templateUpdate);
+    sendEmail(member, req, res);
+  } catch (error) {
+    res.status(500).json({message: error.message});
+  }
+};
+
 
 exports.getIpns = async (req, res, next) => {
   const {userId} = req.query;
@@ -90,8 +111,8 @@ exports.getIpns = async (req, res, next) => {
 
 function sendEmail(user, req, res) {
   // Save the verification token
-  
- 
+
+
   // console.log(templateUpdate);
   // send email
   const today = new Date();
@@ -123,14 +144,14 @@ function sendEmail(user, req, res) {
   //  sgMail.send(msg);
 
   sgMail
-      .send(msg)
-      .then(() => {
-        console.log('Email sent');
-      })
-      .catch((error) => {
-        console.error(error.response.body);
-      });
+    .send(msg)
+    .then(() => {
+      console.log('Email sent');
+    })
+    .catch((error) => {
+      console.error(error.response.body);
+    });
 
-   res.status(200).send('OK');
-     res.end();
+  res.status(200).send('OK');
+  res.end();
 }
