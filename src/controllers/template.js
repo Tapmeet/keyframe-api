@@ -11,7 +11,6 @@ const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 const ffmpeg = require("fluent-ffmpeg");
 var ffprobe = require("ffprobe-static");
 const Jimp = require("jimp");
-var gm = require('gm');
 ffmpeg.setFfprobePath(ffprobe.path);
 ffmpeg.setFfmpegPath(ffmpegPath);
 
