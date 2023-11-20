@@ -32,7 +32,6 @@
     "get-video-duration": "^4.0.0",
     "gl": "^4.9.0",
     "glob": "^7.1.6",
-    "gm": "^1.25.0",
     "imagemin-mozjpeg": "^10.0.0",
     "jimp": "^0.16.1",
     "jsonwebtoken": "^8.5.1",
