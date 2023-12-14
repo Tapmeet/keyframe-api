@@ -10449,49 +10449,11 @@ exports.createVideo = async (req, res, next) => {
           let data = templateBlock[i];
           const fourthVideo = await videoTemplate51(data);
 
-          var result = data.sceneData.textArray[0].text.split(" ");
-          let fontfamily = data.sceneData.textArray[0].fontFamily;
-          let selectedfonts;
-          fonts.map(function (font) {
-            if (font.family == fontfamily) {
-              if (data.sceneData.textArray[0].fontWeight == "lighter") {
-                selectedfonts = font.lighter;
-              } else if (data.sceneData.textArray[0].fontWeight == "normal") {
-                selectedfonts = font.file;
-              } else if (data.sceneData.textArray[0].fontWeight == "bold") {
-                selectedfonts = font.bold;
-              }
-            }
-          });
-          var titleColor = data.sceneData.textArray[0].fontColor;
-          if (titleColor.length == "4") {
-            titleColor = titleColor.split("").map((item) => {
-              if (item == "#") { return item; }
-              return item + item;
-            }).join("");
-          }
+          let selectedfonts1;
+          selectedfonts1 = await getselectedFontFamily(data.sceneData.textArray[0].fontWeight, data.sceneData.textArray[0].fontFamily);
 
-          let result2 = data.sceneData.textArray[1].text.split(" ");
-          let fontfamily2 = data.sceneData.textArray[1].fontFamily;
-          let selectedfonts2;
-          fonts.map(function (font) {
-            if (font.family == fontfamily2) {
-              if (data.sceneData.textArray[1].fontWeight == "lighter") {
-                selectedfonts2 = font.lighter;
-              } else if (data.sceneData.textArray[1].fontWeight == "normal") {
-                selectedfonts2 = font.file;
-              } else if (data.sceneData.textArray[1].fontWeight == "bold") {
-                selectedfonts2 = font.bold;
-              }
-            }
-          });
-          var titleColor2 = data.sceneData.textArray[1].fontColor;
-          if (titleColor2.length == "4") {
-            titleColor2 = titleColor2.split("").map((item) => {
-              if (item == "#") { return item; }
-              return item + item;
-            }).join("");
-          }
+          let selectedfonts2 = '';
+          selectedfonts2 = await getselectedFontFamily(data.sceneData.textArray[1].fontWeight, data.sceneData.textArray[1].fontFamily);
 
           if (data.sceneData.media[0].type == "image") {
             const scene51 = new FFScene();
@@ -10674,45 +10636,87 @@ exports.createVideo = async (req, res, next) => {
               ease: "Cubic.InOut",
             });
             scene51.addChild(image8);
-            const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 35;
-            const textNext = new FFText({
-              text: result[0],
-              fontSize: fontSize1,
+            const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 25;
+            const textOne = new FFText({
+              text: data.sceneData.textArray[0].text,
               x: 280,
               y: 530,
             });
-            textNext.alignCenter();
-            textNext.setStyle({ padding: [4, 20, 6, 20] });
-            textNext.setColor(titleColor);
-            textNext.setFont(selectedfonts);
-            textNext.addEffect("backInLeft", 1.5, 1.0);
-            scene51.addChild(textNext);
-
-            const textNext2 = new FFText({
-              text: result[1],
+            textOne.setStyle({
+              wordWrap: true,
+              wordWrapWidth: 560,
               fontSize: fontSize1,
-              x: 280,
-              y: 630,
+              padding: [4, 20, 6, 20],
+              lineHeight: fontSize1 + 20,
+              color: data.sceneData.textArray[0].fontColor,
             });
-            textNext2.setColor(titleColor);
-            textNext2.setFont(selectedfonts);
-            textNext2.alignCenter();
-            textNext2.setStyle({ padding: [4, 20, 6, 20] });
-            textNext2.addEffect("backInLeft", 1.5, 1.0);
-            scene51.addChild(textNext2);
-            const fontSize2 = parseInt(data.sceneData.textArray[1].fontSize) + 25;
-            const textNext3 = new FFText({
-              text: result2[0],
-              fontSize: fontSize2,
+            textOne.alignCenter();
+
+            textOne.setFont(selectedfonts1);
+            textOne.addEffect("fadeIn", 1, 1.0);
+            scene51.addChild(textOne);
+
+            // const fontSize1 = parseInt(data.sceneData.textArray[0].fontSize) + 35;
+            // const textNext = new FFText({
+            //   text: result[0],
+            //   fontSize: fontSize1,
+            //   x: 280,
+            //   y: 530,
+            // });
+            // textNext.alignCenter();
+            // textNext.setStyle({ padding: [4, 20, 6, 20] });
+            // textNext.setColor(titleColor);
+            // textNext.setFont(selectedfonts);
+            // textNext.addEffect("backInLeft", 1.5, 1.0);
+            // scene51.addChild(textNext);
+
+            // const textNext2 = new FFText({
+            //   text: result[1],
+            //   fontSize: fontSize1,
+            //   x: 280,
+            //   y: 630,
+            // });
+            // textNext2.setColor(titleColor);
+            // textNext2.setFont(selectedfonts);
+            // textNext2.alignCenter();
+            // textNext2.setStyle({ padding: [4, 20, 6, 20] });
+            // textNext2.addEffect("backInLeft", 1.5, 1.0);
+            // scene51.addChild(textNext2);
+
+            const fontSize2 = parseInt(data.sceneData.textArray[1].fontSize) + 15;
+            const texTwo = new FFText({
+              text: data.sceneData.textArray[1].text,
               x: 280,
               y: 950,
             });
-            textNext3.setColor(titleColor2);
-            textNext3.setFont(selectedfonts2);
-            textNext3.alignCenter();
-            textNext3.setStyle({ padding: [4, 20, 6, 20] });
-            textNext3.addEffect("backInLeft", 1.5, 1.0);
-            scene51.addChild(textNext3);
+            texTwo.setStyle({
+              wordWrap: true,
+              wordWrapWidth: 560,
+              fontSize: fontSize2,
+              padding: [4, 20, 6, 20],
+              lineHeight: fontSize2 + 20,
+              color: data.sceneData.textArray[1].fontColor,
+            });
+            texTwo.alignCenter();
+
+            texTwo.setFont(selectedfonts2);
+            texTwo.addEffect("fadeIn", 1, 1.0);
+            scene51.addChild(texTwo);
+
+
+            // const fontSize2 = parseInt(data.sceneData.textArray[1].fontSize) + 25;
+            // const textNext3 = new FFText({
+            //   text: result2[0],
+            //   fontSize: fontSize2,
+            //   x: 280,
+            //   y: 950,
+            // });
+            // textNext3.setColor(titleColor2);
+            // textNext3.setFont(selectedfonts2);
+            // textNext3.alignCenter();
+            // textNext3.setStyle({ padding: [4, 20, 6, 20] });
+            // textNext3.addEffect("backInLeft", 1.5, 1.0);
+            // scene51.addChild(textNext3);
             scene51.setTransition("squareswire", 0.5);
             scene51.setDuration(data.sceneData.time);
             creator.addChild(scene51);
