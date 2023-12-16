@@ -11516,6 +11516,7 @@ exports.createVideo = async (req, res, next) => {
               "scenebglast2.jpg",
             x: 980,
             y: 540,
+            
           });
           sceneLast.addChild(fbg1);
           const fbgblue = new FFImage({
@@ -16637,10 +16638,11 @@ exports.createVideo = async (req, res, next) => {
             "/template1/" +
             mediaDate +
             "-imglast2.png",
-          x: 1240,
-          y: 620,
+          x: 1060,
+          y: 580,
+          resetXY: true
         });
-        fimg1.addEffect("fadeIn", 1.5, 0.5);
+        fimg1.addEffect("fadeInUp", 1.5, 1.5);
         sceneLast.addChild(fimg1);
         const text = new FFText({
           text: fieldText1,
@@ -17202,13 +17204,13 @@ exports.createVideo = async (req, res, next) => {
         mediaDate +
         "-imglast1.png"
       );
-      deleteFiles(
-        "./src/Assets/template/videos/" +
-        userId +
-        "/template1/" +
-        mediaDate +
-        "-imglast2.png"
-      );
+      // deleteFiles(
+      //   "./src/Assets/template/videos/" +
+      //   userId +
+      //   "/template1/" +
+      //   mediaDate +
+      //   "-imglast2.png"
+      // );
       deleteFiles(
         "./src/Assets/template/videos/" +
         userId +
@@ -18311,11 +18313,11 @@ global.videoTemplateLast = async function videoTemplateLast(data, req, res) {
             img
               .quality(60)
               .scaleToFit(
-                350,
-                120,
-                Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
+                450,
+                250,
+                //Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
               )
-              .write(
+              .write( 
                 assetsPath +
                 "template/videos/" +
                 userId +
